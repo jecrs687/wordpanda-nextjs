@@ -5,6 +5,7 @@ export interface Words {
     position:   number;
     texts:      string[];
     percentage: number;
+    total?:    number;
 }
 
 export interface Moment {

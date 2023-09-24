@@ -11,7 +11,19 @@ $seventh: #495057;
 $eighth: #343a40;  
 $ninth: #212529;
 $black: #000000;
+@media (prefers-color-scheme: dark) {
+    $initial: #212529;
+    $second: #343a40;
+    $third: #495057;
+    $fourth: #6c757d;
+    $fifth: #adb5bd;
+    $sixth: #ced4da;
+    $seventh: #dee2e6;
+    $eighth: #e9ecef;
+    $ninth: #f8f9fa;
+    $black: #ffffff;
 
+}
 :export {
     initial: $initial;
     second: $second;
