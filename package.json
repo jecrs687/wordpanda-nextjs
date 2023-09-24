@@ -5,22 +5,28 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "migrate": "npx tsx ./src/backend/infra/database/migrations",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/node": "20.6.4",
-    "@types/react": "18.2.22",
-    "@types/react-dom": "18.2.7",
     "clsx": "^2.0.0",
     "eslint": "8.50.0",
     "eslint-config-next": "13.5.2",
+    "knex": "^2.5.1",
     "next": "13.5.2",
+    "pg": "^8.11.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "sqlite3": "^5.1.6",
     "typescript": "5.2.2"
   },
   "devDependencies": {
+    "@types/node": "20.6.4",
+    "@types/pg": "^8.10.3",
+    "@types/react": "18.2.22",
+    "@types/react-dom": "18.2.7",
+    "better-sqlite3": "^8.6.0",
     "sass": "^1.68.0"
   }
 }

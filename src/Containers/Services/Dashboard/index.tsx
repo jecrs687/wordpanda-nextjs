@@ -1,25 +1,26 @@
 
 'use client'
 
-import { TextCard } from '@/Containers/Commons/TextCard'
-import { useEvent } from '@/Containers/hooks/useEvent'
-import { Words } from '@/Containers/types/word.type'
+import { TextCard } from '@/containers/common/TextCard'
+import { useEvent } from '@/containers/hooks/useEvent'
+import { Words } from '@/containers/types/word.type'
 import { envs } from '@/utils/envs'
 import dynamic from 'next/dynamic'
 import styles from './dashboard.module.scss'
 import { useEffect, useState } from 'react'
+import { useApi } from '@/containers/hooks/useApi'
 const DashboardComponent = () => {
     const {words} = useEvent<{words: Words[]} | undefined>('words') || {words: []}
     const [translations, setTranslations]=useState();
+    const {response, loading,refetch} = useApi({
+      method: 'POST',
+      body: {words},
+      url: '/translate',
+      initialFetch: false
+    })
 
     useEffect(()=>{
-      if(words)
-      fetch({
-        method: 'POST',
-        body: words
-      })
-      .then(res=>res.json())
-      .then(res=>setTranslations(res))
+      if(words.length) refetch()
     },[words])
   return (
     <main className={styles.container}>

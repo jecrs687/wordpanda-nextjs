@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import styles from './page.module.scss'
-import { Dashboard } from '@/Containers/Services/Dashboard'
+import { Dashboard } from '@/containers/services/Dashboard'
 
 export default function Home() {
   return (
