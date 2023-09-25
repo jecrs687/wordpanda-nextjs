@@ -30,7 +30,7 @@ export function useApi({
     const getData = useCallback(() =>{
         if(loading) return ;
         setLoading(true)
-        fetch(url, {
+        fetch('/api/'+url, {
             method,
             ...(body && {body: JSON.stringify(body)}),
         })

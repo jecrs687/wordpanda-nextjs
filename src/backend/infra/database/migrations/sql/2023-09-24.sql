@@ -1,6 +1,6 @@
--- DROP DATABASE IF EXISTS public;
--- CREATE DATABASE IF NOT EXISTS public;
--- USE public;
+-- DROP DATABASE IF EXISTS languageBoost;
+-- CREATE DATABASE IF NOT EXISTS languageBoost;
+-- USE languageBoost;
 
 DROP TABLE IF EXISTS user_words;
 DROP TABLE IF EXISTS translation;

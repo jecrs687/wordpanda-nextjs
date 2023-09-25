@@ -1,22 +1,25 @@
-const environment:{ [key: string]: any }  = {}
+const environment: { [key: string]: any } = {}
 
 export const envs = new Proxy(environment, {
     get(target, name) {
-            const variable = name.toString();
-            if(target[variable])
-                return target[variable];
-            if(process.env[variable])
-                return process.env[variable];
+        const variable = name.toString();
+        if (target[variable])
+            return target[variable];
+        if (process.env[variable])
+            return process.env[variable];
+        if (process.env[`NEXT_PUBLIC_${variable}`])
+            return process.env[`NEXT_PUBLIC_${variable}`];
+        if (typeof localStorage!='undefined') {
             const localValue = localStorage.getItem(variable);
-            if(typeof localValue == 'string')
+            if (typeof localValue == 'string')
                 return JSON.parse(localValue);
-            if(process.env[`NEXT_PUBLIC_${variable}`])
-                    return process.env[`NEXT_PUBLIC_${variable}`];
-        },
+        }
+    },
     set(target, name, value) {
-        const paramName  = name.toString();
+        const paramName = name.toString();
         target[paramName] = value;
-        localStorage.setItem(name.toString(), JSON.stringify(value));
+        if (typeof localStorage!='undefined') 
+            localStorage.setItem(name.toString(), JSON.stringify(value));
         return true;
     }
 });

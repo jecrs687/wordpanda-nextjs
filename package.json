@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "migrate": "npx tsx ./src/backend/infra/database/migrations",
+    "migrate": "NODE_ENV=development npx tsx ./src/backend/infra/database/migrations",
     "start": "next start",
     "lint": "next lint"
   },
@@ -27,6 +27,11 @@
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
     "better-sqlite3": "^8.6.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.6.1",
+    "tedious": "^16.4.1",
+    "oracledb": "^6.1.0",
+    "pg-query-stream": "^4.5.3",
     "sass": "^1.68.0"
   }
 }

@@ -1,15 +1,11 @@
 import {Client} from 'pg'
 import knex, { Knex } from 'knex'
 import { envs } from '@/utils/envs';
-console.log({__dirname})
 const configs:{development: Knex.Config, production: Knex.Config} = {
     development: {
         client: 'sqlite3',
-        migrations: {
-            directory: __dirname + '/migrations',
-        },
         connection: {
-            filename: __dirname + '/database.sqlite',
+            filename: './langBoost.db',
         },
     },
     production: {

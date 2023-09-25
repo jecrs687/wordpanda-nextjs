@@ -10,11 +10,11 @@ import styles from './dashboard.module.scss'
 import { useEffect, useState } from 'react'
 import { useApi } from '@/containers/hooks/useApi'
 const DashboardComponent = () => {
-    const {words} = useEvent<{words: Words[]} | undefined>('words') || {words: []}
+    const {words,jsonFromTTML } = useEvent<{words: Words[], jsonFromTTML: any} | undefined>('words') || {words: []}
     const [translations, setTranslations]=useState();
     const {response, loading,refetch} = useApi({
       method: 'POST',
-      body: {words},
+      body: {words, jsonFromTTML},
       url: '/translate',
       initialFetch: false
     })
