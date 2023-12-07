@@ -1,7 +1,7 @@
 import { envs } from "@/utils/envs";
 import { type } from "os";
 import { useCallback, useEffect, useState } from "react";
-const responsesRequest:{[key: string]: any} = {}
+const responsesRequest: { [key: string]: any } = {}
 
 
 interface ApiProps {
@@ -14,7 +14,7 @@ interface ApiProps {
 interface ApiResponse {
     response: any,
     loading: boolean,
-    refetch: ()=>void
+    refetch: () => void
 }
 
 export function useApi({
@@ -23,26 +23,26 @@ export function useApi({
     url,
     cache,
     initialFetch = true
-}:ApiProps): ApiResponse { 
+}: ApiProps): ApiResponse {
     const [response, setResponse] = useState();
-    const [loading, setLoading] =  useState(false);
-    
-    const getData = useCallback(() =>{
-        if(loading) return ;
+    const [loading, setLoading] = useState(false);
+
+    const getData = useCallback(() => {
+        if (loading) return;
         setLoading(true)
-        fetch('/api/'+url, {
+        fetch('/api/' + url, {
             method,
-            ...(body && {body: JSON.stringify(body)}),
+            ...(body && { body: JSON.stringify(body) }),
         })
-        .then(res=>res.json())
-        .then(res=>{
-            setResponse(res)
-            setLoading(false);
-            responsesRequest[JSON.stringify({method, body, url})] = res
-        }).catch(err=>{
-            setLoading(false);
-            console.log({err})
-        })
+            .then(res => res.json())
+            .then(res => {
+                setResponse(res)
+                setLoading(false);
+                responsesRequest[JSON.stringify({ method, body, url })] = res
+            }).catch(err => {
+                setLoading(false);
+                console.log({ err })
+            })
     }, [body, loading, method, url]);
 
     useEffect(() => {
@@ -50,8 +50,8 @@ export function useApi({
             // getData();
         }
     }, [initialFetch, getData]);
-    const params = JSON.stringify({method, body, url})
-    if(cache && !responsesRequest[params] && !response)
+    const params = JSON.stringify({ method, body, url })
+    if (cache && !responsesRequest[params] && !response)
         return {
             response,
             loading,

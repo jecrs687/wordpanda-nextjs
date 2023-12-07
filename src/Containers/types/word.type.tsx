@@ -1,14 +1,14 @@
 export interface Words {
-    word:       string;
-    count:      number;
-    moments:    Moment[];
-    position:   number;
-    texts:      string[];
+    word: string;
+    count: number;
+    moments: Moment[];
+    position: number;
     percentage: number;
-    total?:    number;
+    total?: number;
 }
 
 export interface Moment {
     begin: string;
-    end:   string;
+    end: string;
+    text: string;
 }
