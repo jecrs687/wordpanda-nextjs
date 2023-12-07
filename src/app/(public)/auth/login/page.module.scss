@@ -1,0 +1,24 @@
+@import "../styles/index.scss";
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+  background-color: $initial;
+  h1{
+    font-size: 3rem;
+    font-weight: 700;
+    color: $eighth;
+    margin-bottom: 1rem;
+    color: $eighth;
+  }
+  p{
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: $seventh;
+    margin-bottom: 1rem;
+  }
+}

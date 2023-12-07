@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Translation } from "./translation.entity";
 
 @Entity()
 export class Word {
@@ -9,9 +10,11 @@ export class Word {
     word: string
 
     @Column()
-    language: string;
+    lang: string;
 
-    @Column()
-    quantity: number
+    @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+    created_at: Date;
 
+    @ManyToMany(() => Translation, (translations) => translations.translations)
+    translations: Translation[]
 }

@@ -2,7 +2,7 @@ import Image from 'next/image'
 import styles from './page.module.scss'
 import { Dashboard } from '@services/Dashboard'
 
-export default function Loading() {
+export default function Page() {
   return (
     <main className={styles.main}>
       <h1>Language Learning Application</h1>
@@ -10,7 +10,9 @@ export default function Loading() {
         learn new languages using subtitles. With our app, you can watch
         your favorite movies and TV shows with subtitles in your target
         language, making it easier to learn new words and phrases.</p>
-      <button >Get Started</button>
+      <button>Get Started</button>
+
+      <Dashboard />
     </main>
   )
 }

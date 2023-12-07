@@ -1,9 +1,9 @@
 import { Knex } from "knex";
-import {client} from "@/backend/infra/config/database"
+import { client } from "@infra/config/database"
 import fs from 'fs';
 
-const getSQLFiles = ():string[] => {
-    const SQLs:string[] = [];
+const getSQLFiles = (): string[] => {
+    const SQLs: string[] = [];
     const dir = __dirname + "/sql";
     const files = fs.readdirSync(dir);
     files.forEach((file) => {
@@ -18,7 +18,7 @@ const getSQLFiles = ():string[] => {
 const migration = {
     up: async function (knex: Knex) {
         const SQLsTexts = getSQLFiles();
-        for(const SQLText of SQLsTexts)
+        for (const SQLText of SQLsTexts)
             await knex.raw(SQLText);
         console.log("Migration done")
         return;

@@ -24,10 +24,41 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    }
+      "@infra/*": [
+        "./src/backend/infra/*"
+      ],
+      "@mocks/*": [
+        "./src/mocks/*"
+      ],
+      "@assets/*": [
+        "./src/assets/*"
+      ],
+      "@backend/*": [
+        "./src/backend/*"
+      ],
+      "@hooks/*": [
+        "./src/containers/hooks/*"
+      ],
+      "@core/*": [
+        "./src/containers/core/*"
+      ],
+      "@services/*": [
+        "./src/containers/services/*"
+      ],
+      "@common/*": [
+        "./src/containers/common/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
+      "@view/*": [
+        "./src/containers/view/*"
+      ],
+      "@domain/*": [
+        "./src/backend/domain/*"
+      ],
+    },
+    "strict": false
   },
   "include": [
     "next-env.d.ts",

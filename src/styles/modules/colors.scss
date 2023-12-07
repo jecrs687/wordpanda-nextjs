@@ -1,41 +1,16 @@
+$initial: #7f08bf;
+$second: #6b06ad;
+$third: #57049b;
+$fourth: #420288;
+$background: #2e0076;
+$black: #000;
+@media (prefers-color-scheme: dark) {}
 
-
-
-$initial: #f8f9fa;
-$second: #e9ecef;
-$third: #dee2e6;
-$fourth: #ced4da;
-$fifth: #adb5bd;
-$sixth: #6c757d;
-$seventh: #495057;
-$eighth: #343a40;  
-$ninth: #212529;
-$black: #000000;
-@media (prefers-color-scheme: dark) {
-    $initial: #212529;
-    $second: #343a40;
-    $third: #495057;
-    $fourth: #6c757d;
-    $fifth: #adb5bd;
-    $sixth: #ced4da;
-    $seventh: #dee2e6;
-    $eighth: #e9ecef;
-    $ninth: #f8f9fa;
-    $black: #ffffff;
-
-}
 :export {
     initial: $initial;
     second: $second;
     third: $third;
     fourth: $fourth;
-    fifth: $fifth;
-    sixth: $sixth;
-    seventh: $seventh;
-    eighth: $eighth;
-    ninth: $ninth;
+    background: $background;
     black: $black;
 }
-
-
-

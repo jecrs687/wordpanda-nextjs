@@ -1,4 +1,4 @@
-export interface Words {
+export interface IWord {
     word: string;
     count: number;
     moments: Moment[];

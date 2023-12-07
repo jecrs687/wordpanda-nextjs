@@ -1,5 +1,5 @@
 import styles from './page.module.scss'
-import { Dashboard } from '@/containers/services/Dashboard';
+import { Dashboard } from '@services/Dashboard';
 import { cookies } from 'next/headers'
 import { randomUUID } from 'crypto';
 import { headers } from 'next/headers';

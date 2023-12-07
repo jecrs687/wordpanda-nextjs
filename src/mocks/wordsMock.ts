@@ -1,4 +1,6 @@
-export const words = [
+import { IWord } from "@view/interfaces/IWord";
+
+export const wordsMock: IWord[] = [
     {
         word: "ABRIDORES",
         count: 3,

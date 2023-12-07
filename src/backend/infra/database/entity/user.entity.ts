@@ -1,6 +1,7 @@
 
 
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { UserWords } from "./user_words.entity";
 
 @Entity()
 export class User {
@@ -8,7 +9,13 @@ export class User {
     id: number
 
     @Column()
-    name: string
+    first_name: string
+
+    @Column()
+    last_name: string
+
+    @Column()
+    username: string
 
     @Column()
     email: string
@@ -18,6 +25,12 @@ export class User {
 
     @Column()
     role: number
+
+    @OneToMany(() => UserWords, (userWords) => userWords.user)
+    words: UserWords[]
+
+    @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+    last_access: Date
 
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
     created_at: Date

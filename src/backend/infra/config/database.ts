@@ -1,13 +1,16 @@
-import { envs } from '@/utils/envs';
+import { Translation } from "@infra/database/entity/translation.entity";
+import { User } from "@infra/database/entity/user.entity";
+import { UserWords } from "@infra/database/entity/user_words.entity";
+import { Word } from "@infra/database/entity/word.entity";
 import "reflect-metadata"
 import { DataSource } from "typeorm"
 
-export const AppDataSource = new DataSource({
-    type: "sqlite",
+const AppDataSource = new DataSource({
+    type: "better-sqlite3",
     database: "./langBoost.db",
-    entities: [],
+    entities: [User, Word, UserWords, Translation],
     synchronize: true,
     logging: false,
 })
 
-AppDataSource.initialize();
+export { AppDataSource }

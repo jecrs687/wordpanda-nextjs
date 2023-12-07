@@ -1,4 +1,4 @@
-import { envs } from "@/utils/envs";
+import { envs } from "@utils/envs";
 import { type } from "os";
 import { useCallback, useEffect, useState } from "react";
 const responsesRequest: { [key: string]: any } = {}
@@ -9,7 +9,8 @@ interface ApiProps {
     body?: any,
     url: string,
     cache?: boolean,
-    initialFetch: boolean
+    initialFetch: boolean,
+    expire?: number
 }
 interface ApiResponse {
     response: any,
@@ -22,7 +23,8 @@ export function useApi({
     body,
     url,
     cache,
-    initialFetch = true
+    initialFetch = true,
+    expire = 1000
 }: ApiProps): ApiResponse {
     const [response, setResponse] = useState();
     const [loading, setLoading] = useState(false);
@@ -38,20 +40,26 @@ export function useApi({
             .then(res => {
                 setResponse(res)
                 setLoading(false);
-                responsesRequest[JSON.stringify({ method, body, url })] = res
+                if (method === 'GET') {
+                    responsesRequest[JSON.stringify({ body, url })] = res
+                    if (expire)
+                        setTimeout(() => {
+                            delete responsesRequest[JSON.stringify({ body, url })]
+                        }, expire)
+                }
             }).catch(err => {
                 setLoading(false);
                 console.log({ err })
             })
-    }, [body, loading, method, url]);
+    }, [body, loading, method, url, expire]);
 
     useEffect(() => {
         if (initialFetch) {
-            // getData();
+            getData();
         }
     }, [initialFetch, getData]);
     const params = JSON.stringify({ method, body, url })
-    if (cache && !responsesRequest[params] && !response)
+    if (cache && !responsesRequest[params] && !response && method !== 'GET')
         return {
             response,
             loading,
@@ -60,6 +68,6 @@ export function useApi({
     return {
         response,
         loading,
-        refetch: getData
+        refetch: responsesRequest[params]
     }
 }

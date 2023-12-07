@@ -1,6 +1,6 @@
 
 
-import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Word } from "./word.entity";
 
 @Entity()
@@ -8,17 +8,11 @@ export class Translation {
     @PrimaryGeneratedColumn()
     id: number
 
-    @JoinColumn(
-        { referencedColumnName: "id" }
-    )
+    @OneToOne(() => Word)
+    @JoinColumn()
     word: Word
 
-    @OneToMany(
-        () => Word,
-        word => word.id
-    )
-    words: Word[]
-
-
-
+    @ManyToMany(() => Word, (word) => word.translations)
+    @JoinTable()
+    translations: Word[]
 }
