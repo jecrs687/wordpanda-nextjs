@@ -1,0 +1,111 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+model Translation {
+    id           Int      @id @default(autoincrement())
+    word         Word     @relation(fields: [wordId], references: [id])
+    wordId       Int      @map(name: "word_id")
+    translations Word[]   @relation("translations")
+    languageId   Int      @map(name: "language_id")
+    Language     Language @relation(fields: [languageId], references: [id])
+
+    createdAt DateTime  @default(now()) @map(name: "created_at")
+    updatedAt DateTime  @updatedAt @map(name: "updated_at")
+    deletedAt DateTime? @map(name: "deleted_at")
+}
+
+model User {
+    id        Int     @id @default(autoincrement())
+    firstName String? @map(name: "first_name") @db.VarChar(90)
+    lastName  String? @map(name: "last_name") @db.VarChar(90)
+    username  String?
+    phone     String?
+    email     String? @unique @db.VarChar(90)
+    password  String?
+
+    role  Role   @default(USER)
+    words Word[]
+
+    createdAt DateTime   @default(now()) @map(name: "created_at")
+    updatedAt DateTime   @updatedAt @map(name: "updated_at")
+    deletedAt DateTime?  @map(name: "deleted_at")
+    UserWord  UserWord[]
+}
+
+model UserWord {
+    id        Int       @id @default(autoincrement())
+    userId    Int       @map(name: "user_id")
+    wordId    Int       @map(name: "word_id")
+    createdAt DateTime  @default(now()) @map(name: "created_at")
+    updatedAt DateTime  @updatedAt @map(name: "updated_at")
+    deletedAt DateTime? @map(name: "deleted_at")
+    User      User      @relation(fields: [userId], references: [id])
+    Word      Word      @relation(fields: [wordId], references: [id])
+
+    attemps Int @default(0)
+    errors  Int @default(0)
+    streak  Int @default(0)
+
+    lastAttemp  DateTime? @map(name: "last_attemp")
+    lastError   DateTime? @map(name: "last_error")
+    lastSuccess DateTime? @map(name: "last_success")
+
+    //recomend another informations to this table
+
+    notLearned Boolean?  @default(true) @map(name: "not_learned")
+    progress   Int?      @default(0)
+    quality    Int?      @default(0)
+    interval   Int?      @default(0)
+    nextAttemp DateTime? @map(name: "next_attemp")
+
+    @@unique([userId, wordId])
+    @@map("user_word")
+}
+
+model Word {
+    id         Int      @id @default(autoincrement())
+    word       String
+    languageId Int
+    language   Language @relation(fields: [languageId], references: [id])
+
+    translations Translation[]
+
+    translationsTo Translation[] @relation("translations")
+
+    createdAt DateTime   @default(now()) @map(name: "created_at")
+    updatedAt DateTime   @updatedAt @map(name: "updated_at")
+    deletedAt DateTime?  @map(name: "deleted_at")
+    User      User?      @relation(fields: [userId], references: [id])
+    userId    Int?
+    UserWord  UserWord[]
+
+    difficulty Int? @default(0)
+    attemps    Int? @default(0)
+    errors     Int? @default(0)
+
+    @@unique([word, languageId])
+}
+
+model Language {
+    id       Int    @id @default(autoincrement())
+    code     String
+    language String
+
+    createdAt   DateTime      @default(now()) @map(name: "created_at")
+    updatedAt   DateTime      @updatedAt @map(name: "updated_at")
+    deletedAt   DateTime?     @map(name: "deleted_at")
+    Translation Translation[]
+    Word        Word[]
+}
+
+enum Role {
+    USER
+    BKO
+    ADMIN
+}
