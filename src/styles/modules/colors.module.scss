@@ -1,0 +1,43 @@
+$initial: #ffdfff;
+$second: #f4bfff;
+$third: #e79eff;
+$fourth: #d87cff;
+$fifth: #bf5cef;
+$sixth: #9f41ce;
+$seventh: #7e25af;
+$eighth: #5f0090;
+$ninth: #5f0090;
+$background: #f1f1f1;
+$black: #000000;
+$complementary: #99ff6a;
+
+// @media (prefers-color-scheme: dark) {
+//     $initial: #212529;
+//     $second: #343a40;
+//     $third: #495057;
+//     $fourth: #6c757d;
+//     $fifth: #adb5bd;
+//     $sixth: #ced4da;
+//     $seventh: #dee2e6;
+//     $eighth: #e9ecef;
+//     $ninth: #f8f9fa;
+//     $black: #ffffff;
+//     $background: #000;
+//     $complementary: #99ff6a;
+// }
+
+:export {
+    initial: $initial;
+    second: $second;
+    third: $third;
+    fourth: $fourth;
+    fifth: $fifth;
+    sixth: $sixth;
+    seventh: $seventh;
+    eighth: $eighth;
+    ninth: $ninth;
+    background: #f1f1f1;
+    black: $black;
+    complementary: $complementary;
+
+}

@@ -31,7 +31,7 @@
         "./src/mocks/*"
       ],
       "@assets/*": [
-        "./src/assets/*"
+        "./public/assets/*"
       ],
       "@backend/*": [
         "./src/backend/*"
@@ -57,6 +57,12 @@
       "@domain/*": [
         "./src/backend/domain/*"
       ],
+      "@styles/*": [
+        "./src/styles/*"
+      ],
+      "@actions/*": [
+        "./src/backend/domain/actions/*"
+      ]
     },
     "strict": false
   },
