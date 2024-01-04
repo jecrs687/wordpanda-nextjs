@@ -1,0 +1,73 @@
+@import '@styles/index.scss';
+
+.container {
+    background: $background;
+    width: 100vw;
+    height: 100vh;
+    padding: 20px;
+    color: $ninth;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(225deg,
+                $ninth 0%,
+                $second 100%);
+        color: $background;
+        padding: 40px;
+        gap: 10px;
+        border-radius: 30px;
+
+        .logo {
+            border-radius: 10px;
+        }
+
+        .content {
+            .title {
+                font-size: 2em;
+                font-weight: 700;
+            }
+
+            .description {
+                font-size: 1.5em;
+                font-weight: 400;
+            }
+        }
+
+    }
+
+    .main {
+        .about {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .about__image {
+                width: 50%;
+                height: 100%;
+                background: $ninth;
+                border-radius: 10px;
+            }
+
+            .about__description {
+                width: 50%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+            }
+        }
+
+        .get__stared {}
+
+        .features {}
+
+        .footer {}
+
+    }
+
+
+}

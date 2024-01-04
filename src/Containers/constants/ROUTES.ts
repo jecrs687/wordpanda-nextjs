@@ -1,0 +1,21 @@
+export const ROUTES = {
+
+    LOGIN: () => '/auth/login',
+    REGISTER: () => '/auth/register',
+    HOME: () => '/',
+    DASHBOARD: () => '/dashboard',
+    PROFILE: () => '/profile',
+    NOT_FOUND: () => '/not-found',
+    FORGOT_PASSWORD: () => '/forgot-password',
+    RESET_PASSWORD: () => '/reset-password',
+    VERIFY_EMAIL: () => '/verify-email',
+    GAMES: () => '/games',
+    GAME: (id) => `/games/${id}`,
+    QUIZ: (id) => `/games/${id}/quiz`,
+    QUIZ_RESULT: (id) => `/games/${id}/quiz/result`,
+    FLASHCARDS: (id) => `/games/${id}/flashcards`,
+    FLASHCARDS_RESULT: (id) => `/games/${id}/flashcards/result`,
+    WORDS: () => '/words',
+    WORD: (id) => `/words/${id}`,
+    WORDS_RESULT: () => '/words/result',
+}

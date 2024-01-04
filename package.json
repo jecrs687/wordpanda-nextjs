@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --experimental-https",
     "build": "next build",
     "migrate": "NODE_ENV=development npx tsx ./src/backend/infra/database/migrations",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@lottiefiles/lottie-player": "^2.0.2",
     "@prisma/client": "^5.7.0",
     "clsx": "^2.0.0",
     "eslint": "8.50.0",

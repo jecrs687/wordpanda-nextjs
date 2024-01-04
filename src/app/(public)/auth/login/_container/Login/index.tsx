@@ -1,8 +1,10 @@
 "use client";
 
 import { Input } from '@common/Input';
+import { ROUTES } from '@constants/ROUTES';
 import LoaderSpinner from '@core/LoaderSpinner';
 import Image from 'next/image';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { useEffect } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
@@ -52,6 +54,8 @@ export default function LoginPage() {
                 />
                 <Submit />
             </form>
+            <Link href={ROUTES.REGISTER()}>Não tem uma conta? Registre-se
+            </Link>
         </main>
     )
 }

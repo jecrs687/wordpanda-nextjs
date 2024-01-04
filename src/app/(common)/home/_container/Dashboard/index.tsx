@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import useSWRMutation from 'swr/mutation';
 import styles from './dashboard.module.scss';
-export const fetcher = (method, args?) => async (url, { arg }: any = {}) =>
+export const fetcher = (method, args?) => async (url, { arg }: { arg: any }) =>
   await fetch(`${url}`, {
     ...args,
     headers: {
@@ -26,15 +26,19 @@ const DashboardComponent = () => {
   const [translations, setTranslations] = useState();
   const token = useCookie('token')
   const { data, error, isMutating, reset, trigger } = useSWRMutation<any>('/translate',
-    fetcher('POST'),
+    fetcher('POST')
 
   )
 
   useEffect(() => {
     if (!words.length)
       parent.postMessage({ name: 'send Words' })
-    else
-      trigger({ args: { words, jsonFromTTML } })
+    // else
+    //   trigger<{
+    //     args: {
+    //       words: IWord[], jsonFromTTML: any
+    //     }
+    //   }>({ words, jsonFromTTML })
   }, [words.length])
   return (
     <main className={styles.container}>

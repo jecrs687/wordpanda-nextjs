@@ -54,6 +54,9 @@
       "@view/*": [
         "./src/containers/view/*"
       ],
+      "@constants/*": [
+        "./src/containers/constants/*"
+      ],
       "@domain/*": [
         "./src/backend/domain/*"
       ],
@@ -62,7 +65,7 @@
       ],
       "@actions/*": [
         "./src/backend/domain/actions/*"
-      ]
+      ],
     },
     "strict": false
   },

@@ -9,20 +9,12 @@ const schema = z.object({
     password: z.string().min(6).max(100),
     firstName: z.string().min(2).max(100),
     lastName: z.string().min(2).max(100),
-    passwordConfirmation: z.string().min(6).max(100),
     phone: z.string().min(6).max(100),
-    username: z.string().min(6).max(100),
+    username: z.string().min(4).max(100),
 
-}).superRefine(({ passwordConfirmation, password }, ctx) => {
-    if (passwordConfirmation !== password) {
-        ctx.addIssue({
-            code: "custom",
-            message: "The passwords did not match"
-        });
-    }
 });
-type UserDto = Omit<User, 'updatedAt' | "createdAt" | "deletedAt" | "id" | "role">
-export async function createUser(userDto: UserDto & { passwordConfirmation: string }) {
+type UserDto = Omit<User, 'updatedAt' | "createdAt" | "deletedAt" | "id" | "role" | "lastLoginAt" | "score">
+export async function createUser(userDto: UserDto) {
     try {
         const validate = schema.safeParse(userDto) as typeof userDto & { error: z.ZodError, success: boolean }
         if (!validate.success && validate?.error) {
@@ -31,12 +23,11 @@ export async function createUser(userDto: UserDto & { passwordConfirmation: stri
             });
         }
         userDto.password = encryptPassword(userDto.password)
-        const { passwordConfirmation, ...user } = userDto
         const inserted = await prisma.user.create({
-            data: user
+            data: userDto
         })
         const token = generateToken(inserted);
-        return token
+        return { msg: 'ok', token }
 
     } catch (err) {
         if (err?.code === 'P2002') {
