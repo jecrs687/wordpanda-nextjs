@@ -2,6 +2,7 @@
 
 import { Input } from '@common/Input';
 import { ROUTES } from '@constants/ROUTES';
+import Button from '@core/Button';
 import LoaderSpinner from '@core/LoaderSpinner';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,11 +14,11 @@ import styles from './index.module.scss';
 
 function Submit() {
     const status = useFormStatus();
-    return <button disabled={status.pending}>
+    return <Button disabled={status.pending}>
         {
             status.pending ? <LoaderSpinner size='16px' /> : 'Login'
         }
-    </button>
+    </Button>
 }
 
 export default function LoginPage() {

@@ -1,60 +1,175 @@
 
 "use client";
-import { TextCard } from '@common/TextCard';
-import { useCookie } from '@hooks/useCookie';
-import { useEvent } from '@hooks/useEvent';
-import { wordsMock } from '@mocks/wordsMock';
-import { IWord } from '@view/interfaces/IWord';
+import { ROUTES } from '@constants/ROUTES';
+import Linker from '@core/Linker';
+import { Lottie } from '@core/Lotties';
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
-import useSWRMutation from 'swr/mutation';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './dashboard.module.scss';
-export const fetcher = (method, args?) => async (url, { arg }: { arg: any }) =>
-  await fetch(`${url}`, {
-    ...args,
-    headers: {
-      authorization: useCookie('token')
-      , ...args?.headers
-    },
-    method,
-    body: JSON.stringify(arg),
-
-  }).then((res) => res.json())
+const contents = [
+  ["Welcome to the Language Boost App!",
+    "This app helps you learn languages using movie subtitles."],
+  ["This app is free to use.",
+    "You can support the app by donating."],
+  ["Choose a movie, and then choose a language to learn.",
+    "You will be able to watch the movie with subtitles in your target language.",
+    "You can also play games to help you learn the language."],
+]
 const DashboardComponent = () => {
 
-  const { words, jsonFromTTML } = useEvent<{ words: IWord[], jsonFromTTML: any } | undefined>('words') || { words: wordsMock }
-  const [translations, setTranslations] = useState();
-  const token = useCookie('token')
-  const { data, error, isMutating, reset, trigger } = useSWRMutation<any>('/translate',
-    fetcher('POST')
+  const [scroll, setScroll] = useState(0)
+  const [step, setStep] = useState(0)
+  const scrollRef = useRef(null)
+  useEffect(() => {
+    const handleScroll = () => {
+      const scroll = scrollRef.current?.scrollTop || 0
+      console.log(scroll)
+      setScroll(scroll)
+    }
+    scrollRef.current?.addEventListener('scroll', handleScroll)
+    return () => {
+      scrollRef.current?.removeEventListener('scroll', handleScroll)
+    }
+  }, [scrollRef])
 
-  )
+
+  const screenSize = window.screen.height
+  const screenStep = screenSize / 3
+
+  const scrollSizeHeight = screenSize + (screenStep * contents.length)
 
   useEffect(() => {
-    if (!words.length)
-      parent.postMessage({ name: 'send Words' })
-    // else
-    //   trigger<{
-    //     args: {
-    //       words: IWord[], jsonFromTTML: any
-    //     }
-    //   }>({ words, jsonFromTTML })
-  }, [words.length])
+    const currentStep = Math.floor(scroll / screenStep) % contents.length
+    if (step !== currentStep) {
+      setStep(currentStep)
+    }
+  }, [scroll, screenSize, screenStep, contents.length])
+
+  const Step = useMemo(() => {
+    const content = contents[step]
+
+    const First = () => <div className={styles.content}>
+      <h1 className={styles.title}>
+        {content[0]}
+      </h1>
+      <p className={styles.description}>
+        {content[1]}
+      </p>
+    </div>
+    return [First][0]
+  }, [step])
   return (
     <main className={styles.container}>
-      <h1>Dashboard</h1>
-      <div className={styles.grid}>
-        {words.reduce((acc: Array<IWord>, word: IWord) => {
-          const last = acc[acc.length - 1]
-          word.total = word.percentage + (last?.total || 0)
-          return [...acc, word]
-        }, [])
-          .map(
-            (word: IWord, index: number) =>
-              <TextCard key={index} percentage={+word.percentage.toFixed(2)} total={+(word?.total || 0)?.toFixed(2)} world={word.word} />
-          )}
+
+      <header className={styles.header} >
+        <div className={styles.scroll} ref={scrollRef}>
+          <div className={styles.scroll__content}
+            style={{
+              height: scrollSizeHeight
+            }}
+          >
+          </div>
+        </div>
+        <div className={styles.header__content} >
+          <Lottie
+            autoplay
+            loop
+            mode="normal"
+            src="/assets/lotties/rocket.json"
+            style={{
+              height: 500,
+              width: 500
+            }}
+          />
+          <div className={styles.contents}>
+            <Step />
+          </div>
+
+          <Lottie
+            autoplay
+            loop
+            mode="normal"
+            src="/assets/lotties/scroll.json"
+            style={{
+              height: 100,
+              width: 100
+            }}
+          />
+
+        </div>
+      </header>
+      <main className={styles.main}>
+        <section className={styles.section}>
+          <section className={styles.about}>
+            <h2 className={styles.about__title}>
+              How it works? </h2>
+            <p className={styles.about__description}>
+              Choose a movie, and then choose a language to learn. You will be able to watch the movie with subtitles in your target language. You can also play games to help you learn the language.</p>
+            <p className={styles.about__description}>
+              You can track your progress and see how much you have learned.
+            </p>
+            <p className={styles.about__description}>
+              You can use this app with Netflix, Amazon Prime Video, and Youtube.
+            </p>
+            <p className={styles.about__description}>
+              This app is free to use. You can support the app by donating.
+            </p>
+          </section>
+          <section className={styles.features}>
+            <h2 className={styles.features__title}>
+              Features</h2>
+            <ul className={styles.features__list}>
+              {
+                [
+                  'Choose a movie',
+                  'Choose a language',
+                  'Play games to help you learn the language',
+                  'Watch the movie with subtitles in your target language',
+                  'Track your progress'
+                ].map((feature, index) => (
+                  <li key={index} className={styles.features__list__item}>
+                    {feature}
+                  </li>
+                ))
+              }
+            </ul>
+          </section>
+        </section>
+        <section className={styles.section}>
+
+          <section className={styles.get__started}>
+            <h2>Get started</h2>
+            <p>Click the button below to get started.</p>
+          </section>
+          <section className={styles.platforms}>
+            <h2>Platforms</h2>
+            <ul className={styles.platforms__list}>
+              {
+                [
+                  'Netflix',
+                  'Amazon',
+                  'Youtube'
+                ].map((platform, index) => (
+                  <li key={index} className={styles.platforms__list__item}>
+                    {platform}
+                  </li>
+                ))
+              }
+            </ul>
+          </section>
+        </section>
+      </main>
+      <div className={styles.footer}>
+        <div className={styles.buttons}>
+          <Linker
+            href={ROUTES.LOGIN()}
+          >Get Started</Linker>
+          <Linker
+            href={ROUTES.REGISTER()}
+          >Sign In</Linker>
+        </div>
       </div>
-    </main>
+    </main >
   )
 }
 

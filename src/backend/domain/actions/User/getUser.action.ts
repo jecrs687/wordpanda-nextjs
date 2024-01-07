@@ -1,15 +1,40 @@
 "use server";
 import prisma from "@infra/config/database";
-export async function getUser(id: number) {
+import { validateToken } from "@utils/token";
+export async function getUser(token: string) {
     try {
+        const { decoded: user } = validateToken(token);
+        if (user == undefined) {
+            return ({
+                msg: "Token invalid",
+                errors: "Token invalid",
+            });
+        }
         const userFound = await prisma.user.findFirst({
             where: {
-                id
+                id: user.id
+            },
+            include: {
+                UserWords: {
+                    include: {
+                        Words: true
+                    }
+                },
+                MediaUser: {
+                    include: {
+                        Media: true
+                    }
+                },
+
             }
-        })
+        });
         return { user: userFound }
 
     } catch (err) {
+        console.log({
+            msg: "Error in getUser",
+            errors: err,
+        })
         return ({
             errors: err,
         });

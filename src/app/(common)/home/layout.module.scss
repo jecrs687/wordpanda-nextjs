@@ -1,0 +1,9 @@
+@import "@styles/index.scss";
+
+.container {
+    background: $background;
+    width: 100vw;
+    min-height: 100vh;
+    height: max-content;
+    color: $ninth;
+}

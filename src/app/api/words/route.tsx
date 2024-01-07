@@ -11,10 +11,10 @@ export async function POST(request: Request) {
 
     const body = await request.json()
     const { words, jsonFromTTML } = body
-    const dictionaryWolrds = dictionary as { [key: string]: string }
+    const dictionaryWords = dictionary as { [key: string]: string }
     // await insertWords(words, jsonFromTTML.lang as string)
     const response = words.map((word: { word: string }) => {
-        const wordData = dictionaryWolrds[word?.word]
+        const wordData = dictionaryWords[word?.word]
         if (!wordData) return { ...word, translation: 'Not found' }
         return { ...word, translation: wordData }
     })

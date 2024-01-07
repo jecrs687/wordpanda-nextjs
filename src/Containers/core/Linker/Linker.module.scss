@@ -1,0 +1,16 @@
+@import '@styles/index.scss';
+
+.primary {
+    padding: 10px 20px;
+    font-weight: 700;
+    background: linear-gradient($fifth, $ninth );
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    min-width: 80px;
+    color: white;
+}

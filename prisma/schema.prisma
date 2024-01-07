@@ -29,26 +29,29 @@ model User {
     email     String? @unique @db.VarChar(90)
     password  String? @db.VarChar(120)
 
-    role  Role   @default(USER)
-    words Word[]
+    role Role @default(USER)
 
-    score       Int        @default(0)
-    lastLoginAt DateTime   @default(now()) @map(name: "last_login_at")
-    createdAt   DateTime   @default(now()) @map(name: "created_at")
-    updatedAt   DateTime   @updatedAt @map(name: "updated_at")
-    deletedAt   DateTime?  @map(name: "deleted_at")
-    UserWord    UserWord[]
+    score       Int         @default(0)
+    lastLoginAt DateTime?   @default(now()) @map(name: "last_login_at")
+    createdAt   DateTime?   @default(now()) @map(name: "created_at")
+    updatedAt   DateTime?   @updatedAt @map(name: "updated_at")
+    deletedAt   DateTime?   @map(name: "deleted_at")
+    UserWords   UserWords[]
+    MediaUser   MediaUser[]
+    Media       Media?      @relation(fields: [mediaId], references: [id])
+    mediaId     Int?
 }
 
-model UserWord {
-    id        Int       @id @default(autoincrement())
-    userId    Int       @map(name: "user_id")
-    wordId    Int       @map(name: "word_id")
-    createdAt DateTime  @default(now()) @map(name: "created_at")
-    updatedAt DateTime  @updatedAt @map(name: "updated_at")
-    deletedAt DateTime? @map(name: "deleted_at")
-    User      User      @relation(fields: [userId], references: [id])
-    Word      Word      @relation(fields: [wordId], references: [id])
+model UserWords {
+    id         Int       @id @default(autoincrement())
+    userId     Int       @map(name: "user_id")
+    languageId Int       @map(name: "language_id")
+    createdAt  DateTime? @default(now()) @map(name: "created_at")
+    updatedAt  DateTime? @updatedAt @map(name: "updated_at")
+    deletedAt  DateTime? @map(name: "deleted_at")
+    User       User      @relation(fields: [userId], references: [id])
+    Words      Word[]
+    Language   Language  @relation(fields: [languageId], references: [id])
 
     attemps Int @default(0)
     errors  Int @default(0)
@@ -66,7 +69,7 @@ model UserWord {
     interval   Int?      @default(0)
     nextAttemp DateTime? @map(name: "next_attemp")
 
-    @@unique([userId, wordId])
+    @@unique([userId, languageId])
     @@map("user_word")
 }
 
@@ -80,18 +83,79 @@ model Word {
 
     translationsTo Translation[] @relation("translations")
 
-    createdAt DateTime   @default(now()) @map(name: "created_at")
-    updatedAt DateTime   @updatedAt @map(name: "updated_at")
-    deletedAt DateTime?  @map(name: "deleted_at")
-    User      User?      @relation(fields: [userId], references: [id])
-    userId    Int?
-    UserWord  UserWord[]
+    mediaWords MediaWords[]
+    createdAt  DateTime?    @default(now()) @map(name: "created_at")
+    updatedAt  DateTime?    @updatedAt @map(name: "updated_at")
+    deletedAt  DateTime?    @map(name: "deleted_at")
+
+    UserWords UserWords[]
 
     difficulty Int? @default(0)
     attemps    Int? @default(0)
     errors     Int? @default(0)
 
     @@unique([word, languageId])
+}
+
+model Platform {
+    id      Int     @id @default(autoincrement())
+    name    String
+    url     String
+    logoUrl String? @map(name: "logo_url")
+    medias  Media[]
+
+    createdAt DateTime  @default(now()) @map(name: "created_at")
+    updatedAt DateTime  @updatedAt @map(name: "updated_at")
+    deletedAt DateTime? @map(name: "deleted_at")
+}
+
+model Media {
+    id         Int       @id @default(autoincrement())
+    name       String
+    url        String
+    type       MediaType @default(VIDEO)
+    platformId Int       @map(name: "platform_id")
+    Platform   Platform  @relation(fields: [platformId], references: [id])
+    logoUrl    String?   @map(name: "logo_url")
+
+    users      User[]
+    mediaWords MediaWords[]
+
+    createdAt  DateTime    @default(now()) @map(name: "created_at")
+    updatedAt  DateTime    @updatedAt @map(name: "updated_at")
+    deletedAt  DateTime?   @map(name: "deleted_at")
+    Language   Language?   @relation(fields: [languageId], references: [id])
+    languageId Int?
+    MediaUser  MediaUser[]
+}
+
+model MediaWords {
+    id Int @id @default(autoincrement())
+
+    mediaId    Int      @map(name: "media_id")
+    Media      Media    @relation(fields: [mediaId], references: [id])
+    Words      Word[]
+    Language   Language @relation(fields: [languageId], references: [id])
+    languageId Int      @map(name: "language_id")
+
+    createdAt DateTime  @default(now()) @map(name: "created_at")
+    updatedAt DateTime  @updatedAt @map(name: "updated_at")
+    deletedAt DateTime? @map(name: "deleted_at")
+}
+
+model MediaUser {
+    id Int @id @default(autoincrement())
+
+    mediaId      Int   @map(name: "media_id")
+    Media        Media @relation(fields: [mediaId], references: [id])
+    userId       Int   @map(name: "user_id")
+    User         User  @relation(fields: [userId], references: [id])
+    progress     Int?  @default(0)
+    wordsLearned Int?  @default(0)
+
+    createdAt DateTime  @default(now()) @map(name: "created_at")
+    updatedAt DateTime  @updatedAt @map(name: "updated_at")
+    deletedAt DateTime? @map(name: "deleted_at")
 }
 
 model Language {
@@ -104,10 +168,19 @@ model Language {
     deletedAt   DateTime?     @map(name: "deleted_at")
     Translation Translation[]
     Word        Word[]
+    Media       Media[]
+    MediaWords  MediaWords[]
+    UserWords   UserWords[]
 }
 
 enum Role {
     USER
     BKO
     ADMIN
+}
+
+enum MediaType {
+    MOVIE
+    VIDEO
+    AUDIO
 }
