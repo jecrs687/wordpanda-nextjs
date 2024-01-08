@@ -25,10 +25,10 @@ export const validateTokenMiddleware = async (req: Request, res: Response) => {
         return Response.json({ error: { message: 'No token provided' } }, { status: 401 })
 
     }
-    const { decoded, isValid } = validateToken(token);
-    if (!isValid) {
+    const { decoded } = validateToken(token);
+    if (!decoded) {
         return Response.json({ error: { message: 'Invalid token' } }, { status: 401 })
     }
-    return { decoded, isValid }
+    return { decoded }
 }
 

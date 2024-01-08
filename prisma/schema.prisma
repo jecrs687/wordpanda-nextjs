@@ -38,8 +38,6 @@ model User {
     deletedAt   DateTime?   @map(name: "deleted_at")
     UserWords   UserWords[]
     MediaUser   MediaUser[]
-    Media       Media?      @relation(fields: [mediaId], references: [id])
-    mediaId     Int?
 }
 
 model UserWords {
@@ -118,7 +116,6 @@ model Media {
     Platform   Platform  @relation(fields: [platformId], references: [id])
     logoUrl    String?   @map(name: "logo_url")
 
-    users      User[]
     mediaWords MediaWords[]
 
     createdAt  DateTime    @default(now()) @map(name: "created_at")

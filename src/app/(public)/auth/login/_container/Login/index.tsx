@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { useEffect } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormState, useFormStatus } from "react-dom";
 import { submit } from './action';
 import styles from './index.module.scss';
 

@@ -23,90 +23,49 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
       "@infra/*": [
-        "./src/backend/infra/*"
-      ],
-      "@infra": [
-        "./src/backend/infra"
+        "src/backend/infra/*"
       ],
       "@mocks/*": [
-        "./src/mocks/*"
-      ],
-      "@mocks": [
-        "./src/mocks"
+        "src/mocks/*"
       ],
       "@assets/*": [
-        "./public/assets/*"
-      ],
-      "@assets": [
-        "./public/assets"
+        "public/assets/*"
       ],
       "@backend/*": [
-        "./src/backend/*"
-      ],
-      "@backend": [
-        "./src/backend"
+        "src/backend/*"
       ],
       "@hooks/*": [
-        "./src/containers/hooks/*"
-      ],
-      "@hooks": [
-        "./src/containers/hooks"
+        "src/containers/hooks/*"
       ],
       "@core/*": [
-        "./src/containers/core/*"
-      ],
-      "@core": [
-        "./src/containers/core"
+        "src/containers/core/*"
       ],
       "@services/*": [
-        "./src/containers/services/*"
-      ],
-      "@services": [
-        "./src/containers/services"
+        "src/containers/services/*"
       ],
       "@common/*": [
-        "./src/containers/common/*"
-      ],
-      "@common": [
-        "./src/containers/common"
+        "src/containers/common/*"
       ],
       "@utils/*": [
-        "./src/utils/*"
-      ],
-      "@utils": [
-        "./src/utils"
+        "src/utils/*"
       ],
       "@view/*": [
-        "./src/containers/view/*"
-      ],
-      "@view": [
-        "./src/containers/view"
+        "src/containers/view/*"
       ],
       "@constants/*": [
-        "./src/containers/constants/*"
-      ],
-      "@constants": [
-        "./src/containers/constants"
+        "src/containers/constants/*"
       ],
       "@domain/*": [
-        "./src/backend/domain/*"
-      ],
-      "@domain": [
-        "./src/backend/domain"
+        "src/backend/domain/*"
       ],
       "@styles/*": [
-        "./src/styles/*"
-      ],
-      "@styles": [
-        "./src/styles"
+        "src/styles/*"
       ],
       "@actions/*": [
-        "./src/backend/domain/actions/*"
-      ],
-      "@actions": [
-        "./src/backend/domain/actions"
+        "src/backend/domain/actions/*"
       ],
     },
     "strict": false
