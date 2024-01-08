@@ -2,8 +2,17 @@
 const path = require('path')
 
 const nextConfig = {
-sassOptions: {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '*.photos',
+      },
+    ],
+  },
+  sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
-  }}
+  }
+}
 
 module.exports = nextConfig

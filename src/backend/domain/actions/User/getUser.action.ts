@@ -17,12 +17,19 @@ export async function getUser(token: string) {
             include: {
                 UserWords: {
                     include: {
-                        Words: true
+                        Words: true,
+                        Language: true
                     }
                 },
                 MediaUser: {
                     include: {
-                        Media: true
+                        Language: true,
+                        Media: {
+                            include: {
+                                Platform: true,
+                                mediaWords: true,
+                            }
+                        }
                     }
                 },
 

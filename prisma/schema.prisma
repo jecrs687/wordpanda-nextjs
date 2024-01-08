@@ -146,12 +146,14 @@ model MediaWords {
 model MediaUser {
     id Int @id @default(autoincrement())
 
-    mediaId      Int   @map(name: "media_id")
-    Media        Media @relation(fields: [mediaId], references: [id])
-    userId       Int   @map(name: "user_id")
-    User         User  @relation(fields: [userId], references: [id])
-    progress     Int?  @default(0)
-    wordsLearned Int?  @default(0)
+    mediaId      Int       @map(name: "media_id")
+    Media        Media     @relation(fields: [mediaId], references: [id])
+    userId       Int       @map(name: "user_id")
+    User         User      @relation(fields: [userId], references: [id])
+    progress     Int?      @default(0)
+    wordsLearned Int?      @default(0)
+    Language     Language? @relation(fields: [languageId], references: [id])
+    languageId   Int?      @map(name: "language_id")
 
     createdAt DateTime  @default(now()) @map(name: "created_at")
     updatedAt DateTime  @updatedAt @map(name: "updated_at")
@@ -171,6 +173,7 @@ model Language {
     Media       Media[]
     MediaWords  MediaWords[]
     UserWords   UserWords[]
+    MediaUser   MediaUser[]
 }
 
 enum Role {

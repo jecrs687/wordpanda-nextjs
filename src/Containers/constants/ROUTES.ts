@@ -18,4 +18,8 @@ export const ROUTES = {
     WORDS: () => '/words',
     WORD: (id) => `/words/${id}`,
     WORDS_RESULT: () => '/words/result',
+    MOVIES: () => '/movies',
+    MOVIE: (id) => `/movies/${id}`,
+    VIDEOS: () => '/videos',
+    VIDEO: (id) => `/videos/${id}`,
 }
