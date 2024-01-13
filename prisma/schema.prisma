@@ -11,9 +11,9 @@ model Translation {
     id           Int      @id @default(autoincrement())
     word         Word     @relation(fields: [wordId], references: [id])
     wordId       Int      @map(name: "word_id")
-    translations Word[]   @relation("translations")
+    translations Word[]   @relation("translationsTo")
     languageId   Int      @map(name: "language_id")
-    Language     Language @relation(fields: [languageId], references: [id])
+    language     Language @relation(fields: [languageId], references: [id])
 
     createdAt DateTime  @default(now()) @map(name: "created_at")
     updatedAt DateTime  @updatedAt @map(name: "updated_at")
@@ -31,25 +31,42 @@ model User {
 
     role Role @default(USER)
 
-    score       Int         @default(0)
-    lastLoginAt DateTime?   @default(now()) @map(name: "last_login_at")
-    createdAt   DateTime?   @default(now()) @map(name: "created_at")
-    updatedAt   DateTime?   @updatedAt @map(name: "updated_at")
-    deletedAt   DateTime?   @map(name: "deleted_at")
-    UserWords   UserWords[]
-    MediaUser   MediaUser[]
+    score         Int            @default(0)
+    lastLoginAt   DateTime?      @default(now()) @map(name: "last_login_at")
+    createdAt     DateTime?      @default(now()) @map(name: "created_at")
+    updatedAt     DateTime?      @updatedAt @map(name: "updated_at")
+    deletedAt     DateTime?      @map(name: "deleted_at")
+    userLanguages UserLanguage[]
+    mediaUser     MediaUser[]
+}
+
+model UserLanguage {
+    id         Int         @id @default(autoincrement())
+    userId     Int         @map(name: "user_id")
+    languageId Int         @map(name: "language_id")
+    createdAt  DateTime?   @default(now()) @map(name: "created_at")
+    updatedAt  DateTime?   @updatedAt @map(name: "updated_at")
+    deletedAt  DateTime?   @map(name: "deleted_at")
+    user       User        @relation(fields: [userId], references: [id])
+    language   Language    @relation(fields: [languageId], references: [id])
+    userWords  UserWords[]
+
+    @@unique([userId, languageId])
+    @@map("user_language")
 }
 
 model UserWords {
-    id         Int       @id @default(autoincrement())
-    userId     Int       @map(name: "user_id")
-    languageId Int       @map(name: "language_id")
-    createdAt  DateTime? @default(now()) @map(name: "created_at")
-    updatedAt  DateTime? @updatedAt @map(name: "updated_at")
-    deletedAt  DateTime? @map(name: "deleted_at")
-    User       User      @relation(fields: [userId], references: [id])
-    Words      Word[]
-    Language   Language  @relation(fields: [languageId], references: [id])
+    id        Int       @id @default(autoincrement())
+    userId    Int       @map(name: "user_id")
+    createdAt DateTime? @default(now()) @map(name: "created_at")
+    updatedAt DateTime? @updatedAt @map(name: "updated_at")
+    deletedAt DateTime? @map(name: "deleted_at")
+
+    wordId Int
+    word   Word @relation(fields: [wordId], references: [id])
+
+    userLanguageId Int          @map(name: "user_language_id")
+    userLanguage   UserLanguage @relation(fields: [userLanguageId], references: [id])
 
     attemps Int @default(0)
     errors  Int @default(0)
@@ -67,32 +84,34 @@ model UserWords {
     interval   Int?      @default(0)
     nextAttemp DateTime? @map(name: "next_attemp")
 
-    @@unique([userId, languageId])
+    @@unique([userId, userLanguageId])
     @@map("user_word")
 }
 
 model Word {
-    id         Int      @id @default(autoincrement())
-    word       String
+    id   Int    @id @default(autoincrement())
+    word String
+
     languageId Int
     language   Language @relation(fields: [languageId], references: [id])
 
-    translations Translation[]
-
-    translationsTo Translation[] @relation("translations")
+    translations   Translation[]
+    translationsTo Translation[] @relation("translationsTo")
 
     mediaWords MediaWords[]
-    createdAt  DateTime?    @default(now()) @map(name: "created_at")
-    updatedAt  DateTime?    @updatedAt @map(name: "updated_at")
-    deletedAt  DateTime?    @map(name: "deleted_at")
 
-    UserWords UserWords[]
+    createdAt DateTime? @default(now()) @map(name: "created_at")
+    updatedAt DateTime? @updatedAt @map(name: "updated_at")
+    deletedAt DateTime? @map(name: "deleted_at")
+
+    userWords UserWords[]
 
     difficulty Int? @default(0)
     attemps    Int? @default(0)
     errors     Int? @default(0)
 
     @@unique([word, languageId])
+    @@unique([id, languageId])
 }
 
 model Platform {
@@ -113,48 +132,61 @@ model Media {
     url        String
     type       MediaType @default(VIDEO)
     platformId Int       @map(name: "platform_id")
-    Platform   Platform  @relation(fields: [platformId], references: [id])
+    platform   Platform  @relation(fields: [platformId], references: [id])
     logoUrl    String?   @map(name: "logo_url")
 
-    mediaWords MediaWords[]
+    mediaLanguages MediaLanguages[]
 
-    createdAt  DateTime    @default(now()) @map(name: "created_at")
-    updatedAt  DateTime    @updatedAt @map(name: "updated_at")
-    deletedAt  DateTime?   @map(name: "deleted_at")
-    Language   Language?   @relation(fields: [languageId], references: [id])
-    languageId Int?
-    MediaUser  MediaUser[]
+    createdAt DateTime  @default(now()) @map(name: "created_at")
+    updatedAt DateTime  @updatedAt @map(name: "updated_at")
+    deletedAt DateTime? @map(name: "deleted_at")
+}
+
+model MediaLanguages {
+    id Int @id @default(autoincrement())
+
+    mediaId    Int          @map(name: "media_id")
+    media      Media        @relation(fields: [mediaId], references: [id])
+    language   Language     @relation(fields: [languageId], references: [id])
+    languageId Int          @map(name: "language_id")
+    mediaWords MediaWords[]
+    mediaUsers MediaUser[]
+    createdAt  DateTime     @default(now()) @map(name: "created_at")
+    updatedAt  DateTime     @updatedAt @map(name: "updated_at")
+    deletedAt  DateTime?    @map(name: "deleted_at")
+
+    @@unique([mediaId, languageId])
 }
 
 model MediaWords {
     id Int @id @default(autoincrement())
 
-    mediaId    Int      @map(name: "media_id")
-    Media      Media    @relation(fields: [mediaId], references: [id])
-    Words      Word[]
-    Language   Language @relation(fields: [languageId], references: [id])
-    languageId Int      @map(name: "language_id")
+    wordId          Int            @map(name: "word_id")
+    word            Word           @relation(fields: [wordId], references: [id])
+    mediaLanguageId Int            @map(name: "media_language_id")
+    mediaLanguage   MediaLanguages @relation(fields: [mediaLanguageId], references: [id])
 
     createdAt DateTime  @default(now()) @map(name: "created_at")
     updatedAt DateTime  @updatedAt @map(name: "updated_at")
     deletedAt DateTime? @map(name: "deleted_at")
+
+    @@unique([wordId, mediaLanguageId])
 }
 
 model MediaUser {
     id Int @id @default(autoincrement())
 
-    mediaId      Int       @map(name: "media_id")
-    Media        Media     @relation(fields: [mediaId], references: [id])
-    userId       Int       @map(name: "user_id")
-    User         User      @relation(fields: [userId], references: [id])
-    progress     Int?      @default(0)
-    wordsLearned Int?      @default(0)
-    Language     Language? @relation(fields: [languageId], references: [id])
-    languageId   Int?      @map(name: "language_id")
+    userId          Int            @map(name: "user_id")
+    user            User           @relation(fields: [userId], references: [id])
+    progress        Int?           @default(0)
+    wordsLearned    Int?           @default(0)
+    mediaLanguage   MediaLanguages @relation(fields: [mediaLanguageId], references: [id])
+    mediaLanguageId Int            @map(name: "media_language_id")
+    createdAt       DateTime       @default(now()) @map(name: "created_at")
+    updatedAt       DateTime       @updatedAt @map(name: "updated_at")
+    deletedAt       DateTime?      @map(name: "deleted_at")
 
-    createdAt DateTime  @default(now()) @map(name: "created_at")
-    updatedAt DateTime  @updatedAt @map(name: "updated_at")
-    deletedAt DateTime? @map(name: "deleted_at")
+    @@unique([userId, mediaLanguageId])
 }
 
 model Language {
@@ -165,12 +197,14 @@ model Language {
     createdAt   DateTime      @default(now()) @map(name: "created_at")
     updatedAt   DateTime      @updatedAt @map(name: "updated_at")
     deletedAt   DateTime?     @map(name: "deleted_at")
-    Translation Translation[]
-    Word        Word[]
-    Media       Media[]
-    MediaWords  MediaWords[]
-    UserWords   UserWords[]
-    MediaUser   MediaUser[]
+    translation Translation[]
+
+    word Word[]
+
+    userLanguage   UserLanguage[]
+    MediaLanguages MediaLanguages[]
+
+    @@unique([code])
 }
 
 enum Role {

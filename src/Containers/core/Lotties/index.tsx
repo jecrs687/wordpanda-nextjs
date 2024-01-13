@@ -1,17 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
+import LottieComponent, { LottieProps } from "react-lottie";
 
-export const Lottie = ({ src, ...props }) => {
-    useEffect(() => {
-        import("@lottiefiles/lottie-player");
-    });
+export const Lottie = (props: LottieProps) => {
     return (
-        <lottie-player
-            autoplay
-            loop
-            mode="normal"
-            src={src}
+        <LottieComponent
+            options={{
+                autoplay: true,
+                loop: true,
+                ...props.options,
+            }}
             style={{ width: '320px' }}
             {...props}
         />

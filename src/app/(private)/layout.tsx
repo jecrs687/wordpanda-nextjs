@@ -21,6 +21,11 @@ export default function RootLayout({
             name: "Dashboard"
         },
         {
+            path: ROUTES.LANGUAGES(),
+            icon: "/assets/icons/language.svg",
+            name: "Languages"
+        },
+        {
             path: ROUTES.GAMES(),
             icon: "/assets/icons/study.svg",
             name: "Games"

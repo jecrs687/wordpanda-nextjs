@@ -3,53 +3,60 @@ import { cookies } from 'next/headers';
 import Image from 'next/image';
 import styles from './page.module.scss';
 export default async function Page() {
-    return <main className={styles.main}></main>
 
     const { user } = await getUser(cookies().get('token').value)
-    const { UserWords: userWords, MediaUser: mediaUser } = user
+    const { userLanguages, mediaUser } = user
+    const mediaUserMultiple = mediaUser.map((media) => {
+        return Array(20).fill(media)
+    }).flat().sort(() => Math.random() - 0.5)
     return (
         <main className={styles.main}>
-            <h1>Language Learning Application</h1>
-            <p>Our application is designed to help you
-                learn new languages using subtitles. With our app, you can watch
-                your favorite movies and TV shows with subtitles in your target
-                language, making it easier to learn new words and phrases.</p>
             <div className={styles.container}>
                 <div className={styles.card}>
                     <h3>Learn</h3>
                     <div className={styles.languages}>
                         {
-                            userWords.map((word, index) => {
-                                return (
-                                    <div className={styles.language} key={index}>
-                                        <h4>{word.Language.language}</h4>
-                                        <p>{word.Language.code}</p>
-                                    </div>
-                                )
+                            userLanguages.map((language, index) => {
+                                return language.userWords.map((word, index) => {
+                                    return (
+                                        <div className={styles.language} key={index}>
+                                            <h3>{language.language.language}</h3>
+                                            <p>{language.language.code}</p>
+                                        </div>
+                                    )
+                                })
                             })
                         }
                     </div>
-                    <div>
-                        <div className={styles.contentWatched}>
+                    <div className={styles.media}>
+                        <div className={styles.watched}>
                             <h4>Watched</h4>
-                            <div>{mediaUser.map((content, index) => {
-                                return (
-                                    <div key={index}>
-                                        <p>{content.Media.name}</p>
-                                        <p>{content.Language.language}</p>
-                                        <p>
-                                            {content.Media.Platform.name}
-                                        </p>
-                                        <Image
-                                            width={50}
-                                            height={50}
-                                            src={content.Media.logoUrl}
-                                            alt={content.Media.name}
-                                        />
-                                    </div>
+                            <div className={styles.contents}>
+                                {mediaUserMultiple.map((content, index) => {
+                                    return (
+                                        <div key={index} className={styles.content}>
+                                            <span className={styles.title}>
 
-                                )
-                            })}</div>
+                                                {content.media.name}</span>
+                                            <span
+                                                className={styles.language}
+                                            >{content.language.language}</span>
+                                            <span
+                                                className={styles.platform}
+                                            >
+                                                {content.media.Platform.name}
+                                            </span>
+                                            <Image
+                                                width={50}
+                                                height={50}
+                                                src={content.media.logoUrl}
+                                                alt={content.media.name}
+                                                className={styles.logo}
+                                            />
+                                        </div>
+
+                                    )
+                                })}</div>
                         </div>
 
                     </div>

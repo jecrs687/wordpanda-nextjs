@@ -1,7 +1,7 @@
 export const ROUTES = {
 
-    LOGIN: () => '/auth/login',
-    REGISTER: () => '/auth/register',
+    LOGIN: () => '/login',
+    REGISTER: () => '/register',
     HOME: () => '/',
     DASHBOARD: () => '/dashboard',
     PROFILE: () => '/profile',
@@ -9,6 +9,8 @@ export const ROUTES = {
     FORGOT_PASSWORD: () => '/forgot-password',
     RESET_PASSWORD: () => '/reset-password',
     VERIFY_EMAIL: () => '/verify-email',
+    LANGUAGES: () => '/languages',
+    LANGUAGE: (id) => `/languages/${id}`,
     GAMES: () => '/games',
     GAME: (id) => `/games/${id}`,
     QUIZ: (id) => `/games/${id}/quiz`,
