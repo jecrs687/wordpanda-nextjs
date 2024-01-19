@@ -2,7 +2,7 @@
 "use client";
 import { TextCard } from '@common/TextCard';
 import { useCookie } from '@hooks/useCookie';
-import { useEvent } from '@hooks/useEvent';
+import useEvent from '@hooks/useEvent';
 import { wordsMock } from '@mocks/wordsMock';
 import { IWord } from '@view/interfaces/IWord';
 import dynamic from 'next/dynamic';

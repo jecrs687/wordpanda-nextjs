@@ -8,7 +8,9 @@ import { Language, Word } from "@prisma/client";
 import { randomInt } from "crypto";
 import { LANGUAGES } from "./migration/languages";
 const MOCK_SIZE = 30;
-const RANDOM = 50
+const RANDOM = 50;
+
+
 const insertRandomTranslation = async (lang: Language, skip: number, lang2: Language, word: Word) => {
     const randomWord = await prisma.word.findFirst({
         where: {
@@ -39,7 +41,7 @@ const createLanguages = async () => {
         [key: string]: string
     } = LANGUAGES.reduce((a, c) => {
         if ([
-            'en', 'it', 'pt'
+            'en-us', 'it-it', 'pt-br'
         ].includes(c.code))
             a[c.code] = c.language;
         return a;
@@ -116,9 +118,14 @@ export async function migrateDatabase() {
             })
             for (const word of wordsOnDb) {
                 for (const lang2 of languagesOnDb) {
+                    const wordsOnDb2 = await prisma.word.findMany({
+                        where: {
+                            languageId: lang2.id
+                        }
+                    })
                     if (Math.random() > RANDOM) continue;
-                    if (Math.random() > RANDOM) await insertRandomTranslation(lang, randomInt(0, wordsOnDb.length), lang2, word)
-                    await insertRandomTranslation(lang, randomInt(0, wordsOnDb.length), lang2, word)
+                    if (Math.random() > RANDOM) await insertRandomTranslation(lang, randomInt(0, wordsOnDb2.length), lang2, word)
+                    await insertRandomTranslation(lang, randomInt(0, wordsOnDb2.length), lang2, word)
                 }
             }
         }))
@@ -176,7 +183,7 @@ export async function migrateDatabase() {
             });
         }))
 
-    const mediaOnDb = await prisma.mediaLanguages.findMany({})
+    const mediaOnDb = await prisma.media.findMany({})
     if (await prisma.mediaLanguages.count() == 0)
         await Promise.all(mediaOnDb.map(async media => {
             const languages = await prisma.language.findMany({})
@@ -197,7 +204,6 @@ export async function migrateDatabase() {
             users.map(async user => {
                 await prisma.mediaUser.createMany({
                     data: mediaLanguagesOnDb.filter(() => randomInt(1, 100) > RANDOM).map(media => ({
-                        mediaId: media.id,
                         mediaLanguageId: media.id,
                         userId: user.id
                     }))

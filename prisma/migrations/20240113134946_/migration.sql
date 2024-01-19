@@ -177,7 +177,7 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "user_language_user_id_language_id_key" ON "user_language"("user_id", "language_id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "user_word_user_id_user_language_id_key" ON "user_word"("user_id", "user_language_id");
+CREATE UNIQUE INDEX "user_word_user_id_user_language_id_wordId_key" ON "user_word"("user_id", "user_language_id", "wordId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Word_word_languageId_key" ON "Word"("word", "languageId");

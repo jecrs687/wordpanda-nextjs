@@ -1,4 +1,5 @@
 import { ROUTES } from '@constants/ROUTES';
+import { Svg } from '@core/Svg';
 import clsx from 'clsx';
 import { cookies, headers } from 'next/headers';
 import Image from 'next/image';
@@ -46,7 +47,7 @@ export default function RootLayout({
             name: "Videos"
         },
         {
-            path: ROUTES.LOGIN(),
+            path: ROUTES.LOGOUT(),
             icon: "/assets/icons/logout.svg",
             name: "Logout"
         },
@@ -76,11 +77,11 @@ export default function RootLayout({
                                     styles.link
                                 )}
                             >
-                                <Image
-                                    src={icon}
-                                    alt={name}
-                                    width={25}
-                                    height={25}
+                                <Svg
+                                    height={20}
+                                    width={20}
+                                    svg={icon}
+                                    className={styles.icon}
                                 />
                                 <span>{name}</span>
                             </Link>
@@ -88,7 +89,9 @@ export default function RootLayout({
                     }
                 </ul>
             </nav>
-            {children}
+            <main className={styles.content}>
+                {children}
+            </main>
         </div >
     )
 }

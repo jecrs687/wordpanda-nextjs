@@ -84,7 +84,7 @@ model UserWords {
     interval   Int?      @default(0)
     nextAttemp DateTime? @map(name: "next_attemp")
 
-    @@unique([userId, userLanguageId])
+    @@unique([userId, userLanguageId, wordId])
     @@map("user_word")
 }
 
@@ -127,7 +127,8 @@ model Platform {
 }
 
 model Media {
-    id         Int       @id @default(autoincrement())
+    id Int @id @default(autoincrement())
+
     name       String
     url        String
     type       MediaType @default(VIDEO)

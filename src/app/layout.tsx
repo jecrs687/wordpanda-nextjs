@@ -1,8 +1,6 @@
-import { randomUUID } from 'crypto'
-import './globals.scss'
 import type { Metadata } from 'next'
-import { Inter, Poppins } from 'next/font/google'
-import clsx from 'clsx'
+import { Poppins } from 'next/font/google'
+import './globals.scss'
 
 const poppins = Poppins({
   subsets: ['latin', 'latin-ext', 'devanagari'],
@@ -22,6 +20,10 @@ export default function RootLayout({
   return (
 
     <html lang="en">
+      <head>
+        <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+      </head>
       <body className={poppins.className}>{children}</body>
     </html>
   )

@@ -72,28 +72,26 @@ const DashboardComponent = () => {
         </div>
         <div className={styles.header__content} >
           <Lottie
-            autoplay
-            loop
-            mode="normal"
-            src="/assets/lotties/rocket.json"
-            style={{
-              height: 500,
-              width: 500
+            options={{
+              animationData: require('@assets/lotties/rocket.json'),
+              autoplay: true,
+              loop: true,
             }}
+            height={500}
+            width={500}
           />
           <div className={styles.contents}>
             <Step />
           </div>
 
           <Lottie
-            autoplay
-            loop
-            mode="normal"
-            src="/assets/lotties/scroll.json"
-            style={{
-              height: 100,
-              width: 100
+            options={{
+              animationData: require('@assets/lotties/scroll.json'),
+              autoplay: true,
+              loop: true,
             }}
+            height={500}
+            width={500}
           />
 
         </div>

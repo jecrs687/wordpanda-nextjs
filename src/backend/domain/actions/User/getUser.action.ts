@@ -27,11 +27,14 @@ export async function getUser(token: string) {
                 },
                 mediaUser: {
                     include: {
-                        language: true,
-                        media: {
+                        mediaLanguage: {
                             include: {
-                                platform: true,
-                                mediaWords: true,
+                                media: {
+                                    include: {
+                                        platform: true,
+                                    }
+                                },
+                                language: true,
                             }
                         }
                     }
