@@ -54,7 +54,7 @@ jobs:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: try build
-        run: yarn build
+        run: npx next build
       - name: Setup Pages
         uses: actions/configure-pages@v4
         with:
