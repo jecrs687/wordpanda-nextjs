@@ -43,7 +43,10 @@ const nextConfig = {
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
-  }
+  },
+  experimental: {
+    externalDir: true,
+  },
 }
 
 module.exports = nextConfig
