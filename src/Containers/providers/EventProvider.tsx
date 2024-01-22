@@ -14,7 +14,7 @@ function EventProvider() {
         }
         window?.addEventListener('message', handleEvent, false)
         return window?.removeEventListener('message', handleEvent)
-    }, [])
+    }, [insert])
 
     return <></>
 }

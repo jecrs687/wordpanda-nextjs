@@ -7,9 +7,13 @@ export async function getLanguages() {
             include: {
                 word: true,
 
-                media: {
+                MediaLanguages: {
                     include: {
-                        platform: true,
+                        media: {
+                            include: {
+                                platform: true,
+                            }
+                        },
                         mediaWords: true,
 
                     },

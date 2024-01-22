@@ -8,7 +8,7 @@ const useEvents = create<{
         words?: IEventPrime | undefined,
     },
     insert: (name: string, event: any) => void,
-}>((set) => ({
+}>()((set) => ({
     events: {
         words: eventMock
     },

@@ -2,8 +2,8 @@
 "use client";
 import { TextCard } from '@common/TextCard';
 import { useCookie } from '@hooks/useCookie';
-import useEvent from '@hooks/useEvent';
-import { eventMock } from '@mocks/databaseMock';
+import useEvent from '@hooks/useEvents';
+import { wordsMock } from '@mocks/wordsMock';
 import { IWord } from '@view/interfaces/IWord';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
@@ -22,7 +22,10 @@ export const fetcher = (method, args?) => async (url, { arg }: { arg: any }) =>
   }).then((res) => res.json())
 const DashboardComponent = () => {
 
-  const { words, jsonFromTTML } = useEvent<{ words: IWord[], jsonFromTTML: any } | undefined>('words') || eventMock
+
+  const { events: {
+    words: { words } = { words: wordsMock }, jsonFromTTML
+  } } = useEvent()
   const [translations, setTranslations] = useState();
   const token = useCookie('token')
   const { data, error, isMutating, reset, trigger } = useSWRMutation<any>('/translate',

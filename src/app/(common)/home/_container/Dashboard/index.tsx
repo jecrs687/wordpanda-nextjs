@@ -21,14 +21,15 @@ const DashboardComponent = () => {
   const [step, setStep] = useState(0)
   const scrollRef = useRef(null)
   useEffect(() => {
+    const scrollReference = scrollRef.current
     const handleScroll = () => {
       const scroll = scrollRef.current?.scrollTop || 0
       console.log(scroll)
       setScroll(scroll)
     }
-    scrollRef.current?.addEventListener('scroll', handleScroll)
+    scrollReference?.addEventListener('scroll', handleScroll)
     return () => {
-      scrollRef.current?.removeEventListener('scroll', handleScroll)
+      scrollReference?.removeEventListener('scroll', handleScroll)
     }
   }, [scrollRef])
 
@@ -43,7 +44,7 @@ const DashboardComponent = () => {
     if (step !== currentStep) {
       setStep(currentStep)
     }
-  }, [scroll, screenSize, screenStep, contents.length])
+  }, [scroll, screenSize, screenStep, step])
 
   const Step = useMemo(() => {
     const content = contents[step]

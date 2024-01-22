@@ -31,11 +31,8 @@ export default async function Page() {
                             userLanguages.map((lang, index) => {
                                 return (
                                     <div className={styles.language} key={index}>
-                                        <h3>{lang.Language.language}</h3>
-                                        <p>{lang.Language.code}</p>
-                                        <p>
-                                            {lang.progress}%
-                                        </p>
+                                        <h3>{lang.language.language}</h3>
+                                        <p>{lang.language.code}</p>
                                         <p>
                                             Words
                                         </p>

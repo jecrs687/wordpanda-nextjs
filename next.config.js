@@ -1,5 +1,15 @@
 /** @type {import('next').NextConfig} */
 const path = require('path')
+const tsconfig = require(__dirname + '/tsconfig.json')
+
+// const alias = Object.entries(tsconfig.compilerOptions.paths)
+//   .reduce(
+//     (x, [name, [pathname]]) => (
+//       {
+//         ...x,
+//         [name.replace('/*', '$')]: path.resolve(__dirname, '../../' + pathname.replace('/*', '')),
+//       }
+//     ), {})
 
 const nextConfig = {
   logging: {
