@@ -2,14 +2,14 @@
 const path = require('path')
 const tsconfig = require(__dirname + '/tsconfig.json')
 
-// const alias = Object.entries(tsconfig.compilerOptions.paths)
-//   .reduce(
-//     (x, [name, [pathname]]) => (
-//       {
-//         ...x,
-//         [name.replace('/*', '$')]: path.resolve(__dirname, '../../' + pathname.replace('/*', '')),
-//       }
-//     ), {})
+const alias = Object.entries(tsconfig.compilerOptions.paths)
+  .reduce(
+    (x, [name, [pathname]]) => (
+      {
+        ...x,
+        [name.replace('/*', '$')]: path.resolve(__dirname, '../../' + pathname.replace('/*', '')),
+      }
+    ), {})
 
 const nextConfig = {
   logging: {
@@ -18,6 +18,10 @@ const nextConfig = {
     },
   },
   webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      ...alias,
+    };
     return Object.assign({}, config, {
       module: Object.assign({}, config.module, {
         rules: config.module.rules.concat([
