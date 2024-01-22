@@ -53,9 +53,12 @@ jobs:
         with:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
+      - name: try build
+        run: yarn build
       - name: Setup Pages
         uses: actions/configure-pages@v4
         with:
+          basePath: '/'
           # Automatically inject basePath in your Next.js configuration file and disable
           # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
           #
