@@ -1,12 +1,12 @@
 
 "use client";
-import { TextCard } from '@common/TextCard';
-import { useCookie } from '@hooks/useCookie';
-import useEvent from '@hooks/useEvents';
 import { wordsMock } from '@mocks/wordsMock';
-import { IWord } from '@view/interfaces/IWord';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
+import { TextCard } from 'src/containers/common/TextCard';
+import { useCookie } from 'src/containers/hooks/useCookie';
+import useEvent from 'src/containers/hooks/useEvents';
+import { IWord } from 'src/containers/view/interfaces/IWord';
 import useSWRMutation from 'swr/mutation';
 import styles from './dashboard.module.scss';
 export const fetcher = (method, args?) => async (url, { arg }: { arg: any }) =>

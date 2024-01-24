@@ -1,10 +1,10 @@
 
 "use client";
-import { ROUTES } from '@constants/ROUTES';
-import Linker from '@core/Linker';
-import { Lottie } from '@core/Lotties';
 import dynamic from 'next/dynamic';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { ROUTES } from 'src/containers/constants/ROUTES';
+import Linker from 'src/containers/core/Linker';
+import { Lottie } from 'src/containers/core/Lotties';
 import styles from './dashboard.module.scss';
 const contents = [
   ["Welcome to the Language Boost App!",

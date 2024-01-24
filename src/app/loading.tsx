@@ -1,4 +1,4 @@
-import LoaderSpinner from '@core/LoaderSpinner'
+import LoaderSpinner from 'src/containers/core/LoaderSpinner'
 import styles from './page.module.scss'
 export default function Loading() {
   return (

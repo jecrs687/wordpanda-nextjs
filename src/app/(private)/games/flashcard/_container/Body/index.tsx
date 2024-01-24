@@ -1,6 +1,6 @@
 'use client';
-import useEvents from '@hooks/useEvents';
 import { useDrag } from 'react-dnd';
+import useEvents from 'src/containers/hooks/useEvents';
 import Card from '../Card';
 import styles from './Body.module.scss';
 export const FlashBody = () => {

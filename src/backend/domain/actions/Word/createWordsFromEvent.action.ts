@@ -1,5 +1,5 @@
 import prisma from "@infra/config/database"
-import { IEventPrime } from "@view/interfaces/IEvents"
+import { IEventPrime } from "src/containers/view/interfaces/IEvents"
 
 export async function createWordsFromEvent(event: IEventPrime) {
     const language = await prisma.language.findFirst({

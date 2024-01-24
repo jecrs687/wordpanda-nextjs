@@ -1,13 +1,13 @@
 "use client";
 
-import { Input } from '@common/Input';
-import { ROUTES } from '@constants/ROUTES';
-import Button from '@core/Button';
-import LoaderSpinner from '@core/LoaderSpinner';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { useEffect } from 'react';
 import { useFormState, useFormStatus } from "react-dom";
+import { Input } from 'src/containers/common/Input';
+import { ROUTES } from 'src/containers/constants/ROUTES';
+import Button from 'src/containers/core/Button';
+import LoaderSpinner from 'src/containers/core/LoaderSpinner';
 import { submit } from './action';
 import styles from './index.module.scss';
 

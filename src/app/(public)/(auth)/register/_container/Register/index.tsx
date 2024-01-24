@@ -1,7 +1,7 @@
 "use client";
-import { Input } from '@common/Input';
 import Image from 'next/image';
 import { useFormState } from 'react-dom';
+import { Input } from 'src/containers/common/Input';
 import { submit } from './action';
 import styles from './index.module.scss';
 

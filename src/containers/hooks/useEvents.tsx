@@ -1,5 +1,5 @@
 import { eventMock } from "@mocks/databaseMock";
-import { IEventPrime } from "@view/interfaces/IEvents";
+import { IEventPrime } from "src/containers/view/interfaces/IEvents";
 import { create } from "zustand";
 
 const useEvents = create<{

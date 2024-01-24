@@ -1,4 +1,4 @@
-import { IWord } from "@view/interfaces/IWord";
+import { IWord } from "src/containers/view/interfaces/IWord";
 
 export const wordsMock: IWord[] = [
     {

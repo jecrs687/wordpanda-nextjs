@@ -1,4 +1,4 @@
-import { ROUTES } from "@constants/ROUTES"
+import { ROUTES } from "src/containers/constants/ROUTES"
 
 export const GAMES: {
     title: string,

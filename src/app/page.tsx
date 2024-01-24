@@ -1,5 +1,5 @@
-import { ROUTES } from '@constants/ROUTES';
 import { redirect } from 'next/navigation';
+import { ROUTES } from 'src/containers/constants/ROUTES';
 import styles from './page.module.scss';
 
 export default async function Page() {

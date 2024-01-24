@@ -1,4 +1,4 @@
-import { IEventPrime } from "@view/interfaces/IEvents";
+import { IEventPrime } from "src/containers/view/interfaces/IEvents";
 
 export const eventMock: IEventPrime = {
     "words": [
