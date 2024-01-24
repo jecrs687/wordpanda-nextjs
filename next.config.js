@@ -22,7 +22,6 @@ const nextConfig = {
       ...config.resolve.alias,
       ...alias,
     }
-    console.log({ config: config.resolve.alias })
     return Object.assign({}, config, {
       module: Object.assign({}, config.module, {
         rules: config.module.rules.concat([
