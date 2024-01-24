@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest # Setup an environment to run the action
     steps:
  - name: Checkout
+      - name: Checkout
         uses: actions/checkout@v4
       - name: Detect package manager
         id: detect-package-manager
@@ -63,4 +64,3 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}} #The Heroku api key we stored on our repo secret
           heroku_app_name: "langboost" #The name of your heroku app - Must be unique in Heroku
           heroku_email: "emanuelcascone@gmail.com" #Your heroku yuser name
-          
