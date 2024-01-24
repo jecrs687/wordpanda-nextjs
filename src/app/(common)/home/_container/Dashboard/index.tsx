@@ -1,6 +1,6 @@
 
 "use client";
-import { ROUTES } from '../../../../../containers/constants/ROUTES';
+import { ROUTES } from '@constants/ROUTES';
 import Linker from '@core/Linker';
 import { Lottie } from '@core/Lotties';
 import dynamic from 'next/dynamic';

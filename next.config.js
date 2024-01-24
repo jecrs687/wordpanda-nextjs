@@ -7,7 +7,7 @@ const alias = Object.entries(tsconfig.compilerOptions.paths)
     (x, [name, [pathname]]) => (
       {
         ...x,
-        [name.replace('/*', '')]: path.resolve(__dirname, '../../' + pathname.replace('/*', '')),
+        [name.replace('/*', '')]: path.resolve(__dirname, '../../' + pathname.replace('*', '')),
       }
     ), {})
 
