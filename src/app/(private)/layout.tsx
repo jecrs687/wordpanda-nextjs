@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { cookies, headers } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { ROUTES } from 'src/containers/constants/ROUTES';
 import { Svg } from 'src/containers/core/Svg';
 import styles from './layout.module.scss';
@@ -11,7 +12,7 @@ export default function RootLayout({
         children: React.ReactNode
     }) {
     if (!cookies().get('token')) {
-        window.location.href = ROUTES.LOGIN()
+        redirect(ROUTES.LOGIN())
         return <></>
     }
 
