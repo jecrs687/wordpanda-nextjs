@@ -25,7 +25,7 @@ export async function getLanguages() {
 
     } catch (err) {
         console.log({
-            msg: "Error in getUser",
+            msg: "Error in getUserLanguages",
             errors: err,
         })
         return ({

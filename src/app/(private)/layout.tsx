@@ -10,7 +10,10 @@ export default function RootLayout({
     children }: {
         children: React.ReactNode
     }) {
-    if (!cookies().get('token')) return window.location.href = ROUTES.LOGIN()
+    if (!cookies().get('token')) {
+        window.location.href = ROUTES.LOGIN()
+        return <></>
+    }
 
     const headersList = headers()
     const pathname = '/' + headersList.get("referer")?.split("//")?.[1]?.split("/")?.slice(1)?.join("/");
