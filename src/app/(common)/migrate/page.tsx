@@ -1,5 +1,5 @@
 
 export default async function Page() {
-    // await migrateDatabase()
+    //await migrateDatabase()
     return <></>
 }
