@@ -2,7 +2,6 @@ import clsx from 'clsx';
 import { cookies, headers } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import { ROUTES } from 'src/containers/constants/ROUTES';
 import { Svg } from 'src/containers/core/Svg';
 import styles from './layout.module.scss';
@@ -11,8 +10,8 @@ export default function RootLayout({
     children }: {
         children: React.ReactNode
     }) {
-    const token = cookies().get('token');
-    if (!token) redirect(ROUTES.LOGIN());
+    if (!cookies().get('token')) return window.location.href = ROUTES.LOGIN()
+
     const headersList = headers()
     const pathname = '/' + headersList.get("referer")?.split("//")?.[1]?.split("/")?.slice(1)?.join("/");
     const paths = [
