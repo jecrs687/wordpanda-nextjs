@@ -15,7 +15,13 @@ export const generateToken = (user) => {
     return token;
 }
 export const validateToken = (token) => {
-    const decoded = decode(token);
+    token = token?.value || token;
+    const decoded: {
+        id: number,
+        name: string,
+        email: string,
+        role: string,
+    } | undefined = decode(token);
     return { decoded };
 }
 

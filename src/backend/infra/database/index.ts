@@ -6,8 +6,7 @@ import { UserFactory } from "@mocks/factory/user";
 import { WordFactory } from "@mocks/factory/word";
 import { Language, Word } from "@prisma/client";
 import { randomInt } from "crypto";
-import { LANGUAGES } from "./migration/languages";
-const MOCK_SIZE = 30;
+const MOCK_SIZE = 10;
 const RANDOM = 50;
 
 
@@ -36,24 +35,7 @@ const insertRandomTranslation = async (lang: Language, skip: number, lang2: Lang
     }
 }
 
-const createLanguages = async () => {
-    const filteredLanguages: {
-        [key: string]: string
-    } = LANGUAGES.reduce((a, c) => {
-        if ([
-            'en-us', 'it-it', 'pt-br'
-        ].includes(c.code))
-            a[c.code] = c.language;
-        return a;
-    }, {})
-    const languages: { code: string, language: string }[] = Object.entries(filteredLanguages).map(([code, language]) => ({ code, language }))
 
-    if (await prisma.language.count() == 0)
-        await prisma.language.createMany({
-            data: languages
-        })
-
-}
 const createUsers = async () => {
     const userFactory = new UserFactory()
 
@@ -74,7 +56,6 @@ const createPlatforms = async () => {
 
 export async function migrateDatabase() {
     await createUsers()
-    await createLanguages()
     await createPlatforms()
     await createUser({
         email: "demo@demo.it",

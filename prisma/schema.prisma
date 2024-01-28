@@ -3,22 +3,26 @@ generator client {
 }
 
 datasource db {
-    provider          = "postgresql"
-    url               = env("DATABASE_URI")
-    shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URI")
+    // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model Translation {
-    id           Int      @id @default(autoincrement())
-    word         Word     @relation(fields: [wordId], references: [id])
-    wordId       Int      @map(name: "word_id")
-    translations Word[]   @relation("translationsTo")
-    languageId   Int      @map(name: "language_id")
-    language     Language @relation(fields: [languageId], references: [id])
+    id                Int      @id @default(autoincrement())
+    word              Word     @relation(fields: [wordId], references: [id])
+    wordId            Int      @map(name: "word_id")
+    translations      Word[]   @relation("translationsTo")
+    languageId        Int      @map(name: "language_id")
+    language          Language @relation(fields: [languageId], references: [id])
+    meaning           String?  @db.VarChar(1024)
+    meaningTranslated String?  @db.VarChar(1024)
 
     createdAt DateTime  @default(now()) @map(name: "created_at")
     updatedAt DateTime  @updatedAt @map(name: "updated_at")
     deletedAt DateTime? @map(name: "deleted_at")
+
+    @@unique([wordId, languageId])
 }
 
 model User {
@@ -69,21 +73,21 @@ model UserWords {
     userLanguageId Int          @map(name: "user_language_id")
     userLanguage   UserLanguage @relation(fields: [userLanguageId], references: [id])
 
-    attemps Int @default(0)
-    errors  Int @default(0)
-    streak  Int @default(0)
+    attempts Int @default(0)
+    errors   Int @default(0)
+    streak   Int @default(0)
 
-    lastAttemp  DateTime? @map(name: "last_attemp")
+    lastAttempt DateTime? @map(name: "last_attempt")
     lastError   DateTime? @map(name: "last_error")
     lastSuccess DateTime? @map(name: "last_success")
 
     //recomend another informations to this table
 
-    notLearned Boolean?  @default(true) @map(name: "not_learned")
-    progress   Int?      @default(0)
-    quality    Int?      @default(0)
-    interval   Int?      @default(0)
-    nextAttemp DateTime? @map(name: "next_attemp")
+    notLearned  Boolean?  @default(true) @map(name: "not_learned")
+    progress    Int?      @default(0)
+    quality     Int?      @default(0)
+    interval    Int?      @default(0)
+    nextAttempt DateTime? @map(name: "next_attempt")
 
     @@unique([userId, userLanguageId, wordId])
     @@map("user_word")
@@ -108,8 +112,9 @@ model Word {
     userWords UserWords[]
 
     difficulty Int? @default(0)
-    attemps    Int? @default(0)
+    attempts   Int? @default(0)
     errors     Int? @default(0)
+    frequency  Int? @default(0)
 
     @@unique([word, languageId])
     @@unique([id, languageId])

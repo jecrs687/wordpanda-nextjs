@@ -2,9 +2,12 @@
 import { useCallback, useEffect, useRef } from "react";
 
 
-export function Svg(
-    { svg, className,
 
+
+export function Svg(
+    {
+        svg,
+        className,
         width,
         height,
         ...props }: {
@@ -17,7 +20,8 @@ export function Svg(
     const ref = useRef<SVGSVGElement>()
 
     const importSvg = useCallback(() => {
-        const { default: svgFile } = require(`../../../../public${svg}`)
+
+        const { default: svgFile } = require("../../../../public" + svg)
         const parser = new DOMParser()
         const xmlDoc = parser.parseFromString(svgFile, "text/xml");
         const svgComp = xmlDoc.children[0]

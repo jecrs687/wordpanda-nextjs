@@ -56,17 +56,17 @@ CREATE TABLE "user_word" (
     "deleted_at" TIMESTAMP(3),
     "wordId" INTEGER NOT NULL,
     "user_language_id" INTEGER NOT NULL,
-    "attemps" INTEGER NOT NULL DEFAULT 0,
+    "attempts" INTEGER NOT NULL DEFAULT 0,
     "errors" INTEGER NOT NULL DEFAULT 0,
     "streak" INTEGER NOT NULL DEFAULT 0,
-    "last_attemp" TIMESTAMP(3),
+    "last_attempt" TIMESTAMP(3),
     "last_error" TIMESTAMP(3),
     "last_success" TIMESTAMP(3),
     "not_learned" BOOLEAN DEFAULT true,
     "progress" INTEGER DEFAULT 0,
     "quality" INTEGER DEFAULT 0,
     "interval" INTEGER DEFAULT 0,
-    "next_attemp" TIMESTAMP(3),
+    "next_attempt" TIMESTAMP(3),
 
     CONSTRAINT "user_word_pkey" PRIMARY KEY ("id")
 );
@@ -80,8 +80,9 @@ CREATE TABLE "Word" (
     "updated_at" TIMESTAMP(3),
     "deleted_at" TIMESTAMP(3),
     "difficulty" INTEGER DEFAULT 0,
-    "attemps" INTEGER DEFAULT 0,
+    "attempts" INTEGER DEFAULT 0,
     "errors" INTEGER DEFAULT 0,
+    "frequency" INTEGER DEFAULT 0,
 
     CONSTRAINT "Word_pkey" PRIMARY KEY ("id")
 );
@@ -169,6 +170,9 @@ CREATE TABLE "_translationsTo" (
     "A" INTEGER NOT NULL,
     "B" INTEGER NOT NULL
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Translation_word_id_language_id_key" ON "Translation"("word_id", "language_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
