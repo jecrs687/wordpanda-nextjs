@@ -8,6 +8,7 @@ export default function Button(
         className,
         variety = 'primary',
         onClick,
+        type = 'button',
         ...props
     }: {
         children: React.ReactNode,
@@ -15,6 +16,7 @@ export default function Button(
         className?: string,
         variety?: 'primary' | 'secondary',
         disabled?: boolean,
+        type?: 'button' | 'submit',
         href?: string,
 
     } & React.HTMLAttributes<HTMLButtonElement>
@@ -24,6 +26,7 @@ export default function Button(
             clsx(styles[variety], className)
         }
             onClick={onClick}
+            type={type}
             {...props}
         >
             {children}

@@ -1,3 +1,4 @@
+import { getCookie } from "@utils/cookie";
 
 
 
@@ -9,6 +10,10 @@ export const fetchClient = (method: string) => async (
     }>) => {
     const response: any = (await fetch(url, {
         method,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': getCookie('token')
+        },
         body: JSON.stringify(options?.arg)
     })).json()
 

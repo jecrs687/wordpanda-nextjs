@@ -14,3 +14,18 @@
     max-width: 450px;
     width: 100%;
 }
+
+.secondary {
+    padding: 10px 20px;
+    font-weight: 700;
+    background: linear-gradient($second, $eighth);
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    max-width: 450px;
+    width: 100%;
+}
