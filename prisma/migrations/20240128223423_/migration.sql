@@ -9,6 +9,8 @@ CREATE TABLE "Translation" (
     "id" SERIAL NOT NULL,
     "word_id" INTEGER NOT NULL,
     "language_id" INTEGER NOT NULL,
+    "meaning" VARCHAR(1024),
+    "meaningTranslated" VARCHAR(1024),
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
     "deleted_at" TIMESTAMP(3),

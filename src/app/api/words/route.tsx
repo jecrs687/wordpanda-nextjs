@@ -3,7 +3,7 @@
 import prisma from "@infra/config/database"
 import { translateWords } from "@infra/openai/Translate"
 import { TRANSLATED_WORDS_MOCK } from "@mocks/translatedWordsMock"
-import { Translation, Word } from "@prisma/client"
+import { Translation, UserWords, Word } from "@prisma/client"
 import { chunkArray } from "@utils/chunkarray"
 import { validateToken } from "@utils/token"
 import { cookies } from "next/headers"
@@ -19,18 +19,18 @@ export const config = {
     maxDuration: 5,
 }
 
-type Words = Array<
-    Word & {
-        translations?: Array<Translation & {
-            translations: Word[]
-        }>
-    }
->
+export type WordWithTranslations = Word & {
+    translations?: Array<Translation & {
+        translations: Word[]
+    }>,
+    userWords: UserWords[]
+}
+
 
 export type WordsPostResponse = {
     data?: {
-        wordsOnDb: Words,
-        words: Words,
+        wordsOnDb: WordWithTranslations[],
+        words: WordWithTranslations[],
         wordsNotOnDb: {
             word: string
         }[]
@@ -184,8 +184,13 @@ export async function POST(request: Request) {
             languageId: language.id,
         },
         include: {
-            translations: {
+            userWords: {
+                where: {
+                    userId: user.id
+                },
 
+            },
+            translations: {
                 where: {
                     languageId: translationLanguageTarget.id
                 },

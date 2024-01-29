@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { useDrag } from 'react-dnd';
 import { GamesFlashcardPostRequest, GamesFlashcardPostResponse } from 'src/app/api/games/flashcard/route';
-import { WordsPostRequest, WordsPostResponse } from 'src/app/api/words/route';
+import { WordWithTranslations, WordsPostRequest, WordsPostResponse } from 'src/app/api/words/route';
 import useEvents from 'src/containers/hooks/useEvents';
 import useSWRMutation from 'swr/mutation';
 import Card from '../Card';
@@ -26,7 +26,7 @@ export const FlashBody = () => {
         string,
         WordsPostRequest
     >('/api/words', fetchClient("POST"))
-    const [wordsCards, setWordsCards] = useState([])
+    const [wordsCards, setWordsCards] = useState<WordWithTranslations[]>([])
     const { data:
         {
             data: flashcard,
@@ -141,10 +141,7 @@ export const FlashBody = () => {
             </div>
             <div className={styles.cards}>
                 {
-                    slice.map(({
-                        translations,
-                        word
-                    }, index) => (
+                    slice.map((word, index) => (
                         <div key={index}
                             className={
                                 clsx(
@@ -163,8 +160,7 @@ export const FlashBody = () => {
                                 index === 0 ? drag : undefined
                             }>
                             <Card
-                                back={translations?.[0]?.translations?.map(({ word }) => word).join(', ')}
-                                front={word}
+                                word={word}
                                 key={index}
                             />
                         </div>
