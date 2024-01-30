@@ -48,7 +48,7 @@ export default async function Page() {
 
               const listOfMetrics = [
                 {
-                  name: 'Palavras em aprendizado',
+                  name: 'Em aprendizado',
                   value: userLanguage.userWords.length
                 },
                 {

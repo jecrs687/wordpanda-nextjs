@@ -46,6 +46,9 @@
       flex-direction: column;
       gap: 20px;
 
+      ::first-letter {
+        text-transform: uppercase;
+      }
 
       .language {
         padding: 20px;
@@ -54,6 +57,8 @@
         gap: 10px;
         border-radius: 10px;
         background: #33333311;
+
+
 
         .title {
           width: 100%;
@@ -67,9 +72,7 @@
           padding: 10px 20px;
           border-radius: 20px;
 
-          ::first-letter {
-            text-transform: uppercase;
-          }
+
         }
 
         .metrics {
@@ -90,9 +93,7 @@
             padding: 10px;
             gap: 10px;
 
-            ::first-letter {
-              text-transform: uppercase;
-            }
+
 
             .name {
               font-size: 1rem;

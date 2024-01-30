@@ -24,14 +24,14 @@ export const translateWords = async (
     Generate translations to those words based on that JSON:
     {
         words: ${JSON.stringify(words)},
-        language: ${JSON.stringify(language)},
-        targetLanguage: ${JSON.stringify(targetLanguage)}
+        language: ${JSON.stringify(language)}, // the language original of the words
+        targetLanguage: ${JSON.stringify(targetLanguage)} // the language target to translate
     }
     you need to answer in JSON format, following that structure:
         {
            [word]:{ // the word in the language
-                translation: string[], // A list of translations for each word in the language
-                meaning: string[], // A list of meanings for each word in the language
+                translation: string[], // A list of translations for each word in the language target
+                meaning: string[], // A list of meanings for each word in the language original of the words
                 meaningTranslated: string[], // A list of meanings for each word in the target language
            }
         }

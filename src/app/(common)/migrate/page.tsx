@@ -10,7 +10,8 @@ export default async function Page() {
         lastName: "demo",
         password: "Demo123!",
         phone: "1234567890",
-        username: "demo"
+        username: "demo",
+        languageId: 1
     })
     await migrateLanguages()
     await migrateWords()

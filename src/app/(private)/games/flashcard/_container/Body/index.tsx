@@ -47,7 +47,6 @@ export const FlashBody = () => {
         wordsListTrigger({
             words: words.words,
             language: words.jsonFromTTML.lang,
-            targetLanguage: 'en-us'
         })
     }, [words, wordsListTrigger])
     useEffect(() => {

@@ -36,6 +36,8 @@ model User {
 
     role Role @default(USER)
 
+    languageId    Int?           @map(name: "language_id")
+    language      Language?      @relation(fields: [languageId], references: [id])
     score         Int            @default(0)
     lastLoginAt   DateTime?      @default(now()) @map(name: "last_login_at")
     createdAt     DateTime?      @default(now()) @map(name: "created_at")
@@ -210,6 +212,7 @@ model Language {
 
     userLanguage   UserLanguage[]
     MediaLanguages MediaLanguages[]
+    User           User[]
 
     @@unique([code])
 }

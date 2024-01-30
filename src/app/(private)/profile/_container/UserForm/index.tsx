@@ -1,8 +1,10 @@
 "use client";
 import Input from '@common/Input';
+import { SelectLanguage } from '@common/SelectLanguage';
 import Button from '@core/Button';
 import { User } from '@prisma/client';
 import { fetchClient } from '@services/fetchClient';
+import { setCookie } from '@utils/cookie';
 import { Formik } from 'formik';
 import { useState } from 'react';
 import { ProfilePutRequest, ProfilePutResponse } from 'src/app/api/profile/route';
@@ -12,7 +14,7 @@ import styles from './UserForm.module.scss';
 export default function UserForm({ user }: {
     user: User
 }) {
-    const { firstName, lastName, email, phone } = user;
+    const { firstName, lastName, email, phone, languageId } = user;
     const [edit, setEdit] = useState(false);
     const { data, trigger } = useSWRMutation<
         ProfilePutResponse,
@@ -44,6 +46,7 @@ export default function UserForm({ user }: {
                     email,
                     phone,
                     password: '',
+                    languageId
                 }
             }
             validate={
@@ -56,6 +59,8 @@ export default function UserForm({ user }: {
                 }
             }
             onSubmit={async (values, { setSubmitting }) => {
+                setCookie('language', String(values.languageId))
+                localStorage.setItem('language', String(values.languageId))
                 await trigger(values);
                 setSubmitting(false);
             }}
@@ -120,6 +125,19 @@ export default function UserForm({ user }: {
                         onBlur={handleBlur}
                         value={values.phone}
                         error={errors.phone && touched.phone && errors.phone}
+                    />
+                    <SelectLanguage
+                        title="Idioma do sistema"
+                        disabled={!edit}
+                        name='languageId'
+                        error={errors.languageId && touched.languageId && errors.languageId}
+                        value={languageId}
+                        onChange={({ value }) => {
+
+                            handleChange({ target: { name: 'languageId', value } })
+                        }}
+                        onBlur={handleBlur}
+                        className={styles.select}
                     />
                     <div className={styles.buttons}>
                         <Button

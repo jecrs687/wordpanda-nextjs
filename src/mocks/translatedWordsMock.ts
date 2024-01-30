@@ -1,4 +1,4 @@
-export const TRANSLATED_WORDS_MOCK = [
+export const TRANSLATED_WORDS_MOCK_ENGLISH = [
     {
         que: {
             translation: [
@@ -6530,6 +6530,5249 @@ export const TRANSLATED_WORDS_MOCK = [
             meaning: [
             ],
             meaningTranslated: [
+            ],
+        },
+    },
+]
+export const TRANSLATED_WORDS_MOCK_ITALIAN = [
+    {
+        acha: {
+            translation: [
+                "trova",
+                "pensa",
+                "ritrova",
+            ],
+            meaning: [
+                "find",
+                "think",
+                "rediscover",
+            ],
+            meaningTranslated: [
+                "trovare",
+                "pensare",
+                "riscoprire",
+            ],
+        },
+        achei: {
+            translation: [
+                "ho trovato",
+                "pensavo",
+            ],
+            meaning: [
+                "I found",
+                "I thought",
+            ],
+            meaningTranslated: [
+                "ho trovato",
+                "ho pensato",
+            ],
+        },
+        acho: {
+            translation: [
+                "penso",
+                "trovo",
+            ],
+            meaning: [
+                "think",
+                "find",
+            ],
+            meaningTranslated: [
+                "penso",
+                "trovo",
+            ],
+        },
+        achou: {
+            translation: [
+                "ha trovato",
+                "ha pensato",
+            ],
+            meaning: [
+                "found",
+                "thought",
+            ],
+            meaningTranslated: [
+                "ha trovato",
+                "ha pensato",
+            ],
+        },
+        adeus: {
+            translation: [
+                "addio",
+                "arrivederci",
+            ],
+            meaning: [
+                "goodbye",
+                "farewell",
+            ],
+            meaningTranslated: [
+                "addio",
+                "arrivederci",
+            ],
+        },
+        admirando: {
+            translation: [
+            ],
+            meaning: [
+                "admiring",
+            ],
+            meaningTranslated: [
+                "ammirando",
+            ],
+        },
+        adoro: {
+            translation: [
+                "adoro",
+                "amo",
+                "apprezzo",
+            ],
+            meaning: [
+                "I adore",
+                "I love",
+                "I appreciate",
+            ],
+            meaningTranslated: [
+                "adoro",
+                "amo",
+                "apprezzo",
+            ],
+        },
+        agora: {
+            translation: [
+                "ora",
+                "adesso",
+            ],
+            meaning: [
+                "now",
+                "currently",
+            ],
+            meaningTranslated: [
+                "ora",
+                "attualmente",
+            ],
+        },
+        ainda: {
+            translation: [
+                "ancora",
+                "tuttavia",
+            ],
+            meaning: [
+                "still",
+                "however",
+            ],
+            meaningTranslated: [
+                "ancora",
+                "tuttavia",
+            ],
+        },
+        alguma: {
+            translation: [
+                "alcuni",
+                "qualche",
+            ],
+            meaning: [
+                "some",
+                "some",
+            ],
+            meaningTranslated: [
+                "alcuni",
+                "alcuni",
+            ],
+        },
+        algumas: {
+            translation: [
+                "alcune",
+                "alcuni",
+            ],
+            meaning: [
+                "some",
+                "some",
+            ],
+            meaningTranslated: [
+                "alcune",
+                "alcuni",
+            ],
+        },
+        alimentava: {
+            translation: [
+                "nutriva",
+            ],
+            meaning: [
+                "fed",
+            ],
+            meaningTranslated: [
+                "alimentato",
+            ],
+        },
+        ancinho: {
+            translation: [
+            ],
+            meaning: [
+                "rake",
+            ],
+            meaningTranslated: [
+                "rastrello",
+            ],
+        },
+        anel: {
+            translation: [
+                "anello",
+                "fascia",
+            ],
+            meaning: [
+                "ring",
+                "band",
+            ],
+            meaningTranslated: [
+                "anello",
+                "band",
+            ],
+        },
+        antes: {
+            translation: [
+                "prima",
+                "precedentemente",
+            ],
+            meaning: [
+                "before",
+                "previously",
+            ],
+            meaningTranslated: [
+                "prima",
+                "precedentemente",
+            ],
+        },
+        aparar: {
+            translation: [
+                "tagliare",
+                "rifinire",
+            ],
+            meaning: [
+                "trim",
+                "refine",
+            ],
+            meaningTranslated: [
+                "tagliare",
+                "raffinare",
+            ],
+        },
+        aparecer: {
+            translation: [
+                "apparire",
+                "mostrarsi",
+            ],
+            meaning: [
+                "appear",
+                "show up",
+            ],
+            meaningTranslated: [
+                "apparire",
+                "apparire",
+            ],
+        },
+        apocalypto: {
+            translation: [
+            ],
+            meaning: [
+                "apocalypto",
+            ],
+            meaningTranslated: [
+                "apocalypto",
+            ],
+        },
+        aqui: {
+            translation: [
+                "qui",
+            ],
+            meaning: [
+                "here",
+            ],
+            meaningTranslated: [
+                "qui",
+            ],
+        },
+        areia: {
+            translation: [
+                "sabbia",
+                "arena",
+            ],
+            meaning: [
+                "sand",
+                "arena",
+            ],
+            meaningTranslated: [
+                "sabbia",
+                "arena",
+            ],
+        },
+        armas: {
+            translation: [
+                "armi",
+            ],
+            meaning: [
+                "weapons",
+            ],
+            meaningTranslated: [
+                "armi",
+            ],
+        },
+        arranhar: {
+            translation: [
+                "graffiare",
+                "zampillare",
+            ],
+            meaning: [
+                "scratch",
+                "spray",
+            ],
+            meaningTranslated: [
+                "graffiare",
+                "spruzzare",
+            ],
+        },
+        arreiosantes: {
+            translation: [
+            ],
+            meaning: [
+                "anterior harnesses",
+            ],
+            meaningTranslated: [
+                "imbracature anteriori",
+            ],
+        },
+        arrumar: {
+            translation: [
+                "riparare",
+                "sistemare",
+            ],
+            meaning: [
+                "fix",
+                "arrange",
+            ],
+            meaningTranslated: [
+                "sistemare",
+                "organizzare",
+            ],
+        },
+        arrume: {
+            translation: [
+                "sistemare",
+                "mettere a posto",
+            ],
+            meaning: [
+                "arrange",
+                "put in place",
+            ],
+            meaningTranslated: [
+                "organizzare",
+                "mettere in ordine",
+            ],
+        },
+        arrumo: {
+            translation: [
+            ],
+            meaning: [
+                "tidiness",
+            ],
+            meaningTranslated: [
+                "ordine",
+            ],
+        },
+        assassinatopara: {
+            translation: [
+            ],
+            meaning: [
+                "murder for",
+            ],
+            meaningTranslated: [
+                "omicidio per",
+            ],
+        },
+        assumir: {
+            translation: [
+                "assumere",
+                "prendere in carico",
+            ],
+            meaning: [
+                "take on",
+                "take charge of",
+            ],
+            meaningTranslated: [
+                "assumere",
+                "prendere in carico",
+            ],
+        },
+        atacar: {
+            translation: [
+                "attaccare",
+                "aggressione",
+            ],
+            meaning: [
+                "attack",
+                "aggression",
+            ],
+            meaningTranslated: [
+                "attacco",
+                "aggressione",
+            ],
+        },
+        atendimento: {
+            translation: [
+                "assistenza",
+                "servizio",
+            ],
+            meaning: [
+                "care",
+                "service",
+            ],
+            meaningTranslated: [
+                "cura",
+                "servizio",
+            ],
+        },
+        ave: {
+            translation: [
+                "uccello",
+            ],
+            meaning: [
+                "bird",
+            ],
+            meaningTranslated: [
+                "uccello",
+            ],
+        },
+        baixo: {
+            translation: [
+                "basso",
+                "bass",
+            ],
+            meaning: [
+                "low",
+                "bass",
+            ],
+            meaningTranslated: [
+                "basso",
+                "basso",
+            ],
+        },
+        banda: {
+            translation: [
+                "banda",
+                "gruppo",
+            ],
+            meaning: [
+                "band",
+                "group",
+            ],
+            meaningTranslated: [
+                "banda",
+                "gruppo",
+            ],
+        },
+        banheira: {
+            translation: [
+                "vasca da bagno",
+                "vasca",
+            ],
+            meaning: [
+                "bathtub",
+                "tub",
+            ],
+            meaningTranslated: [
+                "vasca da bagno",
+                "vasca",
+            ],
+        },
+        banho: {
+            translation: [
+                "bagno",
+                "doccia",
+            ],
+            meaning: [
+                "bath",
+                "shower",
+            ],
+            meaningTranslated: [
+                "bagno",
+                "doccia",
+            ],
+        },
+        barco: {
+            translation: [
+                "barca",
+                "nave",
+            ],
+            meaning: [
+                "boat",
+                "ship",
+            ],
+            meaningTranslated: [
+                "barca",
+                "nave",
+            ],
+        },
+        beatles: {
+            translation: [
+                "beatles",
+            ],
+            meaning: [
+                "beatles",
+            ],
+            meaningTranslated: [
+                "beatles",
+            ],
+        },
+        bem: {
+            translation: [
+                "bene",
+                "buono",
+            ],
+            meaning: [
+                "well",
+                "good",
+            ],
+            meaningTranslated: [
+                "bene",
+                "buono",
+            ],
+        },
+    },
+    {
+        bicho: {
+            translation: [
+                "animale",
+            ],
+            meaning: [
+                "animal",
+            ],
+            meaningTranslated: [
+                "animale",
+            ],
+        },
+        bilau: {
+            translation: [
+            ],
+            meaning: [
+                "gíria para o órgão genital masculino",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        bomba: {
+            translation: [
+                "bomba",
+            ],
+            meaning: [
+                "objeto explosivo",
+            ],
+            meaningTranslated: [
+                "esplosivo",
+            ],
+        },
+        cabeleireiro: {
+            translation: [
+                "parrucchiere",
+            ],
+            meaning: [
+                "profissional que corta cabelos e faz penteados",
+            ],
+            meaningTranslated: [
+                "professionista che taglia i capelli e fa acconciature",
+            ],
+        },
+        cada: {
+            translation: [
+                "ogni",
+            ],
+            meaning: [
+                "cada individualmente",
+            ],
+            meaningTranslated: [
+                "ogni individualmente",
+            ],
+        },
+        cadeira: {
+            translation: [
+                "sedia",
+            ],
+            meaning: [
+                "assento com encosto",
+            ],
+            meaningTranslated: [
+                "sedile con schienale",
+            ],
+        },
+        caixa: {
+            translation: [
+                "scatola",
+            ],
+            meaning: [
+                "objeto para armazenar ou transportar algo",
+            ],
+            meaningTranslated: [
+                "oggetto per conservare o trasportare qualcosa",
+            ],
+        },
+        calar: {
+            translation: [
+            ],
+            meaning: [
+                "ficar em silêncio",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        cale: {
+            translation: [
+            ],
+            meaning: [
+                "gíria para se referir a dinheiro",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        canal: {
+            translation: [
+                "canale",
+            ],
+            meaning: [
+                "curso de água",
+            ],
+            meaningTranslated: [
+                "corso d'acqua",
+            ],
+        },
+        cansada: {
+            translation: [
+                "stanca",
+            ],
+            meaning: [
+                "exausta",
+            ],
+            meaningTranslated: [
+                "esausta",
+            ],
+        },
+        carro: {
+            translation: [
+                "auto",
+            ],
+            meaning: [
+                "veículo motorizado de quatro rodas",
+            ],
+            meaningTranslated: [
+                "veicolo a motore a quattro ruote",
+            ],
+        },
+        carrocom: {
+            translation: [
+            ],
+            meaning: [
+                "gíria para se referir a alguém que está indo embora",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        casa: {
+            translation: [
+                "casa",
+            ],
+            meaning: [
+                "residência",
+            ],
+            meaningTranslated: [
+                "residenza",
+            ],
+        },
+        caso: {
+            translation: [
+                "caso",
+            ],
+            meaning: [
+                "situação",
+            ],
+            meaningTranslated: [
+                "situazione",
+            ],
+        },
+        centavo: {
+            translation: [
+                "centesimo",
+            ],
+            meaning: [
+                "moeda de menor valor no Brasil",
+            ],
+            meaningTranslated: [
+                "moneta di minore valore in Brasile",
+            ],
+        },
+        chama: {
+            translation: [
+                "fiamma",
+            ],
+            meaning: [
+                "parte do fogo que queima",
+            ],
+            meaningTranslated: [
+                "parte del fuoco che brucia",
+            ],
+        },
+        chamar: {
+            translation: [
+                "chiamare",
+            ],
+            meaning: [
+                "convidar alguém para ir a um lugar",
+            ],
+            meaningTranslated: [
+                "invitare qualcuno a venire in un posto",
+            ],
+        },
+        chamavam: {
+            translation: [
+            ],
+            meaning: [
+                "forma verbal do verbo chamar",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        chance: {
+            translation: [
+                "possibilità",
+            ],
+            meaning: [
+                "ocasião favorável",
+            ],
+            meaningTranslated: [
+                "occasione favorevole",
+            ],
+        },
+        chefe: {
+            translation: [
+                "capo",
+            ],
+            meaning: [
+                "superior em uma organização",
+            ],
+            meaningTranslated: [
+                "superiore in un'organizzazione",
+            ],
+        },
+        chefemuito: {
+            translation: [
+            ],
+            meaning: [
+                "gíria para se referir a uma pessoa que é muito importante",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        chegou: {
+            translation: [
+                "arrivato",
+            ],
+            meaning: [
+                "chegar a um lugar",
+            ],
+            meaningTranslated: [
+                "arrivare in un posto",
+            ],
+        },
+        cheirando: {
+            translation: [
+                "odorante",
+            ],
+            meaning: [
+                "emanando cheiro",
+            ],
+            meaningTranslated: [
+                "emette odore",
+            ],
+        },
+        cheiro: {
+            translation: [
+                "odore",
+            ],
+            meaning: [
+                "sensação percebida pelo nariz",
+            ],
+            meaningTranslated: [
+                "sensazione percepita dal naso",
+            ],
+        },
+        china: {
+            translation: [
+            ],
+            meaning: [
+                "país no leste da Ásia",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        cima: {
+            translation: [
+            ],
+            meaning: [
+                "parte mais alta de algo",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        cliente: {
+            translation: [
+                "cliente",
+            ],
+            meaning: [
+                "pessoa que faz compras ou utiliza serviços",
+            ],
+            meaningTranslated: [
+                "persona che fa acquisti o utilizza servizi",
+            ],
+        },
+        coisa: {
+            translation: [
+                "cosa",
+            ],
+            meaning: [
+                "objeto ou assunto indeterminado",
+            ],
+            meaningTranslated: [
+                "oggetto o argomento indeterminato",
+            ],
+        },
+        coisase: {
+            translation: [
+            ],
+            meaning: [
+                "forma verbal do verbo coisa",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        coisasque: {
+            translation: [
+            ],
+            meaning: [
+                "forma verbal do verbo coisa",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        colar: {
+            translation: [
+                "collana",
+            ],
+            meaning: [
+                "adorno usado ao redor do pescoço",
+            ],
+            meaningTranslated: [
+                "adorno indossato intorno al collo",
+            ],
+        },
+        colarde: {
+            translation: [
+            ],
+            meaning: [
+                "gíria para roubo",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        com: {
+            translation: [
+                "con",
+            ],
+            meaning: [
+                "indica companhia ou conexão",
+            ],
+            meaningTranslated: [
+                "indica compagnia o connessione",
+            ],
+        },
+        como: {
+            translation: [
+                "come",
+            ],
+            meaning: [
+                "de que modo",
+            ],
+            meaningTranslated: [
+                "in che modo",
+            ],
+        },
+        comprar: {
+            translation: [
+                "comprare",
+            ],
+            meaning: [
+                "adquirir algo em troca de dinheiro",
+            ],
+            meaningTranslated: [
+                "acquistare qualcosa in cambio di denaro",
+            ],
+        },
+        comprou: {
+            translation: [
+                "ha comprato",
+            ],
+            meaning: [
+                "forma verbal do verbo comprar",
+            ],
+            meaningTranslated: [
+                "forma verbale del verbo comprare",
+            ],
+        },
+    },
+    {
+        confessar: {
+            translation: [
+                "confessare",
+            ],
+            meaning: [
+                "Admitir um erro ou culpa",
+            ],
+            meaningTranslated: [
+                "Ammissione di un errore o colpa",
+            ],
+        },
+        confundiu: {
+            translation: [
+                "confondere",
+            ],
+            meaning: [
+                "Causar confusão ou engano",
+            ],
+            meaningTranslated: [
+                "Causare confusione o inganno",
+            ],
+        },
+        conseguiam: {
+            translation: [
+                "riuscivano",
+            ],
+            meaning: [
+                "Ser capaz de fazer algo",
+            ],
+            meaningTranslated: [
+                "Essere in grado di fare qualcosa",
+            ],
+        },
+        conseguiramseparar: {
+            translation: [
+                "",
+            ],
+            meaning: [
+                "Realizar a separação de algo ou alguém",
+            ],
+            meaningTranslated: [
+                "",
+            ],
+        },
+        conselhoque: {
+            translation: [
+                "",
+            ],
+            meaning: [
+                "Recomendação ou orientação sobre algo",
+            ],
+            meaningTranslated: [
+                "",
+            ],
+        },
+        consigo: {
+            translation: [
+                "con te",
+            ],
+            meaning: [
+                "Em sua posse ou sob seu controle",
+            ],
+            meaningTranslated: [
+                "In tuo possesso o sotto il tuo controllo",
+            ],
+        },
+        conversa: {
+            translation: [
+                "conversazione",
+            ],
+            meaning: [
+                "Troca de palavras ou diálogo entre pessoas",
+            ],
+            meaningTranslated: [
+                "Scambio di parole o dialogo tra persone",
+            ],
+        },
+        conversar: {
+            translation: [
+                "parlare",
+            ],
+            meaning: [
+                "Trocar palavras com alguém",
+            ],
+            meaningTranslated: [
+                "Scambiare parole con qualcuno",
+            ],
+        },
+        corpo: {
+            translation: [
+                "corpo",
+            ],
+            meaning: [
+                "Estrutura física de um organismo",
+            ],
+            meaningTranslated: [
+                "Struttura fisica di un organismo",
+            ],
+        },
+        corredor: {
+            translation: [
+                "corridore",
+            ],
+            meaning: [
+                "Espaço estreito entre paredes para passagem",
+            ],
+            meaningTranslated: [
+                "Spazio stretto tra le pareti per il passaggio",
+            ],
+        },
+        cuidar: {
+            translation: [
+                "prendersi cura di",
+            ],
+            meaning: [
+                "Tomar conta ou zelar por algo ou alguém",
+            ],
+            meaningTranslated: [
+                "Occuparsi o badare a qualcosa o qualcuno",
+            ],
+        },
+        culpa: {
+            translation: [
+                "colpa",
+            ],
+            meaning: [
+                "Responsabilidade por um erro ou falta",
+            ],
+            meaningTranslated: [
+                "Responsabilità per un errore o mancanza",
+            ],
+        },
+        dando: {
+            translation: [
+                "dando",
+            ],
+            meaning: [
+                "Ação de dar algo a alguém",
+            ],
+            meaningTranslated: [
+                "Azione di dare qualcosa a qualcuno",
+            ],
+        },
+        daqui: {
+            translation: [
+                "da qui",
+            ],
+            meaning: [
+                "Localização relativa ao lugar em que se está",
+            ],
+            meaningTranslated: [
+                "Posizione relativa al luogo in cui ci si trova",
+            ],
+        },
+        dar: {
+            translation: [
+                "dare",
+            ],
+            meaning: [
+                "Oferecer algo a alguém",
+            ],
+            meaningTranslated: [
+                "Offrire qualcosa a qualcuno",
+            ],
+        },
+        das: {
+            translation: [
+                "dei",
+            ],
+            meaning: [
+                "Contração da preposição 'de' com artigo definido feminino plural",
+            ],
+            meaningTranslated: [
+                "Contração da preposição 'di' com l'articolo femminile plurale definito",
+            ],
+        },
+        decidi: {
+            translation: [
+                "ho deciso",
+            ],
+            meaning: [
+                "Tomar uma decisão",
+            ],
+            meaningTranslated: [
+                "Prendere una decisione",
+            ],
+        },
+        deitar: {
+            translation: [
+                "distendere",
+            ],
+            meaning: [
+                "Colocar de forma horizontal",
+            ],
+            meaningTranslated: [
+                "Mettere in posizione orizzontale",
+            ],
+        },
+        deixar: {
+            translation: [
+                "lasciare",
+            ],
+            meaning: [
+                "Permitir que algo ou alguém vá embora",
+            ],
+            meaningTranslated: [
+                "Permettere a qualcosa o qualcuno di andare via",
+            ],
+        },
+        deixaraquela: {
+            translation: [
+                "",
+            ],
+            meaning: [
+                "Permitir que algo ou alguém vá embora naquele lugar",
+            ],
+            meaningTranslated: [
+                "",
+            ],
+        },
+        deixe: {
+            translation: [
+                "lascia",
+            ],
+            meaning: [
+                "Permitir que algo aconteça",
+            ],
+            meaningTranslated: [
+                "Permettere che qualcosa accada",
+            ],
+        },
+        dela: {
+            translation: [
+                "sua",
+            ],
+            meaning: [
+                "Referente a uma mulher ou menina",
+            ],
+            meaningTranslated: [
+                "Riferito a una donna o ragazza",
+            ],
+        },
+        demais: {
+            translation: [
+                "troppo",
+            ],
+            meaning: [
+                "Em excesso ou de forma exagerada",
+            ],
+            meaningTranslated: [
+                "In eccesso o in modo esagerato",
+            ],
+        },
+        depois: {
+            translation: [
+                "dopo",
+            ],
+            meaning: [
+                "Em um momento seguinte",
+            ],
+            meaningTranslated: [
+                "In un momento successivo",
+            ],
+        },
+        descobriu: {
+            translation: [
+                "scoperto",
+            ],
+            meaning: [
+                "Tomar conhecimento de algo pela primeira vez",
+            ],
+            meaningTranslated: [
+                "Venire a conoscenza di qualcosa per la prima volta",
+            ],
+        },
+        desde: {
+            translation: [
+                "da",
+            ],
+            meaning: [
+                "Indicação de ponto inicial de tempo ou lugar",
+            ],
+            meaningTranslated: [
+                "Indicazione del punto iniziale di tempo o luogo",
+            ],
+        },
+        detergenteno: {
+            translation: [
+                "",
+            ],
+            meaning: [
+                "Produto utilizado para lavar roupa ou objetos",
+            ],
+            meaningTranslated: [
+                "",
+            ],
+        },
+        deu: {
+            translation: [
+                "dato",
+            ],
+            meaning: [
+                "Expressão de tempo passado do verbo 'dar'",
+            ],
+            meaningTranslated: [
+                "Espressione di tempo passato del verbo 'dare'",
+            ],
+        },
+        deve: {
+            translation: [
+                "dovere",
+            ],
+            meaning: [
+                "Expressão de obrigação ou necessidade",
+            ],
+            meaningTranslated: [
+                "Espressione di obbligo o necessità",
+            ],
+        },
+        deveria: {
+            translation: [
+                "dovrebbe",
+            ],
+            meaning: [
+                "Expressão de condição hipotética",
+            ],
+            meaningTranslated: [
+                "Espressione di condizione ipotetica",
+            ],
+        },
+        dia: {
+            translation: [
+                "giorno",
+            ],
+            meaning: [
+                "Período de 24 horas",
+            ],
+            meaningTranslated: [
+                "Periodo di 24 ore",
+            ],
+        },
+        diasna: {
+            translation: [
+                "",
+            ],
+            meaning: [
+                "Plural de 'dia' indicando um período de tempo",
+            ],
+            meaningTranslated: [
+                "",
+            ],
+        },
+        diga: {
+            translation: [
+                "dì",
+            ],
+            meaning: [
+                "Expressar um comando ou pedido para falar",
+            ],
+            meaningTranslated: [
+                "Esprimere un comando o una richiesta di parlare",
+            ],
+        },
+        digamos: {
+            translation: [
+                "diciamo",
+            ],
+            meaning: [
+                "Expressar uma suposição ou opinião",
+            ],
+            meaningTranslated: [
+                "Esprimere una supposizione o un'opinione",
+            ],
+        },
+        digo: {
+            translation: [
+                "dico",
+            ],
+            meaning: [
+                "Expressar algo em forma de afirmação",
+            ],
+            meaningTranslated: [
+                "Esprimere qualcosa in forma di affermazione",
+            ],
+        },
+        disse: {
+            translation: [
+                "disse",
+            ],
+            meaning: [
+                "Expressar a fala no passado",
+            ],
+            meaningTranslated: [
+                "Esprimere il discorso al passato",
+            ],
+        },
+        disseremque: {
+            translation: [
+                "",
+            ],
+            meaning: [
+                "Relatar ou dizer algo",
+            ],
+            meaningTranslated: [
+                "",
+            ],
+        },
+    },
+    {
+        diz: {
+            translation: [
+                "dire",
+                "dice",
+                "parla",
+            ],
+            meaning: [
+                "expressar algo com palavras",
+            ],
+            meaningTranslated: [
+                "express something in words",
+            ],
+        },
+        dizer: {
+            translation: [
+                "dire",
+                "dire qualcosa",
+                "parlare",
+            ],
+            meaning: [
+                "expressar algo com palavras",
+            ],
+            meaningTranslated: [
+                "express something in words",
+            ],
+        },
+        doc: {
+            translation: [
+                "dottore",
+                "documento",
+                "medico",
+            ],
+            meaning: [
+                "abreviação de documento",
+            ],
+            meaningTranslated: [
+                "abbreviation of document",
+            ],
+        },
+        doce: {
+            translation: [
+                "dolce",
+                "dolcetto",
+                "caramella",
+            ],
+            meaning: [
+                "sabor adocicado",
+            ],
+            meaningTranslated: [
+                "sweet flavor",
+            ],
+        },
+        docfaz: {
+            translation: [
+            ],
+            meaning: [
+                "sem significado conhecido",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        doclevar: {
+            translation: [
+            ],
+            meaning: [
+                "sem significado conhecido",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        "doc's": {
+            translation: [
+            ],
+            meaning: [
+                "abreviação de documento",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        doidode: {
+            translation: [
+                "pazzo di",
+                "pazzo per",
+                "pazzo da",
+            ],
+            meaning: [
+                "completamente apaixonado por",
+            ],
+            meaningTranslated: [
+                "completely in love with",
+            ],
+        },
+        dois: {
+            translation: [
+                "due",
+                "doppio",
+                "paio",
+            ],
+            meaning: [
+                "o número 2",
+            ],
+            meaningTranslated: [
+                "the number 2",
+            ],
+        },
+        dos: {
+            translation: [
+                "fa",
+                "ti",
+                "fagli",
+            ],
+            meaning: [
+                "segunda pessoa do singular do verbo fazer",
+            ],
+            meaningTranslated: [
+                "second person singular of the verb 'to do'",
+            ],
+        },
+        drew: {
+            translation: [
+            ],
+            meaning: [
+                "nome próprio",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        duas: {
+            translation: [
+                "due",
+                "entrambe",
+                "entrambi",
+            ],
+            meaning: [
+                "o número 2 (feminino)",
+            ],
+            meaningTranslated: [
+                "the number 2 (feminine)",
+            ],
+        },
+        ela: {
+            translation: [
+                "lei",
+                "essa",
+                "lei",
+            ],
+            meaning: [
+                "pronome pessoal feminino da terceira pessoa do singular",
+            ],
+            meaningTranslated: [
+                "third person singular feminine personal pronoun",
+            ],
+        },
+        ele: {
+            translation: [
+                "lui",
+                "esso",
+                "esso",
+            ],
+            meaning: [
+                "pronome pessoal masculino da terceira pessoa do singular",
+            ],
+            meaningTranslated: [
+                "third person singular masculine personal pronoun",
+            ],
+        },
+        eles: {
+            translation: [
+                "loro",
+                "loro",
+                "essi",
+            ],
+            meaning: [
+                "pronome pessoal masculino da terceira pessoa do plural",
+            ],
+            meaningTranslated: [
+                "third person plural masculine personal pronoun",
+            ],
+        },
+        empregoe: {
+            translation: [
+            ],
+            meaning: [
+                "palavra sem contexto",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        emprestar: {
+            translation: [
+                "prestare",
+                "dare in prestito",
+                "concedere",
+            ],
+            meaning: [
+                "dar algo a alguém temporariamente",
+            ],
+            meaningTranslated: [
+                "lend something to someone temporarily",
+            ],
+        },
+        enaltecia: {
+            translation: [
+            ],
+            meaning: [
+                "forma verbal do verbo enaltecer",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        encheu: {
+            translation: [
+                "ha riempito",
+                "riempiuto",
+                "riempì",
+            ],
+            meaning: [
+                "preencheu completamente",
+            ],
+            meaningTranslated: [
+                "completely filled",
+            ],
+        },
+        enquanto: {
+            translation: [
+                "mentre",
+                "durante",
+                "nel frattempo",
+            ],
+            meaning: [
+                "ao mesmo tempo que",
+                "durante",
+            ],
+            meaningTranslated: [
+                "at the same time as",
+                "during",
+            ],
+        },
+        entendamas: {
+            translation: [
+            ],
+            meaning: [
+                "palavra sem contexto",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        entre: {
+            translation: [
+                "tra",
+                "fra",
+                "fra",
+            ],
+            meaning: [
+                "no meio de",
+                "no intervalo de",
+            ],
+            meaningTranslated: [
+                "in the middle of",
+                "in the interval of",
+            ],
+        },
+        era: {
+            translation: [
+                "era",
+                "stava",
+                "fu",
+            ],
+            meaning: [
+                "tempo passado do verbo ser",
+            ],
+            meaningTranslated: [
+                "past tense of the verb 'to be'",
+            ],
+        },
+        eram: {
+            translation: [
+                "erano",
+                "erano",
+                "erano",
+            ],
+            meaning: [
+                "terceira pessoa do plural do pretérito imperfeito do indicativo do verbo ser",
+            ],
+            meaningTranslated: [
+                "third person plural of the imperfect past tense of the verb 'to be'",
+            ],
+        },
+        escola: {
+            translation: [
+                "scuola",
+                "istruzione",
+                "educazione",
+            ],
+            meaning: [
+                "local de ensino",
+            ],
+            meaningTranslated: [
+                "place of education",
+            ],
+        },
+        escolheu: {
+            translation: [
+                "scelse",
+                "ha scelto",
+                "sceglieva",
+            ],
+            meaning: [
+                "tomou uma decisão entre opções",
+            ],
+            meaningTranslated: [
+                "made a decision between options",
+            ],
+        },
+        escove: {
+            translation: [
+            ],
+            meaning: [
+                "palavra sem contexto",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        escreveu: {
+            translation: [
+                "ha scritto",
+                "scriveva",
+                "ha scritto",
+            ],
+            meaning: [
+                "produziu um texto escrito",
+            ],
+            meaningTranslated: [
+                "produced a written text",
+            ],
+        },
+        espera: {
+            translation: [
+                "aspettativa",
+                "spera",
+                "attesa",
+            ],
+            meaning: [
+                "aguardar por algo",
+            ],
+            meaningTranslated: [
+                "wait for something",
+            ],
+        },
+        esperar: {
+            translation: [
+                "aspettare",
+                "attendere",
+                "sperare",
+            ],
+            meaning: [
+                "aguardar por algo",
+            ],
+            meaningTranslated: [
+                "wait for something",
+            ],
+        },
+        espere: {
+            translation: [
+                "aspetta",
+                "aspetta",
+                "aspetta",
+            ],
+            meaning: [
+                "forma verbal do verbo esperar",
+            ],
+            meaningTranslated: [
+                "form of the verb 'to wait'",
+            ],
+        },
+        espero: {
+            translation: [
+                "spero",
+                "mi aspetto",
+                "si spera",
+            ],
+            meaning: [
+                "ter esperança em algo",
+            ],
+            meaningTranslated: [
+                "have hope in something",
+            ],
+        },
+        espertinho: {
+            translation: [
+                "furbo",
+                "furbo",
+                "furbo",
+            ],
+            meaning: [
+                "inteligente",
+                "esperto",
+            ],
+            meaningTranslated: [
+                "intelligent",
+                "clever",
+            ],
+        },
+        essa: {
+            translation: [
+                "questa",
+                "cioè",
+                "detto",
+            ],
+            meaning: [
+                "pronome demonstrativo feminino",
+            ],
+            meaningTranslated: [
+                "feminine demonstrative pronoun",
+            ],
+        },
+    },
+    {
+        esse: {
+            translation: [
+                "questo",
+            ],
+            meaning: [
+                "this",
+                "that",
+            ],
+            meaningTranslated: [
+                "questo",
+                "quello",
+            ],
+        },
+        esses: {
+            translation: [
+                "questi",
+            ],
+            meaning: [
+                "these",
+                "those",
+            ],
+            meaningTranslated: [
+                "questi",
+                "quelli",
+            ],
+        },
+        esta: {
+            translation: [
+                "questa",
+            ],
+            meaning: [
+                "this",
+            ],
+            meaningTranslated: [
+                "questa",
+            ],
+        },
+        estamos: {
+            translation: [
+                "siamo",
+            ],
+            meaning: [
+                "we are",
+            ],
+            meaningTranslated: [
+                "noi siamo",
+            ],
+        },
+        estar: {
+            translation: [
+                "essere",
+            ],
+            meaning: [
+                "to be",
+            ],
+            meaningTranslated: [
+                "essere",
+            ],
+        },
+        estava: {
+            translation: [
+                "era",
+            ],
+            meaning: [
+                "was",
+            ],
+            meaningTranslated: [
+                "era",
+            ],
+        },
+        estavafora: {
+            translation: [
+            ],
+            meaning: [
+                "was out",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        estavam: {
+            translation: [
+                "erano",
+            ],
+            meaning: [
+                "were",
+            ],
+            meaningTranslated: [
+                "erano",
+            ],
+        },
+        este: {
+            translation: [
+                "questo",
+                "questa",
+            ],
+            meaning: [
+                "this",
+                "this one",
+            ],
+            meaningTranslated: [
+                "questo",
+                "questa",
+            ],
+        },
+        estivesse: {
+            translation: [
+                "fosse",
+            ],
+            meaning: [
+                "were",
+                "had been",
+            ],
+            meaningTranslated: [
+                "fosse",
+                "era stato",
+            ],
+        },
+        estou: {
+            translation: [
+                "sono",
+            ],
+            meaning: [
+                "I am",
+            ],
+            meaningTranslated: [
+                "io sono",
+            ],
+        },
+        estranhoeu: {
+            translation: [
+            ],
+            meaning: [
+                "stranger",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        eutrabalhava: {
+            translation: [
+                "lavoravo",
+            ],
+            meaning: [
+                "I worked",
+            ],
+            meaningTranslated: [
+                "lavoravo",
+            ],
+        },
+        evitou: {
+            translation: [
+                "ha evitato",
+            ],
+            meaning: [
+                "avoided",
+            ],
+            meaningTranslated: [
+                "ha evitato",
+            ],
+        },
+        falandode: {
+            translation: [
+                "parlando di",
+            ],
+            meaning: [
+                "talking about",
+            ],
+            meaningTranslated: [
+                "parlando di",
+            ],
+        },
+        falar: {
+            translation: [
+                "parlare",
+            ],
+            meaning: [
+                "to speak",
+                "to talk",
+            ],
+            meaningTranslated: [
+                "parlare",
+                "parlare",
+            ],
+        },
+        falou: {
+            translation: [
+                "ha parlato",
+            ],
+            meaning: [
+                "spoke",
+                "talked",
+            ],
+            meaningTranslated: [
+                "ha parlato",
+                "parlato",
+            ],
+        },
+        faz: {
+            translation: [
+                "fa",
+            ],
+            meaning: [
+                "does",
+                "makes",
+            ],
+            meaningTranslated: [
+                "fa",
+                "fa",
+            ],
+        },
+        fazendona: {
+            translation: [
+            ],
+            meaning: [
+                "doing on",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        fazer: {
+            translation: [
+                "fare",
+            ],
+            meaning: [
+                "to do",
+                "to make",
+            ],
+            meaningTranslated: [
+                "fare",
+                "fare",
+            ],
+        },
+        fazeressa: {
+            translation: [
+            ],
+            meaning: [
+                "do this",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        fechar: {
+            translation: [
+                "chiudere",
+            ],
+            meaning: [
+                "to close",
+            ],
+            meaningTranslated: [
+                "chiudere",
+            ],
+        },
+        fechou: {
+            translation: [
+                "ha chiuso",
+            ],
+            meaning: [
+                "closed",
+            ],
+            meaningTranslated: [
+                "ha chiuso",
+            ],
+        },
+        feito: {
+            translation: [
+                "fatto",
+            ],
+            meaning: [
+                "done",
+                "made",
+            ],
+            meaningTranslated: [
+                "fatto",
+                "fatto",
+            ],
+        },
+        feliz: {
+            translation: [
+                "felice",
+            ],
+            meaning: [
+                "happy",
+            ],
+            meaningTranslated: [
+                "felice",
+            ],
+        },
+        fez: {
+            translation: [
+                "ha fatto",
+            ],
+            meaning: [
+                "did",
+                "made",
+            ],
+            meaningTranslated: [
+                "ha fatto",
+                "fatto",
+            ],
+        },
+        fica: {
+            translation: [
+                "sta",
+            ],
+            meaning: [
+                "stays",
+            ],
+            meaningTranslated: [
+                "sta",
+            ],
+        },
+        ficar: {
+            translation: [
+                "rimanere",
+            ],
+            meaning: [
+                "to stay",
+                "to remain",
+            ],
+            meaningTranslated: [
+                "rimanere",
+                "rimanere",
+            ],
+        },
+        ficou: {
+            translation: [
+                "è rimasto",
+            ],
+            meaning: [
+                "stayed",
+                "remained",
+            ],
+            meaningTranslated: [
+                "è rimasto",
+                "rimasto",
+            ],
+        },
+        filme: {
+            translation: [
+                "film",
+            ],
+            meaning: [
+                "movie",
+                "film",
+            ],
+            meaningTranslated: [
+                "film",
+                "film",
+            ],
+        },
+        fim: {
+            translation: [
+                "fine",
+            ],
+            meaning: [
+                "end",
+            ],
+            meaningTranslated: [
+                "fine",
+            ],
+        },
+        fins: {
+            translation: [
+            ],
+            meaning: [
+                "fins",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        fique: {
+            translation: [
+                "rimani",
+            ],
+            meaning: [
+                "stay",
+            ],
+            meaningTranslated: [
+                "rimani",
+            ],
+        },
+        fiquei: {
+            translation: [
+                "sono rimasto",
+            ],
+            meaning: [
+                "I stayed",
+            ],
+            meaningTranslated: [
+                "sono rimasto",
+            ],
+        },
+        fogo: {
+            translation: [
+                "fuoco",
+            ],
+            meaning: [
+                "fire",
+            ],
+            meaningTranslated: [
+                "fuoco",
+            ],
+        },
+        foi: {
+            translation: [
+                "è stato",
+            ],
+            meaning: [
+                "was",
+                "went",
+            ],
+            meaningTranslated: [
+                "è stato",
+                "andato",
+            ],
+        },
+        fong: {
+            translation: [
+            ],
+            meaning: [
+                "fong",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        foo: {
+            translation: [
+            ],
+            meaning: [
+            ],
+            meaningTranslated: [
+            ],
+        },
+    },
+    {
+        fora: {
+            translation: [
+                "fuori",
+            ],
+            meaning: [
+                "out",
+                "outside",
+            ],
+            meaningTranslated: [
+                "fuori",
+                "fuori",
+            ],
+        },
+        formigasou: {
+            translation: [
+            ],
+            meaning: [
+                "No meaning found",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        fosse: {
+            translation: [
+                "fosse",
+            ],
+            meaning: [
+                "was",
+                "were (subjunctive)",
+            ],
+            meaningTranslated: [
+                "era",
+                "fosse (congiuntivo)",
+            ],
+        },
+        fugircom: {
+            translation: [
+            ],
+            meaning: [
+                "No meaning found",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        fui: {
+            translation: [
+                "ero",
+                "sono stato",
+            ],
+            meaning: [
+                "I was",
+                "I have been",
+            ],
+            meaningTranslated: [
+                "ero",
+                "sono stato",
+            ],
+        },
+        futebol: {
+            translation: [
+                "calcio",
+            ],
+            meaning: [
+                "soccer",
+                "football",
+            ],
+            meaningTranslated: [
+                "calcio",
+                "calcio",
+            ],
+        },
+        ganho: {
+            translation: [
+                "guadagno",
+            ],
+            meaning: [
+                "gain",
+                "earnings",
+            ],
+            meaningTranslated: [
+                "guadagno",
+                "guadagni",
+            ],
+        },
+        gaveta: {
+            translation: [
+                "cassetto",
+            ],
+            meaning: [
+                "drawer",
+            ],
+            meaningTranslated: [
+                "cassetto",
+            ],
+        },
+        gavetade: {
+            translation: [
+            ],
+            meaning: [
+                "No meaning found",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        gosta: {
+            translation: [
+                "piace",
+            ],
+            meaning: [
+                "likes",
+                "enjoys",
+            ],
+            meaningTranslated: [
+                "piace",
+                "piace",
+            ],
+        },
+        gostam: {
+            translation: [
+                "amaro",
+            ],
+            meaning: [
+                "bitter",
+                "dislike",
+            ],
+            meaningTranslated: [
+                "amaro",
+                "disgusto",
+            ],
+        },
+        gostava: {
+            translation: [
+                "mi piaceva",
+            ],
+            meaning: [
+                "I liked",
+                "I used to like",
+            ],
+            meaningTranslated: [
+                "mi piaceva",
+                "mi piaceva",
+            ],
+        },
+        goste: {
+            translation: [
+            ],
+            meaning: [
+                "No meaning found",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        gostei: {
+            translation: [
+                "mi è piaciuto",
+            ],
+            meaning: [
+                "I liked",
+            ],
+            meaningTranslated: [
+                "mi è piaciuto",
+            ],
+        },
+        gosto: {
+            translation: [
+                "mi piace",
+            ],
+            meaning: [
+                "I like",
+            ],
+            meaningTranslated: [
+                "mi piace",
+            ],
+        },
+        granapara: {
+            translation: [
+            ],
+            meaning: [
+                "No meaning found",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        grego: {
+            translation: [
+                "greco",
+            ],
+            meaning: [
+                "Greek",
+            ],
+            meaningTranslated: [
+                "greco",
+            ],
+        },
+        guarda: {
+            translation: [
+                "guarda",
+            ],
+            meaning: [
+                "watch",
+                "look",
+            ],
+            meaningTranslated: [
+                "guarda",
+                "guarda",
+            ],
+        },
+        homensque: {
+            translation: [
+            ],
+            meaning: [
+                "No meaning found",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        hora: {
+            translation: [
+                "ora",
+            ],
+            meaning: [
+                "hour",
+                "time",
+            ],
+            meaningTranslated: [
+                "ora",
+                "tempo",
+            ],
+        },
+        horas: {
+            translation: [
+                "ore",
+            ],
+            meaning: [
+                "hours",
+            ],
+            meaningTranslated: [
+                "ore",
+            ],
+        },
+        igual: {
+            translation: [
+                "uguale",
+            ],
+            meaning: [
+                "equal",
+                "same",
+            ],
+            meaningTranslated: [
+                "uguale",
+                "stesso",
+            ],
+        },
+        imaginar: {
+            translation: [
+                "immaginare",
+            ],
+            meaning: [
+                "imagine",
+            ],
+            meaningTranslated: [
+                "immaginare",
+            ],
+        },
+        imaginava: {
+            translation: [
+                "immaginavo",
+            ],
+            meaning: [
+                "I imagined",
+            ],
+            meaningTranslated: [
+                "immaginavo",
+            ],
+        },
+        incendiar: {
+            translation: [
+                "incendiare",
+            ],
+            meaning: [
+                "set fire to",
+                "ignite",
+            ],
+            meaningTranslated: [
+                "incendiare",
+            ],
+        },
+        indo: {
+            translation: [
+                "andando",
+            ],
+            meaning: [
+                "going",
+            ],
+            meaningTranslated: [
+                "andando",
+            ],
+        },
+        inocenteera: {
+            translation: [
+            ],
+            meaning: [
+                "No meaning found",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        interessa: {
+            translation: [
+                "interessa",
+            ],
+            meaning: [
+                "interests",
+                "matters to",
+            ],
+            meaningTranslated: [
+                "interessa",
+                "importa",
+            ],
+        },
+        irei: {
+            translation: [
+                "andrò",
+            ],
+            meaning: [
+                "I will go",
+            ],
+            meaningTranslated: [
+                "andrò",
+            ],
+        },
+        isso: {
+            translation: [
+                "questo",
+            ],
+            meaning: [
+                "this",
+                "that",
+            ],
+            meaningTranslated: [
+                "questo",
+                "quello",
+            ],
+        },
+        issoque: {
+            translation: [
+            ],
+            meaning: [
+                "No meaning found",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        james: {
+            translation: [
+                "James",
+            ],
+            meaning: [
+                "Proper noun - name",
+            ],
+            meaningTranslated: [
+                "James",
+            ],
+        },
+        jantar: {
+            translation: [
+                "cena",
+            ],
+            meaning: [
+                "dinner",
+            ],
+            meaningTranslated: [
+                "cena",
+            ],
+        },
+        joga: {
+            translation: [
+                "gioca",
+            ],
+            meaning: [
+                "plays",
+            ],
+            meaningTranslated: [
+                "gioca",
+            ],
+        },
+        jogar: {
+            translation: [
+                "giocare",
+            ],
+            meaning: [
+                "play",
+            ],
+            meaningTranslated: [
+                "giocare",
+            ],
+        },
+        jogaruma: {
+            translation: [
+            ],
+            meaning: [
+                "No meaning found",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        jogou: {
+            translation: [
+            ],
+            meaning: [
+                "No meaning found",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        joguei: {
+            translation: [
+            ],
+            meaning: [
+                "No meaning found",
+            ],
+            meaningTranslated: [
+            ],
+        },
+    },
+    {
+        john: {
+            translation: [
+                "Giovanni",
+            ],
+            meaning: [
+                "Nome próprio masculino",
+            ],
+            meaningTranslated: [
+                "Maschile",
+            ],
+        },
+        kelly: {
+            translation: [
+                "kelly",
+            ],
+            meaning: [
+                "Nome próprio feminino",
+            ],
+            meaningTranslated: [
+                "Nome proprio femminile",
+            ],
+        },
+        lamento: {
+            translation: [
+                "lamento",
+            ],
+            meaning: [
+                "Expressão de tristeza ou pesar",
+            ],
+            meaningTranslated: [
+                "Espressione di tristezza o dolore",
+            ],
+        },
+        lares: {
+            translation: [
+                "lar",
+            ],
+            meaning: [
+                "Habitat, casa",
+            ],
+            meaningTranslated: [
+                "Casa",
+            ],
+        },
+        latas: {
+            translation: [
+                "scatole",
+            ],
+            meaning: [
+                "Recipientes de metal",
+            ],
+            meaningTranslated: [
+                "Contenitori metallici",
+            ],
+        },
+        lava: {
+            translation: [
+                "lavare",
+            ],
+            meaning: [
+                "Ação de limpar com água e sabão",
+            ],
+            meaningTranslated: [
+                "Azione di pulizia con acqua e sapone",
+            ],
+        },
+        lavanderia: {
+            translation: [
+                "lavanderia",
+            ],
+            meaning: [
+                "Local onde se lava roupa",
+            ],
+            meaningTranslated: [
+                "Luogo dove si lava il bucato",
+            ],
+        },
+        lavanderiaque: {
+            translation: [
+            ],
+            meaning: [
+                "Palavra não encontrada",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        lavar: {
+            translation: [
+                "lavare",
+            ],
+            meaning: [
+                "Ação de limpar com água e sabão",
+            ],
+            meaningTranslated: [
+                "Azione di pulizia con acqua e sapone",
+            ],
+        },
+        leite: {
+            translation: [
+                "latte",
+            ],
+            meaning: [
+                "Líquido nutritivo produzido pelas glândulas mamárias das fêmeas dos mamíferos",
+            ],
+            meaningTranslated: [
+                "Liquido nutriente prodotto dalle ghiandole mammarie delle femmine dei mammiferi",
+            ],
+        },
+        levar: {
+            translation: [
+                "prendere",
+            ],
+            meaning: [
+                "Transportar algo para outro lugar",
+            ],
+            meaningTranslated: [
+                "Trasportare qualcosa in un altro posto",
+            ],
+        },
+        ligar: {
+            translation: [
+                "accendere",
+                "collegare",
+                "chiamare",
+            ],
+            meaning: [
+                "Ativar, conectar, fazer uma chamada",
+            ],
+            meaningTranslated: [
+                "Attivare, collegare, fare una chiamata",
+            ],
+        },
+        limpar: {
+            translation: [
+                "pulire",
+            ],
+            meaning: [
+                "Remover sujeira ou impurezas",
+            ],
+            meaningTranslated: [
+                "Rimuovere sporcizia o impurità",
+            ],
+        },
+        lionel: {
+            translation: [
+                "lionel",
+            ],
+            meaning: [
+                "Nome próprio masculino",
+            ],
+            meaningTranslated: [
+                "Nome proprio maschile",
+            ],
+        },
+        livrar: {
+            translation: [
+                "liberare",
+            ],
+            meaning: [
+                "Tirar do perigo ou de uma situação desagradável",
+            ],
+            meaningTranslated: [
+                "Togliere dal pericolo o da una situazione spiacevole",
+            ],
+        },
+        livro: {
+            translation: [
+                "libro",
+            ],
+            meaning: [
+                "Obra escrita ou impressa",
+            ],
+            meaningTranslated: [
+                "Opera scritta o stampata",
+            ],
+        },
+        lojanos: {
+            translation: [
+            ],
+            meaning: [
+                "Palavra não encontrada",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        longe: {
+            translation: [
+                "lontano",
+            ],
+            meaning: [
+                "Distante, afastado",
+            ],
+            meaningTranslated: [
+                "Lontano, distante",
+            ],
+        },
+        louco: {
+            translation: [
+                "pazzo",
+            ],
+            meaning: [
+                "Que perdeu a razão, insano",
+            ],
+            meaningTranslated: [
+                "Che ha perso la ragione, pazzo",
+            ],
+        },
+        lugar: {
+            translation: [
+                "posto",
+                "luogo",
+            ],
+            meaning: [
+                "Espaço ou local determinado",
+            ],
+            meaningTranslated: [
+                "Spazio o luogo determinato",
+            ],
+        },
+        luzese: {
+            translation: [
+            ],
+            meaning: [
+                "Palavra não encontrada",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        maceo: {
+            translation: [
+                "maceo",
+            ],
+            meaning: [
+                "Município em Cuba",
+            ],
+            meaningTranslated: [
+                "Comune a Cuba",
+            ],
+        },
+        magoar: {
+            translation: [
+                "ferire",
+                "danneggiare",
+            ],
+            meaning: [
+                "Causar dor física ou emocional",
+            ],
+            meaningTranslated: [
+                "Causare dolore fisico o emotivo",
+            ],
+        },
+        mais: {
+            translation: [
+                "più",
+            ],
+            meaning: [
+                "Comparativo de superioridade",
+            ],
+            meaningTranslated: [
+                "Comparativo di superiorità",
+            ],
+        },
+        mandar: {
+            translation: [
+                "mandare",
+            ],
+            meaning: [
+                "Ordenar, transmitir uma mensagem",
+            ],
+            meaningTranslated: [
+                "Ordinare, trasmettere un messaggio",
+            ],
+        },
+        mandaram: {
+            translation: [
+                "mandare",
+            ],
+            meaning: [
+                "Forma verbal do verbo mandar na 3ª pessoa do plural do pretérito perfeito do indicativo",
+            ],
+            meaningTranslated: [
+                "Forma verbale del verbo mandare nella 3ª persona plurale del passato remoto dell'indicativo",
+            ],
+        },
+        mandei: {
+            translation: [
+                "ho mandato",
+            ],
+            meaning: [
+                "Forma verbal do verbo mandar na 1ª pessoa do singular do pretérito perfeito do indicativo",
+            ],
+            meaningTranslated: [
+                "Forma verbale del verbo mandare nella 1ª persona singolare del passato remoto dell'indicativo",
+            ],
+        },
+        marcar: {
+            translation: [
+                "contrassegnare",
+            ],
+            meaning: [
+                "Assinalar, colocar sinal",
+            ],
+            meaningTranslated: [
+                "Indicare, mettere un segno",
+            ],
+        },
+        mas: {
+            translation: [
+                "ma",
+            ],
+            meaning: [
+                "Conjunção adversativa",
+            ],
+            meaningTranslated: [
+                "Congiunzione avversativa",
+            ],
+        },
+        matar: {
+            translation: [
+                "uccidere",
+            ],
+            meaning: [
+                "Causar a morte de algo ou alguém",
+            ],
+            meaningTranslated: [
+                "Causare la morte di qualcosa o qualcuno",
+            ],
+        },
+        meia: {
+            translation: [
+                "calza",
+            ],
+            meaning: [
+                "Peça de vestuário que cobre o pé e parte da perna",
+            ],
+            meaningTranslated: [
+                "Indumento che copre il piede e parte della gamba",
+            ],
+        },
+        meiapresa: {
+            translation: [
+            ],
+            meaning: [
+                "Palavra não encontrada",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        meias: {
+            translation: [
+                "calzini",
+            ],
+            meaning: [
+                "Peças de vestuário que cobrem os pés",
+            ],
+            meaningTranslated: [
+                "Indumenti che coprono i piedi",
+            ],
+        },
+        meio: {
+            translation: [
+                "mezzo",
+            ],
+            meaning: [
+                "Metade, centro",
+            ],
+            meaningTranslated: [
+                "Metà, centro",
+            ],
+        },
+        meninas: {
+            translation: [
+                "ragazze",
+            ],
+            meaning: [
+                "Pessoas do sexo feminino jovens",
+            ],
+            meaningTranslated: [
+                "Persone di sesso femminile giovani",
+            ],
+        },
+        menino: {
+            translation: [
+                "ragazzo",
+            ],
+            meaning: [
+                "Pessoa do sexo masculino jovem",
+            ],
+            meaningTranslated: [
+                "Persona di sesso maschile giovane",
+            ],
+        },
+        meninos: {
+            translation: [
+                "ragazzi",
+            ],
+            meaning: [
+                "Pessoas do sexo masculino jovens",
+            ],
+            meaningTranslated: [
+                "Persone di sesso maschile giovani",
+            ],
+        },
+        merece: {
+            translation: [
+                "merita",
+            ],
+            meaning: [
+                "Ser digno de algo, ter mérito",
+            ],
+            meaningTranslated: [
+                "Essere degno di qualcosa, avere merito",
+            ],
+        },
+    },
+    {
+        merecer: {
+            translation: [
+                "meritare",
+            ],
+            meaning: [
+                "to deserve",
+            ],
+            meaningTranslated: [
+                "meritare",
+            ],
+        },
+        mesa: {
+            translation: [
+                "tavolo",
+            ],
+            meaning: [
+                "table",
+            ],
+            meaningTranslated: [
+                "table",
+            ],
+        },
+        mesma: {
+            translation: [
+                "stessa",
+            ],
+            meaning: [
+                "same",
+            ],
+            meaningTranslated: [
+                "same",
+            ],
+        },
+        meu: {
+            translation: [
+                "mio",
+            ],
+            meaning: [
+                "my",
+            ],
+            meaningTranslated: [
+                "my",
+            ],
+        },
+        meus: {
+            translation: [
+                "miei",
+            ],
+            meaning: [
+                "my (plural)",
+            ],
+            meaningTranslated: [
+                "my (plural)",
+            ],
+        },
+        mico: {
+            translation: [
+            ],
+            meaning: [
+                "embarrassment, awkwardness",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        mim: {
+            translation: [
+                "me",
+            ],
+            meaning: [
+                "me",
+            ],
+            meaningTranslated: [
+                "me",
+            ],
+        },
+        minerar: {
+            translation: [
+            ],
+            meaning: [
+                "to mine (resources)",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        minha: {
+            translation: [
+                "mia",
+            ],
+            meaning: [
+                "my (feminine)",
+            ],
+            meaningTranslated: [
+                "my (feminine)",
+            ],
+        },
+        minhas: {
+            translation: [
+                "mie",
+            ],
+            meaning: [
+                "my (feminine, plural)",
+            ],
+            meaningTranslated: [
+                "my (feminine, plural)",
+            ],
+        },
+        mortesem: {
+            translation: [
+            ],
+            meaning: [
+                "deathless",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        mudar: {
+            translation: [
+                "cambiare",
+            ],
+            meaning: [
+                "to change",
+            ],
+            meaningTranslated: [
+                "to change",
+            ],
+        },
+        muito: {
+            translation: [
+                "molto",
+            ],
+            meaning: [
+                "very",
+            ],
+            meaningTranslated: [
+                "very",
+            ],
+        },
+        mulher: {
+            translation: [
+                "donna",
+            ],
+            meaning: [
+                "woman",
+            ],
+            meaningTranslated: [
+                "woman",
+            ],
+        },
+        mundo: {
+            translation: [
+                "mondo",
+            ],
+            meaning: [
+                "world",
+            ],
+            meaningTranslated: [
+                "world",
+            ],
+        },
+        nada: {
+            translation: [
+                "niente",
+            ],
+            meaning: [
+                "nothing",
+            ],
+            meaningTranslated: [
+                "nothing",
+            ],
+        },
+        namorada: {
+            translation: [
+                "fidanzata",
+            ],
+            meaning: [
+                "girlfriend",
+            ],
+            meaningTranslated: [
+                "girlfriend",
+            ],
+        },
+        nas: {
+            translation: [
+            ],
+            meaning: [
+                "in the",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        nem: {
+            translation: [
+                "neanche",
+            ],
+            meaning: [
+                "nor, neither",
+            ],
+            meaningTranslated: [
+                "nor, neither",
+            ],
+        },
+        nesta: {
+            translation: [
+                "in questa",
+            ],
+            meaning: [
+                "in this",
+            ],
+            meaningTranslated: [
+                "in this",
+            ],
+        },
+        noites: {
+            translation: [
+            ],
+            meaning: [
+                "nights",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        nos: {
+            translation: [
+                "ci",
+            ],
+            meaning: [
+                "us",
+            ],
+            meaningTranslated: [
+                "us",
+            ],
+        },
+        notado: {
+            translation: [
+                "notato",
+            ],
+            meaning: [
+                "noticed",
+            ],
+            meaningTranslated: [
+                "noticed",
+            ],
+        },
+        nova: {
+            translation: [
+                "nuova",
+            ],
+            meaning: [
+                "new (feminine)",
+            ],
+            meaningTranslated: [
+                "new (feminine)",
+            ],
+        },
+        novo: {
+            translation: [
+                "nuovo",
+            ],
+            meaning: [
+                "new (masculine)",
+            ],
+            meaningTranslated: [
+                "new (masculine)",
+            ],
+        },
+        nunca: {
+            translation: [
+                "mai",
+            ],
+            meaning: [
+                "never",
+            ],
+            meaningTranslated: [
+                "never",
+            ],
+        },
+        olhando: {
+            translation: [
+                "guardando",
+            ],
+            meaning: [
+                "looking",
+            ],
+            meaningTranslated: [
+                "looking",
+            ],
+        },
+        olhe: {
+            translation: [
+                "guardi",
+            ],
+            meaning: [
+                "look",
+            ],
+            meaningTranslated: [
+                "look",
+            ],
+        },
+        olhou: {
+            translation: [
+                "guardò",
+            ],
+            meaning: [
+                "looked",
+            ],
+            meaningTranslated: [
+                "looked",
+            ],
+        },
+        outra: {
+            translation: [
+                "un'altra",
+            ],
+            meaning: [
+                "other",
+            ],
+            meaningTranslated: [
+                "other",
+            ],
+        },
+        outras: {
+            translation: [
+                "altre",
+            ],
+            meaning: [
+                "other (feminine, plural)",
+            ],
+            meaningTranslated: [
+                "other (feminine, plural)",
+            ],
+        },
+        outro: {
+            translation: [
+                "altro",
+            ],
+            meaning: [
+                "other (masculine)",
+            ],
+            meaningTranslated: [
+                "other (masculine)",
+            ],
+        },
+        ouvidosa: {
+            translation: [
+            ],
+            meaning: [
+                "listeners",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        ouvindo: {
+            translation: [
+                "ascoltando",
+            ],
+            meaning: [
+                "listening",
+            ],
+            meaningTranslated: [
+                "listening",
+            ],
+        },
+        ouvir: {
+            translation: [
+                "ascoltare",
+            ],
+            meaning: [
+                "to listen",
+            ],
+            meaningTranslated: [
+                "to listen",
+            ],
+        },
+    },
+    {
+        ovos: {
+            translation: [
+            ],
+            meaning: [
+                "eggs",
+            ],
+            meaningTranslated: [
+                "uova",
+            ],
+        },
+        pagar: {
+            translation: [
+                "pagare",
+            ],
+            meaning: [
+                "to pay",
+            ],
+            meaningTranslated: [
+                "pagare",
+            ],
+        },
+        pago: {
+            translation: [
+                "pagamento",
+            ],
+            meaning: [
+                "payment",
+            ],
+            meaningTranslated: [
+                "pagamento",
+            ],
+        },
+        pai: {
+            translation: [
+                "padre",
+            ],
+            meaning: [
+                "father",
+            ],
+            meaningTranslated: [
+                "padre",
+            ],
+        },
+        para: {
+            translation: [
+                "per",
+                "a",
+            ],
+            meaning: [
+                "for",
+                "to",
+            ],
+            meaningTranslated: [
+                "per",
+                "a",
+            ],
+        },
+        pare: {
+            translation: [
+            ],
+            meaning: [
+                "stop",
+            ],
+            meaningTranslated: [
+                "fermare",
+            ],
+        },
+        parece: {
+            translation: [
+                "sembra",
+            ],
+            meaning: [
+                "seems",
+            ],
+            meaningTranslated: [
+                "sembra",
+            ],
+        },
+        parkerdeixou: {
+            translation: [
+            ],
+            meaning: [
+                "parker left",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        passar: {
+            translation: [
+                "passare",
+            ],
+            meaning: [
+                "to pass",
+            ],
+            meaningTranslated: [
+                "passare",
+            ],
+        },
+        passava: {
+            translation: [
+                "passava",
+            ],
+            meaning: [
+                "it used to pass",
+            ],
+            meaningTranslated: [
+                "usato per passare",
+            ],
+        },
+        pedir: {
+            translation: [
+                "chiedere",
+            ],
+            meaning: [
+                "to ask",
+            ],
+            meaningTranslated: [
+                "chiedere",
+            ],
+        },
+        pediua: {
+            translation: [
+            ],
+            meaning: [
+                "I asked",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        pegar: {
+            translation: [
+                "prendere",
+                "catturare",
+            ],
+            meaning: [
+                "to take",
+                "to catch",
+            ],
+            meaningTranslated: [
+                "prendere",
+                "catturare",
+            ],
+        },
+        pego: {
+            translation: [
+                "preso",
+            ],
+            meaning: [
+                "caught",
+            ],
+            meaningTranslated: [
+                "acchiappato",
+            ],
+        },
+        pegue: {
+            translation: [
+                "prendi",
+            ],
+            meaning: [
+                "take",
+            ],
+            meaningTranslated: [
+                "prendi",
+            ],
+        },
+        pelo: {
+            translation: [
+                "pelo",
+            ],
+            meaning: [
+                "hair",
+            ],
+            meaningTranslated: [
+                "pelo",
+            ],
+        },
+        pena: {
+            translation: [
+                "pena",
+            ],
+            meaning: [
+                "sadness",
+            ],
+            meaningTranslated: [
+                "tristezza",
+            ],
+        },
+        pensaem: {
+            translation: [
+            ],
+            meaning: [
+                "think about it",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        penseque: {
+            translation: [
+            ],
+            meaning: [
+                "I thought that",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        pensou: {
+            translation: [
+            ],
+            meaning: [
+                "he thought",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        perder: {
+            translation: [
+                "perdere",
+            ],
+            meaning: [
+                "to lose",
+            ],
+            meaningTranslated: [
+                "perdere",
+            ],
+        },
+        pergunta: {
+            translation: [
+                "domanda",
+            ],
+            meaning: [
+                "question",
+            ],
+            meaningTranslated: [
+                "domanda",
+            ],
+        },
+        perguntaro: {
+            translation: [
+            ],
+            meaning: [
+                "they asked",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        perguntei: {
+            translation: [
+            ],
+            meaning: [
+                "I asked",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        perto: {
+            translation: [
+                "vicino",
+            ],
+            meaning: [
+                "close",
+            ],
+            meaningTranslated: [
+                "vicino",
+            ],
+        },
+        pessoa: {
+            translation: [
+                "persona",
+            ],
+            meaning: [
+                "person",
+            ],
+            meaningTranslated: [
+                "persona",
+            ],
+        },
+        pior: {
+            translation: [
+                "peggio",
+            ],
+            meaning: [
+                "worse",
+            ],
+            meaningTranslated: [
+                "peggio",
+            ],
+        },
+        pms: {
+            translation: [
+            ],
+            meaning: [
+                "pms",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        pode: {
+            translation: [
+                "può",
+            ],
+            meaning: [
+                "can",
+            ],
+            meaningTranslated: [
+                "può",
+            ],
+        },
+        podem: {
+            translation: [
+                "possono",
+            ],
+            meaning: [
+                "they can",
+            ],
+            meaningTranslated: [
+                "possono",
+            ],
+        },
+        podemos: {
+            translation: [
+                "possiamo",
+            ],
+            meaning: [
+                "we can",
+            ],
+            meaningTranslated: [
+                "possiamo",
+            ],
+        },
+        poderia: {
+            translation: [
+                "potrebbe",
+            ],
+            meaning: [
+                "could",
+            ],
+            meaningTranslated: [
+                "potrebbe",
+            ],
+        },
+        podia: {
+            translation: [
+                "poteva",
+            ],
+            meaning: [
+                "could",
+            ],
+            meaningTranslated: [
+                "poteva",
+            ],
+        },
+        por: {
+            translation: [
+                "per",
+                "da",
+            ],
+            meaning: [
+                "for",
+                "by",
+            ],
+            meaningTranslated: [
+                "per",
+                "da",
+            ],
+        },
+    },
+    {
+        porque: {
+            translation: [
+                "perché",
+            ],
+            meaning: [
+                "motivo, causa",
+            ],
+            meaningTranslated: [
+                "reason, cause",
+            ],
+        },
+        possa: {
+            translation: [
+                "posso",
+            ],
+            meaning: [
+                "poder",
+            ],
+            meaningTranslated: [
+                "to be able to",
+            ],
+        },
+        posso: {
+            translation: [
+                "posso",
+            ],
+            meaning: [
+                "capacità di fare qualcosa",
+            ],
+            meaningTranslated: [
+                "ability to do something",
+            ],
+        },
+        posto: {
+            translation: [
+            ],
+            meaning: [
+                "luogo",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        pouco: {
+            translation: [
+                "poco",
+            ],
+            meaning: [
+                "quantità limitata",
+            ],
+            meaningTranslated: [
+                "limited quantity",
+            ],
+        },
+        precisa: {
+            translation: [
+                "necessita",
+                "esatto",
+            ],
+            meaning: [
+                "necessidade",
+                "certeza",
+            ],
+            meaningTranslated: [
+                "need",
+                "certainty",
+            ],
+        },
+        precisar: {
+            translation: [
+                "necessitare",
+            ],
+            meaning: [
+                "necessità di qualcosa",
+            ],
+            meaningTranslated: [
+                "need for something",
+            ],
+        },
+        precisava: {
+            translation: [
+                "avevo bisogno",
+            ],
+            meaning: [
+                "necessità in passato",
+            ],
+            meaningTranslated: [
+                "need in the past",
+            ],
+        },
+        precise: {
+            translation: [
+                "preciso",
+            ],
+            meaning: [
+                "esatta",
+            ],
+            meaningTranslated: [
+                "exact",
+            ],
+        },
+        preciso: {
+            translation: [
+                "necessario",
+                "esatto",
+            ],
+            meaning: [
+                "necessità",
+                "certezza",
+            ],
+            meaningTranslated: [
+                "need",
+                "certainty",
+            ],
+        },
+        precisoude: {
+            translation: [
+            ],
+            meaning: [
+                "passato di 'necessitare'",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        presidente: {
+            translation: [
+                "presidente",
+            ],
+            meaning: [
+                "capo dello stato",
+            ],
+            meaningTranslated: [
+                "head of state",
+            ],
+        },
+        prestado: {
+            translation: [
+                "prestato",
+            ],
+            meaning: [
+                "dati ad un'altra persona",
+            ],
+            meaningTranslated: [
+                "given to another person",
+            ],
+        },
+        prestar: {
+            translation: [
+                "prestare",
+            ],
+            meaning: [
+                "dati a qualcuno per un periodo di tempo",
+            ],
+            meaningTranslated: [
+                "lend something to someone for a period of time",
+            ],
+        },
+        primeira: {
+            translation: [
+                "prima",
+            ],
+            meaning: [
+                "il primo in una serie",
+            ],
+            meaningTranslated: [
+                "the first in a series",
+            ],
+        },
+        problema: {
+            translation: [
+                "problema",
+            ],
+            meaning: [
+                "una situazione difficile",
+            ],
+            meaningTranslated: [
+                "a difficult situation",
+            ],
+        },
+        problemas: {
+            translation: [
+                "problemi",
+            ],
+            meaning: [
+                "situazioni difficili",
+            ],
+            meaningTranslated: [
+                "difficult situations",
+            ],
+        },
+        pronta: {
+            translation: [
+            ],
+            meaning: [
+                "preparata",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        protegia: {
+            translation: [
+            ],
+            meaning: [
+                "difendeva",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        pulseira: {
+            translation: [
+            ],
+            meaning: [
+                "un accessorio da polso",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        qual: {
+            translation: [
+                "cosa",
+                "che",
+            ],
+            meaning: [
+                "cosa",
+                "usato per domande",
+            ],
+            meaningTranslated: [
+                "what",
+                "used for questions",
+            ],
+        },
+        quando: {
+            translation: [
+                "quando",
+            ],
+            meaning: [
+                "in quale momento",
+            ],
+            meaningTranslated: [
+                "at what time",
+            ],
+        },
+        quandose: {
+            translation: [
+            ],
+            meaning: [
+                "in quale momento in passato",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        quanto: {
+            translation: [
+                "quanto",
+            ],
+            meaning: [
+                "quale quantità",
+            ],
+            meaningTranslated: [
+                "what quantity",
+            ],
+        },
+        que: {
+            translation: [
+                "che",
+            ],
+            meaning: [
+                "utilizzato per formare domande o esclamazioni",
+            ],
+            meaningTranslated: [
+                "used to form questions or exclamations",
+            ],
+        },
+        quem: {
+            translation: [
+                "chi",
+            ],
+            meaning: [
+                "persona non identificata",
+            ],
+            meaningTranslated: [
+                "unidentified person",
+            ],
+        },
+        quer: {
+            translation: [
+                "desidera",
+                "vuole",
+            ],
+            meaning: [
+                "desiderio",
+            ],
+            meaningTranslated: [
+                "desire",
+            ],
+        },
+        queria: {
+            translation: [
+                "voleva",
+            ],
+            meaning: [
+                "desiderio nel passato",
+            ],
+            meaningTranslated: [
+                "desire in the past",
+            ],
+        },
+        queriamenos: {
+            translation: [
+            ],
+            meaning: [
+                "desiderio minore",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        quero: {
+            translation: [
+                "voglio",
+            ],
+            meaning: [
+                "desiderio attuale",
+            ],
+            meaningTranslated: [
+                "current desire",
+            ],
+        },
+    },
+    {
+        quetem: {
+            translation: [
+            ],
+            meaning: [
+                "Que tem",
+            ],
+            meaningTranslated: [
+                "Cosa c'è",
+            ],
+        },
+        quiboa: {
+            translation: [
+            ],
+            meaning: [
+                "Que boa",
+            ],
+            meaningTranslated: [
+                "Che buono",
+            ],
+        },
+        rapto: {
+            translation: [
+                "rapimento",
+            ],
+            meaning: [
+                "Rapto",
+            ],
+            meaningTranslated: [
+                "Sequestro",
+            ],
+        },
+        recebidouma: {
+            translation: [
+            ],
+            meaning: [
+                "Recebi uma",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        recuperousuas: {
+            translation: [
+            ],
+            meaning: [
+                "Recuperou suas",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        rei: {
+            translation: [
+                "re",
+            ],
+            meaning: [
+                "Rei",
+            ],
+            meaningTranslated: [
+                "Re",
+            ],
+        },
+        relacionamentose: {
+            translation: [
+            ],
+            meaning: [
+                "Relacionamentos e",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        resfriado: {
+            translation: [
+                "raffreddore",
+            ],
+            meaning: [
+                "Resfriado",
+            ],
+            meaningTranslated: [
+                "Raffreddore",
+            ],
+        },
+        respeita: {
+            translation: [
+                "rispetta",
+            ],
+            meaning: [
+                "Respeita",
+            ],
+            meaningTranslated: [
+                "Rispetta",
+            ],
+        },
+        resto: {
+            translation: [
+                "resto",
+            ],
+            meaning: [
+                "Resto",
+            ],
+            meaningTranslated: [
+                "Riposo",
+            ],
+        },
+        roubei: {
+            translation: [
+                "ho rubato",
+            ],
+            meaning: [
+                "Roubei",
+            ],
+            meaningTranslated: [
+                "Ho rubato",
+            ],
+        },
+        roubem: {
+            translation: [
+            ],
+            meaning: [
+                "Roubem",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        roupas: {
+            translation: [
+                "vestiti",
+            ],
+            meaning: [
+                "Roupas",
+            ],
+            meaningTranslated: [
+                "Abiti",
+            ],
+        },
+        ruim: {
+            translation: [
+                "cattivo",
+                "pessimo",
+            ],
+            meaning: [
+                "Ruim",
+            ],
+            meaningTranslated: [
+                "Cattivo",
+                "Pessimo",
+            ],
+        },
+        sabe: {
+            translation: [
+                "sa",
+            ],
+            meaning: [
+                "Sabe",
+            ],
+            meaningTranslated: [
+                "Sapere",
+            ],
+        },
+        saber: {
+            translation: [
+                "sapere",
+            ],
+            meaning: [
+                "Saber",
+            ],
+            meaningTranslated: [
+                "Sapere",
+            ],
+        },
+        sabercomo: {
+            translation: [
+                "sapere come",
+            ],
+            meaning: [
+                "Saber como",
+            ],
+            meaningTranslated: [
+                "Sapere come",
+            ],
+        },
+        sabia: {
+            translation: [
+            ],
+            meaning: [
+                "Sabia",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        sabotar: {
+            translation: [
+                "sabotare",
+            ],
+            meaning: [
+                "Sabotar",
+            ],
+            meaningTranslated: [
+                "Sabotare",
+            ],
+        },
+        saia: {
+            translation: [
+                "gonna",
+            ],
+            meaning: [
+                "Saia",
+            ],
+            meaningTranslated: [
+                "Gonna",
+            ],
+        },
+        sair: {
+            translation: [
+                "uscire",
+            ],
+            meaning: [
+                "Sair",
+            ],
+            meaningTranslated: [
+                "Uscire",
+            ],
+        },
+        saircom: {
+            translation: [
+                "uscire con",
+            ],
+            meaning: [
+                "Sair com",
+            ],
+            meaningTranslated: [
+                "Uscire con",
+            ],
+        },
+        saiu: {
+            translation: [
+                "è uscito",
+            ],
+            meaning: [
+                "Saiu",
+            ],
+            meaningTranslated: [
+                "È uscito",
+            ],
+        },
+        sea: {
+            translation: [
+                "mare",
+            ],
+            meaning: [
+                "Sea",
+            ],
+            meaningTranslated: [
+                "Mare",
+            ],
+        },
+        sei: {
+            translation: [
+                "sei",
+            ],
+            meaning: [
+                "Sei",
+            ],
+            meaningTranslated: [
+                "Sei",
+            ],
+        },
+        semana: {
+            translation: [
+                "settimana",
+            ],
+            meaning: [
+                "Semana",
+            ],
+            meaningTranslated: [
+                "Settimana",
+            ],
+        },
+        sempre: {
+            translation: [
+                "sempre",
+            ],
+            meaning: [
+                "Sempre",
+            ],
+            meaningTranslated: [
+                "Sempre",
+            ],
+        },
+        sempreprestam: {
+            translation: [
+            ],
+            meaning: [
+                "Sempre prestam",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        sendomeu: {
+            translation: [
+            ],
+            meaning: [
+                "Sendomeu",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        sentado: {
+            translation: [
+                "seduto",
+            ],
+            meaning: [
+                "Sentado",
+            ],
+            meaningTranslated: [
+                "Seduto",
+            ],
+        },
+        sente: {
+            translation: [
+                "senta",
+            ],
+            meaning: [
+                "Sente",
+            ],
+            meaningTranslated: [
+                "Senta",
+            ],
+        },
+        sentir: {
+            translation: [
+                "sentire",
+            ],
+            meaning: [
+                "Sentir",
+            ],
+            meaningTranslated: [
+                "Sentire",
+            ],
+        },
+        separados: {
+            translation: [
+                "separati",
+            ],
+            meaning: [
+                "Separados",
+            ],
+            meaningTranslated: [
+                "Separati",
+            ],
+        },
+        ser: {
+            translation: [
+                "essere",
+            ],
+            meaning: [
+                "Ser",
+            ],
+            meaningTranslated: [
+                "Essere",
+            ],
+        },
+        seria: {
+            translation: [
+                "sarebbe",
+                "seria",
+            ],
+            meaning: [
+                "Seria",
+            ],
+            meaningTranslated: [
+                "Sarebbe",
+                "Sarebbe",
+            ],
+        },
+        seriatrabalhar: {
+            translation: [
+            ],
+            meaning: [
+                "Seria trabalhar",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        seu: {
+            translation: [
+                "tuo",
+            ],
+            meaning: [
+                "Seu",
+            ],
+            meaningTranslated: [
+                "Tuo",
+            ],
+        },
+    },
+    {
+        sinto: {
+            translation: [
+                "sentire",
+            ],
+            meaning: [
+                "verbo sentir na 1ª pessoa do singular do presente do indicativo",
+            ],
+            meaningTranslated: [
+                "verb to feel in the 1st person singular of the present indicative",
+            ],
+        },
+        sobre: {
+            translation: [
+                "su",
+                "circa",
+                "di",
+                "riguardo",
+                "intorno",
+                "sul",
+                "in",
+                "su;circa",
+            ],
+            meaning: [
+                "preposição com sentido de posição",
+            ],
+            meaningTranslated: [
+                "preposition with sense of position",
+            ],
+        },
+        sonho: {
+            translation: [
+                "sogno",
+            ],
+            meaning: [
+                "substantivo masculino, o sonho enquanto imagem ou desejo",
+            ],
+            meaningTranslated: [
+                "masculine noun, the dream as an image or desire",
+            ],
+        },
+        sou: {
+            translation: [
+                "sono",
+                "siete",
+            ],
+            meaning: [
+                "verbo ser na 1ª e 2ª pessoa do singular do presente do indicativo",
+            ],
+            meaningTranslated: [
+                "verb to be in the 1st and 2nd person singular of the present indicative",
+            ],
+        },
+        stacy: {
+            translation: [
+            ],
+            meaning: [
+                "nome próprio",
+            ],
+            meaningTranslated: [
+            ],
+        },
+        stevoarmas: {
+            translation: [
+            ],
+            meaning: [
+            ],
+            meaningTranslated: [
+            ],
+        },
+        sua: {
+            translation: [
+                "sua",
+                "tuo",
+                "suo",
+                "loro",
+            ],
+            meaning: [
+                "adjetivo possessivo na 3ª pessoa do singular",
+            ],
+            meaningTranslated: [
+                "possessive adjective in the 3rd person singular",
+            ],
+        },
+        suas: {
+            translation: [
+                "loro",
+                "loro;suo",
+                "loro;tue",
+                "loro;sue",
+            ],
+            meaning: [
+                "adjetivo possessivo na 3ª pessoa do plural",
+            ],
+            meaningTranslated: [
+                "possessive adjective in the 3rd person plural",
+            ],
+        },
+        suficiente: {
+            translation: [
+                "abbastanza",
+                "sufficiente",
+                "sufficiente;abbastanza",
+            ],
+            meaning: [
+                "adjetivo com sentido de quantidade adequada",
+            ],
+            meaningTranslated: [
+                "adjective with sense of adequate quantity",
+            ],
+        },
+        talvez: {
+            translation: [
+                "forse",
+                "magari",
+                "chissà",
+            ],
+            meaning: [
+                "advérbio com sentido de dúvida ou possibilidade",
+            ],
+            meaningTranslated: [
+                "adverb with sense of doubt or possibility",
+            ],
+        },
+        tanque: {
+            translation: [
+                "serbatoio",
+                "cisterna",
+                "carroarmato",
+            ],
+            meaning: [
+                "substantivo masculino, reservatório de líquidos ou veículo militar",
+            ],
+            meaningTranslated: [
+                "masculine noun, liquid reservoir or military vehicle",
+            ],
+        },
+        tanto: {
+            translation: [
+                "così tanto",
+                "tanto",
+                "quanto",
+            ],
+            meaning: [
+                "advérbio de intensidade ou quantidade",
+            ],
+            meaningTranslated: [
+                "adverb of intensity or quantity",
+            ],
+        },
+        tantoque: {
+            translation: [
+            ],
+            meaning: [
+            ],
+            meaningTranslated: [
+            ],
+        },
+        tashapara: {
+            translation: [
+            ],
+            meaning: [
+            ],
+            meaningTranslated: [
+            ],
+        },
+        temos: {
+            translation: [
+                "abbiamo",
+            ],
+            meaning: [
+                "verbo ter na 1ª pessoa do plural do presente do indicativo",
+            ],
+            meaningTranslated: [
+                "verb to have in the 1st person plural of the present indicative",
+            ],
+        },
+        tenha: {
+            translation: [
+                "abbia",
+            ],
+            meaning: [
+                "verbo ter na 3ª pessoa do singular do presente do subjuntivo",
+            ],
+            meaningTranslated: [
+                "verb to have in the 3rd person singular of the present subjunctive",
+            ],
+        },
+        tenho: {
+            translation: [
+                "ho",
+            ],
+            meaning: [
+                "verbo ter na 1ª pessoa do singular do presente do indicativo",
+            ],
+            meaningTranslated: [
+                "verb to have in the 1st person singular of the present indicative",
+            ],
+        },
+        tentava: {
+            translation: [
+                "stava tentando",
+                "tentava",
+            ],
+            meaning: [
+                "verbo tentar na 3ª pessoa do singular do pretérito imperfeito do indicativo",
+            ],
+            meaningTranslated: [
+                "verb to try in the 3rd person singular of the past imperfect indicative",
+            ],
+        },
+        tentei: {
+            translation: [
+                "ho tentato",
+                "tentavo",
+                "ho provato",
+            ],
+            meaning: [
+                "verbo tentar na 1ª pessoa do singular do pretérito perfeito do indicativo",
+            ],
+            meaningTranslated: [
+                "verb to try in the 1st person singular of the past perfect indicative",
+            ],
+        },
+        ter: {
+            translation: [
+                "avere",
+            ],
+            meaning: [
+                "verbo ter na infinitivo",
+            ],
+            meaningTranslated: [
+                "verb to have in the infinitive",
+            ],
+        },
+        terceira: {
+            translation: [
+                "terzo",
+                "terza",
+            ],
+            meaning: [
+                "substantivo feminino, posição ordinal",
+            ],
+            meaningTranslated: [
+                "feminine noun, ordinal position",
+            ],
+        },
+        teria: {
+            translation: [
+                "avrei",
+            ],
+            meaning: [
+                "verbo ter na 1ª pessoa do singular do condicional",
+            ],
+            meaningTranslated: [
+                "verb to have in the 1st person singular of the conditional",
+            ],
+        },
+        terminar: {
+            translation: [
+                "finire",
+                "terminare",
+            ],
+            meaning: [
+                "verbo terminar na infinitivo",
+            ],
+            meaningTranslated: [
+                "verb to finish in the infinitive",
+            ],
+        },
+        teve: {
+            translation: [
+                "ha avuto",
+                "ebbe",
+            ],
+            meaning: [
+                "verbo ter na 3ª pessoa do singular do pretérito perfeito do indicativo",
+            ],
+            meaningTranslated: [
+                "verb to have in the 3rd person singular of the past perfect indicative",
+            ],
+        },
+        time: {
+            translation: [
+                "tempo",
+                "ora",
+            ],
+            meaning: [
+                "substantivo masculino, duração ou momento específico",
+            ],
+            meaningTranslated: [
+                "masculine noun, duration or specific moment",
+            ],
+        },
+        tinha: {
+            translation: [
+                "aveva",
+            ],
+            meaning: [
+                "verbo ter na 3ª pessoa do singular do pretérito imperfeito do indicativo",
+            ],
+            meaningTranslated: [
+                "verb to have in the 3rd person singular of the past imperfect indicative",
+            ],
+        },
+        tipo: {
+            translation: [
+                "tipo",
+            ],
+            meaning: [
+                "substantivo masculino, categoria ou classificação",
+            ],
+            meaningTranslated: [
+                "masculine noun, category or classification",
+            ],
+        },
+        tirar: {
+            translation: [
+                "togliere",
+                "rimuovere",
+                "strappare",
+            ],
+            meaning: [
+                "verbo tirar na infinitivo",
+            ],
+            meaningTranslated: [
+                "verb to take in the infinitive",
+            ],
+        },
+        tiraria: {
+            translation: [
+                "avrei tolto",
+                "avrebbe tolto",
+            ],
+            meaning: [
+                "verbo tirar na 1ª e 3ª pessoa do singular do condicional",
+            ],
+            meaningTranslated: [
+                "verb to take in the 1st and 3rd person singular of the conditional",
+            ],
+        },
+        tive: {
+            translation: [
+                "ho avuto",
+            ],
+            meaning: [
+                "verbo ter na 1ª pessoa do singular do pretérito perfeito do indicativo",
+            ],
+            meaningTranslated: [
+                "verb to have in the 1st person singular of the past perfect indicative",
+            ],
+        },
+        tiver: {
+            translation: [
+                "avrei",
+            ],
+            meaning: [
+                "verbo ter na 1ª pessoa do singular do futuro do subjuntivo",
+            ],
+            meaningTranslated: [
+                "verb to have in the 1st person singular of the future subjunctive",
+            ],
+        },
+        tivesse: {
+            translation: [
+                "avessi",
+            ],
+            meaning: [
+                "verbo ter na 1ª pessoa do singular do pretérito imperfeito do subjuntivo",
+            ],
+            meaningTranslated: [
+                "verb to have in the 1st person singular of the past imperfect subjunctive",
+            ],
+        },
+        tocar: {
+            translation: [
+                "suonare",
+                "toccare",
+                "toccare;suonare",
+            ],
+            meaning: [
+                "verbo tocar no infinitivo",
+            ],
+            meaningTranslated: [
+                "verb to play or to touch in the infinitive",
+            ],
+        },
+        toda: {
+            translation: [
+                "tutto",
+                "tutta",
+                "tutt'intero",
+            ],
+            meaning: [
+                "adjetivo demonstrativo feminino",
+            ],
+            meaningTranslated: [
+                "demonstrative feminine adjective",
+            ],
+        },
+        todo: {
+            translation: [
+                "tutto",
+                "intero",
+                "ogni",
+                "tutto;ogni",
+            ],
+            meaning: [
+                "adjetivo demonstrativo ou pronome indefinido masculino",
+            ],
+            meaningTranslated: [
+                "demonstrative adjective or indefinite pronoun masculine",
+            ],
+        },
+        todos: {
+            translation: [
+                "tutti",
+                "tutti;ognuno",
+            ],
+            meaning: [
+                "adjetivo demonstrativo ou pronome indefinido masculino plural",
+            ],
+            meaningTranslated: [
+                "demonstrative adjective or indefinite pronoun masculine plural",
+            ],
+        },
+        tonya: {
+            translation: [
+            ],
+            meaning: [
+                "nome próprio",
+            ],
+            meaningTranslated: [
+            ],
+        },
+    },
+    {
+        torta: {
+            translation: [
+                "torta",
+            ],
+            meaning: [
+                "cake",
+                "wrong",
+            ],
+            meaningTranslated: [
+                "torta",
+                "sbagliato",
+            ],
+        },
+        trabalha: {
+            translation: [
+                "lavora",
+            ],
+            meaning: [
+                "he/she works",
+            ],
+            meaningTranslated: [
+                "lavora",
+            ],
+        },
+        trabalhar: {
+            translation: [
+                "lavorare",
+            ],
+            meaning: [
+                "to work",
+            ],
+            meaningTranslated: [
+                "lavorare",
+            ],
+        },
+        trabalharnos: {
+            translation: [
+                "",
+            ],
+            meaning: [
+                "to work for us",
+            ],
+            meaningTranslated: [
+                "",
+            ],
+        },
+        trabalho: {
+            translation: [
+                "lavoro",
+            ],
+            meaning: [
+                "work",
+                "job",
+            ],
+            meaningTranslated: [
+                "lavoro",
+                "lavoro",
+            ],
+        },
+        trabalhos: {
+            translation: [
+                "lavori",
+            ],
+            meaning: [
+                "works",
+                "jobs",
+            ],
+            meaningTranslated: [
+                "lavori",
+                "lavori",
+            ],
+        },
+        trazer: {
+            translation: [
+                "portare",
+            ],
+            meaning: [
+                "to bring",
+            ],
+            meaningTranslated: [
+                "portare",
+            ],
+        },
+        triste: {
+            translation: [
+                "triste",
+            ],
+            meaning: [
+                "sad",
+            ],
+            meaningTranslated: [
+                "triste",
+            ],
+        },
+        trouxe: {
+            translation: [
+                "ha portato",
+            ],
+            meaning: [
+                "brought",
+            ],
+            meaningTranslated: [
+                "ha portato",
+            ],
+        },
+        tudo: {
+            translation: [
+                "tutto",
+            ],
+            meaning: [
+                "everything",
+                "all",
+            ],
+            meaningTranslated: [
+                "tutto",
+                "tutto",
+            ],
+        },
+        uma: {
+            translation: [
+                "una",
+            ],
+            meaning: [
+                "a",
+                "an",
+            ],
+            meaningTranslated: [
+                "una",
+                "un",
+            ],
+        },
+        uns: {
+            translation: [
+                "",
+            ],
+            meaning: [
+                "some",
+            ],
+            meaningTranslated: [
+                "",
+            ],
+        },
+        usauma: {
+            translation: [
+                "",
+            ],
+            meaning: [
+                "he/she uses a",
+            ],
+            meaningTranslated: [
+                "",
+            ],
+        },
+        vai: {
+            translation: [
+                "va",
+            ],
+            meaning: [
+                "he/she/it goes",
+            ],
+            meaningTranslated: [
+                "va",
+            ],
+        },
+        veio: {
+            translation: [
+                "è venuto",
+            ],
+            meaning: [
+                "came",
+            ],
+            meaningTranslated: [
+                "è venuto",
+            ],
+        },
+        velhos: {
+            translation: [
+                "vecchi",
+            ],
+            meaning: [
+                "old",
+                "elderly",
+            ],
+            meaningTranslated: [
+                "vecchi",
+                "anziani",
+            ],
+        },
+        vender: {
+            translation: [
+                "vendere",
+            ],
+            meaning: [
+                "to sell",
+            ],
+            meaningTranslated: [
+                "vendere",
+            ],
+        },
+        verdade: {
+            translation: [
+                "verità",
+            ],
+            meaning: [
+                "truth",
+            ],
+            meaningTranslated: [
+                "verità",
+            ],
+        },
+        verem: {
+            translation: [
+                "",
+            ],
+            meaning: [
+                "they will see",
+            ],
+            meaningTranslated: [
+                "",
+            ],
+        },
+        vez: {
+            translation: [
+                "volta",
+            ],
+            meaning: [
+                "time",
+            ],
+            meaningTranslated: [
+                "volta",
+            ],
+        },
+        vim: {
+            translation: [
+                "sono venuto",
+            ],
+            meaning: [
+                "came",
+            ],
+            meaningTranslated: [
+                "sono venuto",
+            ],
+        },
+        viram: {
+            translation: [
+                "hanno visto",
+            ],
+            meaning: [
+                "saw",
+            ],
+            meaningTranslated: [
+                "hanno visto",
+            ],
+        },
+        virei: {
+            translation: [
+                "sono diventato",
+            ],
+            meaning: [
+                "became",
+            ],
+            meaningTranslated: [
+                "sono diventato",
+            ],
+        },
+        viver: {
+            translation: [
+                "vivere",
+            ],
+            meaning: [
+                "to live",
+            ],
+            meaningTranslated: [
+                "vivere",
+            ],
+        },
+        voltado: {
+            translation: [
+                "",
+            ],
+            meaning: [
+                "turned",
+                "focused",
+            ],
+            meaningTranslated: [
+                "",
+            ],
+        },
+        volte: {
+            translation: [
+                "volte",
+            ],
+            meaning: [
+                "times",
+            ],
+            meaningTranslated: [
+                "volte",
+            ],
+        },
+        vontade: {
+            translation: [
+                "voglia",
+            ],
+            meaning: [
+                "desire",
+                "will",
+            ],
+            meaningTranslated: [
+                "voglia",
+                "volontà",
+            ],
+        },
+        vou: {
+            translation: [
+                "vado",
+            ],
+            meaning: [
+                "I go",
+                "I will",
+            ],
+            meaningTranslated: [
+                "vado",
+                "andrò",
+            ],
+        },
+        xadrez: {
+            translation: [
+                "scacchi",
+            ],
+            meaning: [
+                "chess",
+            ],
+            meaningTranslated: [
+                "scacchi",
+            ],
+        },
+        yong: {
+            translation: [
+                "",
+            ],
+            meaning: [
+                "",
+            ],
+            meaningTranslated: [
+                "",
             ],
         },
     },

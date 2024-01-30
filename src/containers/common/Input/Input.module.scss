@@ -6,10 +6,24 @@
     margin-bottom: 1rem;
     width: 100%;
     gap: 0.2rem;
+    position: relative;
 
+    .eye {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        cursor: pointer;
+
+        * {
+            fill: $ninth;
+        }
+    }
 
     input {
+
         background-color: transparent;
+        background-color: white;
+
         border-radius: 10px;
         padding: 15px 10px;
         width: 100%;
@@ -45,17 +59,7 @@
     align-self: stretch;
     position: relative;
 
-    .eye {
-        position: absolute;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-40%);
-        cursor: pointer;
 
-        * {
-            fill: $ninth;
-        }
-    }
 
 
     label {
@@ -90,12 +94,4 @@
             width: 0;
         }
     }
-}
-
-.error {
-    color: red;
-    font-size: 10px;
-    font-weight: 700;
-    margin-top: -10px;
-    margin-left: 5px;
 }

@@ -1,0 +1,123 @@
+@import "@styles/index.scss";
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 70px;
+    background: $background;
+
+    transition: width 0.5s ease-in-out;
+    border-radius: 0px 20px 20px 0px;
+    color: $black;
+    padding: 20px 0px;
+
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    .selectLanguageContainer {
+        position: relative;
+        min-height: 70px;
+        width: 100%;
+        padding: 10px;
+
+        .selectLanguage {
+            position: absolute;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 80%;
+            top: 0%;
+
+            left: 10%;
+
+            label {
+                opacity: 0;
+            }
+        }
+    }
+
+
+    .menu {
+        margin-left: 20px;
+
+        transform: rotate(180deg);
+        transition: transform 0.5s ease-in-out;
+    }
+
+    ul {
+        overflow: hidden;
+
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+
+        .active {
+            background: rgba($black, 0.05);
+            color: $white;
+        }
+
+
+    }
+
+    .item {
+        border: 1px solid rgba($black, 0.05);
+        border-left: 0px;
+        border-right: 0px;
+        padding: 5px 20px;
+
+        .link {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            .icon {
+                width: 30px;
+            }
+
+            span {
+                color: rgba($black, 0.5);
+
+                display: none;
+            }
+        }
+    }
+
+    &:hover {
+        width: 170px;
+
+        .selectLanguageContainer {
+            .selectLanguage {
+                label {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .menu {
+            transform: rotate(0deg);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        li {
+            cursor: pointer;
+
+            .link {
+
+
+                span {
+                    display: flex;
+                }
+            }
+        }
+    }
+}
