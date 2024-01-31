@@ -38,9 +38,10 @@
     width: 100%;
     border-radius: 20px !important;
     overflow: hidden !important;
-    border: 0px solid rgba(black, 0.1) !important;
+    border: 1px solid transparent !important;
     outline: none !important;
     box-shadow: none !important;
+    background: transparent !important;
 
     &:focus,
     &:hover {

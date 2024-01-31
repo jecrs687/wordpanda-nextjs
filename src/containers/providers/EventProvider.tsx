@@ -1,6 +1,6 @@
 'use client';
+import useEvents from '@hooks/useEvents';
 import { useEffect } from 'react';
-import useEvents from 'src/containers/hooks/useEvents';
 
 function EventProvider() {
     const {

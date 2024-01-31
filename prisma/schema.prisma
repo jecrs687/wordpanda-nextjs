@@ -15,8 +15,8 @@ model Translation {
     translations      Word[]   @relation("translationsTo")
     languageId        Int      @map(name: "language_id")
     language          Language @relation(fields: [languageId], references: [id])
-    meaning           String?  @db.VarChar(1024)
-    meaningTranslated String?  @db.VarChar(1024)
+    meaning           String?  @db.VarChar(512)
+    meaningTranslated String?  @db.VarChar(512)
 
     createdAt DateTime  @default(now()) @map(name: "created_at")
     updatedAt DateTime  @updatedAt @map(name: "updated_at")
@@ -95,6 +95,21 @@ model UserWords {
     @@map("user_word")
 }
 
+model WordGameTranslateQuiz {
+    id         Int      @id @default(autoincrement())
+    wordId     Int
+    word       Word     @relation(fields: [wordId], references: [id])
+    languageId Int
+    language   Language @relation(fields: [languageId], references: [id])
+
+    phrase  String   @db.VarChar(512)
+    options String[] @db.VarChar(512)
+
+    createdAt DateTime? @default(now()) @map(name: "created_at")
+    updatedAt DateTime? @updatedAt @map(name: "updated_at")
+    deletedAt DateTime? @map(name: "deleted_at")
+}
+
 model Word {
     id   Int    @id @default(autoincrement())
     word String
@@ -113,10 +128,11 @@ model Word {
 
     userWords UserWords[]
 
-    difficulty Int? @default(0)
-    attempts   Int? @default(0)
-    errors     Int? @default(0)
-    frequency  Int? @default(0)
+    difficulty            Int?                    @default(0)
+    attempts              Int?                    @default(0)
+    errors                Int?                    @default(0)
+    frequency             Int?                    @default(0)
+    wordGameTranslateQuiz WordGameTranslateQuiz[]
 
     @@unique([word, languageId])
     @@unique([id, languageId])
@@ -210,9 +226,10 @@ model Language {
 
     word Word[]
 
-    userLanguage   UserLanguage[]
-    MediaLanguages MediaLanguages[]
-    User           User[]
+    userLanguage          UserLanguage[]
+    MediaLanguages        MediaLanguages[]
+    User                  User[]
+    wordGameTranslateQuiz WordGameTranslateQuiz[]
 
     @@unique([code])
 }

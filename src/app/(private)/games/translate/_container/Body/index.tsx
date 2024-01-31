@@ -1,21 +1,17 @@
 'use client';
-import useEvents from '@hooks/useEvents';
 import { fetchClient } from '@services/fetchClient';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { useDrag } from 'react-dnd';
 import { GamesFlashcardPostRequest, GamesFlashcardPostResponse } from 'src/app/api/games/flashcard/route';
 import { WordWithTranslations, WordsPostRequest, WordsPostResponse } from 'src/app/api/words/route';
-import Loading from 'src/app/loading';
+import useEvents from 'src/containers/hooks/useEvents';
 import useSWRMutation from 'swr/mutation';
 import Card from '../Card';
 import DropSide from '../DropSide';
 import styles from './Body.module.scss';
-type apiRequest = {
-    words: { word: string }[],
-    language: string
-}
-export const FlashBody = () => {
+
+export const Body = () => {
     const { events: { words } } = useEvents();
     const { data: { data: wordsList, err: wordsListErr, msg: wordsListMsg } = {},
         error: wordsListError,
@@ -66,7 +62,7 @@ export const FlashBody = () => {
             test: monitor.didDrop()
         }),
     }))
-    if (wordsListIsMutating || !wordsList) return <Loading />
+    if (wordsListIsMutating || !wordsList) return <div>Loading...</div>
     const current = slice[0];
 
     const moveToEndItem = () => {
