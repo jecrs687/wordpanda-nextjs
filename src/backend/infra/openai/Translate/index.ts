@@ -52,12 +52,7 @@ export const translateWords = async (
         return JSON.parse(completion.choices[0].message.content);
     }
     catch {
-        return {
-            translation: [],
-            meaning: [],
-            meaningTranslated: [],
-            words: [],
-        };
+        return {};
     }
 
 }
