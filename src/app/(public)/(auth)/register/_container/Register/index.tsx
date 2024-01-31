@@ -1,5 +1,6 @@
 "use client";
 import Input from '@common/Input';
+import { SelectLanguage } from '@common/SelectLanguage';
 import Image from 'next/image';
 import { useFormState } from 'react-dom';
 import { submit } from './action';
@@ -70,6 +71,7 @@ export default function Register() {
                     type='text'
                     error={state.errors?.username}
                 />
+                <SelectLanguage />
                 <button type='submit' >
                     Login
                 </button>

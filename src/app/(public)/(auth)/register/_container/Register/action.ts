@@ -41,7 +41,8 @@ export async function submit(currentState, form: FormData) {
         });
     }
     const { passwordConfirmation, ...rest } = forms;
-    const response = await createUser(rest)
+    const languageId = +cookies().get('language').value
+    const response = await createUser({ ...rest, languageId })
     if (response?.token)
         cookies().set('token', response.token)
     return response;
