@@ -1,8 +1,8 @@
 import { NavBar } from '@common/NavBar';
+import { ROUTES } from '@constants/ROUTES';
+import { SwrCacheProvider } from '@providers/SwrCacheProvider';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { ROUTES } from 'src/containers/constants/ROUTES';
-import { SwrCacheProvider } from 'src/containers/providers/swrCacheProvider';
 import styles from './layout.module.scss';
 
 export default function RootLayout({

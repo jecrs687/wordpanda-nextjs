@@ -49,6 +49,9 @@
       "@common/*": [
         "src/containers/common/*"
       ],
+      "@providers/*": [
+        "src/containers/providers/*"
+      ],
       "@utils/*": [
         "src/utils/*"
       ],
