@@ -6,9 +6,9 @@ function EventProvider() {
     const {
         insert
     } = useEvents();
-
     useEffect(() => {
         const handleEvent = (event) => {
+            console.log("teste")
             console.log({ event: event.data })
             insert(event.data.name, event.data.content)
         }

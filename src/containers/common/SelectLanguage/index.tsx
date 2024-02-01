@@ -93,7 +93,7 @@ export function SelectLanguage({
             name={name}
             menuPlacement={dropdownPosition}
             isLoading={!data}
-            // isDisabled={values.length === 0 || disabled}
+            isDisabled={values.length === 0 || disabled}
             value={values.find((item) => item.value === language)}
             onChange={(...params) => {
                 setLanguage(params[0].value)

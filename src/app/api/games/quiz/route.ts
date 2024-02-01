@@ -1,19 +1,20 @@
 import prisma from "@infra/config/database";
 import { generateQuizByWords } from "@infra/openai/Quiz";
-import { Language, Word, WordGameTranslateQuiz } from "@prisma/client";
+import { Language, Word, WordGameQuiz } from "@prisma/client";
+import { chunkArray } from "@utils/chunkarray";
 import { validateToken } from "@utils/token";
 import { cookies } from "next/headers";
 
 
-export type GamesTranslateQuizPostRequest = {
+export type GamesQuizPostRequest = {
     words: number[],
 }
 
-export type GamesTranslateQuizPostResponse = {
+export type GamesQuizPostResponse = {
     data?: {
         words: Array<
             Word & {
-                wordGameTranslateQuiz: WordGameTranslateQuiz[],
+                wordGameQuiz: WordGameQuiz[],
                 language: Language
             }
         >,
@@ -38,7 +39,7 @@ export async function POST(request: Request) {
 
     const {
         words
-    }: GamesTranslateQuizPostRequest = await request.json();
+    }: GamesQuizPostRequest = await request.json();
 
     const [wordsOnDb, language] = await Promise.all([await prisma.word.findMany({
         where: {
@@ -48,7 +49,7 @@ export async function POST(request: Request) {
         },
         include: {
             language: true,
-            wordGameTranslateQuiz: true
+            wordGameQuiz: true
         }
     }), await prisma.language.findUnique({
         where: {
@@ -58,15 +59,18 @@ export async function POST(request: Request) {
     if (!wordsOnDb.length) return Response.json({ err: 'Words not found' })
     if (!language) return Response.json({ err: 'Language not found' })
 
-    const wordsWithoutGames = wordsOnDb.filter(word => !word.wordGameTranslateQuiz.length).map(word => word.word)
-    const quiz = generateQuizByWords(wordsWithoutGames, wordsOnDb[0].language.language, language.language)
+    const wordsWithoutGames = wordsOnDb.filter(word => !word.wordGameQuiz.length).map(word => word.word)
+    const quiz = (await Promise.all(chunkArray(wordsWithoutGames, 5).map(async words =>
+        await generateQuizByWords(words, wordsOnDb?.[0]?.language.language, language.language)
+    ))).flat().reduce((acc, curr) => ({ ...acc, ...curr }), {})
 
-    for (const [key, { quiz: quizToTranslate, options }] of Object.entries(quiz)) {
+    for (const [key, { quiz: quizToTranslate, options, correct }] of Object.entries(quiz)) {
         const wordId = wordsOnDb.find(word => word.word === key)?.id
         if (!wordId) continue
-        const wordGame = await prisma.wordGameTranslateQuiz.create({
+        const wordGame = await prisma.wordGameQuiz.create({
             data: {
                 phrase: quizToTranslate,
+                answer: correct,
                 options,
                 wordId,
                 languageId: language.id
@@ -77,7 +81,7 @@ export async function POST(request: Request) {
                 id: wordId
             },
             data: {
-                wordGameTranslateQuiz: {
+                wordGameQuiz: {
                     connect: {
                         id: wordGame.id
                     }
@@ -94,11 +98,15 @@ export async function POST(request: Request) {
         },
         include: {
             language: true,
-            wordGameTranslateQuiz: true
+            wordGameQuiz: {
+                where: {
+                    languageId: language.id
+                }
+            }
         }
     })
 
-    const response: GamesTranslateQuizPostResponse = {
+    const response: GamesQuizPostResponse = {
         data: {
             words: wordsList
         },

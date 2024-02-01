@@ -1,6 +1,5 @@
 import { createUser } from "@backend/domain/actions/User/createUser.action"
 import { migrateLanguages } from "@infra/database/migration/languages"
-import { migrateWords } from "@infra/database/migration/words"
 
 export default async function Page() {
     // await migrateDatabase()
@@ -14,6 +13,6 @@ export default async function Page() {
         languageId: 1
     })
     await migrateLanguages()
-    await migrateWords()
+    // await migrateWords()
     return <></>
 }

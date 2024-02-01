@@ -1,3 +1,4 @@
+import EventProvider from '@providers/EventProvider'
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.scss'
@@ -24,7 +25,9 @@ export default function RootLayout({
         <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
       </head>
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+        <EventProvider />
+        {children}</body>
     </html>
   )
 }

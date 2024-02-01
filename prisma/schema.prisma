@@ -95,15 +95,17 @@ model UserWords {
     @@map("user_word")
 }
 
-model WordGameTranslateQuiz {
+model WordGameQuiz {
     id         Int      @id @default(autoincrement())
     wordId     Int
     word       Word     @relation(fields: [wordId], references: [id])
     languageId Int
     language   Language @relation(fields: [languageId], references: [id])
 
-    phrase  String   @db.VarChar(512)
-    options String[] @db.VarChar(512)
+    type    QuizType?
+    phrase  String    @db.VarChar(512)
+    options String[]  @db.VarChar(512)
+    answer  String    @db.VarChar(512)
 
     createdAt DateTime? @default(now()) @map(name: "created_at")
     updatedAt DateTime? @updatedAt @map(name: "updated_at")
@@ -128,11 +130,11 @@ model Word {
 
     userWords UserWords[]
 
-    difficulty            Int?                    @default(0)
-    attempts              Int?                    @default(0)
-    errors                Int?                    @default(0)
-    frequency             Int?                    @default(0)
-    wordGameTranslateQuiz WordGameTranslateQuiz[]
+    difficulty   Int?           @default(0)
+    attempts     Int?           @default(0)
+    errors       Int?           @default(0)
+    frequency    Int?           @default(0)
+    wordGameQuiz WordGameQuiz[]
 
     @@unique([word, languageId])
     @@unique([id, languageId])
@@ -226,10 +228,10 @@ model Language {
 
     word Word[]
 
-    userLanguage          UserLanguage[]
-    MediaLanguages        MediaLanguages[]
-    User                  User[]
-    wordGameTranslateQuiz WordGameTranslateQuiz[]
+    userLanguage   UserLanguage[]
+    MediaLanguages MediaLanguages[]
+    User           User[]
+    wordGameQuiz   WordGameQuiz[]
 
     @@unique([code])
 }
@@ -244,4 +246,17 @@ enum MediaType {
     MOVIE
     VIDEO
     AUDIO
+}
+
+enum QuizType {
+    TRANSLATION
+    MEANING
+    EXAMPLE
+    SYNONYMS
+    ANTONYMS
+    DEFINITION
+    PRONUNCIATION
+    WORD
+    PHRASE
+    IDIOM
 }

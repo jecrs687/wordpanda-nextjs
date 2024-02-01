@@ -4,13 +4,16 @@ CREATE TYPE "Role" AS ENUM ('USER', 'BKO', 'ADMIN');
 -- CreateEnum
 CREATE TYPE "MediaType" AS ENUM ('MOVIE', 'VIDEO', 'AUDIO');
 
+-- CreateEnum
+CREATE TYPE "QuizType" AS ENUM ('TRANSLATION', 'MEANING', 'EXAMPLE', 'SYNONYMS', 'ANTONYMS', 'DEFINITION', 'PRONUNCIATION', 'WORD', 'PHRASE', 'IDIOM');
+
 -- CreateTable
 CREATE TABLE "Translation" (
     "id" SERIAL NOT NULL,
     "word_id" INTEGER NOT NULL,
     "language_id" INTEGER NOT NULL,
-    "meaning" VARCHAR(1024),
-    "meaningTranslated" VARCHAR(1024),
+    "meaning" VARCHAR(512),
+    "meaningTranslated" VARCHAR(512),
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
     "deleted_at" TIMESTAMP(3),
@@ -28,6 +31,7 @@ CREATE TABLE "User" (
     "email" VARCHAR(90),
     "password" VARCHAR(120),
     "role" "Role" NOT NULL DEFAULT 'USER',
+    "language_id" INTEGER,
     "score" INTEGER NOT NULL DEFAULT 0,
     "last_login_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
@@ -71,6 +75,22 @@ CREATE TABLE "user_word" (
     "next_attempt" TIMESTAMP(3),
 
     CONSTRAINT "user_word_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "WordGameQuiz" (
+    "id" SERIAL NOT NULL,
+    "wordId" INTEGER NOT NULL,
+    "languageId" INTEGER NOT NULL,
+    "type" "QuizType",
+    "phrase" VARCHAR(512) NOT NULL,
+    "options" VARCHAR(512)[],
+    "answer" VARCHAR(512) NOT NULL,
+    "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3),
+    "deleted_at" TIMESTAMP(3),
+
+    CONSTRAINT "WordGameQuiz_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -216,6 +236,9 @@ ALTER TABLE "Translation" ADD CONSTRAINT "Translation_word_id_fkey" FOREIGN KEY 
 ALTER TABLE "Translation" ADD CONSTRAINT "Translation_language_id_fkey" FOREIGN KEY ("language_id") REFERENCES "Language"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "User" ADD CONSTRAINT "User_language_id_fkey" FOREIGN KEY ("language_id") REFERENCES "Language"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "user_language" ADD CONSTRAINT "user_language_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -226,6 +249,12 @@ ALTER TABLE "user_word" ADD CONSTRAINT "user_word_wordId_fkey" FOREIGN KEY ("wor
 
 -- AddForeignKey
 ALTER TABLE "user_word" ADD CONSTRAINT "user_word_user_language_id_fkey" FOREIGN KEY ("user_language_id") REFERENCES "user_language"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "WordGameQuiz" ADD CONSTRAINT "WordGameQuiz_wordId_fkey" FOREIGN KEY ("wordId") REFERENCES "Word"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "WordGameQuiz" ADD CONSTRAINT "WordGameQuiz_languageId_fkey" FOREIGN KEY ("languageId") REFERENCES "Language"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Word" ADD CONSTRAINT "Word_languageId_fkey" FOREIGN KEY ("languageId") REFERENCES "Language"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
