@@ -44,11 +44,11 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
-      - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build
-        env: 
-          DATABASE_URI: ${{  secrets.DATABASE_URI }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_KEY }}
+      # - name: Build with Next.js
+      #   run: ${{ steps.detect-package-manager.outputs.runner }} next build
+      #   env: 
+      #     DATABASE_URI: ${{  secrets.DATABASE_URI }}
+      #     OPENAI_API_KEY: ${{ secrets.OPENAI_KEY }}
       - uses: akhileshns/heroku-deploy@v3.12.12 # This action deploys the content on Heroku
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}} #The Heroku api key we stored on our repo secret
