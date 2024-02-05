@@ -5,6 +5,7 @@ import { IEventPrime } from '@view/interfaces/IEvents';
 import styles from './page.module.scss';
 export default function Page() {
     const { events: { words } } = useEvents();
+    if (typeof window === 'undefined') return <></>
     const translated = Object.values(words)[0] as IEventPrime
     return (
 
