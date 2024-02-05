@@ -60,7 +60,7 @@ export default function UserForm({ user }: {
             }
             onSubmit={async (values, { setSubmitting }) => {
                 setCookie('language', String(values.languageId))
-                localStorage.setItem('language', String(values.languageId))
+                localStorage.setItem('wordPand_language', String(values.languageId))
                 await trigger(values);
                 setSubmitting(false);
             }}

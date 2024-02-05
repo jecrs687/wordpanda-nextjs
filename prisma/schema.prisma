@@ -36,7 +36,7 @@ model User {
 
     role Role @default(USER)
 
-    languageId    Int?           @map(name: "language_id")
+    languageId    Int            @default(1) @map(name: "language_id")
     language      Language?      @relation(fields: [languageId], references: [id])
     score         Int            @default(0)
     lastLoginAt   DateTime?      @default(now()) @map(name: "last_login_at")
@@ -119,10 +119,10 @@ model Word {
     languageId Int
     language   Language @relation(fields: [languageId], references: [id])
 
-    translations   Translation[]
-    translationsTo Translation[] @relation("translationsTo")
-
-    mediaWords MediaWords[]
+    translations           Translation[]
+    translationsTo         Translation[] @relation("translationsTo")
+    isNotPossibleTranslate Boolean?      @default(false) @map(name: "is_not_possible_translate")
+    mediaWords             MediaWords[]
 
     createdAt DateTime? @default(now()) @map(name: "created_at")
     updatedAt DateTime? @updatedAt @map(name: "updated_at")
@@ -144,7 +144,7 @@ model Platform {
     id      Int     @id @default(autoincrement())
     name    String
     url     String
-    logoUrl String? @map(name: "logo_url")
+    logoUrl String  @default("https://picsum.photos/500/1000") @map(name: "logo_url")
     medias  Media[]
 
     createdAt DateTime  @default(now()) @map(name: "created_at")
@@ -160,7 +160,7 @@ model Media {
     type       MediaType @default(VIDEO)
     platformId Int       @map(name: "platform_id")
     platform   Platform  @relation(fields: [platformId], references: [id])
-    logoUrl    String?   @map(name: "logo_url")
+    logoUrl    String    @default("https://picsum.photos/500/1000") @map(name: "logo_url")
 
     mediaLanguages MediaLanguages[]
 

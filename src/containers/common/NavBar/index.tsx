@@ -2,6 +2,8 @@
 import { SelectLanguage } from "@common/SelectLanguage";
 import { ROUTES } from "@constants/ROUTES";
 import { Svg } from "@core/Svg";
+import useDevice from "@hooks/useDevice";
+import { getCookie } from "@utils/cookie";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
@@ -43,13 +45,37 @@ const paths = [
 ]
 export function NavBar() {
     const [path, setPath] = useState<string>('')
+    const [allPaths, setAllPaths] = useState<{
+        path: string;
+        icon: string;
+        name: string;
+    }[]
+    >(paths)
+    const { extension } = useDevice()
     const route = usePathname()
     const updatePath = () => {
         setPath(window?.location.pathname)
     }
+
+
     useEffect(() => {
         updatePath();
     }, [route])
+
+    useEffect(() => {
+        const isAdmin = getCookie("admin") || localStorage.getItem("admin") === "true"
+        if (isAdmin) paths.push(
+            {
+                path: ROUTES.ADMIN(),
+                icon: "/assets/icons/video.svg",
+                name: "Admin"
+            },
+        )
+
+
+
+    }, [extension])
+    if (extension) return <></>
     return <nav className={styles.nav}>
         <Image
             src="/assets/icons/menu.svg"

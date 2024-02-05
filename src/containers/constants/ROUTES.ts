@@ -29,4 +29,8 @@ export const ROUTES = {
     MOVIE: (id) => `/movies/${id}`,
     VIDEOS: () => '/videos',
     VIDEO: (id) => `/videos/${id}`,
+    ADMIN: () => `/admin`,
+    SAVE_WORDS: () => `/admin/save-words`,
+    EXTENSION: () => `/extension`,
+    EXTENSION_GAMES: () => `/extension/games`,
 }

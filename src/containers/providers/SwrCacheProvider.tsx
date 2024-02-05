@@ -31,6 +31,7 @@ export const SwrCacheProvider = () => {
         cache
     ])
     useEffect(() => {
+        console.log("teste3")
         if (!Object.keys(parsedSWRCache).length) return;
         Object.entries(parsedSWRCache).forEach(([key, value]) => {
             if (!value) return;

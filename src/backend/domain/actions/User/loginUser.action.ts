@@ -1,7 +1,9 @@
 "use server";
 import prisma from "@infra/config/database";
+import { Role } from "@prisma/client";
 import { comparePassword } from "@utils/encrypt";
 import { generateToken } from "@utils/token";
+import { cookies } from "next/headers";
 import z from "zod";
 const schema = z.object({
     email: z.string().email(),
@@ -22,7 +24,7 @@ export async function loginUser(login: LoginDto) {
 
         const userFound = await prisma.user.findFirst({
             where: {
-                email: login.email
+                email: login.email.toLowerCase()
             }
         })
 
@@ -47,11 +49,20 @@ export async function loginUser(login: LoginDto) {
                 id: userFound.id
             },
             data: {
-                createdAt: new Date(),
+                lastLoginAt: new Date(),
             }
         })
+        try {
+            if (userFound.role === Role.ADMIN)
+                cookies().set("admin", "true")
+            else
+                cookies().delete("admin")
+        }
+        catch {
+            console.log("Not possible set as admin in cookies")
+        }
         const token = generateToken(userFound);
-        return { token }
+        return { token, admin: userFound.role === Role.ADMIN }
 
     } catch (err) {
         return ({

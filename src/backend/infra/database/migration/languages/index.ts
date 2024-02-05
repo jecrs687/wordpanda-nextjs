@@ -5,10 +5,7 @@ export const migrateLanguages = async () => {
     const filteredLanguages: {
         [key: string]: string
     } = LANGUAGES.reduce((a, c) => {
-        if ([
-            'en-us', 'it-it', 'pt-br'
-        ].includes(c.code))
-            a[c.code] = c.language;
+        a[c.code] = c.language;
         return a;
     }, {})
     const languages: { code: string, language: string }[] = Object.entries(filteredLanguages).map(([code, language]) => ({ code, language }))

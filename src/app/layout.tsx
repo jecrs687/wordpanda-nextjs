@@ -1,4 +1,5 @@
 import EventProvider from '@providers/EventProvider'
+import InformationProvider from '@providers/InformationProvider'
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.scss'
@@ -15,9 +16,8 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
 }) {
-
   return (
 
     <html lang="en">
@@ -28,7 +28,9 @@ export default function RootLayout({
       </head>
       <body className={poppins.className}>
         <EventProvider />
-        {children}</body>
+        <InformationProvider />
+        {children}
+      </body>
     </html>
   )
 }

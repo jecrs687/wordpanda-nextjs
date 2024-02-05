@@ -1,9 +1,10 @@
 "use client";
+import useLanguage from "@hooks/useLanguage";
 import { fetchClient } from "@services/fetchClient";
 import { capitalizeFirstLetter } from "@utils/capitalizeFirstLetter";
 import { getCookie, setCookie } from "@utils/cookie";
 import clsx from "clsx";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import Select, { ActionMeta } from "react-select";
 import { LanguagesGetResponse } from "src/app/api/languages/route";
 import { ProfileGetResponse } from "src/app/api/profile/route";
@@ -20,6 +21,7 @@ export function SelectLanguage({
     title,
     className,
     dropdownPosition = 'auto',
+    targetLanguage = false,
 }: {
     onChange?: (value: {
         value: number;
@@ -34,7 +36,8 @@ export function SelectLanguage({
     onBlur?: (x: any) => void,
     title?: string,
     className?: string,
-    dropdownPosition?: 'auto' | 'bottom' | 'top'
+    dropdownPosition?: 'auto' | 'bottom' | 'top',
+    targetLanguage?: boolean
 
 }
 
@@ -44,21 +47,35 @@ export function SelectLanguage({
         fetcher: fetchClient("GET")
     });
     const { trigger } = useSWRMutation<ProfileGetResponse, Error>('/api/profile', fetchClient("GET"));
-    const [language, setLanguage] = useState<number | undefined>(value);
+
+    const languageHook = useLanguage();
+    const {
+        language,
+        select,
+        setLanguages
+    } = {
+        ...languageHook,
+        language: targetLanguage ? languageHook.targetLanguage : languageHook.language,
+        select: targetLanguage ? languageHook.selectTargetLanguage : languageHook.select,
+    }
+
+    useEffect(() => {
+        if (data?.languages) setLanguages(data.languages)
+    }, [data, setLanguages])
 
     const getLanguage = useCallback(async () => {
         const response = await trigger()
-        localStorage.setItem('language', String(response?.data?.languageId))
+        localStorage.setItem('wordPand_language', String(response?.data?.languageId))
         setCookie('language', String(response?.data?.languageId))
-        setLanguage(response?.data?.languageId)
-    }, [trigger])
+        select(response?.data?.languageId)
+    }, [trigger, select])
 
     useEffect(() => {
-        const storageLanguage = localStorage.getItem('language')
+        const storageLanguage = localStorage.getItem('wordPand_language')
         const cookiesLanguage = getCookie('language')
         if (language) {
             if (!storageLanguage)
-                localStorage.setItem('language', String(language))
+                localStorage.setItem('wordPand_language', String(language))
             if (!cookiesLanguage)
                 setCookie('language', String(language))
             return;
@@ -66,16 +83,16 @@ export function SelectLanguage({
         if (storageLanguage) {
             if (!cookiesLanguage)
                 setCookie('language', String(storageLanguage))
-            setLanguage(Number(storageLanguage))
+            select(Number(storageLanguage))
         }
         else if (cookiesLanguage) {
             if (!storageLanguage)
-                localStorage.setItem('language', String(cookiesLanguage))
-            setLanguage(Number(cookiesLanguage))
+                localStorage.setItem('wordPand_language', String(cookiesLanguage))
+            select(Number(cookiesLanguage))
         }
         else
             getLanguage()
-    }, [getLanguage, language])
+    }, [getLanguage, language, select])
 
     const values = useMemo(
         () => data?.languages?.map((item) => ({ value: item.id, label: capitalizeFirstLetter(item.language) })) || [],
@@ -96,7 +113,7 @@ export function SelectLanguage({
             isDisabled={values.length === 0 || disabled}
             value={values.find((item) => item.value === language)}
             onChange={(...params) => {
-                setLanguage(params[0].value)
+                select(params[0].value)
                 onChange(...params)
             }}
             className={clsx(styles.select)}

@@ -46,7 +46,7 @@ export default async function Page() {
                                             <Image
                                                 width={50}
                                                 height={50}
-                                                src={content.mediaLanguage.media.logoUrl}
+                                                src={content.mediaLanguage.media.logoUrl || "https://picsum.photos/200/300"}
                                                 alt={content.mediaLanguage.media.name}
                                                 className={styles.logo}
                                             />
@@ -74,7 +74,7 @@ export default async function Page() {
                                                 <Image
                                                     width={50}
                                                     height={50}
-                                                    src={content.logoUrl}
+                                                    src={content.logoUrl || "https://picsum.photos/200/300"}
                                                     alt={content.name}
                                                     className={styles.logo}
                                                 />

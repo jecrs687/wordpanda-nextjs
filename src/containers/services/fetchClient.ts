@@ -12,7 +12,9 @@ export const fetchClient = (method: string) => async (
         method,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': getCookie('token')
+            'Authorization': getCookie('token') || localStorage.getItem('wordPand_token'),
+            'language': getCookie('language') || localStorage.getItem('wordPand_language'),
+            'Set-Cookie': `token=${getCookie('token') || localStorage.getItem('wordPand_token')}`
         },
         body: JSON.stringify(options?.arg)
     })).json()

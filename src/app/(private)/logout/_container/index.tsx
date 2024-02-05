@@ -9,6 +9,7 @@ const deleteCookie = (name) => {
 export const Logout = async () => {
     useEffect(() => {
         deleteCookie('token')
+        localStorage.clear()
         setTimeout(() => {
             redirect(ROUTES.LOGIN())
 

@@ -6,7 +6,7 @@ import { TRANSLATED_WORDS_MOCK_ITALIAN } from "@mocks/translatedWordsMock"
 import { Translation, UserWords, Word } from "@prisma/client"
 import { chunkArray } from "@utils/chunkarray"
 import { validateToken } from "@utils/token"
-import { cookies } from "next/headers"
+import { cookies, headers } from "next/headers"
 
 
 
@@ -36,7 +36,8 @@ export type WordsPostRequest = {
 }
 export async function POST(request: Request) {
     try {
-        const token = cookies().get('token')
+        const token = cookies().get('token') || headers().get('Authorization')
+        const languageId = cookies().get('language')?.value || headers().get('language')
         if (!token) return Response.json({
             err: 'Not authorized'
         })
@@ -64,19 +65,19 @@ export async function POST(request: Request) {
         })
         const translationLanguageTarget = await prisma.language.findUnique({
             where: {
-                id: +cookies().get('language').value
+                id: +languageId
             }
         })
         if (!translationLanguageTarget) return Response.json({
             err: 'Translation language not found'
         })
-
         const wordsOnDb = await prisma.word.findMany({
             where: {
                 word: {
                     in: body.words.map(word => word.word.toLowerCase()),
                 },
                 languageId: language.id,
+                isNotPossibleTranslate: false
             },
             include: {
                 translations: {
@@ -128,6 +129,21 @@ export async function POST(request: Request) {
                 ([key, word]) =>
                     !translationWordsOnDbFlat.includes(word.toLowerCase())
             )
+        const notTranslatedWords = wordsWithoutTranslation.map(x => x.word.toLowerCase()).filter(
+            x => !Object.keys(translatedWordsFlat).includes(x)
+        )
+
+        for (const key of notTranslatedWords) {
+            const word = wordsOnDb.find(x => x.word === key);
+            await prisma.word.update({
+                where: {
+                    id: word.id
+                },
+                data: {
+                    isNotPossibleTranslate: true
+                }
+            })
+        }
 
         const translationWordsToCreate = Array.from(new Set(translationsNotOnDb.map(([key, word]) => word.toLowerCase())))
 
@@ -148,8 +164,8 @@ export async function POST(request: Request) {
         })
 
         for (const [key, words] of Object.entries(translatedWordsFlat)) {
-            const word = wordsOnDb.find(x => x.word === key);
-            const translations = translationWordsOnDb.filter(x => words?.translation?.includes(x.word))
+            const word = wordsOnDb.find(x => x.word === key.toLowerCase());
+            const translations = translationWordsOnDb.filter(x => words?.translation?.includes(x.word.toLowerCase()))
             if (!translations.length) continue
             await prisma.word.update({
                 where: {

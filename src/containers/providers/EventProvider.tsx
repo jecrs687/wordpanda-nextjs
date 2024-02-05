@@ -1,21 +1,27 @@
 'use client';
+import { useChannels } from '@hooks/useChannels';
 import useEvents from '@hooks/useEvents';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 function EventProvider() {
     const {
         insert
     } = useEvents();
-    useEffect(() => {
-        const handleEvent = (event) => {
-            console.log("teste")
-            console.log({ event: event.data })
-            insert(event.data.name, event.data.content)
-        }
-        window?.addEventListener('message', handleEvent, false)
-        return window?.removeEventListener('message', handleEvent)
+    const {
+        web
+    } = useChannels();
+    const handleEvent = useCallback((event) => {
+        insert(event.data.name, event.data.content)
     }, [insert])
 
-    return <></>
+    useEffect(() => {
+        window.addEventListener('message', handleEvent)
+        return () => window.removeEventListener('message', handleEvent)
+    }, [handleEvent])
+
+    useEffect(() => {
+
+    }, [])
+    return <div className='eventProvider' />
 }
 export default EventProvider;
