@@ -1,7 +1,9 @@
 import { getUser } from '@actions/User/getUser.action';
 import { getPlatforms } from '@backend/domain/actions/Platform/getPlatform.action';
+import { ROUTES } from '@constants/ROUTES';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './page.module.scss';
 export default async function Page() {
 
@@ -63,7 +65,9 @@ export default async function Page() {
                                     <h4>{platform.name}</h4>
                                     <div className={styles.contents}>
                                         {platform.medias.map((content, index) =>
-                                            <div key={index} className={styles.content}>
+                                            <Link key={index} className={styles.content} href={
+                                                ROUTES.MOVIE(content.id)
+                                            }>
                                                 <span className={styles.title}>
 
                                                     {content.name}</span>
@@ -78,7 +82,7 @@ export default async function Page() {
                                                     alt={content.name}
                                                     className={styles.logo}
                                                 />
-                                            </div>
+                                            </Link>
                                         )}
                                     </div>
                                 </div>

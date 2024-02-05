@@ -10,7 +10,8 @@ export default function Page() {
 
         <main className={styles.main}>
             <FlashCardGame
-                words={translated}
+                words={translated.words}
+                lang={translated.jsonFromTTML.lang}
             />
         </main>
     )

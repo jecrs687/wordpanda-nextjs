@@ -2,6 +2,7 @@ import EventProvider from '@providers/EventProvider'
 import InformationProvider from '@providers/InformationProvider'
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
+import { Suspense } from 'react'
 import './globals.scss'
 
 const poppins = Poppins({
@@ -28,7 +29,9 @@ export default function RootLayout({
       </head>
       <body className={poppins.className}>
         <EventProvider />
-        <InformationProvider />
+        <Suspense>
+          <InformationProvider />
+        </Suspense>
         {children}
       </body>
     </html>

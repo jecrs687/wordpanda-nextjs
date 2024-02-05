@@ -1,12 +1,11 @@
 'use client';
-import { IEventPrime } from '@view/interfaces/IEvents';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Body } from './_container/Body';
-export default function TranslateGame({ words }: { words: IEventPrime }) {
+export default function TranslateGame({ words, lang }: { words: { word: string }[], lang: string }) {
     return (
         <DndProvider backend={HTML5Backend}>
-            <Body words={words} />
+            <Body words={words} lang={lang} />
         </DndProvider>
     )
 }

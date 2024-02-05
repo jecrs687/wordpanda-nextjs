@@ -5,14 +5,13 @@ import { WordsPostRequest, WordsPostResponse } from 'src/app/api/words/route';
 import useSWRMutation from 'swr/mutation';
 
 import { WordGameQuiz } from '@prisma/client';
-import { IEventPrime } from '@view/interfaces/IEvents';
 import clsx from 'clsx';
 import { GamesMemoryPostRequest, GamesMemoryPostResponse } from 'src/app/api/games/memory/route';
 import { GamesQuizPostRequest, GamesQuizPostResponse } from 'src/app/api/games/quiz/route';
 import Loading from 'src/app/loading';
 import styles from './Body.module.scss';
 
-export const Body = ({ words }: { words: IEventPrime }) => {
+export const Body = ({ words, lang }: { words: { word: string }[], lang: string }) => {
     const [quizList, setQuizList] = useState<WordGameQuiz[]>([])
     const [index, setIndex] = useState<number>(0)
     const [option, setOption] = useState<WordGameQuiz & { options: { value: string, correct: boolean }[] }>()
@@ -47,10 +46,10 @@ export const Body = ({ words }: { words: IEventPrime }) => {
 
     useEffect(() => {
         wordsListTrigger({
-            words: words.words,
-            language: words.jsonFromTTML.lang,
+            words: words,
+            language: lang,
         })
-    }, [words, wordsListTrigger])
+    }, [words, wordsListTrigger, lang])
     const getNewQuiz = useCallback(async () => {
         const response = await quizTrigger({
             words: wordsList.words.map(word => word.id).slice(

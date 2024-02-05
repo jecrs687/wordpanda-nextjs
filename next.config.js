@@ -22,6 +22,8 @@ const nextConfig = {
       ...config.resolve.alias,
       ...alias,
     }
+    config.resolve.fallback = { fs: false, tls: false, net: false, child_process: false };
+
     return Object.assign({}, config, {
       module: Object.assign({}, config.module, {
         rules: config.module.rules.concat([

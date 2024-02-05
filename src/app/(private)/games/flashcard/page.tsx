@@ -8,7 +8,7 @@ export default function Page() {
     const words = Object.values(list)[0]
     return (
         <main className={styles.main}>
-            <FlashCardGame words={words} />
+            <FlashCardGame words={words.words} lang={words.jsonFromTTML.lang} />
         </main>
     )
 }

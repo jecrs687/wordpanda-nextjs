@@ -1,6 +1,5 @@
 'use client';
 import { fetchClient } from '@services/fetchClient';
-import { IEventPrime } from '@view/interfaces/IEvents';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 import { GamesMemoryPostRequest, GamesMemoryPostResponse } from 'src/app/api/games/memory/route';
@@ -21,7 +20,7 @@ type WordMemory = {
     wasWrong?: boolean;
 }
 const QUANT = 5;
-export const Body = ({ words }: { words: IEventPrime }) => {
+export const Body = ({ words, lang }: { words: { word: string }[], lang: string }) => {
     const [firstSelected, setFirstSelected] = useState<number>()
     const [secondSelected, setSecondSelected] = useState<number>()
     const [wordsFiltered, setWordsFiltered] = useState<Array<WordMemory>>([])
@@ -48,10 +47,10 @@ export const Body = ({ words }: { words: IEventPrime }) => {
 
     useEffect(() => {
         wordsListTrigger({
-            words: words.words,
-            language: words.jsonFromTTML.lang,
+            words: words,
+            language: lang,
         })
-    }, [words, wordsListTrigger])
+    }, [words, wordsListTrigger, lang])
 
     useEffect(() => {
         if (!wordsFiltered.length && wordsList?.words) {

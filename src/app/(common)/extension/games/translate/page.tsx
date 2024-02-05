@@ -8,7 +8,10 @@ export default function Page() {
     const translated = Object.values(words)[0] as IEventPrime
     return (
         <main className={styles.main}>
-            <TranslateGame words={translated} />
+            <TranslateGame
+                words={translated.words}
+                lang={translated.jsonFromTTML.lang}
+            />
         </main>
     )
 }

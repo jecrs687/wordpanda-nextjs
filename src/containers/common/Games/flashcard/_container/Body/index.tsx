@@ -1,6 +1,5 @@
 'use client';
 import { fetchClient } from '@services/fetchClient';
-import { IEventPrime } from '@view/interfaces/IEvents';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { useDrag } from 'react-dnd';
@@ -13,10 +12,11 @@ import DropSide from '../DropSide';
 import styles from './Body.module.scss';
 type apiRequest = {
     words: { word: string }[],
-    language: string
+    lang: string
 }
-export const FlashBody = ({ words }: {
-    words: IEventPrime
+export const FlashBody = ({ words, lang }: {
+    words: { word: string }[],
+    lang: string
 }) => {
     const { data: { data: wordsList, err: wordsListErr, msg: wordsListMsg } = {},
         error: wordsListError,
@@ -47,10 +47,10 @@ export const FlashBody = ({ words }: {
 
     useEffect(() => {
         wordsListTrigger({
-            words: words.words,
-            language: words.jsonFromTTML.lang,
+            words: words,
+            language: lang,
         })
-    }, [words, wordsListTrigger])
+    }, [words, wordsListTrigger, lang])
     useEffect(() => {
         if (!wordsCards.length && wordsList?.words) setWordsCards(wordsList?.words)
     }, [wordsList, wordsCards])

@@ -8,7 +8,10 @@ export default function Page() {
     const words = Object.values(list)[0]
     return (
         <main className={styles.main}>
-            <MemoryGame words={words} />
+            <MemoryGame
+                words={words.words}
+                lang={words.jsonFromTTML.lang}
+            />
         </main>
     )
 }
