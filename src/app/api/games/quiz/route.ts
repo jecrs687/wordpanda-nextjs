@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 
 
 export type GamesQuizPostRequest = {
-    words: number[],
+    words: number[]
 }
 
 export type GamesQuizPostResponse = {
@@ -58,7 +58,6 @@ export async function POST(request: Request) {
     })])
     if (!wordsOnDb.length) return Response.json({ err: 'Words not found' })
     if (!language) return Response.json({ err: 'Language not found' })
-
     const wordsWithoutGames = wordsOnDb.filter(word => !word.wordGameQuiz.length).map(word => word.word)
     const quiz = (await Promise.all(chunkArray(wordsWithoutGames, 5).map(async words =>
         await generateQuizByWords(words, wordsOnDb?.[0]?.language.language, language.language)

@@ -11,7 +11,7 @@ import { GamesQuizPostRequest, GamesQuizPostResponse } from 'src/app/api/games/q
 import Loading from 'src/app/loading';
 import styles from './Body.module.scss';
 
-export const Body = ({ words, lang }: { words: { word: string }[], lang: string }) => {
+export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang: string, mediaId?: number }) => {
     const [quizList, setQuizList] = useState<WordGameQuiz[]>([])
     const [index, setIndex] = useState<number>(0)
     const [option, setOption] = useState<WordGameQuiz & { options: { value: string, correct: boolean }[] }>()
@@ -57,6 +57,7 @@ export const Body = ({ words, lang }: { words: { word: string }[], lang: string 
                 quizList.length + 4
             ),
         })
+
         const quiz = response.data.words.map(({ wordGameQuiz }) => wordGameQuiz).flat()
         setQuizList(prev => [...prev, ...quiz])
 
@@ -107,7 +108,8 @@ export const Body = ({ words, lang }: { words: { word: string }[], lang: string 
                             onClick={() => {
                                 memoryTrigger({
                                     wordId: quizList[index].wordId,
-                                    hard: !answer.correct
+                                    hard: !answer.correct,
+                                    mediaId
                                 })
                                 setSelected(i)
                                 setTimeout(() => {

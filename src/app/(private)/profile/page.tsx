@@ -7,7 +7,7 @@ import styles from './page.module.scss';
 export default async function Page() {
   const { value: token } = cookies().get('token');
   const { decoded } = validateToken(token);
-  const { errors, user } = await getUser(token);
+  const { errors, user } = await getUser();
 
   return (
     <main className={styles.main}>

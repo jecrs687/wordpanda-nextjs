@@ -43,6 +43,10 @@
     box-shadow: none !important;
     background: transparent !important;
 
+    ::-webkit-scrollbar {
+        display: none !important;
+    }
+
     &:focus,
     &:hover {
         border: 1px solid rgba(black, 0.1) !important;

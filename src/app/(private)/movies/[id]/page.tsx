@@ -1,4 +1,5 @@
 import { getMovieByUser } from '@backend/domain/actions/Movie/getMovieByUser';
+import { Card } from './_container/Card';
 import styles from './page.module.scss';
 export default async function Page({
     params: { id }
@@ -8,17 +9,24 @@ export default async function Page({
     } = await getMovieByUser(+id)
     return (
         <main className={styles.main}>
-            {
-                movie.mediaLanguages.map((mediaLanguage, index) => {
-                    return (
-                        <div key={index} className={styles.mediaLanguage}>
-                            <h3>{mediaLanguage.language.language}</h3>
-                            <h4>{wordsByUserByMediaByLanguage[mediaLanguage.language.id].length}/{mediaLanguage.mediaWords.length}
-                            </h4>
-                        </div>
-                    )
-                })
-            }
+            <h1>{movie.name}</h1>
+            <div className={styles.languages}>
+                {
+                    movie.mediaLanguages.map((mediaLanguage, index) => {
+                        return (
+                            <Card key={index}
+                                mediaId={movie.id}
+                                words={mediaLanguage.mediaWords}
+                                language={mediaLanguage.language.code}>
+                                <h3>{mediaLanguage.language.language}</h3>
+                                <h4>
+                                    {+(wordsByUserByMediaByLanguage[mediaLanguage.language.id]?.length) || 0}/{mediaLanguage.mediaWords.length}
+                                </h4>
+                            </Card>
+                        )
+                    })
+                }
+            </div>
         </main>
     )
 }

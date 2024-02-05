@@ -14,9 +14,10 @@ type apiRequest = {
     words: { word: string }[],
     lang: string
 }
-export const FlashBody = ({ words, lang }: {
+export const FlashBody = ({ words, lang, mediaId }: {
     words: { word: string }[],
-    lang: string
+    lang: string,
+    mediaId?: unknown | number
 }) => {
     const { data: { data: wordsList, err: wordsListErr, msg: wordsListMsg } = {},
         error: wordsListError,
@@ -87,7 +88,8 @@ export const FlashBody = ({ words, lang }: {
 
         const { data } = await flashcardTrigger({
             wordId: current.id,
-            hard: false
+            hard: false,
+            mediaId
         })
         const { userWords } = data
         if (wordsCards.length) {
@@ -105,7 +107,8 @@ export const FlashBody = ({ words, lang }: {
             removeItem()
         flashcardTrigger({
             wordId: current.id,
-            hard: true
+            hard: true,
+            mediaId
         })
 
 

@@ -1,8 +1,10 @@
 "use server";
 import prisma from "@infra/config/database";
 import { validateToken } from "@utils/token";
-export async function getUser(token: string) {
+import { cookies, headers } from "next/headers";
+export async function getUser() {
     try {
+        const token = cookies().get('token').value || headers().get('Authorization');
         const { decoded: user } = validateToken(token);
         if (user == undefined) {
             return ({

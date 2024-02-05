@@ -2,10 +2,10 @@
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Body } from './_container/Body';
-export default function MemoryGame({ words, lang }: { words: { word: string }[], lang: string }) {
+export default function MemoryGame({ words, lang, mediaId }: { words: { word: string }[], lang: string, mediaId?: unknown | number }) {
     return (
         <DndProvider backend={HTML5Backend}>
-            <Body words={words} lang={lang} />
+            <Body words={words} lang={lang} mediaId={mediaId} />
         </DndProvider>
     )
 }

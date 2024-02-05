@@ -7,7 +7,8 @@ import { cookies } from "next/headers";
 
 export type GamesFlashcardPostRequest = {
     wordId: number,
-    hard: boolean
+    hard: boolean,
+    mediaId: number | unknown
 }
 
 export type GamesFlashcardPostResponse = {
@@ -18,10 +19,7 @@ export type GamesFlashcardPostResponse = {
     msg?: string,
 }
 export async function POST(request: Request) {
-    const body: {
-        wordId: number,
-        hard: boolean
-    } = await request.json();
+    const body: GamesFlashcardPostRequest = await request.json();
     const token = cookies().get('token')
     const { decoded: decryptToken } = validateToken(token)
     if (!decryptToken) return Response.json({ err: 'Token invalid' });
@@ -41,16 +39,37 @@ export async function POST(request: Request) {
 
         if (!user) return Response.json({ err: 'User not found' })
         if (!word) return Response.json({ err: 'Word not found' })
-
-
-        const userLanguage = async () => await prisma.userLanguage.findFirst({
+        if (body.mediaId) {
+            const mediaUser = await prisma.mediaUser.findFirst({
+                where: {
+                    userId: decryptToken.id,
+                    mediaLanguage: {
+                        mediaId: body.mediaId,
+                        languageId: word.languageId
+                    }
+                }
+            })
+            const mediaLanguage = await prisma.mediaLanguages.findFirst({
+                where: {
+                    mediaId: body.mediaId,
+                    languageId: word.languageId
+                }
+            })
+            if (!mediaUser) await prisma.mediaUser.create({
+                data: {
+                    userId: user.id,
+                    mediaLanguageId: mediaLanguage.id
+                }
+            })
+        }
+        const language = await prisma.userLanguage.findFirst({
             where: {
-                id: user.id,
+                userId: user.id,
                 languageId: word.languageId
             }
         })
 
-        if (!await userLanguage()) {
+        if (!language) {
             await prisma.userLanguage.create({
                 data: {
                     userId: user.id,
@@ -58,6 +77,12 @@ export async function POST(request: Request) {
                 }
             })
         }
+        const languageOnDb = language ?? await prisma.userLanguage.findFirst({
+            where: {
+                userId: user.id,
+                languageId: word.languageId
+            }
+        })
 
         const verifyWord = await prisma.userWords.findFirst({
             where: {
@@ -71,7 +96,7 @@ export async function POST(request: Request) {
             await prisma.userWords.create({
                 data: {
                     userId: user.id,
-                    userLanguageId: (await userLanguage()).id,
+                    userLanguageId: languageOnDb.id,
                     wordId: word.id,
                 }
             })
@@ -97,7 +122,7 @@ export async function POST(request: Request) {
         const userWordFinal = await prisma.userWords.findFirst({
             where: {
                 userId: user.id,
-                userLanguageId: (await userLanguage()).id,
+                userLanguageId: languageOnDb.id,
                 wordId: word.id,
             },
             include: {

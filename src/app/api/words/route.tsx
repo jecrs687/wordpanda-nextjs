@@ -57,8 +57,8 @@ export async function POST(request: Request) {
         const body: WordsPostRequest = await request.json();
         const language = await prisma.language.findUnique({
             where: {
-                code: body.language.toLowerCase()
-            }
+                code: body.language.toLowerCase(),
+            },
         })
         if (!language) return Response.json({
             err: 'Language not found'
@@ -162,33 +162,34 @@ export async function POST(request: Request) {
                 languageId: translationLanguageTarget.id
             }
         })
-
-        for (const [key, words] of Object.entries(translatedWordsFlat)) {
-            const word = wordsOnDb.find(x => x.word === key.toLowerCase());
-            const translations = translationWordsOnDb.filter(x => words?.translation?.includes(x.word.toLowerCase()))
-            if (!translations.length) continue
-            await prisma.word.update({
-                where: {
-                    id: word.id
-                },
-                data: {
-                    translations: {
-                        create: {
-                            meaning: words?.meaning?.join('\n'),
-                            meaningTranslated: words?.meaningTranslated?.join('\n'),
-                            translations: {
-                                connect: translations.map(({ id }) => ({ id }))
-                            },
-                            languageId: translationLanguageTarget.id
+        await Promise.all(
+            Object.entries(translatedWordsFlat).map(async ([key, words]) => {
+                const word = wordsOnDb.find(x => x.word === key.toLowerCase());
+                const translations = translationWordsOnDb.filter(x => words?.translation.map(word => word.toLowerCase())?.includes(x.word.toLowerCase()))
+                if (!translations.length) return
+                await prisma.word.update({
+                    where: {
+                        id: word.id
+                    },
+                    data: {
+                        translations: {
+                            create: {
+                                meaning: words?.meaning?.join('\n'),
+                                meaningTranslated: words?.meaningTranslated?.join('\n'),
+                                translations: {
+                                    connect: translations.map(({ id }) => ({ id }))
+                                },
+                                languageId: translationLanguageTarget.id
+                            }
                         }
                     }
-                }
+                })
             })
-        }
+        )
         const words = await prisma.word.findMany({
             where: {
                 word: {
-                    in: body.words.map(word => word.word),
+                    in: body.words.map(word => word.word.toLowerCase()),
                 },
                 languageId: language.id,
             },

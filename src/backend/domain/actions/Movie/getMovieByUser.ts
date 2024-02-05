@@ -41,9 +41,14 @@ export const getMovieByUser = async (id: number) => {
             }
         },
         include: {
-            mediaLanguage: true
-        },
+            mediaLanguage: {
+                include: {
+                    language: true
+                }
+            }
+        }
     });
+
     const wordsByLanguagesByUser = await prisma.userWords.findMany({
         where: {
             userId: user.id,

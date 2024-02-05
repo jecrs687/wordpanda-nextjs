@@ -1,15 +1,14 @@
 'use client';
 import TranslateGame from '@common/Games/translate/page';
-import useEvents from '@hooks/useEvents';
+import useWords from '@hooks/useWords';
 import styles from './page.module.scss';
 export default function Page() {
-    const { events: { words: list } } = useEvents();
-    const words = Object.values(list)[0]
+    const { words, language } = useWords();
+
     return (
         <main className={styles.main}>
             <TranslateGame
-                words={words.words}
-                lang={words.jsonFromTTML.lang}
+                words={words} lang={language}
             />
         </main>
     )

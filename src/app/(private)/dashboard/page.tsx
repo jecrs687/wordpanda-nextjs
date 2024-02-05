@@ -1,13 +1,12 @@
 import { getUser } from '@actions/User/getUser.action';
 import { getPlatforms } from '@backend/domain/actions/Platform/getPlatform.action';
 import { ROUTES } from '@constants/ROUTES';
-import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './page.module.scss';
 export default async function Page() {
 
-    const { user } = await getUser(cookies().get('token').value)
+    const { user } = await getUser()
     const { platforms } = await getPlatforms()
     const { userLanguages, mediaUser } = user
     return (

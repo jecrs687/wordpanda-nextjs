@@ -1,16 +1,15 @@
 'use client';
 import MemoryGame from '@common/Games/memory/page';
-import useEvents from '@hooks/useEvents';
+import useWords from '@hooks/useWords';
 import styles from './page.module.scss';
 export default function Page() {
 
-    const { events: { words: list } } = useEvents();
-    const words = Object.values(list)[0]
+    const { words, language } = useWords();
+
     return (
         <main className={styles.main}>
             <MemoryGame
-                words={words.words}
-                lang={words.jsonFromTTML.lang}
+                words={words} lang={language}
             />
         </main>
     )

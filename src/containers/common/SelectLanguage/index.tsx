@@ -95,7 +95,7 @@ export function SelectLanguage({
     }, [getLanguage, language, select])
 
     const values = useMemo(
-        () => data?.languages?.map((item) => ({ value: item.id, label: capitalizeFirstLetter(item.language) })) || [],
+        () => data?.languages?.map((item) => ({ value: item.id, label: capitalizeFirstLetter(`${item.language} - ${item.code}`) })) || [],
         [data])
 
     return (<div className={

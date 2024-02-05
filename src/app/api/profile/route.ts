@@ -1,5 +1,6 @@
 import prisma from "@infra/config/database";
 import { User } from "@prisma/client";
+import { encryptPassword } from "@utils/encrypt";
 import { validateToken } from "@utils/token";
 import { cookies } from "next/headers";
 import z from 'zod';
@@ -48,7 +49,7 @@ export async function PUT(request: Request) {
             languageId: z.number().int()
         }).safeParse({
             email,
-            ...(password && { password }),
+            ...(password && { password: encryptPassword(password) }),
             phone,
             firstName,
             lastName,

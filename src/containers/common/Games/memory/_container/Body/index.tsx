@@ -20,7 +20,7 @@ type WordMemory = {
     wasWrong?: boolean;
 }
 const QUANT = 5;
-export const Body = ({ words, lang }: { words: { word: string }[], lang: string }) => {
+export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang: string, mediaId?: number | unknown }) => {
     const [firstSelected, setFirstSelected] = useState<number>()
     const [secondSelected, setSecondSelected] = useState<number>()
     const [wordsFiltered, setWordsFiltered] = useState<Array<WordMemory>>([])
@@ -48,7 +48,7 @@ export const Body = ({ words, lang }: { words: { word: string }[], lang: string 
     useEffect(() => {
         wordsListTrigger({
             words: words,
-            language: lang,
+            language: lang
         })
     }, [words, wordsListTrigger, lang])
 
@@ -173,6 +173,7 @@ export const Body = ({ words, lang }: { words: { word: string }[], lang: string 
         memoryTrigger({
             wordId: first,
             hard: first !== second,
+            mediaId
         })
         setWordsShowed(prev =>
             prev.map(word => check(word, first, second))
