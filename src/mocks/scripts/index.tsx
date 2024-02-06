@@ -1,4 +1,7 @@
+// @ts-nocheck
+
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const place = window as any
 const getPerf = () => window.performance || window.mozPerformance
     || window.msPerformance || window.webkitPerformance;
 const getAllSubtitles = async ({
