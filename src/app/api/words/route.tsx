@@ -122,6 +122,7 @@ export async function POST(request: Request) {
                 )
         }
         console.timeEnd('before chat')
+        console.log("missing words: " + wordsWithoutTranslation.length)
         console.time('during chat')
         const translatedWords = await getTranslations()
         console.timeEnd('during chat')
