@@ -36,6 +36,7 @@ export type WordsPostRequest = {
 }
 export async function POST(request: Request) {
     try {
+
         const token = cookies().get('token') || headers().get('Authorization')
         if (!token) return Response.json({
             err: 'Not authorized'
@@ -44,26 +45,30 @@ export async function POST(request: Request) {
         if (!decoded) return Response.json({
             err: 'Not authorized'
         })
+
+        console.time('before chat')
+        const body: WordsPostRequest = await request.json();
         const { id } = decoded
-        const user = await prisma.user.findUnique({
+        const [user, language] = await Promise.all([await prisma.user.findUnique({
             where: {
                 id
             },
             include: {
                 language: true
             }
+        }),
+        await prisma.language.findUnique({
+            where: {
+                code: body.language.toLowerCase(),
+            },
         })
+        ])
         const languageId = +cookies().get('language')?.value || +headers().get('language') || user?.languageId
 
         if (!user) return Response.json({
             err: 'Not authorized'
         })
-        const body: WordsPostRequest = await request.json();
-        const language = await prisma.language.findUnique({
-            where: {
-                code: body.language.toLowerCase(),
-            },
-        })
+
         if (!language) return Response.json({
             err: 'Language not found'
         })
@@ -116,7 +121,11 @@ export async function POST(request: Request) {
                     )
                 )
         }
+        console.timeEnd('before chat')
+        console.time('during chat')
         const translatedWords = await getTranslations()
+        console.timeEnd('during chat')
+        console.time("after chat")
         const translatedWordsFlat = translatedWords.reduce((acc, val) => ({ ...acc, ...val }), {})
         const translationWords = Object.entries(translatedWordsFlat).map(([key, words]) => words?.translation?.map((value) => [key, value]) || []).flat()
         const translationsOnDb = await prisma.word.findMany({
@@ -137,16 +146,22 @@ export async function POST(request: Request) {
             x => !Object.keys(translatedWordsFlat).includes(x)
         )
 
-        for (const key of notTranslatedWords) {
-            const word = wordsOnDb.find(x => x.word === key);
-            await prisma.word.update({
-                where: {
-                    id: word.id
-                },
-                data: {
-                    isNotPossibleTranslate: true
-                }
-            })
+        try {
+            await Promise.all(
+                notTranslatedWords.map(async (key) => {
+                    const word = wordsOnDb.find(x => x.word === key);
+                    await prisma.word.update({
+                        where: {
+                            id: word.id
+                        },
+                        data: {
+                            isNotPossibleTranslate: true
+                        }
+                    })
+                })
+            )
+        } catch (err) {
+            console.log(err)
         }
 
         const translationWordsToCreate = Array.from(new Set(translationsNotOnDb.map(([key, word]) => word.toLowerCase())))
@@ -170,24 +185,36 @@ export async function POST(request: Request) {
             Object.entries(translatedWordsFlat).map(async ([key, words]) => {
                 const word = wordsOnDb.find(x => x.word === key.toLowerCase());
                 const translations = translationWordsOnDb.filter(x => words?.translation.map(word => word.toLowerCase())?.includes(x.word.toLowerCase()))
-                if (!translations.length) return
-                await prisma.word.update({
-                    where: {
-                        id: word.id
-                    },
-                    data: {
-                        translations: {
-                            create: {
-                                meaning: words?.meaning?.join('\n'),
-                                meaningTranslated: words?.meaningTranslated?.join('\n'),
-                                translations: {
-                                    connect: translations.map(({ id }) => ({ id }))
-                                },
-                                languageId: translationLanguageTarget.id
+                try {
+                    if (!translations.length) return await prisma.word.update({
+                        where: {
+                            id: word.id
+                        },
+                        data: {
+                            isNotPossibleTranslate: true
+                        }
+                    })
+                    await prisma.word.update({
+                        where: {
+                            id: word.id
+                        },
+                        data: {
+                            translations: {
+                                create: {
+                                    meaning: words?.meaning?.join('\n'),
+                                    meaningTranslated: words?.meaningTranslated?.join('\n'),
+                                    translations: {
+                                        connect: translations.map(({ id }) => ({ id }))
+                                    },
+                                    languageId: translationLanguageTarget.id
+                                }
                             }
                         }
-                    }
-                })
+                    })
+                }
+                catch (err) {
+                    console.log({ err })
+                }
             })
         )
         const words = await prisma.word.findMany({
@@ -214,6 +241,7 @@ export async function POST(request: Request) {
                 }
             }
         })
+        console.timeEnd("after chat")
         return Response.json({
             data: {
                 wordsOnDb,
@@ -225,6 +253,7 @@ export async function POST(request: Request) {
         })
     }
     catch (err) {
+        console.log(err)
         return Response.json({
             err: err.message,
             msg: 'Error'

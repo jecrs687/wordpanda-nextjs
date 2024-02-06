@@ -80,7 +80,7 @@ export const getMovieByUser = async (id: number) => {
         [languageId: number]: number[]
     }, userWord) => {
         const words = userWord.userLanguage.languageId;
-        if (!wordsByMediaByLanguage[words].includes(userWord.wordId)) return;
+        if (!wordsByMediaByLanguage[words].includes(userWord.wordId)) return acc;
         if (!acc[words]) acc[words] = [];
         acc[words].push(userWord.wordId);
         return acc;

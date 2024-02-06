@@ -33,7 +33,7 @@ export default async function Page() {
                                 {mediaUser.map((content, index) => {
                                     return (
                                         <Link key={index} className={styles.content} href={
-                                            ROUTES.MOVIE(content.id)
+                                            ROUTES.MOVIE(content.mediaLanguage.media.id)
                                         }>
                                             <span className={styles.title}>
 

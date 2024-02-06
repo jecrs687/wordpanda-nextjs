@@ -63,14 +63,14 @@ export async function POST(request: Request) {
             })
         }
 
-        const userLanguage = async () => await prisma.userLanguage.findFirst({
+        const language = await prisma.userLanguage.findFirst({
             where: {
-                id: user.id,
+                userId: user.id,
                 languageId: word.languageId
             }
         })
 
-        if (!await userLanguage()) {
+        if (!language) {
             await prisma.userLanguage.create({
                 data: {
                     userId: user.id,
@@ -78,7 +78,12 @@ export async function POST(request: Request) {
                 }
             })
         }
-
+        const languageOnDb = language ?? await prisma.userLanguage.findFirst({
+            where: {
+                userId: user.id,
+                languageId: word.languageId
+            }
+        })
         const verifyWord = await prisma.userWords.findFirst({
             where: {
                 userId: user.id,
@@ -91,7 +96,7 @@ export async function POST(request: Request) {
             await prisma.userWords.create({
                 data: {
                     userId: user.id,
-                    userLanguageId: (await userLanguage()).id,
+                    userLanguageId: languageOnDb.id,
                     wordId: word.id,
                 }
             })
@@ -117,7 +122,7 @@ export async function POST(request: Request) {
         const userWordFinal = await prisma.userWords.findFirst({
             where: {
                 userId: user.id,
-                userLanguageId: (await userLanguage()).id,
+                userLanguageId: languageOnDb.id,
                 wordId: word.id,
             },
             include: {
@@ -134,6 +139,7 @@ export async function POST(request: Request) {
         return Response.json(response);
     }
     catch (err) {
+        console.log({ err })
         return Response.json({ err });
     }
 
