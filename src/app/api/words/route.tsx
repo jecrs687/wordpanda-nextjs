@@ -11,18 +11,21 @@ import { cookies, headers } from "next/headers"
 
 
 
+
 export type WordWithTranslations = Word & {
     translations?: Array<Translation & {
         translations: Word[]
     }>,
+}
+export type WordWithTranslationsAndUserWords = WordWithTranslations & {
     userWords: UserWords[]
 }
 
 
 export type WordsPostResponse = {
     data?: {
-        wordsOnDb: WordWithTranslations[],
-        words: WordWithTranslations[],
+        wordsOnDb: Word[],
+        words: WordWithTranslationsAndUserWords[],
         wordsNotOnDb: {
             word: string
         }[]
@@ -57,9 +60,11 @@ export async function POST(request: Request) {
                 language: true
             }
         }),
-        await prisma.language.findUnique({
+        await prisma.language.findFirst({
             where: {
-                code: body.language.toLowerCase(),
+                code: {
+                    startsWith: body.language.toLowerCase()
+                }
             },
         })
         ])
@@ -243,15 +248,36 @@ export async function POST(request: Request) {
             }
         })
         console.timeEnd("after chat")
-        return Response.json({
+        const response: WordsPostResponse = {
             data: {
                 wordsOnDb,
                 wordsNotOnDb,
-                words
+                words: words.sort(
+                    ({ userWords }, { userWords: userWords2 }) => {
+                        if (!userWords?.length)
+                            return -1
+                        if (!userWords2?.length)
+                            return 1
+                        if (userWords.length !== userWords2.length)
+                            return userWords.length > userWords2.length ? 1 : -1
+                        if (userWords?.[0]?.errors / userWords?.[0]?.attempts !== userWords2?.[0]?.errors / userWords2?.[0]?.attempts)
+                            return userWords?.[0]?.errors / userWords?.[0]?.attempts > userWords2?.[0]?.errors / userWords2?.[0]?.attempts ? -1 : 1
+                        if (userWords?.[0]?.lastSuccess !== userWords2?.[0]?.lastSuccess) return
+                        userWords?.[0]?.lastSuccess > userWords2?.[0]?.lastSuccess ? -1 : 1
+                        if (userWords?.[0]?.lastError !== userWords2?.[0]?.lastError)
+                            return userWords?.[0]?.lastError > userWords2?.[0]?.lastError ? -1 : 1
+                        if (userWords?.[0]?.lastAttempt !== userWords2?.[0]?.lastAttempt)
+                            return userWords?.[0]?.lastAttempt > userWords2?.[0]?.lastAttempt ? -1 : 1
+                        if (userWords?.[0]?.notLearned !== userWords2?.[0]?.notLearned)
+                            return userWords?.[0]?.notLearned ? -1 : 1
+                        return 1
+                    }
+                )
             },
             err: null,
             msg: 'Words fetched'
-        })
+        }
+        return Response.json(response)
     }
     catch (err) {
         console.log(err)

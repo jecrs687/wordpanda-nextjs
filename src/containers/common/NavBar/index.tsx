@@ -21,26 +21,26 @@ const paths = [
         icon: "/assets/icons/language.svg",
         name: "Languages"
     },
-    {
-        path: ROUTES.GAMES(),
-        icon: "/assets/icons/study.svg",
-        name: "Games"
-    },
+    // {
+    //     path: ROUTES.GAMES(),
+    //     icon: "/assets/icons/study.svg",
+    //     name: "Games"
+    // },
     {
         path: ROUTES.PROFILE(),
         icon: "/assets/icons/profile.svg",
         name: "Profile"
     },
-    {
-        path: ROUTES.MOVIES(),
-        icon: "/assets/icons/movies.svg",
-        name: "Movies"
-    },
-    {
-        path: ROUTES.VIDEOS(),
-        icon: "/assets/icons/video.svg",
-        name: "Videos"
-    },
+    // {
+    //     path: ROUTES.MOVIES(),
+    //     icon: "/assets/icons/movies.svg",
+    //     name: "Movies"
+    // },
+    // {
+    //     path: ROUTES.VIDEOS(),
+    //     icon: "/assets/icons/video.svg",
+    //     name: "Videos"
+    // },
 
 ]
 export function NavBar() {

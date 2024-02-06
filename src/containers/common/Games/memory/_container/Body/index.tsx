@@ -69,13 +69,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
             })
             setWordsFiltered(
                 words.filter(({ word }) => wordsWithoutRepetitions.includes(word.toLowerCase()))
-                    ?.sort(
-                        ({ userWords }, { userWords: userWords2 }) => {
-                            if (userWords.length > userWords2.length) return -1
-                            if (userWords?.[0]?.errors / userWords?.[0]?.attempts > userWords2?.[0]?.errors / userWords2?.[0]?.attempts) return -1
-                            return 1
-                        }
-                    )?.map(({ word, translations, id }) => ({
+                    .map(({ word, translations, id }) => ({
                         word,
                         trans: translations[0].translations.map(({ word }) => word),
                         id,

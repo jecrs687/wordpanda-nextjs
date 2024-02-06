@@ -19,27 +19,27 @@
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
 
-    .selectLanguageContainer {
-        position: relative;
-        min-height: 70px;
-        width: 100%;
-        padding: 10px;
+    // .selectLanguageContainer {
+    //     position: relative;
+    //     min-height: 70px;
+    //     width: 100%;
+    //     padding: 10px;
 
-        .selectLanguage {
-            position: absolute;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            width: 80%;
-            top: 0%;
+    //     .selectLanguage {
+    //         position: absolute;
+    //         justify-content: center;
+    //         align-items: center;
+    //         gap: 10px;
+    //         width: 80%;
+    //         top: 0%;
 
-            left: 10%;
+    //         left: 10%;
 
-            label {
-                opacity: 0;
-            }
-        }
-    }
+    //         label {
+    //             opacity: 0;
+    //         }
+    //     }
+    // }
 
 
     .menu {
@@ -49,7 +49,7 @@
         transition: transform 0.5s ease-in-out;
     }
 
-    ul {
+    .list {
         overflow: hidden;
 
         list-style: none;
@@ -120,4 +120,74 @@
             }
         }
     }
+}
+
+@media (max-width: 768px) {
+
+    .nav {
+        flex-direction: row;
+        width: 100%;
+        height: 100px;
+        border-radius: 20px 20px 0px 0px;
+        padding: 0px 20px;
+        gap: 0px;
+        justify-content: space-between;
+        align-items: center;
+
+        .menu {
+            display: none;
+            margin: none;
+        }
+
+        .list {
+            position: relative;
+            flex-direction: row;
+            gap: 20px;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            overflow: visible;
+
+            .active {}
+
+
+        }
+
+        .item {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .link {
+                width: 100%;
+                height: 100%;
+
+                .icon {
+                    transform: translate(40%, 0%);
+                }
+
+                span {}
+            }
+        }
+
+        &:hover {
+            width: 100%;
+
+            .menu {}
+
+            li {
+                .link {
+                    span {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
 }
