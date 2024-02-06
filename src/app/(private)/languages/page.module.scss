@@ -2,7 +2,7 @@
 
 .main {
     background: $background;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     padding: 20px;
     color: black;
@@ -27,9 +27,9 @@
 
 
             .languages {
-                display: flex;
-                flex-direction: column;
+                display: grid;
                 gap: 20px;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 
                 .language {
                     padding: 20px;

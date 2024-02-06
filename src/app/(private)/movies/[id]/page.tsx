@@ -1,6 +1,6 @@
 import { getMovieByUser } from '@backend/domain/actions/Movie/getMovieByUser';
 import BackButton from '@common/BackButton';
-import { Card } from './_container/Card';
+import { CardGame } from '@common/CardGame';
 import styles from './page.module.scss';
 export default async function Page({
     params: { id }
@@ -21,15 +21,15 @@ export default async function Page({
                 {
                     movie.mediaLanguages.map((mediaLanguage, index) => {
                         return (
-                            <Card key={index}
+                            <CardGame key={index}
                                 mediaId={movie.id}
-                                words={mediaLanguage.mediaWords}
+                                words={mediaLanguage.mediaWords.map(({ word }) => word)}
                                 language={mediaLanguage.language.code}>
                                 <h3>{mediaLanguage.language.language} ({mediaLanguage.language.code})</h3>
                                 <h4>
                                     {+(wordsByUserByMediaByLanguage[mediaLanguage.language.id]?.length) || 0}/{mediaLanguage.mediaWords.length}
                                 </h4>
-                            </Card>
+                            </CardGame>
                         )
                     })
                 }

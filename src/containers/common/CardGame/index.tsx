@@ -1,15 +1,16 @@
 
 "use client";
 import useWords from '@hooks/useWords';
+import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import styles from './Card.module.scss';
-export const Card = ({ children, words, language, mediaId }) => {
+export const CardGame = ({ children, words, language, mediaId = undefined, className = "" }) => {
     const router = useRouter()
     const { insert } = useWords()
     return (
-        <div className={styles.card}
+        <div className={clsx(styles.card, className)}
             onClick={() => {
-                insert(words.map(({ word }) => word), language, mediaId)
+                insert(words, language, mediaId)
                 router.push('/games')
             }}
         >

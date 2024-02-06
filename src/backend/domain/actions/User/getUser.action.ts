@@ -25,7 +25,11 @@ export async function getUser() {
                                 word: true,
                             }
                         },
-                        language: true,
+                        language: {
+                            include: {
+                                word: true
+                            }
+                        },
                     }
                 },
                 mediaUser: {

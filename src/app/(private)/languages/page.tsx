@@ -1,11 +1,11 @@
 import { getLanguages } from '@backend/domain/actions/Languages/getLanguages.action';
 import { getUserLanguages } from '@backend/domain/actions/Languages/getUserLanguages.action';
+import { CardGame } from '@common/CardGame';
 import styles from './page.module.scss';
 
 export const dynamic = 'force-dynamic'
 export default async function Page() {
-    const { languages } = await getLanguages()
-    const { userLanguages } = await getUserLanguages()
+    const [{ languages }, { userLanguages }] = await Promise.all([await getLanguages(), await getUserLanguages()])
     return (
         <main className={styles.main}>
             <div className={styles.container}>
@@ -13,12 +13,19 @@ export default async function Page() {
                     <h3>Languages</h3>
                     <div className={styles.languages}>
                         {
-                            languages.map((lang, index) => {
+                            languages.filter(
+                                x => x.word.length > 4
+                            ).map((lang, index) => {
                                 return (
-                                    <div className={styles.language} key={index}>
+                                    <CardGame
+                                        language={lang.code}
+                                        words={lang.word}
+
+                                        className={styles.language} key={index}>
                                         <h3>{lang.language}</h3>
                                         <p>{lang.code}</p>
-                                    </div>
+                                        <p>total: {lang.word.length}</p>
+                                    </CardGame>
                                 )
                             })
                         }
@@ -30,13 +37,16 @@ export default async function Page() {
                         {
                             userLanguages.map((lang, index) => {
                                 return (
-                                    <div className={styles.language} key={index}>
+                                    <CardGame
+                                        language={lang.language.code}
+                                        words={lang.language.word}
+                                        className={styles.language} key={index}>
                                         <h3>{lang.language.language}</h3>
                                         <p>{lang.language.code}</p>
                                         <p>
-                                            Words
+                                            Words: {lang.userWords.length}/{lang.language.word.length}
                                         </p>
-                                    </div>
+                                    </CardGame>
                                 )
                             })
                         }

@@ -11,7 +11,9 @@ export async function getUserLanguages() {
                 userId: id,
             },
             include: {
-                language: true,
+                language: {
+                    include: { word: true }
+                },
                 userWords: true,
             }
         });

@@ -1,5 +1,6 @@
 import { getUser } from '@actions/User/getUser.action';
 import { getPlatforms } from '@backend/domain/actions/Platform/getPlatform.action';
+import { CardGame } from '@common/CardGame';
 import { ROUTES } from '@constants/ROUTES';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -19,11 +20,16 @@ export default async function Page() {
                         {
                             userLanguages.map((language, index) => {
                                 return (
-                                    <div className={styles.language} key={index}>
+                                    <CardGame
+                                        words={language.language.word}
+                                        language={language.language.code}
+                                        className={styles.language}
+                                        key={index}
+                                    >
                                         <h3>{language.language.language}</h3>
                                         <p>{language.language.code}</p>
-                                        <p>palavras: {language.userWords.length}</p>
-                                    </div>
+                                        <p>palavras: {language.userWords.length}/{language.language.word.length}</p>
+                                    </CardGame>
                                 )
                             })
                         }
