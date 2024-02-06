@@ -3,6 +3,8 @@
 .card {
     height: 350px;
     width: 350px;
+    max-width: 50dvw;
+    max-height: 80dvh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,6 +22,22 @@
     transform-style: preserve-3d;
     transform: perspective(1000px) translate(0deg);
 
+    h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: white;
+    }
+
+    p {
+        font-size: 1rem;
+        font-weight: 400;
+        color: white;
+    }
+
+    font-size: 1rem;
+    font-weight: 400;
+    color: white;
+
     .front,
     .back {
         position: absolute;
@@ -30,7 +48,7 @@
         display: flex;
         justify-content: space-between;
         flex-direction: column;
-        padding: 50px 30px;
+        padding: min(50px, 2dvh) min(30px, 2dvw);
     }
 
     .front {

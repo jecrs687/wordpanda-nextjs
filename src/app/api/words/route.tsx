@@ -229,6 +229,12 @@ export async function POST(request: Request) {
                     in: body.words.map(word => word.word.toLowerCase()),
                 },
                 languageId: language.id,
+                translations: {
+                    some: {
+                        languageId: translationLanguageTarget.id
+                    }
+                },
+                isNotPossibleTranslate: false
             },
             include: {
                 userWords: {
