@@ -4,8 +4,8 @@ import { validateToken } from "@utils/token";
 import { cookies, headers } from "next/headers";
 
 export async function getUser() {
+    const token = cookies().get('token').value || headers().get('Authorization');
     try {
-        const token = cookies().get('token').value || headers().get('Authorization');
         const { decoded: user } = validateToken(token);
         if (user == undefined) {
             return ({
