@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { useDrag } from 'react-dnd';
 import { GamesFlashcardPostRequest, GamesFlashcardPostResponse } from 'src/app/api/games/flashcard/route';
-import { WordWithTranslations, WordsPostRequest, WordsPostResponse } from 'src/app/api/words/route';
+import { WordWithTranslationsAndUserWords, WordsPostRequest, WordsPostResponse } from 'src/app/api/words/route';
 import Loading from 'src/app/loading';
 import useSWRMutation from 'swr/mutation';
 import Card from '../Card';
@@ -29,7 +29,7 @@ export const FlashBody = ({ words, lang, mediaId }: {
         string,
         WordsPostRequest
     >('/api/words', fetchClient("POST"))
-    const [wordsCards, setWordsCards] = useState<WordWithTranslations[]>([])
+    const [wordsCards, setWordsCards] = useState<WordWithTranslationsAndUserWords[]>([])
     const { data:
         {
             data: flashcard,

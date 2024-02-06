@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import { useState } from "react";
-import { WordWithTranslations } from "src/app/api/words/route";
+import { WordWithTranslationsAndUserWords } from "src/app/api/words/route";
 import styles from './Card.module.scss';
 export default function Card({ word, style }: {
-    word: WordWithTranslations
+    word: WordWithTranslationsAndUserWords
     style?: React.CSSProperties,
 }) {
     const [side, setSide] = useState<boolean>(true);
