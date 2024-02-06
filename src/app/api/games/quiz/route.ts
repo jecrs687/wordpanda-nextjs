@@ -24,7 +24,6 @@ export type GamesQuizPostResponse = {
 }
 export async function POST(request: Request) {
     const token = cookies().get('token') || headers().get('Authorization')
-
     const { decoded: decryptToken } = validateToken(token)
     if (!decryptToken) return Response.json({ err: 'Token invalid' });
     const user = await prisma.user.findFirst({
@@ -36,6 +35,7 @@ export async function POST(request: Request) {
         }
     })
     if (!user) return Response.json({ err: 'User not found' })
+    const languageId = +cookies().get('language')?.value || +headers().get('language') || user.languageId
 
     const {
         words
@@ -53,7 +53,7 @@ export async function POST(request: Request) {
         }
     }), await prisma.language.findUnique({
         where: {
-            id: +cookies().get('language').value
+            id: languageId
         }
     })])
     if (!wordsOnDb.length) return Response.json({ err: 'Words not found' })

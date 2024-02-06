@@ -1,17 +1,16 @@
 "use client";
-import { ROUTES } from '@constants/ROUTES';
 import { useChannels } from '@hooks/useChannels';
-import { redirect } from 'next/navigation';
-import { useEffect } from 'react';
 
 export default function Page() {
 
-  const { web } = useChannels();
-  useEffect(() => {
-    redirect(ROUTES.LOGIN())
+  const { popUp } = useChannels();
 
-  }, [])
   if (typeof window === 'undefined') return <></>
 
-  return <></>
+  return <div>
+    <button onClick={() => {
+      popUp.setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEsImVtYWlsIjoiZGVtb0BkZW1vLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzA3MTc5Njg1LCJleHAiOjE3MDc3ODQ0ODV9.f-lH_-PWn6ckoNx4PtQwN1Fudg1ucYSFAO9TGb2WnB4')
+    }}>
+      setToken
+    </button></div>
 }

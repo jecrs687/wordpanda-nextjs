@@ -1,12 +1,17 @@
 import prisma from "@infra/config/database"
-import { SUBTITLES_MOCK } from "@mocks/subtitlesLinksmocks"
 import { MediaType } from "@prisma/client"
 import { getText, orderWords, ttml2ToJson } from "@utils/subtitle"
-import { LANGUAGES } from "../languages/constants/LANGUAGES"
+import { LANGUAGES } from "../../../infra/database/migration/languages/constants/LANGUAGES"
 
-export const subtitleMock = async () => {
+export const insertSubtitles = async (subtitles: {
+    name: string,
+    platform: string,
+    image: string,
+    links: string[]
+}[]
+) => {
 
-    for (const subtitle of SUBTITLES_MOCK) {
+    for (const subtitle of subtitles) {
 
         if (!await prisma.platform.findFirst({
             where: {
@@ -90,6 +95,19 @@ export const subtitleMock = async () => {
                 }
             })
             if (!media) {
+                await Promise.all(
+                    listOfWords.map(async word => {
+                        await prisma.word.update({
+                            where: {
+                                id: word.id
+                            },
+                            data: {
+                                frequency: wordsInDb.find(wordInDb => wordInDb.word === word.word).count + word.frequency
+                            }
+                        })
+                    }
+                    )
+                )
                 await prisma.media.create({
                     data: {
                         name: subtitle.name,

@@ -11,7 +11,7 @@ export function ttml2ToJson(ttml2Text) {
     const parser = typeof window == "undefined" ? new JSDOM(ttml2Text, {
         contentType: "application/xml",
         runScripts: "dangerously",
-    }).window : new window.DOMParser().parseFromString(ttml2Text, "text/xml")
+    }).window.document : new window.DOMParser().parseFromString(ttml2Text, "text/xml")
     const ttml2Xml = parser;
     const json: {
         lang: string,

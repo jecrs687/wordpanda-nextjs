@@ -88,11 +88,27 @@ export function useChannels() {
         popUp: {
             video_control: (action, value) => {
                 window?.parent?.postMessage(
-                    JSON.stringify({
+                    {
                         name: 'video_control',
                         content: { action, value }
-                    }), '*')
+                    }, '*')
             },
+            setToken: (token) => window?.parent?.postMessage(
+                {
+                    name: 'setToken',
+                    content: token
+                }, '*'),
+            setLocalStorage: (name, value) => window?.parent?.postMessage(
+                {
+                    name: 'setLocalStorage',
+                    content: { [name]: value }
+                }, '*'),
+            getLocalStorage: (name) => window?.parent?.postMessage(
+                {
+                    name: 'getLocalStorage',
+                    content: [name]
+                }, '*'),
+
         }
     };
 }
