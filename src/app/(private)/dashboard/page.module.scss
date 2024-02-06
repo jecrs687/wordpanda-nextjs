@@ -5,6 +5,7 @@
     width: 100%;
     height: 100%;
     color: black;
+    padding-bottom: 20px;
 
     .container {
         overflow: auto;
@@ -15,7 +16,6 @@
         gap: 30px;
         width: 100%;
         height: 100%;
-        padding: 20px 0px 20px 20px;
 
         .card {
             display: flex;
@@ -25,17 +25,18 @@
             h3 {
                 font-size: 1.5rem;
                 font-weight: 700;
-                margin-bottom: 10px;
+                margin: 20px;
             }
 
 
             .languages {
                 display: flex;
-                gap: 20px;
 
                 .language {
                     padding: 20px;
                     width: 300px;
+                    margin: 0px 20px;
+                    margin-top: 0px;
                     background: rgba(255, 255, 255, 0.2);
                     border-radius: 16px;
                     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -53,17 +54,21 @@
 
 
             .carrossel {
+                h4 {
+                    margin: 10px;
+                }
+
                 ::-webkit-scrollbar {
                     display: none;
                 }
 
                 .contents {
                     display: flex;
-                    gap: 20px;
                     overflow: scroll;
                 }
 
                 .content {
+                    margin: 0px 20px;
                     display: flex;
                     flex-direction: column;
                     position: relative;
