@@ -1,11 +1,11 @@
 import { getLanguages } from '@backend/domain/actions/Languages/getLanguages.action';
 import { getUserLanguages } from '@backend/domain/actions/Languages/getUserLanguages.action';
-import { cookies } from 'next/headers';
 import styles from './page.module.scss';
-export default async function Page() {
 
+export const dynamic = 'force-dynamic'
+export default async function Page() {
     const { languages } = await getLanguages()
-    const { userLanguages, errors } = await getUserLanguages(cookies().get('token').value)
+    const { userLanguages, errors } = await getUserLanguages()
     return (
         <main className={styles.main}>
             <div className={styles.container}>

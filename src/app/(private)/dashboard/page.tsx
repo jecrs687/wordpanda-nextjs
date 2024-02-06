@@ -4,8 +4,9 @@ import { ROUTES } from '@constants/ROUTES';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './page.module.scss';
-export default async function Page() {
 
+export const dynamic = 'force-dynamic'
+export default async function Page() {
     const { user } = await getUser()
     const { platforms } = await getPlatforms()
     const { userLanguages, mediaUser } = user

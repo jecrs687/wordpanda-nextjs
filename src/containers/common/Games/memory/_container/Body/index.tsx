@@ -196,7 +196,8 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         wordsShowed,
         check,
         removeWrong,
-        memoryTrigger
+        memoryTrigger,
+        mediaId
     ])
 
     if (wordsListIsMutating || !wordsList || !wordsFiltered) return <Loading />

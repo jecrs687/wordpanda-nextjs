@@ -1,8 +1,10 @@
 "use server";
 import prisma from "@infra/config/database";
 import { validateToken } from "@utils/token";
-export async function getUserLanguages(token: string) {
+import { cookies, headers } from "next/headers";
+export async function getUserLanguages() {
     try {
+        const token = cookies().get('token')?.value || headers().get('Authorization');
         const { decoded: { id } } = validateToken(token);
         const userLanguages = await prisma.userLanguage.findMany({
             where: {

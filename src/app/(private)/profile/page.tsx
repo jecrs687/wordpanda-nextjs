@@ -1,12 +1,9 @@
 import { getUser } from '@actions/User/getUser.action';
-import { validateToken } from '@utils/token';
-import { cookies } from 'next/headers';
 import UserForm from './_container/UserForm';
 import styles from './page.module.scss';
 
+export const dynamic = 'force-dynamic'
 export default async function Page() {
-  const { value: token } = cookies().get('token');
-  const { decoded } = validateToken(token);
   const { errors, user } = await getUser();
 
   return (

@@ -2,7 +2,6 @@
 import prisma from "@infra/config/database";
 export async function getLanguages() {
     try {
-
         const languagesFound = await prisma.language.findMany({
             include: {
                 word: true,
