@@ -11,7 +11,42 @@ import { ProfileGetResponse } from "src/app/api/profile/route";
 import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import styles from './SelectLanguage.module.scss';
+
 export function SelectLanguage({
+    onChange = ({ }) => { },
+    name,
+    disabled = false,
+    value,
+    error,
+    onBlur,
+    title,
+    className,
+    dropdownPosition = 'auto',
+    targetLanguage = false,
+}: {
+    onChange?: (value: {
+        value: number;
+        label: string;
+    },
+        action: ActionMeta<{ value: number; label: string; }>
+    ) => void,
+    name?: string,
+    disabled?: boolean,
+    value?: number | undefined,
+    error?: string | undefined,
+    onBlur?: (x: any) => void,
+    title?: string,
+    className?: string,
+    dropdownPosition?: 'auto' | 'bottom' | 'top',
+    targetLanguage?: boolean
+
+}
+
+): JSX.Element {
+    return <></>
+}
+
+export function SelectLanguage2({
     onChange = ({ }) => { },
     name,
     disabled = false,

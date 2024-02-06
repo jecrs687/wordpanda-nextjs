@@ -12,7 +12,7 @@ export type ProfilePutRequest = {
     phone: string;
     firstName: string;
     lastName: string;
-    languageId: number;
+    languageId?: number;
 }
 
 export type ProfilePutResponse = {
@@ -28,7 +28,6 @@ export async function PUT(request: Request) {
             phone,
             firstName,
             lastName,
-            languageId
         }: ProfilePutRequest = await request.json();
 
         const token = cookies().get('token');
@@ -52,8 +51,7 @@ export async function PUT(request: Request) {
             ...(password && { password: encryptPassword(password) }),
             phone,
             firstName,
-            lastName,
-            languageId
+            lastName
         }) as { success: boolean, data: ProfilePutRequest }
         if (!verify.success) {
             return Response.json({

@@ -113,7 +113,7 @@ export function NavBar() {
         </ul>
         <div className={styles.selectLanguageContainer}>
             <SelectLanguage
-                title="Select language"
+                title="Lingua"
                 className={styles.selectLanguage}
             />
         </div>

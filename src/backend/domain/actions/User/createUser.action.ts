@@ -23,6 +23,7 @@ export async function createUser(userDto: UserDto) {
             });
         }
         userDto.password = encryptPassword(userDto.password)
+        userDto.languageId = 59
         const inserted = await prisma.user.create({
             data: userDto
         })

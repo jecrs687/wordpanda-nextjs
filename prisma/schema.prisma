@@ -175,7 +175,7 @@ model MediaLanguages {
     mediaId    Int          @map(name: "media_id")
     media      Media        @relation(fields: [mediaId], references: [id])
     language   Language     @relation(fields: [languageId], references: [id])
-    languageId Int          @map(name: "language_id")
+    languageId Int          @default(59) @map(name: "language_id")
     mediaWords MediaWords[]
     mediaUsers MediaUser[]
     createdAt  DateTime     @default(now()) @map(name: "created_at")
