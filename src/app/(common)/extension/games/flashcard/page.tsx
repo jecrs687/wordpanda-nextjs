@@ -1,4 +1,5 @@
 'use client';
+import BackButton from '@common/BackButton';
 import FlashCardGame from '@common/Games/flashcard/page';
 import useEvents from '@hooks/useEvents';
 import { IEventPrime } from '@view/interfaces/IEvents';
@@ -10,6 +11,9 @@ export default function Page() {
     return (
 
         <main className={styles.main}>
+            <BackButton>
+                Flashcard
+            </BackButton>
             <FlashCardGame
                 words={translated.words}
                 lang={translated.jsonFromTTML.lang}

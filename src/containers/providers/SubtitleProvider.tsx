@@ -14,6 +14,8 @@ export default function SubtitleProvider() {
                 const jsonFromTTML = ttml2ToJson(something)
                 const json = jsonFromTTML.subtitles
                 const words = await orderWords(json)
+                console.log({ words, jsonFromTTML })
+
                 insertLanguage(jsonFromTTML.lang, { words, jsonFromTTML })
             }
         }

@@ -3,7 +3,7 @@ import { generateQuizByWords } from "@infra/openai/Quiz";
 import { Language, Word, WordGameQuiz } from "@prisma/client";
 import { chunkArray } from "@utils/chunkarray";
 import { validateToken } from "@utils/token";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 
 export type GamesQuizPostRequest = {
@@ -23,7 +23,7 @@ export type GamesQuizPostResponse = {
     msg?: string,
 }
 export async function POST(request: Request) {
-    const token = cookies().get('token')
+    const token = cookies().get('token') || headers().get('Authorization')
 
     const { decoded: decryptToken } = validateToken(token)
     if (!decryptToken) return Response.json({ err: 'Token invalid' });

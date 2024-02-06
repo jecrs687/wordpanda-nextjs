@@ -32,13 +32,22 @@ export default async function Page() {
                             <div className={styles.contents}>
                                 {mediaUser.map((content, index) => {
                                     return (
-                                        <div key={index} className={styles.content}>
+                                        <Link key={index} className={styles.content} href={
+                                            ROUTES.MOVIE(content.id)
+                                        }>
                                             <span className={styles.title}>
 
                                                 {content.mediaLanguage.media.name}</span>
                                             <span
                                                 className={styles.language}
-                                            >{content.mediaLanguage.language.language}</span>
+                                            >
+                                                {
+                                                    content.mediaLanguage.language.language
+                                                } -
+                                                {
+                                                    content.mediaLanguage.language.code
+                                                }
+                                            </span>
                                             <span
                                                 className={styles.platform}
                                             >
@@ -51,7 +60,7 @@ export default async function Page() {
                                                 alt={content.mediaLanguage.media.name}
                                                 className={styles.logo}
                                             />
-                                        </div>
+                                        </Link>
 
                                     )
                                 })}

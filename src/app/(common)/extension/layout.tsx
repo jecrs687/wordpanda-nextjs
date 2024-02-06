@@ -1,6 +1,6 @@
 
 import SubtitleProvider from '@providers/SubtitleProvider'
-
+import styles from './layout.module.scss'
 
 
 export default function RootLayout({
@@ -8,9 +8,9 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
-    return (<>
+    return (<main className={styles.main}>
         <SubtitleProvider />
         {children}
-    </>
+    </main>
     )
 }

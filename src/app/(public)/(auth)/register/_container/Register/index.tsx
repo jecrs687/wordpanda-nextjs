@@ -82,7 +82,7 @@ export default function Register() {
                 />
                 <SelectLanguage />
                 <button type='submit' >
-                    Login
+                    Register
                 </button>
             </form>
         </main>

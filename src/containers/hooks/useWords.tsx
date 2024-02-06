@@ -10,7 +10,6 @@ const useWords = create<{
     language: "english",
     media: undefined,
     insert: (words: { word: string }[], language, media) => set((state) => ({ words: words, language: language, media })),
-
 }));
 
 export default useWords;

@@ -37,7 +37,6 @@ export type WordsPostRequest = {
 export async function POST(request: Request) {
     try {
         const token = cookies().get('token') || headers().get('Authorization')
-        const languageId = cookies().get('language')?.value || headers().get('language')
         if (!token) return Response.json({
             err: 'Not authorized'
         })
@@ -49,8 +48,13 @@ export async function POST(request: Request) {
         const user = await prisma.user.findUnique({
             where: {
                 id
+            },
+            include: {
+                language: true
             }
         })
+        const languageId = +cookies().get('language')?.value || +headers().get('language') || user?.languageId
+
         if (!user) return Response.json({
             err: 'Not authorized'
         })
