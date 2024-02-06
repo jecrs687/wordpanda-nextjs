@@ -11,8 +11,8 @@ const useLanguage = create<
         selectTargetLanguage: (language: number) => void
     }
 >((set) => ({
-    language: 1,
-    targetLanguage: 2,
+    language: 59,
+    targetLanguage: 6,
     languages: [],
     select: (language) => set((state) => ({ language: language })),
     selectTargetLanguage: (language) => set((state) => ({ targetLanguage: language })),

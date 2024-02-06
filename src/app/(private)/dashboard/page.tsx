@@ -22,6 +22,7 @@ export default async function Page() {
                                     <div className={styles.language} key={index}>
                                         <h3>{language.language.language}</h3>
                                         <p>{language.language.code}</p>
+                                        <p>palavras: {language.userWords.length}</p>
                                     </div>
                                 )
                             })
