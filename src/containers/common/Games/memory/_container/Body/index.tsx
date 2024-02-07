@@ -82,6 +82,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
     ])
     useEffect(() => {
         if (!wordsFiltered.length) {
+
             updateList()
         } else {
             const allUsed = wordsFiltered?.filter(({ isUsed }) => isUsed).length
