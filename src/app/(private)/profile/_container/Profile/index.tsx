@@ -85,6 +85,7 @@ export default function UserProfile({ errors, user }) {
 
           </div>
         </div>
+
       </div>
     </main >
   );

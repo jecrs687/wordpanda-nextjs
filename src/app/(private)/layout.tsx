@@ -9,7 +9,8 @@ export default function RootLayout({
     children }: {
         children: React.ReactNode
     }) {
-    if (!cookies().get('token')) {
+    const token = cookies().get('token')
+    if (!token) {
         redirect(ROUTES.LOGIN())
         return <></>
     }

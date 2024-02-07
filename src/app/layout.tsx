@@ -1,8 +1,10 @@
 import EventProvider from '@providers/EventProvider'
 import InformationProvider from '@providers/InformationProvider'
 import type { Metadata } from 'next'
+import { ErrorBoundary } from 'next/dist/client/components/error-boundary'
 import { Poppins } from 'next/font/google'
 import { Suspense } from 'react'
+import Error from './error'
 import './globals.scss'
 
 const poppins = Poppins({
@@ -32,8 +34,10 @@ export default function RootLayout({
           <EventProvider />
           <InformationProvider />
         </Suspense>
-        {children}
+        <ErrorBoundary errorComponent={Error}>
+          {children}
+        </ErrorBoundary>
       </body>
-    </html>
+    </html >
   )
 }

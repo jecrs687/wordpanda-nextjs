@@ -36,4 +36,5 @@ export const ROUTES = {
     POP_LOGIN: () => '/pop-up/login',
     POP_REGISTER: () => '/pop-up/register',
     POP_DASHBOARD: () => '/pop-up/dashboard',
+
 }

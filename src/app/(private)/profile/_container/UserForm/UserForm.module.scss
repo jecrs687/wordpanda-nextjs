@@ -1,3 +1,5 @@
+@import "@styles/index.scss";
+
 .form {
     width: 100%;
 
@@ -11,5 +13,22 @@
 
     .select {
         max-width: 200px;
+    }
+
+    .logout {
+        background-color: $ninth;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        margin: 20px auto;
+        max-width: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        a {
+            color: white;
+        }
     }
 }

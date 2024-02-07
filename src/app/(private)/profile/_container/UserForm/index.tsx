@@ -1,11 +1,13 @@
 "use client";
 import Input from '@common/Input';
 import { SelectLanguage } from '@common/SelectLanguage';
+import { ROUTES } from '@constants/ROUTES';
 import Button from '@core/Button';
 import { User } from '@prisma/client';
 import { fetchClient } from '@services/fetchClient';
 import { setCookie } from '@utils/cookie';
 import { Formik } from 'formik';
+import Link from 'next/link';
 import { useState } from 'react';
 import { ProfilePutRequest, ProfilePutResponse } from 'src/app/api/profile/route';
 import useSWRMutation from 'swr/mutation';
@@ -155,6 +157,11 @@ export default function UserForm({ user }: {
                                 Cancelar
                             </Button>
                         }
+                    </div>
+                    <div className={styles.logout}>
+                        <Link href={ROUTES.LOGOUT()} >
+                            Sair | logout
+                        </Link>
                     </div>
                 </form>
             )}
