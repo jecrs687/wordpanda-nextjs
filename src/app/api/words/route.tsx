@@ -254,7 +254,7 @@ export async function POST(request: Request) {
                     include: {
                         translations: {
                             where: {
-                                languageId: language.id
+                                languageId: translationLanguageTarget.id
                             }
                         }
                     }
