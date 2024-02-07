@@ -15,7 +15,9 @@ export default async function Page() {
         <main className={styles.main}>
             <div className={styles.container}>
                 <div className={styles.card}>
-                    <h3>Learn</h3>
+                    <h3
+                        className={styles.card__title}
+                    >Learn</h3>
                     <div className={styles.languages}>
                         {
                             userLanguages.map((language, index) => {
