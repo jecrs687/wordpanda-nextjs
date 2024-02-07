@@ -1,0 +1,138 @@
+@import "@styles/index.scss";
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100%;
+  background-color: $background;
+  max-width: 100%;
+
+  .profile {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 40px;
+    margin: 1rem;
+    width: 80%;
+    border-radius: 10px;
+    gap: 20px;
+    max-width: 100%;
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(600px, 50dvw), 1fr));
+      gap: 50px;
+      max-width: 100%;
+
+    }
+
+    .inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 700px;
+
+      .input {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        font-size: 1rem;
+        font-weight: 600;
+
+        input {
+          padding: 10px 5px;
+          background: none;
+          border-radius: 10px;
+          border: 1px solid $ninth;
+        }
+      }
+    }
+
+    .languages {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      ::first-letter {
+        text-transform: uppercase;
+      }
+
+      .language {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border-radius: 10px;
+        background: #33333311;
+
+
+
+        .title {
+          width: 100%;
+          background-color: $ninth;
+          color: white;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 1rem;
+          font-weight: 600;
+          padding: 10px 20px;
+          border-radius: 20px;
+
+
+        }
+
+        .metrics {
+          margin-top: 20px;
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 10px;
+
+
+          .metric {
+            background: #33333333;
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 20px;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px;
+            gap: 10px;
+
+
+
+            .name {
+              font-size: 1rem;
+              font-weight: 600;
+              color: $ninth;
+            }
+
+            .value {
+              font-size: 1.5rem;
+              font-weight: 600;
+              color: $ninth;
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  p {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #515151;
+    margin-bottom: 1rem;
+  }
+}

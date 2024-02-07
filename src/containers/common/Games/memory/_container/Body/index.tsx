@@ -65,6 +65,8 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
             wordsWithoutRepetitions.push(word.word.toLowerCase());
             allTranslations.push(...trans)
         })
+        console.log({ wordsResponseFiltered })
+
         setWordsFiltered(
             prev =>
                 wordsResponseFiltered.filter(({ word }) => wordsWithoutRepetitions.includes(word.toLowerCase()))
@@ -82,7 +84,6 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
     ])
     useEffect(() => {
         if (!wordsFiltered.length) {
-
             updateList()
         } else {
             const allUsed = wordsFiltered?.filter(({ isUsed }) => isUsed).length

@@ -22,7 +22,7 @@ function Submit() {
     </Button>
 }
 
-export default function LoginPage() {
+export default function LoginPage({ nextPage }: { nextPage?: string }) {
     const [state, formAction] = useFormState(submit, {})
     const { extension } = useDevice()
     const route = useRouter()
@@ -33,10 +33,10 @@ export default function LoginPage() {
 
         if (state.token) {
             localStorage.setItem('wordPand_token', state.token)
-            route.push(extension ? ROUTES.EXTENSION_GAMES() : ROUTES.DASHBOARD())
+            route.push(nextPage ? nextPage : extension ? ROUTES.EXTENSION_GAMES() : ROUTES.DASHBOARD())
             web.setToken(state.token)
         }
-    }, [state, route, web, extension])
+    }, [state, route, web, extension, nextPage])
     return (
         <main className={styles.main}>
             <form action={formAction}>
