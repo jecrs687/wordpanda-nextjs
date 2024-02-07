@@ -47,7 +47,9 @@ export default function LoginPage() {
                     alt='logo'
                     className={styles.image}
                 /> */}
-                <h1>Language boost</h1>
+                <h1>
+                    Wordpanda
+                </h1>
 
                 <Input
                     type='text'
@@ -65,7 +67,8 @@ export default function LoginPage() {
                 />
                 <Submit />
             </form>
-            <Link href={ROUTES.REGISTER()}>Não tem uma conta? Registre-se
+            <Link href={ROUTES.REGISTER()} className={styles.link}>
+                Não tem uma conta? Registre-se
             </Link>
         </main>
     )
