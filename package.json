@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --experimental-https",
+    "dev:normal": "next dev",
     "build": "next build",
     "migrate": "NODE_ENV=development npx tsx ./src/backend/infra/database/migrations",
     "start": "next start",
