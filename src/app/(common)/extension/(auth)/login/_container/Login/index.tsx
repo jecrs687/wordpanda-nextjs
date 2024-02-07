@@ -65,7 +65,8 @@ export default function LoginPage() {
                 />
                 <Submit />
             </form>
-            <Link href={ROUTES.REGISTER()}>Não tem uma conta? Registre-se
+            <Link href={ROUTES.REGISTER()} className={styles.link}>
+                Não tem uma conta? Registre-se
             </Link>
         </main>
     )
