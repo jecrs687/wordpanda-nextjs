@@ -1,7 +1,7 @@
 'use client';
 import { fetchClient } from '@services/fetchClient';
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDrag } from 'react-dnd';
 import { GamesFlashcardPostRequest, GamesFlashcardPostResponse } from 'src/app/api/games/flashcard/route';
 import { WordWithTranslationsAndUserWords, WordsPostRequest, WordsPostResponse } from 'src/app/api/words/route';
@@ -45,15 +45,24 @@ export const FlashBody = ({ words, lang, mediaId }: {
         string,
         GamesFlashcardPostRequest
     >('/api/games/flashcard', fetchClient("POST"))
-
-    useEffect(() => {
-        wordsListTrigger({
-            words: words,
+    const [index, setIndex] = useState(0)
+    const updateList = useCallback(async () => {
+        const response = await wordsListTrigger({
+            words: words.slice(index, index + 40),
             language: lang,
         })
-    }, [words, wordsListTrigger, lang])
+        setIndex(index + 40)
+        setWordsCards(response.data.words)
+    }, [
+        words,
+        lang,
+        wordsListTrigger,
+        index
+    ])
     useEffect(() => {
-        if (!wordsCards.length && wordsList?.words) setWordsCards(wordsList?.words)
+        if (!wordsCards.length) updateList()
+    }, [wordsCards, updateList])
+    useEffect(() => {
     }, [wordsList, wordsCards])
 
 

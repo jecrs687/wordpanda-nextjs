@@ -25,7 +25,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
     const [secondSelected, setSecondSelected] = useState<number>()
     const [wordsFiltered, setWordsFiltered] = useState<Array<WordMemory>>([])
     const [wordsShowed, setWordsShowed] = useState<WordMemory[]>([])
-
+    const [index, setIndex] = useState(0)
     const { data: { data: wordsList, err: wordsListErr, msg: wordsListMsg } = {},
         error: wordsListError,
         isMutating: wordsListIsMutating,
@@ -45,38 +45,58 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         GamesMemoryPostRequest
     >('/api/games/memory', fetchClient("POST"))
 
-    useEffect(() => {
-        wordsListTrigger({
-            words: words,
-            language: lang
+
+    const updateList = useCallback(async () => {
+        const wordsResponse = await wordsListTrigger({
+            words: words.slice(index, index + 80),
+            language: lang,
         })
-    }, [words, wordsListTrigger, lang])
+        setIndex(index + 80)
+        const wordsResponseFiltered = wordsResponse?.data?.words?.filter(({ translations }) => translations?.[0]?.translations?.length)
 
-    useEffect(() => {
-        if (!wordsFiltered.length && wordsList?.words) {
-            const words = wordsList?.words?.filter(({ translations }) => translations?.[0]?.translations?.length)
-
-            const wordsWithoutRepetitions = [];
-            const allTranslations: string[] = []
-            words?.forEach(({ translations }, index) => {
-                const word = words[index]
-                const translation = translations[0].translations
-                if (wordsWithoutRepetitions.includes(word.word.toLowerCase())) return;
-                const trans = translation.map(({ word }) => word)
-                if (allTranslations.some(x => trans.includes(x))) return;
-                wordsWithoutRepetitions.push(word.word.toLowerCase());
-                allTranslations.push(...trans)
-            })
-            setWordsFiltered(
-                words.filter(({ word }) => wordsWithoutRepetitions.includes(word.toLowerCase()))
+        const wordsWithoutRepetitions = [];
+        const allTranslations: string[] = []
+        wordsResponseFiltered?.forEach(({ translations }, index) => {
+            const word = wordsResponseFiltered[index]
+            const translation = translations[0].translations
+            if (wordsWithoutRepetitions.includes(word.word.toLowerCase())) return;
+            const trans = translation.map(({ word }) => word)
+            if (allTranslations.some(x => trans.includes(x))) return;
+            wordsWithoutRepetitions.push(word.word.toLowerCase());
+            allTranslations.push(...trans)
+        })
+        setWordsFiltered(
+            prev =>
+                wordsResponseFiltered.filter(({ word }) => wordsWithoutRepetitions.includes(word.toLowerCase()))
                     .map(({ word, translations, id }) => ({
                         word,
                         trans: translations[0].translations.map(({ word }) => word),
                         id,
                     }))
-            )
+        )
+    }, [
+        words,
+        lang,
+        wordsListTrigger,
+        index
+    ])
+    useEffect(() => {
+        if (!wordsFiltered.length) {
+            updateList()
+        } else {
+            const allUsed = wordsFiltered?.filter(({ isUsed }) => isUsed).length
+            const allShowedUsed = wordsShowed?.filter(({ isUsed }) => isUsed).length
+            const needUpdate = wordsFiltered?.length - allUsed
+
+            if (allShowedUsed == QUANT && needUpdate < QUANT) updateList()
         }
-    }, [wordsList, wordsFiltered])
+    }, [
+        wordsFiltered,
+        updateList,
+        wordsShowed
+    ])
+
+
 
     const generateList = (items: WordMemory[]) => {
         const list: WordMemory[] = [];
@@ -100,6 +120,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         while (used.length) {
             const index = Math.floor(Math.random() * used.length)
             const index2 = Math.floor(Math.random() * usedTranslate.length)
+            console.log({ items })
             const item = items.pop()
             item.position = used[index]
             item.translatePosition = usedTranslate[index2]
@@ -130,7 +151,11 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
     }, []
     )
     useEffect(() => {
-        if (wordsFiltered.length && !wordsShowed.length)
+        if (!wordsFiltered.length) return
+        console.log({ wordsFiltered })
+        if (wordsFiltered?.filter(({ isUsed }) => !isUsed).length < QUANT) return
+
+        if (!wordsShowed.length)
             return generate(wordsFiltered)
         if (wordsShowed?.filter(({ isUsed }) => isUsed).length > QUANT / 2)
             setTimeout(() => {
@@ -194,7 +219,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         mediaId
     ])
 
-    if (wordsListIsMutating || !wordsList || !wordsFiltered) return <Loading />
+    if (!wordsList || !wordsFiltered) return <Loading />
 
 
     return (

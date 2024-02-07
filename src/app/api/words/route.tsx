@@ -68,7 +68,7 @@ export async function POST(request: Request) {
             },
         })
         ])
-        const languageId = +cookies().get('language')?.value || +headers().get('language') || user?.languageId
+        const languageId = 59 || +cookies().get('language')?.value || +headers().get('language') || user?.languageId
 
         if (!user) return Response.json({
             err: 'Not authorized'
@@ -252,7 +252,11 @@ export async function POST(request: Request) {
                         languageId: translationLanguageTarget.id
                     },
                     include: {
-                        translations: true
+                        translations: {
+                            where: {
+                                languageId: language.id
+                            }
+                        }
                     }
                 }
             }

@@ -35,7 +35,7 @@ export async function POST(request: Request) {
         }
     })
     if (!user) return Response.json({ err: 'User not found' })
-    const languageId = +cookies().get('language')?.value || +headers().get('language') || user.languageId
+    const languageId = 59 || +cookies().get('language')?.value || +headers().get('language') || user.languageId
 
     const {
         words
@@ -49,7 +49,11 @@ export async function POST(request: Request) {
         },
         include: {
             language: true,
-            wordGameQuiz: true
+            wordGameQuiz: {
+                where: {
+                    languageId: languageId
+                }
+            }
         }
     }), await prisma.language.findUnique({
         where: {

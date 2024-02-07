@@ -8,6 +8,7 @@
     .sides {
         display: flex;
         height: 100%;
+        color: white;
 
         .side {
             display: flex;
@@ -18,18 +19,20 @@
             height: 100%;
             flex: 1;
             opacity: 0.5;
+            padding: 0px 0px 50px;
 
             .card {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 margin: 0.5rem;
-                height: 100px;
+                height: 100%;
                 width: 200px;
                 border-radius: 0.5rem;
                 background-color: $ninth;
-                padding: 10px 30px;
+                padding: 10px 10px;
                 border: 2px solid transparent;
+                opacity: 1;
 
                 ::first-letter {
                     text-transform: uppercase;

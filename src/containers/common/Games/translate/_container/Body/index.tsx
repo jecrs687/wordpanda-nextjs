@@ -1,7 +1,7 @@
 'use client';
 import { fetchClient } from '@services/fetchClient';
 import { useCallback, useEffect, useState } from 'react';
-import { WordsPostRequest, WordsPostResponse } from 'src/app/api/words/route';
+import { WordWithTranslationsAndUserWords, WordsPostRequest, WordsPostResponse } from 'src/app/api/words/route';
 import useSWRMutation from 'swr/mutation';
 
 import { WordGameQuiz } from '@prisma/client';
@@ -16,6 +16,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
     const [index, setIndex] = useState<number>(0)
     const [option, setOption] = useState<WordGameQuiz & { options: { value: string, correct: boolean }[] }>()
     const [selected, setSelected] = useState<number>(undefined)
+    const [allWords, setAllWords] = useState<WordWithTranslationsAndUserWords[]>([])
     const { data: { data: wordsList, err: wordsListErr, msg: wordsListMsg } = {},
         error: wordsListError,
         isMutating: wordsListIsMutating,
@@ -44,15 +45,29 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         GamesMemoryPostRequest
     >('/api/games/memory', fetchClient("POST"))
 
-    useEffect(() => {
-        wordsListTrigger({
-            words: words,
+    const updateWords = useCallback(async () => {
+        const response = await wordsListTrigger({
+            words: words.slice(index, index + 40),
             language: lang,
         })
-    }, [words, wordsListTrigger, lang])
+        setAllWords(prev => [...prev, ...response.data.words])
+    }, [
+        words,
+        lang,
+        wordsListTrigger,
+        index
+    ])
+
+    useEffect(() => {
+        if (index === allWords.length) updateWords();
+    }, [
+        index,
+        allWords,
+        updateWords
+    ])
     const getNewQuiz = useCallback(async () => {
         const response = await quizTrigger({
-            words: wordsList.words.map(word => word.id).slice(
+            words: allWords.map(word => word.id).slice(
                 quizList.length,
                 quizList.length + 4
             ),
@@ -61,12 +76,15 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         const quiz = response.data.words.map(({ wordGameQuiz }) => wordGameQuiz).flat()
         setQuizList(prev => [...prev, ...quiz])
 
-    }, [wordsList, quizTrigger, quizList])
+    }, [allWords, quizTrigger, quizList])
     useEffect(() => {
-        if (!wordsList?.words?.length) return;
-        if (index === wordsList.words.length) return;
+        if (!allWords.length) return;
+        if (index === allWords.length) return;
+        console.log({
+            index, allWords, quizList
+        })
         if (index + 4 > quizList.length) getNewQuiz();
-    }, [wordsList, index, getNewQuiz, quizList])
+    }, [allWords, index, getNewQuiz, quizList])
 
     useEffect(() => {
         if (!quizList.length) return;
@@ -83,7 +101,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         }
         setOption({ ...current, options: options?.sort(() => Math.random() - 0.5) })
     }, [index, quizList])
-    if (wordsListIsMutating || !wordsList || !quizList.length) return <Loading />
+    if (!allWords?.length || !quizList.length) return <Loading />
 
 
     return (
@@ -91,7 +109,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
             <div className={styles.quiz}>
                 <div className={styles.quiz__word}>
                     {
-                        wordsList.words.find(word => word.id === quizList[index]?.wordId)?.word
+                        allWords?.find(word => word.id === quizList[index]?.wordId)?.word
                     }
                 </div>
                 <div className={styles.quiz__question}>
