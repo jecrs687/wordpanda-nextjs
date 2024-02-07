@@ -7,7 +7,7 @@ import { getCookie } from "@utils/cookie";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./NavBar.module.scss";
 const paths = [
@@ -53,13 +53,15 @@ export function NavBar() {
     >(paths)
     const { extension } = useDevice()
     const route = usePathname()
+    const router = useRouter();
     const updatePath = () => {
         setPath(window?.location.pathname)
     }
-
-
     useEffect(() => {
         updatePath();
+        // router.prefetch(ROUTES.DASHBOARD())
+        // router.prefetch(ROUTES.LANGUAGES())
+        // router.prefetch(ROUTES.PROFILE())
     }, [route])
 
     useEffect(() => {
