@@ -163,16 +163,24 @@
             align-items: center;
             justify-content: center;
 
+            :hover {
+                display: none;
+            }
+
             .link {
                 width: 100%;
                 height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
-                .icon {
-                    transform: translate(80%, 0%);
-                }
 
                 span {}
             }
+        }
+
+        .logout {
+            display: none;
         }
 
         &:hover {

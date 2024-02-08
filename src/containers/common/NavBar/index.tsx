@@ -121,7 +121,7 @@ export function NavBar() {
         </div>
         <div
             className={clsx(
-                styles.item,
+                styles.item, styles.logout,
                 {
                     [styles.active]: ROUTES.LOGOUT() === path
                 }
