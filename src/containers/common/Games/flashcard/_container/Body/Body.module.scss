@@ -21,7 +21,7 @@
     }
 
     .sides {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         width: 100%;
@@ -41,5 +41,19 @@
                 flex: 40;
             }
         }
+    }
+}
+
+
+@media (max-width: 768px) {
+    .body {
+        @for $i from 0 through 10 {
+            .card-key-#{$i} {
+                margin-left: ($i * 3px);
+                z-index: 10 - $i;
+                opacity: 1 - (($i - 1) * 0.1);
+            }
+        }
+
     }
 }
