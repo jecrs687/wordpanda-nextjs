@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     if (!platform || !links || !name || !image) {
         return Response.json({ err: 'Invalid data' });
     }
-    if (!validateImage.some(image.includes)) {
+    if (!validateImage.some((x) => image.includes(x))) {
         return Response.json({ err: 'Invalid image' });
     }
     if (!links.every(link => link.includes(validateLinks))) {
