@@ -17,6 +17,14 @@ export const insertSubtitles = async (subtitles: {
     links: string[]
 }[]
 ) => {
+    const words = {
+        "en": WORDS_IN_ENGLISH.map(word => word.toLowerCase()),
+        "it": WORDS_IN_ITALIAN.map(word => word.toLowerCase()),
+        "fr": WORDS_IN_FRENCH.map(word => word.toLowerCase()),
+        "de": WORDS_IN_GERMAN.map(word => word.toLowerCase()),
+        "es": WORDS_IN_SPANISH.map(word => word.toLowerCase()),
+        "pt": WORDS_IN_PORTUGUESE.map(word => word.toLowerCase())
+    }
 
     for (const subtitle of subtitles) {
 
@@ -69,14 +77,6 @@ export const insertSubtitles = async (subtitles: {
                     }
                 }
             })
-            const words = {
-                "en": WORDS_IN_ENGLISH,
-                "it": WORDS_IN_ITALIAN,
-                "fr": WORDS_IN_FRENCH,
-                "de": WORDS_IN_GERMAN,
-                "es": WORDS_IN_SPANISH,
-                "pt": WORDS_IN_PORTUGUESE
-            }
 
             if (!words[languageCode]) continue
             sub.words = sub.words.filter(word => words[languageCode].includes(word.word.toLowerCase()))
@@ -125,7 +125,7 @@ export const insertSubtitles = async (subtitles: {
                             }
                         })
                     }
-                    ), 100, 10
+                    ), 0, 10
                 )
                 await prisma.media.create({
                     data: {

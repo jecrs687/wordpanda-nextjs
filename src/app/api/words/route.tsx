@@ -52,6 +52,7 @@ export async function POST(request: Request) {
         console.time('before chat')
         const body: WordsPostRequest = await request.json();
         const { id } = decoded
+        const languageCode = body.language.toLowerCase()?.split('-')[0]
         const [user, language] = await Promise.all([await prisma.user.findUnique({
             where: {
                 id
@@ -63,7 +64,7 @@ export async function POST(request: Request) {
         await prisma.language.findFirst({
             where: {
                 code: {
-                    startsWith: body.language.toLowerCase()
+                    startsWith: languageCode
                 }
             },
         })
