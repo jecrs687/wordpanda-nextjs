@@ -13,8 +13,8 @@ const schema = z.object({
     username: z.string().min(4).max(100),
 
 });
-type UserDto = Omit<User, 'updatedAt' | "createdAt" | "deletedAt" | "id" | "role" | "lastLoginAt" | "score">
-export async function createUser(userDto: UserDto) {
+type UserDto = Omit<User, 'updatedAt' | "createdAt" | "deletedAt" | "id" | "role" | "lastLoginAt" | "score" | "languageId">
+export async function createUser(userDto: UserDto & { languageId?: number }) {
     try {
         const validate = schema.safeParse(userDto) as typeof userDto & { error: z.ZodError, success: boolean }
         if (!validate.success && validate?.error) {
@@ -23,7 +23,6 @@ export async function createUser(userDto: UserDto) {
             });
         }
         userDto.password = encryptPassword(userDto.password)
-        userDto.languageId = 59
         const inserted = await prisma.user.create({
             data: userDto
         })
@@ -31,6 +30,10 @@ export async function createUser(userDto: UserDto) {
         return { msg: 'ok', token }
 
     } catch (err) {
+        console.log(
+            "🚀 ~ file: createUser.action.ts ~ line 47 ~ createUser ~ err"
+            , err
+        )
         if (err?.code === 'P2002') {
             return ({
                 errors: {
