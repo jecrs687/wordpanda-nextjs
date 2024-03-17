@@ -65,7 +65,6 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
             wordsWithoutRepetitions.push(word.word.toLowerCase());
             allTranslations.push(...trans)
         })
-        console.log({ wordsResponseFiltered })
 
         setWordsFiltered(
             prev =>
@@ -122,7 +121,6 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         while (used.length) {
             const index = Math.floor(Math.random() * used.length)
             const index2 = Math.floor(Math.random() * usedTranslate.length)
-            console.log({ items })
             const item = items.pop()
             item.position = used[index]
             item.translatePosition = usedTranslate[index2]
@@ -154,7 +152,6 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
     )
     useEffect(() => {
         if (!wordsFiltered.length) return
-        console.log({ wordsFiltered })
         if (wordsFiltered?.filter(({ isUsed }) => !isUsed).length < QUANT) return
 
         if (!wordsShowed.length)

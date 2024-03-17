@@ -80,9 +80,6 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
     useEffect(() => {
         if (!allWords.length) return;
         if (index === allWords.length) return;
-        console.log({
-            index, allWords, quizList
-        })
         if (index + 4 > quizList.length) getNewQuiz();
     }, [allWords, index, getNewQuiz, quizList])
 

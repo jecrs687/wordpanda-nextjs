@@ -1,56 +1,49 @@
-.backButton {
-    top: 10px;
-    left: 10px;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 100;
-    background-color: transparent;
-    border-radius: 10%;
-    transition: background-color 0.3s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    color: black;
-    font-weight: 500;
-    font-size: 20px;
-    gap: 10px;
+@import '@styles/index.scss';
 
-    span {
-        text-transform: uppercase;
-        color: black;
-        font-weight: 600;
-        font-size: 25px;
-        animation: leftToRight 2s infinite;
+.title {
+    &__box {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        margin-bottom: 20px;
+        padding: 0px;
+        width: fit-content;
+        min-width: 320px;
+        border-radius: 10px;
+        overflow: hidden;
+
     }
 
-    &:hover {
-        background-color: rgba(0, 0, 0, 0.7);
+    &__back {
+        padding: 0px 25px 0px 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        border-right: 1px outset $black;
+        width: fit-content;
+        margin-right: 10px;
+
+
+        &:hover {
+            span {
+                color: $initial;
+            }
+        }
+
+        span {
+            font-size: 30px;
+            font-weight: 700;
+            color: $black;
+            line-height: 40px;
+            height: 100%;
+
+        }
     }
 
-    svg {
-        width: 20px;
-        height: 20px;
-        fill: white;
-    }
-}
-
-@keyframes leftToRight {
-
-    0% {
-        transform: translateX(0%);
-    }
-
-    30% {
-        transform: translateX(-20%);
-    }
-
-
-    80% {
-        transform: translateX(20%);
-    }
-
-    100% {
-        transform: translateX(0%);
+    &__text {
+        font-size: 30px;
+        font-weight: 700;
+        color: $black;
+        line-height: 40px;
     }
 }

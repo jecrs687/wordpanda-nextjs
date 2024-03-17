@@ -14,10 +14,6 @@ export default function Page() {
     fetcher: fetchClient("GET")
   }
   );
-  console.log({
-    errors,
-    user
-  })
   if (!user) return <Loading />
   return <div>
     <UserProfile user={user} />

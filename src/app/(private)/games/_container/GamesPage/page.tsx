@@ -1,3 +1,4 @@
+import BackButton from '@common/BackButton';
 import { StoreLanguage } from '@common/StoreLanguage';
 import { GAMES } from '@constants/GAMES';
 import { Svg } from '@core/Svg';
@@ -26,11 +27,8 @@ export default async function GamesPage(
                 )
 
             }
-            <div className={styles.title__box}>
-                <h1 className={styles.title__text}>
-                    Games
-                </h1>
-            </div>
+            <BackButton
+                title='Games' />
             <h2 className={styles.description}>
                 Learn new words and phrases
             </h2>

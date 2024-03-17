@@ -14,7 +14,6 @@ export default function Page(
     useEffect(() => {
         const token = localStorage.getItem('wordPand_token') || searchParams?.token
         const validated = validateToken(token)
-        console.log({ token, validated })
         if (searchParams?.token) localStorage.setItem('wordPand_token', searchParams?.token)
         if (token) {
             router.push(ROUTES.EXTENSION_GAMES())

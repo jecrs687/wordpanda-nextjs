@@ -18,7 +18,6 @@ export default function SubtitleProvider() {
         ExtensionPrimeSubtitlePostRequest
     >('/api/extension/prime/subtitle', fetchClient("POST"))
     const captureSubtitles = useCallback(async () => {
-        console.log({ events })
         if (events.subtitles_urls && !Object.keys(events.words).length) {
             const { name, image, links } = events.subtitles_urls
             if (links) {

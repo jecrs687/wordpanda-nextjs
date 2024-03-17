@@ -3,21 +3,27 @@ import { usePathname, useRouter } from 'next/navigation';
 import styles from './BackButton.module.scss';
 export default function BackButton({
     children,
-    marginRight = "auto",
+    title,
 }: {
+    title?: string,
     children?: React.ReactNode,
-    marginRight?: string
 }) {
     const router = useRouter()
     const path = usePathname()
     if (path === '/extension/games') return null
     return (
-        <button type="button" onClick={() => router.back()}
-            style={{ marginRight }}
-            className={styles.backButton}
-        >
-            <span>{"<"}</span>
+
+        <div className={styles.title__box}>
+            <button type="button" onClick={() => router.back()}
+                className={styles.title__back}
+            >
+                <span>{"<"}</span>
+            </button>
+            <h1 className={styles.title__text}>
+                {title}
+            </h1>
             {children}
-        </button>
+        </div>
+
     )
 }

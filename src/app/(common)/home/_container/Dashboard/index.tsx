@@ -24,7 +24,6 @@ const DashboardComponent = () => {
     const scrollReference = scrollRef.current
     const handleScroll = () => {
       const scroll = scrollRef.current?.scrollTop || 0
-      console.log(scroll)
       setScroll(scroll)
     }
     scrollReference?.addEventListener('scroll', handleScroll)

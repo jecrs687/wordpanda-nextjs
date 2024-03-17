@@ -28,7 +28,6 @@ const getAllSubtitles = async ({
         x.click();
         sleep(100);
     }
-    console.log({ allSubtitles })
     await sleep(3000);
     Array(...allSubtitles).forEach((x, index) => {
         if (checkeds[index])
@@ -36,7 +35,6 @@ const getAllSubtitles = async ({
     })
     var performance = getPerf()
     const values = performance.getEntries().map((value) => value?.name?.split('.')).filter((v) => v.includes('ttml2')).map((v) => v.join("."))
-    console.log({ values })
     if (!values?.length)
         return getAllSubtitles({
             className, openAll

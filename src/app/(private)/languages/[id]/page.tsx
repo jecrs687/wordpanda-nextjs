@@ -1,18 +1,16 @@
 import { getLanguage } from '@backend/domain/actions/Languages/getLanguage.action';
-import BackButton from '@common/BackButton';
 import GamesPage from '../../games/_container/GamesPage/page';
-
+const langs = {};
 export default async function Page(
     {
         params: { id }
     }
 ) {
-    const language = await getLanguage({ id })
+    if (!langs[id]) {
+        langs[id] = await getLanguage({ id })
+    }
+    const language = langs[id];
     return (<>
-
-        <BackButton >
-            Games
-        </BackButton>
         <GamesPage language={language} />
     </>
     )
