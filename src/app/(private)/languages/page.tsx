@@ -1,11 +1,13 @@
 import { getLanguages } from '@backend/domain/actions/Languages/getLanguages.action';
 import { getUserLanguages } from '@backend/domain/actions/Languages/getUserLanguages.action';
-import { CardGame } from '@common/CardGame';
+import { ROUTES } from '@constants/ROUTES';
+import Link from 'next/link';
 import styles from './page.module.scss';
 
-export const dynamic = 'force-dynamic'
 export default async function Page() {
+    console.time('languages')
     const [{ languages }, { userLanguages }] = await Promise.all([await getLanguages(), await getUserLanguages()])
+    console.timeEnd('languages')
     return (
         <main className={styles.main}>
             <div className={styles.container}>
@@ -14,18 +16,16 @@ export default async function Page() {
                     <div className={styles.languages}>
                         {
                             languages.filter(
-                                x => x.word.length > 4
+                                x => x._count.word > 4
                             ).map((lang, index) => {
                                 return (
-                                    <CardGame
-                                        language={lang.code}
-                                        words={lang.word}
-
+                                    <Link
+                                        href={ROUTES.LANGUAGE(lang.id)}
                                         className={styles.language} key={index}>
                                         <h3>{lang.language}</h3>
                                         <p>{lang.code}</p>
-                                        <p>total: {lang.word.length}</p>
-                                    </CardGame>
+                                        <p>total: {lang._count.word}</p>
+                                    </Link>
                                 )
                             })
                         }
@@ -37,16 +37,17 @@ export default async function Page() {
                         {
                             userLanguages.map((lang, index) => {
                                 return (
-                                    <CardGame
-                                        language={lang.language.code}
-                                        words={lang.language.word}
-                                        className={styles.language} key={index}>
+                                    <Link
+                                        href={ROUTES.LANGUAGE(lang.id)}
+                                        className={styles.language}
+                                        key={index}
+                                    >
                                         <h3>{lang.language.language}</h3>
                                         <p>{lang.language.code}</p>
                                         <p>
-                                            Words: {lang.userWords.length}/{lang.language.word.length}
+                                            Words: {lang._count.userWords}/{lang.language._count.word}
                                         </p>
-                                    </CardGame>
+                                    </Link>
                                 )
                             })
                         }

@@ -1,19 +1,36 @@
+import { StoreLanguage } from '@common/StoreLanguage';
+import { GAMES } from '@constants/GAMES';
 import { Svg } from '@core/Svg';
 import Link from 'next/link';
-import { GAMES } from './_constants/GAMES';
 import styles from './page.module.scss';
 
-export default async function Page() {
+export default async function GamesPage(
+    {
+        language
+    }
+) {
     const allowedGames = [
         'Translate',
         'Memory',
         'Flashcards'
     ]
+
     return (
-        <main className={styles.main}>
-            <h1 className={styles.title}>
-                Games
-            </h1>
+        <main className={
+            styles.main
+
+        }>
+            {
+                !!language && (
+                    <StoreLanguage words={language.languages.word} language={language.languages.code} />
+                )
+
+            }
+            <div className={styles.title__box}>
+                <h1 className={styles.title__text}>
+                    Games
+                </h1>
+            </div>
             <h2 className={styles.description}>
                 Learn new words and phrases
             </h2>

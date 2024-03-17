@@ -4,17 +4,11 @@ export async function getLanguages() {
     try {
         const languagesFound = await prisma.language.findMany({
             include: {
-                word: true,
-                MediaLanguages: {
-                    include: {
-                        media: {
-                            include: {
-                                platform: true,
-                            }
-                        },
-                        mediaWords: true,
-                    },
-                }
+                _count: {
+                    select: {
+                        word: true
+                    }
+                },
             }
         });
 

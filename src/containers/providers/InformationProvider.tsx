@@ -1,6 +1,7 @@
 'use client';
 
 import useDevice from "@hooks/useDevice";
+import { setCookie } from "@utils/cookie";
 import { useSearchParams } from "next/navigation";
 
 function InformationProvider() {
@@ -11,11 +12,15 @@ function InformationProvider() {
 
     const { setDevice, extension, mobile } = useDevice()
 
-    if (from == 'extension' && !extension)
-        setDevice('extension')
+    if (from == 'extension' && !extension) {
+        setDevice('extension');
+        setCookie('device', 'extension')
+    }
 
-    if (from == 'mobile' && !mobile)
-        setDevice('mobile')
+    if (from == 'mobile' && !mobile) {
+        setDevice('mobile');
+        setCookie('device', 'mobile')
+    }
     if (typeof window === 'undefined') return <></>
     if (token)
         localStorage.setItem('wordPand_token', token);

@@ -3,7 +3,9 @@ import prisma from "@infra/config/database";
 import { validateToken } from "@utils/token";
 import { cookies, headers } from "next/headers";
 
-export async function getUser() {
+export async function getUser({
+    userWords
+} = { userWords: false }) {
     const cookie = cookies();
     const header = headers();
     try {
@@ -23,14 +25,19 @@ export async function getUser() {
             include: {
                 userLanguages: {
                     include: {
-                        userWords: {
-                            include: {
-                                word: true,
+                        userWords,
+                        _count: {
+                            select: {
+                                userWords: true
                             }
                         },
                         language: {
                             include: {
-                                word: true
+                                _count: {
+                                    select: {
+                                        word: true
+                                    }
+                                }
                             }
                         },
                     }

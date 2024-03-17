@@ -2,7 +2,7 @@ import UserForm from '../UserForm';
 import styles from './Profile.module.scss';
 
 export const dynamic = 'force-dynamic'
-export default function UserProfile({ errors, user }) {
+export default function UserProfile({ errors, user, metrics }) {
   return (
     <main className={styles.main}>
 
@@ -17,47 +17,28 @@ export default function UserProfile({ errors, user }) {
               Score: {user.score}
             </div>
             {
-              user.userLanguages?.map((userLanguage, index) => {
-                const metrics = userLanguage.userWords
-                  .reduce(
-                    (acc, curr) => {
-                      return {
-                        errors: acc.errors + curr.errors,
-                        attempts: acc.attempts + curr.attempts,
-                        mostShowed: acc?.mostShowedAttempts < curr.attempts ? curr?.word.word : acc.mostShowed,
-                        mostShowedAttempts: acc?.mostShowedAttempts < curr.attempts ? curr?.attempts : acc.mostShowedAttempts,
-                        mostWrong: acc?.mostWrongAttempts < curr.errors ? curr?.word.word : acc.mostWrong,
-                        mostWrongAttempts: acc?.mostWrongAttempts < curr.errors ? curr?.errors : acc.mostWrongAttempts,
-                      }
-                    }, {
-                    errors: 0,
-                    attempts: 0,
-                    mostShowed: '',
-                    mostShowedAttempts: 0,
-                    mostWrongAttempts: 0,
-                    mostWrong: '',
-                  })
+              metrics?.map(({ metric, ...lang }, index) => {
 
                 const listOfMetrics = [
                   {
                     name: 'Em aprendizado',
-                    value: userLanguage.userWords.length
+                    value: lang._count.userWords
                   },
                   {
                     name: 'Total de treinos',
-                    value: metrics.attempts
+                    value: metric.attempts
                   },
                   {
                     name: 'Palavra mais vista',
-                    value: metrics.mostShowed
+                    value: metric.mostShowed
                   },
                   {
                     name: 'Palavra mais difícil',
-                    value: metrics.mostWrong
+                    value: metric.mostWrong
                   },
                   {
                     name: 'Total de erros',
-                    value: metrics.errors
+                    value: metric.errors
                   }
                 ]
                 return <details
@@ -67,7 +48,7 @@ export default function UserProfile({ errors, user }) {
                   <summary
                     className={styles.title}
                   >
-                    {userLanguage.language.language} - {userLanguage.language.code}
+                    {lang.language.language} - {lang.language.code}
                   </summary>
                   <div className={styles.metrics}>
                     {

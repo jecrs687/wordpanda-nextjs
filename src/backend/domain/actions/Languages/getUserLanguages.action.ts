@@ -12,9 +12,19 @@ export async function getUserLanguages() {
             },
             include: {
                 language: {
-                    include: { word: true }
+                    include: {
+                        _count: {
+                            select: {
+                                word: true
+                            }
+                        }
+                    }
                 },
-                userWords: true,
+                _count: {
+                    select: {
+                        userWords: true
+                    }
+                }
             }
         });
 
