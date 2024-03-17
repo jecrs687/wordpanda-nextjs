@@ -20,6 +20,6 @@ export default function Page() {
   })
   if (!user) return <Loading />
   return <div>
-    <UserProfile errors={errors} user={user} />
+    <UserProfile user={user} />
   </div>
 }

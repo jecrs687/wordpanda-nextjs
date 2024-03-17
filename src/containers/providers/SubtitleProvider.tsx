@@ -35,7 +35,7 @@ export default function SubtitleProvider() {
                 insertLanguage(jsonFromTTML.lang, { words, jsonFromTTML })
             }
         }
-    }, [events, insertLanguage])
+    }, [events, insertLanguage, subtitleTrigger])
     useEffect(() => {
         captureSubtitles()
     }, [captureSubtitles, events])

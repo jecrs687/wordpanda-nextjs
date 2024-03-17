@@ -21,7 +21,7 @@ export const Logout = async () => {
             route.push(ROUTES.LOGIN())
         }, 2000)
 
-    }, [])
+    }, [popUp, route, web])
     return (
         <div>Logout</div>
     );

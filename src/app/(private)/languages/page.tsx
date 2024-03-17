@@ -4,10 +4,9 @@ import { ROUTES } from '@constants/ROUTES';
 import Link from 'next/link';
 import styles from './page.module.scss';
 
+export const dynamic = 'force-dynamic'
 export default async function Page() {
-    console.time('languages')
     const [{ languages }, { userLanguages }] = await Promise.all([await getLanguages(), await getUserLanguages()])
-    console.timeEnd('languages')
     return (
         <main className={styles.main}>
             <div className={styles.container}>

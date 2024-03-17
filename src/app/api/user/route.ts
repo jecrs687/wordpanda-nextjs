@@ -1,8 +1,8 @@
 // import { insertWords } from '@infra/database'
-import { getUser } from '@backend/domain/actions/User/getUser.action'
+import { getUserWithWords } from '@backend/domain/actions/User/getUserWithWords.action'
 
 export async function GET(request: Request) {
-    const user = await getUser()
+    const user = await getUserWithWords()
 
     return Response.json(
         user
