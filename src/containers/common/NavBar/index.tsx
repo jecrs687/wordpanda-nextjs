@@ -14,12 +14,12 @@ const paths = [
     {
         path: ROUTES.DASHBOARD(),
         icon: "/assets/icons/dashboard.svg",
-        name: "Dashboard"
+        name: "Home"
     },
     {
         path: ROUTES.LANGUAGES(),
         icon: "/assets/icons/language.svg",
-        name: "Languages"
+        name: "Línguas"
     },
     // {
     //     path: ROUTES.GAMES(),
@@ -29,7 +29,7 @@ const paths = [
     {
         path: ROUTES.PROFILE(),
         icon: "/assets/icons/profile.svg",
-        name: "Profile"
+        name: "Perfil"
     },
     // {
     //     path: ROUTES.MOVIES(),
@@ -79,13 +79,20 @@ export function NavBar() {
     }, [extension])
     if (extension) return <></>
     return <nav className={styles.nav}>
-        <Image
-            src="/assets/icons/menu.svg"
-            alt="logo"
-            width={20}
-            height={20}
-            className={styles.menu}
-        />
+        <div className={styles.logo}>
+            <Image
+                src="/assets/logo.png"
+                alt="logo"
+                width={20}
+                height={20}
+                className={styles.logo__image}
+            />
+            <h3 className={styles.logo__title}>
+                Wordpanda
+            </h3>
+
+        </div>
+
         <ul className={styles.list}>
             {
                 paths.map(({ path: url, icon, name }, index) => <li

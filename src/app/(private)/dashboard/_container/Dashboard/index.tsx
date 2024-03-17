@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import styles from './page.module.scss';
 
+type Platform = Awaited<ReturnType<typeof getPlatforms>>['platforms']
 const Dashboard = ({
     languages,
     medias,
@@ -16,7 +17,7 @@ const Dashboard = ({
 }: {
     languages: Awaited<ReturnType<typeof getUser>>['user']['userLanguages'],
     medias: Awaited<ReturnType<typeof getUser>>['user']['mediaUser'],
-    platforms: Awaited<ReturnType<typeof getPlatforms>>['platforms'],
+    platforms: Platform,
 }) => {
     const [search, setSearch] = useState('');
     const userLanguages = languages.filter(({ language }) => language.language.toLowerCase().includes(search.toLowerCase()))
@@ -25,6 +26,8 @@ const Dashboard = ({
         const medias = platform.medias.filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()))
         return { ...platform, medias }
     }).filter(({ medias }) => medias.length)
+    const mostViewed = [...platforms[0].medias].sort((a, b) => b.mediaLanguages.length - a.mediaLanguages.length).slice(0, 25)
+
     return (
         <main className={styles.main}>
             <div className={styles.header}>
@@ -114,9 +117,12 @@ const Dashboard = ({
                                                 <h4>{platform.name}</h4>
                                                 <div className={styles.contents}>
                                                     {platform.medias.map((content, index) =>
-                                                        <Link key={index} className={styles.content} href={
-                                                            ROUTES.MOVIE(content.id)
-                                                        }>
+                                                        <Link key={index}
+
+                                                            className={styles.content} href={
+                                                                ROUTES.MOVIE(content.id)
+
+                                                            }>
                                                             <span className={styles.title}>
 
                                                                 {content.name}</span>
@@ -139,6 +145,40 @@ const Dashboard = ({
 
                                 )
                             }
+                        </ShowIf>
+                        <ShowIf condition={!!mostViewed.length}>
+                            <div className={styles.carrossel}>
+                                <h4>Mais vistos</h4>
+                                <div className={styles.contents}>
+                                    {mostViewed.map((content, index) =>
+                                        <Link key={index} className={styles.content}
+
+                                            style={{
+                                                height: '350px',
+                                            }}
+                                            href={
+                                                ROUTES.MOVIE(content.id)
+                                            }>
+
+                                            <span className={styles.title}>
+                                                {content.name}</span>
+                                            <span
+                                                className={styles.language}
+                                            >{content.mediaLanguages.map((x) => x.language.language).join(', ')}</span>
+                                            <span className={styles.index}>
+                                                {index + 1}
+                                            </span>
+                                            <Image
+                                                width={50}
+                                                height={50}
+                                                src={content.logoUrl || "https://picsum.photos/200/300"}
+                                                alt={content.name}
+                                                className={styles.logo}
+                                            />
+                                        </Link>
+                                    )}
+                                </div>
+                            </div>
                         </ShowIf>
                     </div>
                 </div>

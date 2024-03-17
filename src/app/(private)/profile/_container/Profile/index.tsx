@@ -34,15 +34,15 @@ export default function UserProfile({ errors, user }: {
     <main className={styles.main}>
 
       <div className={styles.profile}>
-        <h1>Welcome, {user.firstName} {user.lastName}!</h1>
+        <h1>Olá, {user.firstName} {user.lastName}!</h1>
         <div className={styles.container}>
           <UserForm
             user={user}
           />
           <div className={styles.languages}>
-            <div className={styles.input}>
+            {/* <div className={styles.input}>
               Score: {user.score}
-            </div>
+            </div> */}
             {
               metrics?.map(({ metric, ...lang }, index) => {
 

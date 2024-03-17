@@ -70,7 +70,6 @@ export async function POST(request: Request) {
         })
         ])
         const languageId = 59 || +cookies().get('language')?.value || +headers().get('language') || user?.languageId
-
         if (!user) return Response.json({
             err: 'Not authorized'
         })
@@ -78,10 +77,12 @@ export async function POST(request: Request) {
         if (!language) return Response.json({
             err: 'Language not found'
         })
-        const translationLanguageTarget = await prisma.language.findUnique({
+        const translationLanguageTarget = await prisma.language.findFirst({
             where: {
-                id: +languageId
-            }
+                code: {
+                    startsWith: 'pt'
+                }
+            },
         })
         if (!translationLanguageTarget) return Response.json({
             err: 'Translation language not found'

@@ -2,16 +2,13 @@
 
 .nav {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 30px;
-    width: 70px;
+    width: 100%;
     background: $background;
     overflow: hidden;
     transition: width 0.5s ease-in-out;
-    border-radius: 0px 20px 20px 0px;
     color: $black;
-    padding: 20px 0px;
-
     background: rgba(255, 255, 255, 0.4);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -40,24 +37,36 @@
     //         }
     //     }
     // }
+    .logo {
+        display: flex;
+        align-items: center;
+        flex-direction: center;
+        gap: 5px;
+        margin: 10px 30px 10px 40px;
 
+        &__image {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+        }
+
+        &__title {}
+    }
 
     .menu {
+        margin: auto;
         margin-left: 20px;
-
         transform: rotate(180deg);
         transition: transform 0.5s ease-in-out;
     }
 
     .list {
         overflow: hidden;
-
         list-style: none;
         padding: 0;
         margin: 0;
         width: 100%;
         display: flex;
-        flex-direction: column;
         height: 100%;
 
 
@@ -73,7 +82,7 @@
         border: 1px solid rgba($black, 0.05);
         border-left: 0px;
         border-right: 0px;
-        padding: 5px 20px;
+        padding: 25px 50px 25px 50px;
 
         .link {
             display: flex;
@@ -86,40 +95,36 @@
 
             span {
                 color: rgba($black, 0.5);
-
-                display: none;
             }
         }
     }
 
-    &:hover {
-        width: 170px;
+    // &:hover {
+    //     width: 170px;
 
-        .selectLanguageContainer {
-            .selectLanguage {
-                label {
-                    opacity: 1;
-                }
-            }
-        }
+    //     .selectLanguageContainer {
+    //         .selectLanguage {
+    //             label {
+    //                 opacity: 1;
+    //             }
+    //         }
+    //     }
 
-        .menu {
-            transform: rotate(0deg);
-            transition: transform 0.5s ease-in-out;
-        }
+    //     .menu {
+    //         transform: rotate(0deg);
+    //         transition: transform 0.5s ease-in-out;
+    //     }
 
-        li {
-            cursor: pointer;
+    //     li {
+    //         cursor: pointer;
 
-            .link {
-
-
-                span {
-                    display: flex;
-                }
-            }
-        }
-    }
+    //         .link {
+    //             span {
+    //                 display: flex;
+    //             }
+    //         }
+    //     }
+    // }
 }
 
 @media (max-width: 768px) {
@@ -133,6 +138,10 @@
         gap: 0px;
         justify-content: space-between;
         align-items: center;
+
+        .logo {
+            display: none;
+        }
 
         .menu {
             display: none;

@@ -2,6 +2,7 @@
 
 .container {
     display: flex;
+    flex-direction: column;
     background: $background;
     height: 100dvh;
     width: 100dvw;
