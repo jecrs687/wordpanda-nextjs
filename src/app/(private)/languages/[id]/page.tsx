@@ -1,6 +1,6 @@
 import { getLanguage } from '@backend/domain/actions/Languages/getLanguage.action';
 import BackButton from '@common/BackButton';
-import GamesPage from '../../games/page';
+import GamesPage from '../../games/_container/GamesPage/page';
 
 export default async function Page(
     {
