@@ -6,7 +6,7 @@ export async function getLanguages() {
             include: {
                 _count: {
                     select: {
-                        word: true
+                        words: true
                     }
                 },
             }

@@ -11,9 +11,10 @@ export default function RootLayout({
 }) {
     return (<main className={styles.main}>
         <div className={styles.buttons}>
-            <BackButton>
-                {""}
-            </BackButton>
+            <BackButton
+                title='Games'
+                routesToExclude={["/extension/games"]}
+            />
             <CloseButton />
         </div>
         {children}

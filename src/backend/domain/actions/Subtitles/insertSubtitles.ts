@@ -1,5 +1,12 @@
 import prisma from "@infra/config/database"
+import { WORDS_IN_ENGLISH } from "@infra/constants/words_in_english"
+import { WORDS_IN_FRENCH } from "@infra/constants/words_in_french"
+import { WORDS_IN_GERMAN } from "@infra/constants/words_in_german"
+import { WORDS_IN_ITALIAN } from "@infra/constants/words_in_italian"
+import { WORDS_IN_PORTUGUESE } from "@infra/constants/words_in_portuguese"
+import { WORDS_IN_SPANISH } from "@infra/constants/words_in_spanish"
 import { MediaType } from "@prisma/client"
+import { PromisePoll } from "@utils/promisePoll"
 import { getText, orderWords, ttml2ToJson } from "@utils/subtitle"
 import { LANGUAGES } from "../../../infra/database/migration/languages/constants/LANGUAGES"
 
@@ -39,29 +46,41 @@ export const insertSubtitles = async (subtitles: {
             return { words, jsonFromTTML }
         }))
         for (const sub of subtitles) {
-
+            const languageCode = sub?.jsonFromTTML?.lang?.toLocaleLowerCase()?.split('-')[0]
             const language = await prisma.language.findFirst({
                 where: {
                     code: {
-                        startsWith: sub?.jsonFromTTML?.lang?.toLocaleLowerCase()
+                        startsWith: languageCode
                     }
                 }
             })
             if (!language) {
                 await prisma.language.create({
                     data: {
-                        code: sub?.jsonFromTTML?.lang?.toLocaleLowerCase(),
-                        language: LANGUAGES.find(language => language.code === sub?.jsonFromTTML?.lang?.toLocaleLowerCase())?.language || sub?.jsonFromTTML?.lang?.toLocaleLowerCase()
+                        code: languageCode,
+                        language: LANGUAGES.find(language => language.code?.split('-')[0] === languageCode)?.language || languageCode
                     }
                 })
             }
             const languageInDb = await prisma.language.findFirst({
                 where: {
                     code: {
-                        startsWith: sub?.jsonFromTTML?.lang?.toLocaleLowerCase()
+                        startsWith: languageCode
                     }
                 }
             })
+            const words = {
+                "en": WORDS_IN_ENGLISH,
+                "it": WORDS_IN_ITALIAN,
+                "fr": WORDS_IN_FRENCH,
+                "de": WORDS_IN_GERMAN,
+                "es": WORDS_IN_SPANISH,
+                "pt": WORDS_IN_PORTUGUESE
+            }
+
+            if (!words[languageCode]) continue
+            sub.words = sub.words.filter(word => words[languageCode].includes(word.word.toLowerCase()))
+
             const listOfWords = await prisma.word.findMany({
                 where: {
                     word: {
@@ -95,7 +114,7 @@ export const insertSubtitles = async (subtitles: {
                 }
             })
             if (!media) {
-                await Promise.all(
+                await PromisePoll(
                     listOfWords.map(async word => {
                         await prisma.word.update({
                             where: {
@@ -106,7 +125,7 @@ export const insertSubtitles = async (subtitles: {
                             }
                         })
                     }
-                    )
+                    ), 100, 10
                 )
                 await prisma.media.create({
                     data: {

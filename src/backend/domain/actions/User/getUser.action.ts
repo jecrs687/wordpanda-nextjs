@@ -32,7 +32,7 @@ export async function getUser() {
                             include: {
                                 _count: {
                                     select: {
-                                        word: true
+                                        words: true
                                     }
                                 }
                             }

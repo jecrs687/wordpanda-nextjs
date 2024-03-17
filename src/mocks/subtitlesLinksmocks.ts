@@ -2,7 +2,7 @@ export const SUBTITLES_MOCK: {
     name: string,
     links: string[],
     platform: string,
-    image?: string
+    image: string
 }[] = [
         {
             "name": "Fúria de Titãs",
@@ -233,102 +233,5 @@ export const SUBTITLES_MOCK: {
             ],
             "platform": "Prime Video",
             "image": "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/3d28193aabbfff35dd7f6867c78590c88492a3196aabfdb21fa65ee392d01596._RI_TTW_SX1080_FMjpg_.jpg"
-        }, {
-            name: 'Surf\'s Up',
-            links: [
-                "https://cf-timedtext.aux.pv-cdn.net/74a4/a1a3/3d5f/4df4-94c2-d0e28d34897f/f385323c-959f-4054-bb2a-09a91029b7ef.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/74a4/a1a3/3d5f/4df4-94c2-d0e28d34897f/f385323c-959f-4054-bb2a-09a91029b7ef.ttml2"
-            ],
-            platform: 'Prime Video'
-        }, {
-            name: 'La La Land',
-            links: [
-                "https://cf-timedtext.aux.pv-cdn.net/c869/a5f5/c1a6/471c-b6c1-c4106404a1b9/566545f0-ca9b-4a86-9d24-ea0da1832b01.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/57ec/17fe/e792/4434-a57c-072a15b73481/f172afff-c860-4702-973a-c62841267ab8.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/b131/e782/e0bc/4192-8273-df923a0fabbe/c78dbe9b-1242-4b05-9d39-422dc9306279.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/ddfe/fe12/1a00/47fe-b729-460c4c0faf0d/7d98c477-4ed9-43e7-b39c-81a11b8a4e6a.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/41d1/ac60/25cc/46d3-8e4b-9c2d2aff40d1/c3e74726-1d12-4218-95df-d2cb11e2a525.ttml2"
-            ],
-            platform: 'Prime Video'
         },
-        {
-            name: 'Megamente',
-            links: [
-                "https://cf-timedtext.aux.pv-cdn.net/33c8/6bf3/483c/4000-be47-9de124561000/1233811e-1a7a-425e-88b7-14181ade274b.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/33c8/6bf3/483c/4000-be47-9de124561000/1233811e-1a7a-425e-88b7-14181ade274b.ttml2"
-            ],
-            platform: 'Prime Video'
-        },
-        {
-            name: 'Além do céu',
-            links: [
-                "https://cf-timedtext.aux.pv-cdn.net/51bd/1f2e/e623/4844-b723-56a345e1f740/6e39c731-b063-4e6c-9b1f-8c95b0ef46b8.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/51bd/1f2e/e623/4844-b723-56a345e1f740/6e39c731-b063-4e6c-9b1f-8c95b0ef46b8.ttml2"
-            ],
-            platform: 'Prime Video'
-        },
-        {
-            name: 'Click',
-            links: [
-                "https://cf-timedtext.aux.pv-cdn.net/b77e/6471/85af/4d47-b93e-79cc48346fc7/150f6d19-aaaa-4c05-99c2-e9ea4d2c7381.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/b77e/6471/85af/4d47-b93e-79cc48346fc7/150f6d19-aaaa-4c05-99c2-e9ea4d2c7381.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/54db/1c98/d973/464b-acf8-35670c3f872f/9ba39bf6-f495-47fd-a60c-90fae6f8776e.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/e3aa/f21d/c4a4/4fe2-99e0-056a263b67da/96b7b024-622f-4f88-929b-f3c6c27b5a95.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/ae98/4695/d899/4c7c-984f-1252af6f1e0f/378f591d-908c-4e6c-81b4-676cfc993186.ttml2"
-            ],
-            platform: 'Prime Video'
-        },
-        {
-            name: 'Esposa de mentirinha',
-            links: [
-                "https://cf-timedtext.aux.pv-cdn.net/e35e/da03/b3c3/4c28-bb8c-617f2054a86d/bd3766a8-19d1-48b7-bf94-6e9299dba0db.ttml2"
-            ],
-            platform: 'Prime Video'
-        },
-        {
-            "name": "Som da Liberdade",
-            "links": [
-                "https://cf-timedtext.aux.pv-cdn.net/266d/de0e/5787/4aac-b4dd-d9cb89c98059/121cc239-713a-469c-95e9-6bd44b41b5ca.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/328f/81e3/c96b/44f1-8165-e2188156bbd2/c0cc89ad-cbc3-4607-b760-76856c3ab53e.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/328f/81e3/c96b/44f1-8165-e2188156bbd2/c0cc89ad-cbc3-4607-b760-76856c3ab53e.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/266d/de0e/5787/4aac-b4dd-d9cb89c98059/121cc239-713a-469c-95e9-6bd44b41b5ca.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/8674/98bc/e606/4ec4-a115-a18c05fb036d/ac60bc58-75f7-4198-9218-f301e0c24be2.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/bb35/a49b/e5ca/49fe-bfc9-8e0cbb1df07f/6164504b-03a4-4412-88bb-2ff628df90d4.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/95d7/b16f/3ca2/4000-b579-793d77456b2a/a8f94db0-86bc-4e2e-9746-75bdc9e2c3d1.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/4520/0e89/6397/4dd7-82cb-a1e34d911160/cfa08150-42db-49d1-8c89-0525f500d115.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/65ac/5eee/194d/45c5-a30d-9f1ce2bc3611/cbae53f6-ac45-42a2-a7b6-1883fa2457b6.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/e60d/8ab0/7c91/47ab-9879-46da949e241e/b6862f17-ded4-4868-b004-05ebfd775a16.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/defb/aceb/c433/423f-8135-355f530a0564/e35588ec-7878-4184-8562-8c9d3019d089.ttml2"
-            ],
-            "platform": "Prime Video"
-        },
-        {
-            "name": "O Grande Gatsby",
-            "links": [
-                "https://cf-timedtext.aux.pv-cdn.net/cebe/a4d9/7e29/47af-bcb2-0698b8059be6/e1242139-a6fd-4f3f-836a-13bd785782a0.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/cebe/a4d9/7e29/47af-bcb2-0698b8059be6/e1242139-a6fd-4f3f-836a-13bd785782a0.ttml2"
-            ],
-            "platform": "Prime Video"
-        },
-        {
-            "name": "Entrevista com o Vampiro",
-            "links": [
-                "https://cf-timedtext.aux.pv-cdn.net/c514/5497/b545/4f90-9945-7fd275b9630f/5d9fc5cc-4b8c-4c95-9025-81ca57e8c1f2.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/c514/5497/b545/4f90-9945-7fd275b9630f/5d9fc5cc-4b8c-4c95-9025-81ca57e8c1f2.ttml2"
-            ],
-            "platform": "Prime Video"
-        },
-        {
-            "name": "Eu Sou A Lenda",
-            "links": [
-                "https://cf-timedtext.aux.pv-cdn.net/74c3/f179/552d/4ff8-8341-cfa2f4896417/a62d8f8d-c8c3-4612-b0a2-5acdb5e1e14b.ttml2",
-                "https://cf-timedtext.aux.pv-cdn.net/74c3/f179/552d/4ff8-8341-cfa2f4896417/a62d8f8d-c8c3-4612-b0a2-5acdb5e1e14b.ttml2"
-            ],
-            "platform": "Prime Video"
-        },
-
-
-
-
-
     ]

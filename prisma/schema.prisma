@@ -18,6 +18,7 @@ model Translation {
     meaning           String?  @db.VarChar(512)
     meaningTranslated String?  @db.VarChar(512)
 
+    reports   Int?      @default(0)
     createdAt DateTime  @default(now()) @map(name: "created_at")
     updatedAt DateTime  @updatedAt @map(name: "updated_at")
     deletedAt DateTime? @map(name: "deleted_at")
@@ -107,6 +108,7 @@ model WordGameQuiz {
     options String[]  @db.VarChar(512)
     answer  String    @db.VarChar(512)
 
+    reports   Int?      @default(0)
     createdAt DateTime? @default(now()) @map(name: "created_at")
     updatedAt DateTime? @updatedAt @map(name: "updated_at")
     deletedAt DateTime? @map(name: "deleted_at")
@@ -130,6 +132,7 @@ model Word {
 
     userWords UserWords[]
 
+    reports      Int?           @default(0)
     difficulty   Int?           @default(0)
     attempts     Int?           @default(0)
     errors       Int?           @default(0)
@@ -226,7 +229,7 @@ model Language {
     deletedAt   DateTime?     @map(name: "deleted_at")
     translation Translation[]
 
-    word Word[]
+    words Word[]
 
     userLanguage   UserLanguage[]
     MediaLanguages MediaLanguages[]

@@ -37,7 +37,7 @@ export async function getUserWithWords() {
                             include: {
                                 _count: {
                                     select: {
-                                        word: true
+                                        words: true
                                     }
                                 }
                             }

@@ -10,10 +10,7 @@ export default async function Page({
     } = await getMovieByUser(+id)
     return (
         <main className={styles.main}>
-            <BackButton>
-                Movie
-            </BackButton>
-            <h1>{movie.name}</h1>
+            <BackButton title={movie.name} />
             <h3>
                 Linguas disponíveis:
             </h3>

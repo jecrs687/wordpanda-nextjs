@@ -75,7 +75,7 @@ export default function UserProfile({ errors, user }: {
                   <summary
                     className={styles.title}
                   >
-                    {lang.language.language} - {lang.language.code}
+                    {lang.language.language} - {lang.language.code?.split('-')[0]}
                   </summary>
                   <div className={styles.metrics}>
                     {

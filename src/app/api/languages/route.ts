@@ -14,6 +14,7 @@ export type LanguagesGetResponse = {
     msg?: string
 }
 
+export const dynamic = 'force-dynamic'
 export async function GET(request: Request) {
     const languages = await prisma.language.findMany()
     return Response.json({

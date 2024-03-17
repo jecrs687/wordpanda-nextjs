@@ -15,7 +15,7 @@ export default async function Page() {
                     <div className={styles.languages}>
                         {
                             languages.filter(
-                                x => x._count.word > 4
+                                x => x._count.words > 4
                             ).map((lang, index) => {
                                 return (
                                     <Link
@@ -23,7 +23,7 @@ export default async function Page() {
                                         className={styles.language} key={index}>
                                         <h3>{lang.language}</h3>
                                         <p>{lang.code}</p>
-                                        <p>total: {lang._count.word}</p>
+                                        <p>total: {lang._count.words}</p>
                                     </Link>
                                 )
                             })
@@ -44,7 +44,7 @@ export default async function Page() {
                                         <h3>{lang.language.language}</h3>
                                         <p>{lang.language.code}</p>
                                         <p>
-                                            Words: {lang._count.userWords}/{lang.language._count.word}
+                                            Words: {lang._count.userWords}/{lang.language._count.words}
                                         </p>
                                     </Link>
                                 )

@@ -22,10 +22,20 @@ export async function getLanguage({
         }
         const languageFound = await prisma.language.findFirst({
             where: {
-                id: +id
+                id: +id,
             },
             include: {
-                word: {
+                words: {
+                    orderBy: [
+                        {
+                            userWords: {
+                                _count: 'desc'
+                            }
+                        },
+                        {
+                            frequency: 'desc'
+                        }
+                    ],
                     include: {
                         userWords: {
                             where: {
@@ -42,7 +52,7 @@ export async function getLanguage({
             }
         });
 
-        const word = languageFound.word.sort(
+        const words = languageFound.words.sort(
             ({ userWords, ...word }, { userWords: userWords2, ...word2 }) => {
                 if (!userWords?.length)
                     return -1
@@ -68,7 +78,7 @@ export async function getLanguage({
         return {
             languages: {
                 ...languageFound,
-                word
+                words
             }
         }
 

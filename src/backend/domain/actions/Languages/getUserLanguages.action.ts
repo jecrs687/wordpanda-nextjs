@@ -15,7 +15,7 @@ export async function getUserLanguages() {
                     include: {
                         _count: {
                             select: {
-                                word: true
+                                words: true
                             }
                         }
                     }

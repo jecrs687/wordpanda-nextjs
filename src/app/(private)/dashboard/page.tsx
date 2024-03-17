@@ -1,115 +1,13 @@
 import { getUser } from '@actions/User/getUser.action';
 import { getPlatforms } from '@backend/domain/actions/Platform/getPlatform.action';
-import { ROUTES } from '@constants/ROUTES';
-import Image from 'next/image';
-import Link from 'next/link';
-import styles from './page.module.scss';
+import Dashboard from './_container/Dashboard';
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic';
 export default async function Page() {
     const { user } = await getUser()
     const { platforms } = await getPlatforms()
-    const { userLanguages, mediaUser } = user
+    const { userLanguages: languages, mediaUser: medias } = user
     return (
-        <main className={styles.main}>
-            <div className={styles.container}>
-                <div className={styles.card}>
-                    <h3
-                        className={styles.card__title}
-                    >Learn</h3>
-                    <div className={styles.languages}>
-                        {
-                            userLanguages.map((language, index) => {
-                                return (
-                                    <Link
-                                        href={ROUTES.LANGUAGE(language.language.id)}
-                                        className={styles.language}
-                                        key={index}
-                                    >
-                                        <h3>{language.language.language}</h3>
-                                        <p>{language.language.code}</p>
-                                        <p>palavras: {language._count.userWords}/{language.language._count.word}</p>
-                                    </Link>
-                                )
-                            })
-                        }
-                    </div>
-                    <div className={styles.media}>
-                        <div className={styles.carrossel}>
-                            <h4>Watched</h4>
-                            <div className={styles.contents}>
-                                {mediaUser.map((content, index) => {
-                                    return (
-                                        <Link key={index} className={styles.content} href={
-                                            ROUTES.MOVIE(content.mediaLanguage.media.id)
-                                        }>
-                                            <span className={styles.title}>
-
-                                                {content.mediaLanguage.media.name}</span>
-                                            <span
-                                                className={styles.language}
-                                            >
-                                                {
-                                                    content.mediaLanguage.language.language
-                                                } -
-                                                {
-                                                    content.mediaLanguage.language.code
-                                                }
-                                            </span>
-                                            <span
-                                                className={styles.platform}
-                                            >
-                                                {content.mediaLanguage.media.platform.name}
-                                            </span>
-                                            <Image
-                                                width={50}
-                                                height={50}
-                                                src={content.mediaLanguage.media.logoUrl || "https://picsum.photos/200/300"}
-                                                alt={content.mediaLanguage.media.name}
-                                                className={styles.logo}
-                                            />
-                                        </Link>
-
-                                    )
-                                })}
-                            </div>
-
-                        </div>
-                        {
-                            platforms.map(
-                                (platform, id) => <div key={id} className={styles.carrossel}>
-                                    <h4>{platform.name}</h4>
-                                    <div className={styles.contents}>
-                                        {platform.medias.map((content, index) =>
-                                            <Link key={index} className={styles.content} href={
-                                                ROUTES.MOVIE(content.id)
-                                            }>
-                                                <span className={styles.title}>
-
-                                                    {content.name}</span>
-                                                <span
-                                                    className={styles.language}
-                                                >{content.mediaLanguages.map((x) => x.language.language).join(', ')}</span>
-
-                                                <Image
-                                                    width={50}
-                                                    height={50}
-                                                    src={content.logoUrl || "https://picsum.photos/200/300"}
-                                                    alt={content.name}
-                                                    className={styles.logo}
-                                                />
-                                            </Link>
-                                        )}
-                                    </div>
-                                </div>
-
-                            )
-                        }
-                    </div>
-                </div>
-
-            </div>
-
-        </main>
+        <Dashboard languages={languages} medias={medias} platforms={platforms} />
     )
 }

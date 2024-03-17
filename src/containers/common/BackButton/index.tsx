@@ -4,13 +4,15 @@ import styles from './BackButton.module.scss';
 export default function BackButton({
     children,
     title,
+    routesToExclude = []
 }: {
     title?: string,
     children?: React.ReactNode,
+    routesToExclude?: string[]
 }) {
     const router = useRouter()
     const path = usePathname()
-    if (path === '/extension/games') return null
+    if (routesToExclude.includes(path)) return null
     return (
 
         <div className={styles.title__box}>
