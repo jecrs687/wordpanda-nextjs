@@ -1,10 +1,4 @@
 import prisma from "@infra/config/database"
-import { WORDS_IN_ENGLISH } from "@infra/constants/words_in_english"
-import { WORDS_IN_FRENCH } from "@infra/constants/words_in_french"
-import { WORDS_IN_GERMAN } from "@infra/constants/words_in_german"
-import { WORDS_IN_ITALIAN } from "@infra/constants/words_in_italian"
-import { WORDS_IN_PORTUGUESE } from "@infra/constants/words_in_portuguese"
-import { WORDS_IN_SPANISH } from "@infra/constants/words_in_spanish"
 import { MediaType } from "@prisma/client"
 import { PromisePoll } from "@utils/promisePoll"
 import { getText, orderWords, ttml2ToJson } from "@utils/subtitle"
@@ -18,12 +12,12 @@ export const insertSubtitles = async (subtitles: {
 }[]
 ) => {
     const words = {
-        "en": WORDS_IN_ENGLISH.map(word => word.toLowerCase()),
-        "it": WORDS_IN_ITALIAN.map(word => word.toLowerCase()),
-        "fr": WORDS_IN_FRENCH.map(word => word.toLowerCase()),
-        "de": WORDS_IN_GERMAN.map(word => word.toLowerCase()),
-        "es": WORDS_IN_SPANISH.map(word => word.toLowerCase()),
-        "pt": WORDS_IN_PORTUGUESE.map(word => word.toLowerCase())
+        "en": require("@backend/infra/constants/words_in_english.json").map(word => word.toLowerCase()),
+        "it": require("@backend/infra/constants/words_in_italian.json").map(word => word.toLowerCase()),
+        "fr": require("@backend/infra/constants/words_in_french.json").map(word => word.toLowerCase()),
+        "de": require("@backend/infra/constants/words_in_german.json").map(word => word.toLowerCase()),
+        "es": require("@backend/infra/constants/words_in_spanish.json").map(word => word.toLowerCase()),
+        "pt": require("@backend/infra/constants/words_in_portuguese.json").map(word => word.toLowerCase())
     }
 
     for (const subtitle of subtitles) {
