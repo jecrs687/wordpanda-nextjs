@@ -28,8 +28,29 @@ const nextConfig = {
       module: Object.assign({}, config.module, {
         rules: config.module.rules.concat([
           {
-            test: /\.svg$/,
-            loader: 'raw-loader',
+            test: /\.svg$/i,
+            use: [
+              {
+                loader: '@svgr/webpack',
+                options: {
+                  prettier: false,
+                  svgo: true,
+                  svgoConfig: {
+                    plugins: [{ removeViewBox: false }, {
+                      name: 'preset-default',
+                      params: {
+                        overrides: { removeViewBox: false },
+                      },
+                    }]
+                  },
+                  titleProp: true,
+                  svgo: false,
+                  memo: true,
+                  typescript: true,
+                },
+              }
+            ],
+
           }
         ]),
       }),

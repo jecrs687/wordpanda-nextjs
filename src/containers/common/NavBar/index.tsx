@@ -1,7 +1,11 @@
 "use client";
+import HomeIcon from "@assets/icons/dashboard.svg";
+import LanguageIcon from "@assets/icons/language.svg";
+import LogoutIcon from "@assets/icons/logout.svg";
+import ProfileIcon from "@assets/icons/profile.svg";
+import VideoIcon from "@assets/icons/video.svg";
 import { SelectLanguage } from "@common/SelectLanguage";
 import { ROUTES } from "@constants/ROUTES";
-import { Svg } from "@core/Svg";
 import useDevice from "@hooks/useDevice";
 import { getCookie } from "@utils/cookie";
 import clsx from "clsx";
@@ -13,12 +17,12 @@ import styles from "./NavBar.module.scss";
 const paths = [
     {
         path: ROUTES.DASHBOARD(),
-        icon: "/assets/icons/dashboard.svg",
+        Icon: HomeIcon,
         name: "Home"
     },
     {
         path: ROUTES.LANGUAGES(),
-        icon: "/assets/icons/language.svg",
+        Icon: LanguageIcon,
         name: "Línguas"
     },
     // {
@@ -28,7 +32,7 @@ const paths = [
     // },
     {
         path: ROUTES.PROFILE(),
-        icon: "/assets/icons/profile.svg",
+        Icon: ProfileIcon,
         name: "Perfil"
     },
     // {
@@ -47,7 +51,7 @@ export function NavBar() {
     const [path, setPath] = useState<string>('')
     const [allPaths, setAllPaths] = useState<{
         path: string;
-        icon: string;
+        Icon: any;
         name: string;
     }[]
     >(paths)
@@ -69,7 +73,7 @@ export function NavBar() {
         if (isAdmin) paths.push(
             {
                 path: ROUTES.ADMIN(),
-                icon: "/assets/icons/video.svg",
+                Icon: VideoIcon,
                 name: "Admin"
             },
         )
@@ -95,7 +99,7 @@ export function NavBar() {
 
         <ul className={styles.list}>
             {
-                paths.map(({ path: url, icon, name }, index) => <li
+                paths.map(({ path: url, Icon, name }, index) => <li
                     key={index}
                     className={clsx(
                         styles.item,
@@ -109,10 +113,9 @@ export function NavBar() {
                             styles.link
                         )}
                     >
-                        <Svg
-                            height={20}
-                            width={20}
-                            svg={icon}
+                        <Icon
+                            height={10}
+                            width={10}
                             className={styles.icon}
                         />
                         <span>{name}</span>
@@ -139,10 +142,9 @@ export function NavBar() {
                     styles.link
                 )}
             >
-                <Svg
+                <LogoutIcon
                     height={20}
                     width={20}
-                    svg={"/assets/icons/logout.svg"}
                     className={styles.icon}
                 />
                 <span>

@@ -6,6 +6,7 @@ import Button from '@core/Button';
 import LoaderSpinner from '@core/LoaderSpinner';
 import { useChannels } from '@hooks/useChannels';
 import useDevice from '@hooks/useDevice';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -15,7 +16,7 @@ import styles from './index.module.scss';
 
 function Submit() {
     const status = useFormStatus();
-    return <Button disabled={status.pending} type='submit'>
+    return <Button variety='secondary' disabled={status.pending} type='submit'>
         {
             status.pending ? <LoaderSpinner size='16px' /> : 'Login'
         }
@@ -39,17 +40,22 @@ export default function LoginPage() {
     }, [state, route, web, extension])
     return (
         <main className={styles.main}>
+
             <form action={formAction}>
-                {/* <Image
-                    src={"/assets/logo.png"}
-                    width={200}
-                    height={200}
-                    alt='logo'
-                    className={styles.image}
-                /> */}
-                <h1>
-                    Wordpanda
-                </h1>
+
+                <div className={styles.logo}>
+                    <Image
+                        src="/assets/logo.png"
+                        alt="logo"
+                        width={100}
+                        height={100}
+                        className={styles.logo__image}
+                    />
+                    <h3 className={styles.logo__title}>
+                        Wordpanda
+                    </h3>
+
+                </div>
 
                 <Input
                     type='text'

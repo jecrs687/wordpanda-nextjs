@@ -1,9 +1,8 @@
 "use client";
-import { Svg } from '@core/Svg';
+import { GAMES } from '@constants/GAMES';
 import { useChannels } from '@hooks/useChannels';
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { GAMES } from './_constants/GAMES';
 import styles from './page.module.scss';
 
 export default function Page() {
@@ -36,7 +35,7 @@ export default function Page() {
                                 description,
                                 image,
                                 url,
-                                icon
+                                Icon
                             }, index) => (
 
                             <Link
@@ -44,8 +43,7 @@ export default function Page() {
                                 key={index}
                                 className={styles.game}
                             >
-                                <Svg
-                                    svg={icon}
+                                <Icon
                                     height={50}
                                     width={50}
                                     className={styles.game__icon}

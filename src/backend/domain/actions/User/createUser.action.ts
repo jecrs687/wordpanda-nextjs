@@ -37,7 +37,7 @@ export async function createUser(userDto: UserDto & { languageId?: number }) {
         if (err?.code === 'P2002') {
             return ({
                 errors: {
-                    email: "Email already exists"
+                    email: "Email já cadastrado"
                 },
             });
         }

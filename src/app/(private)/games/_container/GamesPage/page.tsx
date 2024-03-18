@@ -1,7 +1,6 @@
 import BackButton from '@common/BackButton';
 import { StoreLanguage } from '@common/StoreLanguage';
 import { GAMES } from '@constants/GAMES';
-import { Svg } from '@core/Svg';
 import Link from 'next/link';
 import styles from './page.module.scss';
 
@@ -23,7 +22,7 @@ export default async function GamesPage(
         }>
             {
                 !!language && (
-                    <StoreLanguage words={language.languages.word} language={language.languages.code} />
+                    <StoreLanguage words={language.languages.words} language={language.languages.code} />
                 )
 
             }
@@ -42,7 +41,7 @@ export default async function GamesPage(
                                 description,
                                 image,
                                 url,
-                                icon
+                                Icon
                             }, index) => (
 
                             <Link
@@ -50,8 +49,7 @@ export default async function GamesPage(
                                 key={index}
                                 className={styles.game}
                             >
-                                <Svg
-                                    svg={icon}
+                                <Icon
                                     height={50}
                                     width={50}
                                     className={styles.game__icon}
