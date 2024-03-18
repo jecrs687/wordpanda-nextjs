@@ -1,18 +1,21 @@
-import { ROUTES } from "./ROUTES"
+import FlashCardIcon from '@assets/icons/flashcard.svg';
+import MindIcon from '@assets/icons/mind.svg';
+import TranslationIcon from '@assets/icons/translation.svg';
+import { ROUTES } from "src/containers/constants/ROUTES";
 
 export const GAMES: {
     title: string,
     description: string,
     image: string,
     url: string,
-    icon?: string
+    Icon?: any
 }[] = [
         {
             title: 'Flashcards',
             description: 'Learn new words and phrases',
             image: '/images/flashcards.png',
             url: ROUTES.GAME_FLASHCARD(),
-            icon: '/assets/icons/flashcard.svg'
+            Icon: FlashCardIcon
         }, {
             title: 'Hangman',
             description: 'Guess the word or get hanged',
@@ -23,7 +26,7 @@ export const GAMES: {
             description: 'Find the matching pairs',
             image: '/images/memory.png',
             url: ROUTES.GAME_MEMORY(),
-            icon: '/assets/icons/mind.svg'
+            Icon: MindIcon
 
         }, {
             title: 'Quiz',
@@ -55,7 +58,7 @@ export const GAMES: {
             description: 'Translate phrases and words to your language',
             image: '/images/translate.png',
             url: ROUTES.GAME_TRANSLATE(),
-            icon: '/assets/icons/translation.svg'
+            Icon: TranslationIcon
         },
         {
             title: 'Chat',

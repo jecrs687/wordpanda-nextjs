@@ -3,7 +3,7 @@ declare namespace JSX {
         "lottie-player": any;
     }
 }
-declare module "*.svg" {
-    const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
-    export default content;
+declare module '*.svg' {
+    const ReactComponent: React.FC<React.SVGProps<SVGSVGElement>>;
+    export default ReactComponent;
 }

@@ -91,6 +91,7 @@
 
             .icon {
                 width: 30px;
+                height: 30px;
             }
 
             span {
@@ -184,7 +185,9 @@
                 justify-content: center;
 
 
-                span {}
+                span {
+                    display: none;
+                }
             }
         }
 

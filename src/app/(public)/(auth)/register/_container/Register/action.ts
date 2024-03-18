@@ -3,24 +3,25 @@ import { createUser } from "@backend/domain/actions/User/createUser.action";
 import { cookies, headers } from "next/headers";
 import z from "zod";
 const schema = z.object({
-    email: z.string().email(),
+    email: z.string().email("O email deve ser válido").min(6, "O email deve conter no mínimo 6 caracteres").max(100, "O email deve conter no máximo 100 caracteres"),
     //regex contains at least 1 uppercase letter, 1 lowercase letter, 1 number and a special character like: .!@#$%^&*
     password: z.string().min(6).max(100).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d.!@#$%^&*]{6,}$/,
         {
-            message: "Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number"
+            message: "A senha deve conter pelo menos 1 letra maiúscula, 1 letra minúscula, 1 número e um caractere especial"
         }),
-    firstName: z.string().min(2).max(100),
-    lastName: z.string().min(2).max(100),
-    passwordConfirmation: z.string().min(6).max(100),
-    phone: z.string().min(6).max(100),
-    username: z.string().min(4).max(100),
+    firstName: z.string().min(2, "O primeiro nome deve conter no mínimo 2 caracteres").max(100, "O primeiro nome deve conter no máximo 100 caracteres"),
+    lastName: z.string().min(2, "O último nome deve conter no mínimo 2 caracteres").max(100, "O último nome deve conter no máximo 100 caracteres"),
+    passwordConfirmation: z.string().min(6, "A confirmação de senha deve conter no mínimo 6 caracteres").max(100, "A confirmação de senha deve conter no máximo 100 caracteres"),
+    phone: z.string().min(6, "O telefone deve conter no mínimo 6 caracteres").max(100, "O telefone deve conter no máximo 100 caracteres"),
+    username: z.string().min(4, "O username deve conter no mínimo 4 caracteres").max(100, "O username deve conter no máximo 100 caracteres")
 
 }).superRefine(({ passwordConfirmation, password }, ctx) => {
     if (passwordConfirmation !== password) {
         ctx.addIssue({
-            code: "custom",
-            message: "The passwords did not match"
-        });
+            code: z.ZodIssueCode.custom,
+            message: 'A senha e a confirmação de senha devem ser iguais',
+            path: ['passwordConfirmation']
+        })
     }
 });
 
@@ -36,13 +37,12 @@ export async function submit(currentState, form: FormData) {
     }
     const validate = schema.safeParse(forms) as typeof forms & { error: z.ZodError, success: boolean }
     if (!validate.success && validate?.error) {
-        return ({
-            errors: validate?.error?.flatten()?.fieldErrors,
-        });
+        const errors = validate?.error?.flatten()?.fieldErrors
+        return ({ errors });
     }
     const { passwordConfirmation, ...rest } = forms;
     const languageId = 59 || +cookies().get('language')?.value || +headers().get('language')
-    const response = await createUser({ ...rest, languageId })
+    const response = await createUser(rest)
     if (response?.token)
         cookies().set('token', response.token)
     return response;
