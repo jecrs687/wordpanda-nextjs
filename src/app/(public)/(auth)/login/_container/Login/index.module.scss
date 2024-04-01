@@ -2,13 +2,21 @@
 
 .main {
   background-color: $background;
-  width: 100vw;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 40px;
   flex-direction: column;
+  overflow: hidden;
+
+  .background {
+    position: absolute;
+    height: max(100dvh, 100vw);
+    object-fit: contain;
+    filter: brightness(1.5) blur(5px);
+  }
 
   .logo {
     display: flex;
@@ -45,7 +53,7 @@
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    background-color: rgba($white, 0.5);
+    background-color: white;
 
 
 
@@ -70,36 +78,38 @@
     }
 
 
-    input {
-      border-color: rgba(white, 0.7);
-      color: white;
-
-      &:active,
-      &:focus,
-      &:hover {
-        border: 1px solid $ninth;
-        outline: none;
-        box-shadow: 0 0 10px $sixth;
-      }
-
-      &::placeholder {
-        color: rgba(white, 0.5);
-      }
-    }
-
   }
 
   .link {
-    font-size: 1.2rem;
-    font-weight: 700;
     color: $black;
   }
 }
 
 @media (max-width: 768px) {
   .main {
-    form {
-      padding: 20px;
+
+
+    .logo {
+      &__image {}
+
+      &__title {}
     }
+
+    form {
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      background-color: transparent !important;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+
+      .image {}
+
+      h1 {}
+
+
+    }
+
+    .link {}
   }
 }

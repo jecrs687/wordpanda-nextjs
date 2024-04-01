@@ -23,10 +23,10 @@ const Dashboard = ({
     const userLanguages = languages.filter(({ language }) => language.language.toLowerCase().includes(search.toLowerCase()))
     const mediaUser = medias.filter(({ mediaLanguage }) => mediaLanguage.media.name.toLowerCase().includes(search.toLowerCase()))
     const platforms = plat.map((platform) => {
-        const medias = platform.medias.filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()))
+        const medias = platform?.medias?.filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()))
         return { ...platform, medias }
     }).filter(({ medias }) => medias.length)
-    const mostViewed = [...platforms[0].medias].sort((a, b) => b.mediaLanguages.length - a.mediaLanguages.length).slice(0, 25)
+    const mostViewed = platforms?.[0]?.medias?.sort((a, b) => b.mediaLanguages.length - a.mediaLanguages.length).slice(0, 25) || []
 
     return (
         <main className={styles.main}>

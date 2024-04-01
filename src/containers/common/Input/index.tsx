@@ -69,8 +69,11 @@ function Input({
                         />
                     </div>
                 )}
+                {error && <span className={styles.error}>{
+                    Array.isArray(error) ? error.join('. ') : error
+                }</span>}
+
             </div>
-            {error && <span className={styles.error}>{error}</span>}
         </>
     )
 }
