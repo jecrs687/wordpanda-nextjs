@@ -19,7 +19,7 @@ export default function BackButton({
             <button type="button" onClick={() => router.back()}
                 className={styles.title__back}
             >
-                <span>{"<"}</span>
+                <span>⬅</span>
             </button>
             <h1 className={styles.title__text}>
                 {title}
