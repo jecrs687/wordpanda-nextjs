@@ -6,6 +6,7 @@ import { Poppins } from 'next/font/google'
 import { Suspense } from 'react'
 import Error from './error'
 import './globals.scss'
+import Loading from './loading'
 
 const poppins = Poppins({
   subsets: ['latin', 'latin-ext', 'devanagari'],
@@ -30,13 +31,17 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
       </head>
       <body className={poppins.className}>
-        <Suspense>
+        <Suspense fallback={<Loading />}>
           <EventProvider />
           <InformationProvider />
         </Suspense>
+
         <ErrorBoundary errorComponent={Error}>
-          {children}
+          <Suspense fallback={<Loading />}>
+            {children}
+          </Suspense>
         </ErrorBoundary>
+
       </body>
     </html >
   )
