@@ -7,7 +7,7 @@
     display: inline-block;
     position: relative;
     border: 3px solid;
-    border-color: $fifth $sixth transparent transparent;
+    border-color: $initial $fourth transparent transparent;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
 }
@@ -23,7 +23,7 @@
     bottom: 0;
     margin: auto;
     border: 3px solid;
-    border-color: transparent transparent $initial $ninth;
+    border-color: transparent transparent $initial $third;
     width: calc(100% - min(16px, 20%));
     height: calc(100% - min(16px, 20%));
     border-radius: 50%;
@@ -35,7 +35,7 @@
 .loader::before {
     width: calc(100% - min(16px, 20%));
     height: calc(100% - min(16px, 20%));
-    border-color: $third $seventh transparent transparent;
+    border-color: $fourth $initial transparent transparent;
     animation: rotation 1.5s linear infinite;
 }
 

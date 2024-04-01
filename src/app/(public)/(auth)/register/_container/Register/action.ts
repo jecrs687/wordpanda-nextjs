@@ -5,10 +5,13 @@ import z from "zod";
 const schema = z.object({
     email: z.string().email("O email deve ser válido").min(6, "O email deve conter no mínimo 6 caracteres").max(100, "O email deve conter no máximo 100 caracteres"),
     //regex contains at least 1 uppercase letter, 1 lowercase letter, 1 number and a special character like: .!@#$%^&*
-    password: z.string().min(6).max(100).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d.!@#$%^&*]{6,}$/,
-        {
-            message: "A senha deve conter pelo menos 1 letra maiúscula, 1 letra minúscula, 1 número e um caractere especial"
-        }),
+    password: z.string().min(6, "A senha deve conter no mínimo 6 caracteres")
+        .max(100,
+            "A senha deve conter no máximo 100 caracteres"
+        ).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d.!@#$%^&*]{6,}$/,
+            {
+                message: "A senha deve conter pelo menos 1 letra maiúscula, 1 letra minúscula, 1 número e um caractere especial"
+            }),
     firstName: z.string().min(2, "O primeiro nome deve conter no mínimo 2 caracteres").max(100, "O primeiro nome deve conter no máximo 100 caracteres"),
     lastName: z.string().min(2, "O último nome deve conter no mínimo 2 caracteres").max(100, "O último nome deve conter no máximo 100 caracteres"),
     passwordConfirmation: z.string().min(6, "A confirmação de senha deve conter no mínimo 6 caracteres").max(100, "A confirmação de senha deve conter no máximo 100 caracteres"),
@@ -29,7 +32,7 @@ export async function submit(currentState, form: FormData) {
     const forms = {
         email: form.get('email') as string,
         password: form.get('password') as string,
-        firstName: form.get('firstName') as string,
+        firstName: form.get('name') as string,
         lastName: form.get('lastName') as string,
         phone: form.get('phone') as string,
         passwordConfirmation: form.get('passwordConfirmation') as string,

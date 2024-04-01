@@ -3,14 +3,24 @@ import Input from '@common/Input';
 import { SelectLanguage } from '@common/SelectLanguage';
 import { ShowIf } from '@common/ShowIf/ShowIf';
 import { ROUTES } from '@constants/ROUTES';
+import Button from '@core/Button';
+import LoaderSpinner from '@core/LoaderSpinner';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useFormState } from 'react-dom';
+import { useFormState, useFormStatus } from 'react-dom';
 import Loading from 'src/app/loading';
 import { submit } from './action';
 import styles from './index.module.scss';
+function Submit() {
+    const status = useFormStatus();
+    return <Button disabled={status.pending} type='submit'>
+        {
+            status.pending ? <LoaderSpinner size='20px' /> : 'Cadastrar'
+        }
+    </Button>
+}
 
 export default function Register() {
     const [state, formAction] = useFormState(submit, {})
@@ -24,14 +34,16 @@ export default function Register() {
             route.push(ROUTES.DASHBOARD())
         }
         if (state.errors) {
-            if (['phone', 'username', 'language'].some(key => state.errors[key])) {
-                setSteps(3)
+            const steps = {
+                1: ['email', 'password', 'passwordConfirmation'],
+                2: ['firstName', 'lastName'],
+                3: ['phone', 'username', 'language']
             }
-            if (['firstName', 'lastName'].some(key => state.errors[key])) {
-                setSteps(2)
-            }
-            if (['email', 'password', 'passwordConfirmation'].some(key => state.errors[key])) {
-                setSteps(1)
+            for (const key in steps) {
+                if (steps[key].some(key => state.errors[key])) {
+                    setSteps(Number(key))
+                    break;
+                }
             }
         }
 
@@ -47,16 +59,17 @@ export default function Register() {
     }
     return (
         <main className={styles.main}>
-
             <form action={formAction}>
-                <Image
-                    src={"/assets/logo.png"}
-                    width={100}
-                    height={100}
-                    alt='logo'
-                    className={styles.image}
-                />
-                <h1>Wordpanda</h1>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+                    <Image
+                        src={"/assets/logo.png"}
+                        width={40}
+                        height={40}
+                        alt='logo'
+                        className={styles.image}
+                    />
+                    <h1 className={styles.title}>Wordpanda</h1>
+                </div>
                 <div className={styles.form}>
                     <ShowIf condition={steps === 1} onlyHide>
                         <Input
@@ -115,46 +128,43 @@ export default function Register() {
                 </div>
                 <div className={styles.buttons}>
                     <ShowIf condition={steps > 1} onlyHide>
-                        <div role='button'
+                        <Button
                             onClick={() => setSteps(steps - 1)}
-                            className={styles.back}
+
+                            type='button'
                         >
-                            {'<'}
-                        </div>
+                            Anterior
+                        </Button>
                     </ShowIf>
                     <ShowIf condition={steps > 2} onlyHide>
-                        <button type=
-                            'submit'
-
-                            className={styles.button}
-                        >
-                            Cadastrar
-                        </button>
+                        <Submit />
                     </ShowIf>
                     <ShowIf condition={steps < 3} onlyHide>
-                        <div role='button'
+                        <Button
                             onClick={() => setSteps(steps + 1)}
-                            className={styles.button}
+
+                            type='button'
                         >
                             Próximo
-                        </div>
+                        </Button>
                     </ShowIf>
                 </div>
+                <ShowIf condition={steps > 1} onlyHide>
+                    <div className={styles.progress}>
+                        <div className={styles.progress__bar}
+                            style={{
+                                width: `${(steps - 1) * 33.33}%`
+                            }}
+                        />
+                    </div>
+                </ShowIf>
 
-                <div className={styles.progress}>
-                    <div className={styles.progress__bar}
-                        style={{
-                            width: `${(steps - 1) * 33.33}%`
-                        }}
-                    />
-                </div>
-
+                <Link href={ROUTES.LOGIN()}
+                    className={styles.link}>
+                    Tem uma conta? Faça login
+                </Link>
             </form>
 
-            <Link href={ROUTES.LOGIN()}
-                className={styles.link}>
-                Tem uma conta? Faça login
-            </Link>
         </main>
     )
 }

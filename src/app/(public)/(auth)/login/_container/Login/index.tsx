@@ -16,9 +16,9 @@ import styles from './index.module.scss';
 
 function Submit() {
     const status = useFormStatus();
-    return <Button variety='secondary' disabled={status.pending} type='submit'>
+    return <Button disabled={status.pending} type='submit'>
         {
-            status.pending ? <LoaderSpinner size='16px' /> : 'Login'
+            status.pending ? <LoaderSpinner size='20px' /> : 'Login'
         }
     </Button>
 }
@@ -40,7 +40,13 @@ export default function LoginPage() {
     }, [state, route, web, extension])
     return (
         <main className={styles.main}>
-
+            <Image
+                src="/assets/backgrounds/login.jpeg"
+                alt="logo"
+                width={2000}
+                height={2000}
+                className={styles.background}
+            />
             <form action={formAction}>
 
                 <div className={styles.logo}>
@@ -72,10 +78,11 @@ export default function LoginPage() {
                     error={state?.errors?.password}
                 />
                 <Submit />
+
+                <Link href={ROUTES.REGISTER()} className={styles.link}>
+                    Não tem uma conta? Registre-se
+                </Link>
             </form>
-            <Link href={ROUTES.REGISTER()} className={styles.link}>
-                Não tem uma conta? Registre-se
-            </Link>
         </main>
     )
 }
