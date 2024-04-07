@@ -45,7 +45,7 @@
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: $mobile-size) {
     .body {
         @for $i from 0 through 10 {
             .card-key-#{$i} {

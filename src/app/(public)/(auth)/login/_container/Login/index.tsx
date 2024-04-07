@@ -43,8 +43,8 @@ export default function LoginPage() {
             <Image
                 src="/assets/backgrounds/login.jpeg"
                 alt="logo"
-                width={2000}
-                height={2000}
+                width={1000}
+                height={1000}
                 className={styles.background}
             />
             <form action={formAction}>

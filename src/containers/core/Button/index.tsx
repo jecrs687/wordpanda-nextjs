@@ -29,7 +29,7 @@ export default function Button(
             type={type}
             {...props}
         >
-            {children}
+            <span className={styles.text}>{children}</span>
         </button>
     )
 }

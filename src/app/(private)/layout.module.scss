@@ -17,7 +17,7 @@
 
 }
 
-@media (max-width: 520px) {
+@media (max-width: $mobile-size) {
 
     .container {
         display: flex;

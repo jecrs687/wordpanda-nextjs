@@ -84,7 +84,7 @@
     margin: 20px auto;
 }
 
-@media (max-width: 768px) {
+@media (max-width: $mobile-size) {
     .card {
         height: 250px;
         width: 250px;

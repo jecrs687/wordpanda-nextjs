@@ -19,16 +19,30 @@
         }
     }
 
+    label {
+        transition: all 0.5s ease-in-out;
+        transform: translate(15px, 12px);
+        font-size: 0.9rem;
+        z-index: 10;
+    }
+
+    &:focus-within {
+        label {
+            transform: translate(15px, 0px);
+        }
+    }
+
     input {
-
-        background-color: transparent;
-        background-color: white;
-
-        border-radius: 10px;
         padding: 15px 10px;
         width: 100%;
-        border: 1px solid $eighth;
-        color: $black;
+        border: none;
+        background: white;
+        border-width: 1px;
+        border-color: transparent transparent $eighth;
+        border-style: solid;
+        transition: all 0.5s ease-in-out;
+        font-size: 0.9rem;
+        outline: none;
 
         &::placeholder {
             color: rgb($black, 0.8);
@@ -38,6 +52,11 @@
             filter: grayscale(1);
             background: #33333311;
             cursor: not-allowed;
+        }
+
+        &:focus {
+            border-color: $eighth;
+            font-size: 0.9rem;
         }
     }
 
@@ -81,7 +100,6 @@
         font-weight: 700;
         line-height: 22px;
         width: 100%;
-        border-radius: 19px;
 
         &::placeholder {
             color: rgb($black, 0.8);

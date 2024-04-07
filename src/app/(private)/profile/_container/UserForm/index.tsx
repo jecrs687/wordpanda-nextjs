@@ -142,27 +142,33 @@ export default function UserForm({ user }: {
                         className={styles.select}
                     />
                     <div className={styles.buttons}>
-                        <Button
-                            type={!edit ? 'submit' : 'button'}
-                            onClick={() => setEdit(!edit)}
-                        >
-                            {edit ? 'Salvar' : 'Editar'}
-                        </Button>
-                        {
-                            edit && <Button
-                                type="button"
-                                variety="secondary"
+
+                        <div className={styles.buttons__group}>
+                            <Button
+                                type={!edit ? 'submit' : 'button'}
                                 onClick={() => setEdit(!edit)}
                             >
-                                Cancelar
+                                {edit ? 'Salvar' : 'Editar'}
                             </Button>
-                        }
+                            {
+                                edit && <Button
+                                    type="button"
+                                    variety="secondary"
+                                    onClick={() => setEdit(!edit)}
+                                >
+                                    Cancelar
+                                </Button>
+                            }
+
+                        </div>
+
+                        <Button variety='secondary'>
+                            <Link href={ROUTES.LOGOUT()} >
+                                Logout
+                            </Link>
+                        </Button>
                     </div>
-                    <div className={styles.logout}>
-                        <Link href={ROUTES.LOGOUT()} >
-                            Sair | logout
-                        </Link>
-                    </div>
+
                 </form>
             )}
         </Formik>

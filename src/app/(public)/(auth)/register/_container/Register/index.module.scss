@@ -116,7 +116,7 @@
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: $mobile-size) {
     .main {
         background-color: #f1f1f1;
         width: 100%;
