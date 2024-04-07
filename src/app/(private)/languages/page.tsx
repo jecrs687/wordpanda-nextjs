@@ -23,6 +23,9 @@ export default async function Page() {
                                         code={lang.code}
                                         wordsNumber={userLanguages.find(x => x.language.id === lang.id)?._count.userWords || 0}
                                         totalWordsNumber={lang._count.words}
+                                        totalOfMedias={lang._count.MediaLanguages}
+                                        totalOfLearnings={lang._count.userLanguage}
+                                        totalOfSpeaks={lang._count.User}
                                         key={index}
                                     />
                                 )
@@ -36,7 +39,6 @@ export default async function Page() {
                         {
                             userLanguages.map((lang, index) => {
                                 return (
-
                                     <LanguageCard
                                         code={lang.language.code}
                                         id={lang.language.id}

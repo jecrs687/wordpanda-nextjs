@@ -22,7 +22,7 @@
             font-weight: 700;
             margin-bottom: 1rem;
             margin-right: auto;
-            background-color: $ninth;
+            background-color: $initial;
             width: max-content;
             text-align: initial;
             color: white;
@@ -41,7 +41,8 @@
             border-radius: 1rem;
             width: min(90dvw, 450px);
             min-height: 120px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 1);
+            font-weight: 700;
             border-radius: 16px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(5px);
@@ -72,7 +73,7 @@
             min-width: 200px;
             color: $seventh;
             /* From https://css.glass */
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 1);
             border-radius: 16px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(5px);
@@ -80,14 +81,14 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
 
             &:hover {
-                background: $ninth;
+                background: $second;
                 color: white;
             }
 
             &__correct {
                 background: green;
                 color: white;
-                border: 1px solid $seventh;
+                border: 1px solid $fourth;
                 animation: correct 0.5s;
 
                 &:hover {

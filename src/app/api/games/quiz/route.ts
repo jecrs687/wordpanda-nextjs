@@ -35,13 +35,21 @@ export async function POST(request: Request) {
         }
     })
     if (!user) return Response.json({ err: 'User not found' })
-    const languageId = +(59 || cookies().get('language')?.value || headers().get('language') || user.languageId)
+    const languageId = +(cookies().get('language')?.value || headers().get('language') || user.languageId)
 
     const {
         words
     }: GamesQuizPostRequest = await request.json();
 
-    const [wordsOnDb, language] = await Promise.all([await prisma.word.findMany({
+
+    const language = await prisma.language.findFirst({
+        where: {
+            code: {
+                startsWith: 'pt'
+            }
+        }
+    })
+    const [wordsOnDb] = await Promise.all([await prisma.word.findMany({
         where: {
             id: {
                 in: words
@@ -51,15 +59,11 @@ export async function POST(request: Request) {
             language: true,
             wordGameQuiz: {
                 where: {
-                    languageId: languageId
+                    languageId: language.id
                 }
             }
         }
-    }), await prisma.language.findUnique({
-        where: {
-            id: languageId
-        }
-    })])
+    }),])
     if (!wordsOnDb.length) return Response.json({ err: 'Words not found' })
     if (!language) return Response.json({ err: 'Language not found' })
     const wordsWithoutGames = wordsOnDb.filter(word => !word.wordGameQuiz.length).map(word => word.word)

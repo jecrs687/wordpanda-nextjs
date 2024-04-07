@@ -58,3 +58,11 @@
 
     }
 }
+
+@media (min-width: $mobile-size) {
+    .main {
+        .header {
+            display: none;
+        }
+    }
+}

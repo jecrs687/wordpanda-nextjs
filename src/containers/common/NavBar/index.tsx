@@ -7,6 +7,7 @@ import VideoIcon from "@assets/icons/video.svg";
 import TextSearch from '@common/TextSearch';
 import { ROUTES } from "@constants/ROUTES";
 import useDevice from "@hooks/useDevice";
+import useSearch from '@hooks/useSearch';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { getCookie } from "@utils/cookie";
@@ -63,6 +64,7 @@ export function NavBar() {
     const { extension } = useDevice()
     const [showSearch, setShowSearch] = useState(false)
     const route = usePathname()
+    const { setSearch, search } = useSearch()
     const updatePath = () => {
         setPath(window?.location.pathname)
     }
@@ -160,7 +162,8 @@ export function NavBar() {
                         name=''
                         title=''
                         placeholder='Encontre seu filme, língua ou série'
-
+                        onChange={(e) => setSearch(e.target.value)}
+                        value={search}
                     />
                 </div>
                 <SearchIcon

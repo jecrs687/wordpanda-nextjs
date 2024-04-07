@@ -6,8 +6,5 @@ export default async function Page(
     }
 ) {
     const language = await getLanguage({ id });
-    return (<>
-        <GamesPage language={language} />
-    </>
-    )
+    return (<GamesPage language={language} />)
 }

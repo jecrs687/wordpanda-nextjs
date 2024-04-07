@@ -1,3 +1,4 @@
+import { getLanguage } from '@backend/domain/actions/Languages/getLanguage.action';
 import BackButton from '@common/BackButton';
 import { StoreLanguage } from '@common/StoreLanguage';
 import { GAMES } from '@constants/GAMES';
@@ -7,7 +8,7 @@ import styles from './page.module.scss';
 export default async function GamesPage(
     {
         language
-    }: { language?: any }
+    }: { language?: Awaited<ReturnType<typeof getLanguage>> }
 ) {
     const allowedGames = [
         'Translate',

@@ -6,7 +6,7 @@ import CardMovieSmall from '@common/Cards/CardMovieSmall';
 import LanguageCard from '@common/Cards/LanguageCard';
 import { ShowIf } from '@common/ShowIf/ShowIf';
 import TextSearch from '@common/TextSearch';
-import { useState } from 'react';
+import useSearch from '@hooks/useSearch';
 import styles from './page.module.scss';
 
 type Platform = Awaited<ReturnType<typeof getPlatforms>>['platforms']
@@ -19,7 +19,7 @@ const Dashboard = ({
     medias: Awaited<ReturnType<typeof getUser>>['user']['mediaUser'],
     platforms: Platform,
 }) => {
-    const [search, setSearch] = useState('');
+    const { search, setSearch } = useSearch();
     const userLanguages = languages.filter(({ language }) => language.language.toLowerCase().includes(search.toLowerCase()))
     const mediaUser = medias.filter(({ mediaLanguage }) => mediaLanguage.media.name.toLowerCase().includes(search.toLowerCase()))
     const platforms = plat.map((platform) => {

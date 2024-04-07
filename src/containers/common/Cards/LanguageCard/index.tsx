@@ -1,22 +1,28 @@
 import { RingChart } from '@common/Charts/RingChart'
 import { ROUTES } from '@constants/ROUTES'
+import clsx from 'clsx'
 import Link from 'next/link'
 import styles from './LanguageCard.module.scss'
 
 
 export default function LanguageCard({
-    id, language, code, wordsNumber, totalWordsNumber
+    id, language, code, wordsNumber, totalWordsNumber, totalOfMedias, totalOfLearnings, totalOfSpeaks
 }: {
     id: number,
     language: string,
     code: string,
     wordsNumber: number,
-    totalWordsNumber: number
+    totalWordsNumber: number,
+    totalOfMedias?: number,
+    totalOfLearnings?: number,
+    totalOfSpeaks?: number
 }) {
     return (
         <Link
             href={ROUTES.LANGUAGE(id)}
-            className={styles.card}
+            className={clsx(styles.card, {
+                [styles.details]: !!totalOfMedias
+            })}
         >
             <div className={styles.card__content}>
                 <div className={styles.card__info}>
@@ -28,7 +34,18 @@ export default function LanguageCard({
                     >{code}</p>
                     <p
                         className={styles.card__words}
-                    >palavras:<sup>{wordsNumber}</sup>&frasl;<sub> {totalWordsNumber}</sub>  </p>
+                    >palavras: {wordsNumber} / {totalWordsNumber}</p>
+                </div>
+                <div className={styles.card__stats}>
+                    <p
+                        className={styles.card__stat}
+                    >filmes: {totalOfMedias}</p>
+                    <p
+                        className={styles.card__stat}
+                    >aprendendo: {totalOfLearnings}</p>
+                    <p
+                        className={styles.card__stat}
+                    >falantes: {totalOfSpeaks}</p>
                 </div>
                 <div className={styles.card__chart}
                 >
