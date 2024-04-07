@@ -1,12 +1,13 @@
 "use client";
-import HomeIcon from "@assets/icons/dashboard.svg";
-import LanguageIcon from "@assets/icons/language.svg";
-import LogoutIcon from "@assets/icons/logout.svg";
-import ProfileIcon from "@assets/icons/profile.svg";
+import HomeIcon from '@mui/icons-material/Home';
+import LanguageIcon from '@mui/icons-material/Language';
+
 import VideoIcon from "@assets/icons/video.svg";
 import { SelectLanguage } from "@common/SelectLanguage";
 import { ROUTES } from "@constants/ROUTES";
 import useDevice from "@hooks/useDevice";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { getCookie } from "@utils/cookie";
 import clsx from "clsx";
 import Image from "next/image";
@@ -32,7 +33,7 @@ const paths = [
     // },
     {
         path: ROUTES.PROFILE(),
-        Icon: ProfileIcon,
+        Icon: AccountCircleIcon,
         name: "Perfil"
     },
     // {
