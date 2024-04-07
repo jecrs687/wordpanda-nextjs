@@ -7,7 +7,6 @@
   align-items: center;
   min-height: 100%;
   background-color: $background;
-  max-width: 100%;
 
   .profile {
     display: flex;
@@ -18,12 +17,11 @@
     width: 90%;
     border-radius: 10px;
     gap: 20px;
-    max-width: 100%;
 
     .container {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
       gap: 50px;
-      max-width: 100%;
     }
 
     .inputs {
@@ -91,7 +89,7 @@
 
           .metric {
             background: #33333333;
-            width: 100%;
+            width: 200px;
             display: flex;
             flex-direction: column;
             border-radius: 20px;

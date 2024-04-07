@@ -1,6 +1,7 @@
 "use client";
 import { getUser } from '@actions/User/getUser.action';
 import { getPlatforms } from '@backend/domain/actions/Platform/getPlatform.action';
+import LanguageCard from '@common/LanguageCard';
 import { ShowIf } from '@common/ShowIf/ShowIf';
 import TextSearch from '@common/TextSearch';
 import { ROUTES } from '@constants/ROUTES';
@@ -30,6 +31,7 @@ const Dashboard = ({
 
     return (
         <main className={styles.main}>
+
             <div className={styles.header}>
                 <div className={styles.search}>
                     <TextSearch
@@ -50,15 +52,14 @@ const Dashboard = ({
                             {
                                 userLanguages.map((language, index) => {
                                     return (
-                                        <Link
-                                            href={ROUTES.LANGUAGE(language.language.id)}
-                                            className={styles.language}
+                                        <LanguageCard
                                             key={index}
-                                        >
-                                            <h3>{language.language.language}</h3>
-                                            <p>{language.language.code}</p>
-                                            <p>palavras: {language._count.userWords} / {language.language._count.words}</p>
-                                        </Link>
+                                            language={language.language.language}
+                                            code={language.language.code}
+                                            id={language.language.id}
+                                            wordsNumber={language._count.userWords}
+                                            totalWordsNumber={language.language._count.words}
+                                        />
                                     )
                                 })
                             }

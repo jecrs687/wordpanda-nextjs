@@ -1,5 +1,6 @@
 import { getLanguages } from '@backend/domain/actions/Languages/getLanguages.action';
 import { getUserLanguages } from '@backend/domain/actions/Languages/getUserLanguages.action';
+import LanguageCard from '@common/LanguageCard';
 import { ROUTES } from '@constants/ROUTES';
 import Link from 'next/link';
 import styles from './page.module.scss';
@@ -18,13 +19,14 @@ export default async function Page() {
                                 x => x._count.words > 4
                             ).map((lang, index) => {
                                 return (
-                                    <Link
-                                        href={ROUTES.LANGUAGE(lang.id)}
-                                        className={styles.language} key={index}>
-                                        <h3>{lang.language}</h3>
-                                        <p>{lang.code}</p>
-                                        <p>total: {lang._count.words}</p>
-                                    </Link>
+                                    <LanguageCard
+                                        id={lang.id}
+                                        language={lang.language}
+                                        code={lang.code}
+                                        wordsNumber={userLanguages.find(x => x.language.id === lang.id)?._count.userWords || 0}
+                                        totalWordsNumber={lang._count.words}
+                                        key={index}
+                                    />
                                 )
                             })
                         }
