@@ -1,7 +1,6 @@
 import { RingChart } from '@common/Charts/RingChart'
 import { ROUTES } from '@constants/ROUTES'
 import Link from 'next/link'
-import { Suspense } from 'react'
 import styles from './LanguageCard.module.scss'
 
 
@@ -31,11 +30,13 @@ export default function LanguageCard({
                         className={styles.card__words}
                     >palavras: {wordsNumber} / {totalWordsNumber}</p>
                 </div>
-                <Suspense fallback={<div>Loading...</div>}>
+                <div className={styles.card__chart}
+                    style={{ width: 80, height: 80 }}
+                >
                     <RingChart percent={
                         wordsNumber / totalWordsNumber
                     } size={80} />
-                </Suspense>
+                </div>
 
             </div>
         </Link>
