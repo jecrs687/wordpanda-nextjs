@@ -12,6 +12,24 @@
         height: 100%;
         overflow-y: scroll;
         padding: 40px 0px 40px;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        &::-webkit-scrollbar-button {
+            width: 0;
+            height: 0;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: $white;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: rgba($white, 0.3);
+        }
+
     }
 
 
@@ -27,6 +45,10 @@
         .content {
             width: 100dvw;
             height: 100dvh;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
         }
 
         .nav {

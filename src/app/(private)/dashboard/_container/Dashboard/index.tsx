@@ -44,24 +44,24 @@ const Dashboard = ({
             <div className={styles.container}>
                 <div className={styles.card}>
                     <ShowIf condition={!!userLanguages.length}>
-                        <h3
-                            className={styles.card__title}
-                        >Aprendendo</h3>
-                        <div className={styles.languages}>
-                            {
-                                userLanguages.map((language, index) => {
-                                    return (
-                                        <LanguageCard
-                                            key={index}
-                                            language={language.language.language}
-                                            code={language.language.code}
-                                            id={language.language.id}
-                                            wordsNumber={language._count.userWords}
-                                            totalWordsNumber={language.language._count.words}
-                                        />
-                                    )
-                                })
-                            }
+                        <div className={styles.carrossel}>
+                            <h4>Aprendendo</h4>
+                            <div className={styles.contents}>
+                                {
+                                    userLanguages.map((language, index) => {
+                                        return (
+                                            <LanguageCard
+                                                key={index}
+                                                language={language.language.language}
+                                                code={language.language.code}
+                                                id={language.language.id}
+                                                wordsNumber={language._count.userWords}
+                                                totalWordsNumber={language.language._count.words}
+                                            />
+                                        )
+                                    })
+                                }
+                            </div>
                         </div>
                     </ShowIf>
                     <div className={styles.media}>

@@ -1,8 +1,6 @@
 import { getLanguages } from '@backend/domain/actions/Languages/getLanguages.action';
 import { getUserLanguages } from '@backend/domain/actions/Languages/getUserLanguages.action';
 import LanguageCard from '@common/Cards/LanguageCard';
-import { ROUTES } from '@constants/ROUTES';
-import Link from 'next/link';
 import styles from './page.module.scss';
 
 export const dynamic = 'force-dynamic'
@@ -38,17 +36,15 @@ export default async function Page() {
                         {
                             userLanguages.map((lang, index) => {
                                 return (
-                                    <Link
-                                        href={ROUTES.LANGUAGE(lang.id)}
-                                        className={styles.language}
+
+                                    <LanguageCard
+                                        code={lang.language.code}
+                                        id={lang.language.id}
                                         key={index}
-                                    >
-                                        <h3>{lang.language.language}</h3>
-                                        <p>{lang.language.code}</p>
-                                        <p>
-                                            Words: {lang._count.userWords}/{lang.language._count.words}
-                                        </p>
-                                    </Link>
+                                        language={lang.language.language}
+                                        totalWordsNumber={lang.language._count.words}
+                                        wordsNumber={lang._count.userWords}
+                                    />
                                 )
                             })
                         }

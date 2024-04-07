@@ -64,6 +64,8 @@
         border: 0px solid transparent;
         border-width: 0px 0px 5px;
 
+
+
         .link {
             display: flex;
             align-items: center;
@@ -77,6 +79,20 @@
                 width: 100%;
                 transition: all 0.2s ease-in-out;
 
+            }
+        }
+
+        &:hover {
+            background: rgba($white, 0.08);
+            color: $white;
+            // border-color: $white;
+
+            span {
+                color: $white;
+            }
+
+            .icon {
+                color: $white;
             }
         }
     }
@@ -111,11 +127,17 @@
     .search {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-end;
+        width: 120px;
+        gap: 10px;
 
         &__input {
             width: 0px;
-            display: none;
+            overflow: hidden;
+        }
+
+        .icon {
+            transform: translate(0px, -5px);
         }
     }
 }
@@ -161,21 +183,15 @@
     .show__search {
 
         .search {
-            display: flex;
             width: 100%;
-            gap: 10px;
-            padding: 0px 20px;
 
             .icon {
                 color: $white;
-                margin: 0px;
-                height: 100%;
-                padding-bottom: 10px;
             }
 
             &__input {
-                display: block;
                 width: 100%;
+                margin-left: 10px;
             }
         }
 
@@ -185,7 +201,6 @@
             .link {
                 span {
                     width: 0px;
-
                 }
             }
         }
@@ -202,12 +217,14 @@
 
         &.initial {
 
+
             .list {
                 width: 0px;
             }
 
             .logout {
-                display: none;
+                overflow: hidden;
+                width: 0px !important;
             }
         }
     }
