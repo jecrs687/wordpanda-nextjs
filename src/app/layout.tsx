@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   description: 'Learn new words and phrases',
 }
 
+
+
 export default function RootLayout({
   children,
 }: {

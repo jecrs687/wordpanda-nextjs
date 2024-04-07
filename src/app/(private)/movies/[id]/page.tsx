@@ -1,6 +1,6 @@
 import { getMovieByUser } from '@backend/domain/actions/Movie/getMovieByUser';
 import BackButton from '@common/BackButton';
-import { CardGame } from '@common/CardGame';
+import { CardGame } from '@common/Cards/CardGame';
 import styles from './page.module.scss';
 export default async function Page({
     params: { id }

@@ -1,12 +1,11 @@
 "use client";
 import { getUser } from '@actions/User/getUser.action';
 import { getPlatforms } from '@backend/domain/actions/Platform/getPlatform.action';
-import LanguageCard from '@common/LanguageCard';
+import CardMovieBig from '@common/Cards/CardMovieBig';
+import CardMovieSmall from '@common/Cards/CardMovieSmall';
+import LanguageCard from '@common/Cards/LanguageCard';
 import { ShowIf } from '@common/ShowIf/ShowIf';
 import TextSearch from '@common/TextSearch';
-import { ROUTES } from '@constants/ROUTES';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
 import styles from './page.module.scss';
 
@@ -72,36 +71,16 @@ const Dashboard = ({
                                 <div className={styles.contents}>
                                     {mediaUser.map((content, index) => {
                                         return (
-                                            <Link key={index} className={styles.content} href={
-                                                ROUTES.MOVIE(content.mediaLanguage.media.id)
-                                            }>
-                                                <span className={styles.title}>
 
-                                                    {content.mediaLanguage.media.name}</span>
-                                                <span
-                                                    className={styles.language}
-                                                >
-                                                    {
-                                                        content.mediaLanguage.language.language
-                                                    } -
-                                                    {
-                                                        content.mediaLanguage.language.code
-                                                    }
-                                                </span>
-                                                <span
-                                                    className={styles.platform}
-                                                >
-                                                    {content.mediaLanguage.media.platform.name}
-                                                </span>
-                                                <Image
-                                                    width={50}
-                                                    height={50}
-                                                    src={content.mediaLanguage.media.logoUrl || "https://picsum.photos/200/300"}
-                                                    alt={content.mediaLanguage.media.name}
-                                                    className={styles.logo}
-                                                />
-                                            </Link>
-
+                                            <CardMovieSmall
+                                                code={content.mediaLanguage.language.code}
+                                                id={content.mediaLanguage.media.id}
+                                                language={content.mediaLanguage.language.language}
+                                                logoUrl={content.mediaLanguage.media.logoUrl}
+                                                name={content.mediaLanguage.media.name}
+                                                platform={content.mediaLanguage.media.platform.name}
+                                                key={index}
+                                            />
                                         )
                                     })}
                                 </div>
@@ -118,27 +97,14 @@ const Dashboard = ({
                                                 <h4>{platform.name}</h4>
                                                 <div className={styles.contents}>
                                                     {platform.medias.map((content, index) =>
-                                                        <Link key={index}
-
-                                                            className={styles.content} href={
-                                                                ROUTES.MOVIE(content.id)
-
-                                                            }>
-                                                            <span className={styles.title}>
-
-                                                                {content.name}</span>
-                                                            <span
-                                                                className={styles.language}
-                                                            >{content.mediaLanguages.map((x) => x.language.language).join(', ')}</span>
-
-                                                            <Image
-                                                                width={50}
-                                                                height={50}
-                                                                src={content.logoUrl || "https://picsum.photos/200/300"}
-                                                                alt={content.name}
-                                                                className={styles.logo}
-                                                            />
-                                                        </Link>
+                                                        <CardMovieSmall
+                                                            languages={content.mediaLanguages.map((x) => x.language.language).join(', ')}
+                                                            id={content.id}
+                                                            logoUrl={content.logoUrl}
+                                                            name={content.name}
+                                                            platform={platform.name}
+                                                            key={index}
+                                                        />
                                                     )}
                                                 </div>
                                             </div>
@@ -152,31 +118,14 @@ const Dashboard = ({
                                 <h4>Mais vistos</h4>
                                 <div className={styles.contents}>
                                     {mostViewed.map((content, index) =>
-                                        <Link key={index} className={styles.content}
-
-                                            style={{
-                                                height: '350px',
-                                            }}
-                                            href={
-                                                ROUTES.MOVIE(content.id)
-                                            }>
-
-                                            <span className={styles.title}>
-                                                {content.name}</span>
-                                            <span
-                                                className={styles.language}
-                                            >{content.mediaLanguages.map((x) => x.language.language).join(', ')}</span>
-                                            <span className={styles.index}>
-                                                {index + 1}
-                                            </span>
-                                            <Image
-                                                width={50}
-                                                height={50}
-                                                src={content.logoUrl || "https://picsum.photos/200/300"}
-                                                alt={content.name}
-                                                className={styles.logo}
-                                            />
-                                        </Link>
+                                        <CardMovieBig
+                                            id={content.id}
+                                            logoUrl={content.logoUrl}
+                                            name={content.name}
+                                            languages={content.mediaLanguages.map((x) => x.language.language).join(', ')}
+                                            index={index}
+                                            key={index}
+                                        />
                                     )}
                                 </div>
                             </div>

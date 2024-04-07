@@ -1,6 +1,6 @@
 import { getLanguages } from '@backend/domain/actions/Languages/getLanguages.action';
 import { getUserLanguages } from '@backend/domain/actions/Languages/getUserLanguages.action';
-import LanguageCard from '@common/LanguageCard';
+import LanguageCard from '@common/Cards/LanguageCard';
 import { ROUTES } from '@constants/ROUTES';
 import Link from 'next/link';
 import styles from './page.module.scss';

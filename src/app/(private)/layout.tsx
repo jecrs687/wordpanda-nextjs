@@ -19,7 +19,7 @@ export default function RootLayout({
         <div className={styles.container}>
             <SwrCacheProvider />
             <NavBar />
-            <main className={styles.content}>
+            <main id="content" className={styles.content}>
                 {children}
             </main>
         </div >
