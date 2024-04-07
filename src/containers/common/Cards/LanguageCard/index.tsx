@@ -28,14 +28,15 @@ export default function LanguageCard({
                     >{code}</p>
                     <p
                         className={styles.card__words}
-                    >palavras: {wordsNumber} / {totalWordsNumber}</p>
+                    >palavras:<sup>{wordsNumber}</sup>&frasl;<sub> {totalWordsNumber}</sub>  </p>
                 </div>
                 <div className={styles.card__chart}
-                    style={{ width: 80, height: 80 }}
                 >
-                    <RingChart percent={
-                        wordsNumber / totalWordsNumber
-                    } size={80} />
+                    <div>
+                        <RingChart percent={
+                            (wordsNumber || 1) / totalWordsNumber
+                        } size={80} />
+                    </div>
                 </div>
 
             </div>

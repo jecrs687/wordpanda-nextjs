@@ -34,6 +34,7 @@ export const RingChart = ({
                     fontSize: Math.min(size / 5, 18),
                     fontStyle: 'bold',
                 },
+                colorField: '#ffffff',
             },
         ],
     };
