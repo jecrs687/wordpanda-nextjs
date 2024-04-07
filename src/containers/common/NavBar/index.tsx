@@ -61,7 +61,7 @@ export function NavBar() {
     >(paths)
     const [initialScrollPosition, setInitialScrollPosition] = useState(false)
     const { extension } = useDevice()
-    const [showSearch, setShowSearch] = useState(true)
+    const [showSearch, setShowSearch] = useState(false)
     const route = usePathname()
     const updatePath = () => {
         setPath(window?.location.pathname)

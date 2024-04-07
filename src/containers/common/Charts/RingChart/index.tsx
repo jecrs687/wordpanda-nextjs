@@ -1,7 +1,7 @@
 
 'use client';
+import colors from "@styles/modules/colors.module.scss";
 import dynamic from 'next/dynamic';
-
 const Ring = dynamic<any>(
     () => import('@ant-design/plots').then(({ Tiny }) => Tiny.Ring),
     {
@@ -22,7 +22,7 @@ export const RingChart = ({
         percent,
         width: size,
         height: size,
-        color: ['#E8EFF5', '#66AFF4'],
+        color: [colors.initial, colors.fifth],
         annotations: [
             {
                 type: 'text',

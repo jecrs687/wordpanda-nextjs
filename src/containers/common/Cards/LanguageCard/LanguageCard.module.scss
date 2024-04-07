@@ -1,3 +1,5 @@
+@import "@styles/index.scss";
+
 .card {
     display: flex;
     flex-direction: column;
@@ -7,7 +9,7 @@
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     margin: 0px 20px;
-
+    color: $black;
 
     .card__content {
         display: flex;
