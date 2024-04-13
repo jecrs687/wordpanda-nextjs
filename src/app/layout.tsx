@@ -9,7 +9,7 @@ import './globals.scss'
 import Loading from './loading'
 
 const poppins = Poppins({
-  subsets: ['latin', 'latin-ext', 'devanagari'],
+  subsets: ['latin', 'latin-ext'],
   weight: ['400', '700', '100', '200', '300', '500', '600', '800', '900'],
 })
 export const metadata: Metadata = {

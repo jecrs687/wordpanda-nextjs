@@ -5,7 +5,6 @@ import { translateWords } from "@infra/openai/Translate"
 import { TRANSLATED_WORDS_MOCK_ITALIAN } from "@mocks/translatedWordsMock"
 import { Translation, UserWords, Word } from "@prisma/client"
 import { chunkArray } from "@utils/chunkarray"
-import { validateToken } from "@utils/token"
 import { cookies, headers } from "next/headers"
 
 
@@ -38,20 +37,12 @@ export type WordsPostRequest = {
     language: string,
 }
 export async function POST(request: Request) {
+    const header = headers()
+
     try {
-
-        const token = cookies().get('token') || headers().get('Authorization')
-        if (!token) return Response.json({
-            err: 'Not authorized'
-        })
-        const { decoded } = validateToken(token)
-        if (!decoded) return Response.json({
-            err: 'Not authorized'
-        })
-
         console.time('before chat')
         const body: WordsPostRequest = await request.json();
-        const { id } = decoded
+        const id = +header.get('id')
         const languageCode = body.language.toLowerCase()?.split('-')[0]
         const [user, language] = await Promise.all([await prisma.user.findUnique({
             where: {

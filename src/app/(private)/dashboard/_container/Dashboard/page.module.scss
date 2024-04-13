@@ -48,12 +48,10 @@
 
             .contents {
                 display: flex;
-                overflow: scroll;
+                overflow-x: scroll;
                 padding: 5px 20px;
 
             }
-
-
         }
 
     }
