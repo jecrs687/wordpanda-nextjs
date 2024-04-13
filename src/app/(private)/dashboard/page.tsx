@@ -4,8 +4,7 @@ import Dashboard from './_container/Dashboard';
 
 export const dynamic = 'force-dynamic';
 export default async function Page() {
-    const { user } = await getUser()
-    const { platforms } = await getPlatforms()
+    const [{ user }, { platforms }] = await Promise.all([getUser(), getPlatforms()])
     const { userLanguages: languages, mediaUser: medias } = user
     return (
         <Dashboard languages={languages} medias={medias} platforms={platforms} />

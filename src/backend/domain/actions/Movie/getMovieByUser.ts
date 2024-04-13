@@ -7,87 +7,44 @@ export const getMovieByUser = async (id: number) => {
     if (!token) return { errors: 'Token not found' };
     const { decoded } = validateToken(token);
     if (!decoded) return { errors: 'Token invalid' };
-    const user = await prisma.user.findFirst({
+    const userPromise = prisma.user.findFirst({
         where: {
             id: decoded.id
         }
     });
-    if (!user) return { errors: 'User not found' };
-    const movie = await prisma.media.findFirst({
+    const moviePromise = prisma.media.findFirst({
         where: {
             id: id
         },
         include: {
             mediaLanguages: {
                 include: {
+                    _count: {
+                        select: {
+                            mediaWords: true
+                        }
+                    },
                     language: true,
+
                     mediaWords: {
-                        include: {
-                            word: true
+                        where: {
+                            word: {
+                                userWords: {
+                                    some: {
+                                        userId: decoded.id
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
         }
     });
+    const [user, movie] = await Promise.all([userPromise, moviePromise]);
+    if (!user) return { errors: 'User not found' };
     if (!movie) return { errors: 'Movie not found' };
-    const languagesByMediaByUser = await prisma.mediaUser.findMany({
-        where: {
-            userId: user.id,
-            mediaLanguage: {
-                media: {
-                    id: id
-                }
-            }
-        },
-        include: {
-            mediaLanguage: {
-                include: {
-                    language: true
-                }
-            }
-        }
-    });
 
-    const wordsByLanguagesByUser = await prisma.userWords.findMany({
-        where: {
-            userId: user.id,
-            userLanguage: {
-                languageId: {
-                    in: languagesByMediaByUser.map(l => l.mediaLanguage.languageId)
-                }
-            }
-        },
-        include: {
-            userLanguage: {
-                include: {
-                    language: true
-                }
-            },
-            word: true
-        }
-    });
-
-    const wordsByMediaByLanguage = movie.mediaLanguages.reduce(
-        (acc: {
-            [languageId: number]: number[]
-        }, mediaLanguage) => {
-            const words = mediaLanguage.mediaWords.map(mediaWord => mediaWord.wordId);
-            acc[mediaLanguage.language.id] = words;
-            return acc;
-        }, {});
-    const wordsByUserByMediaByLanguage = wordsByLanguagesByUser.reduce((acc: {
-        [languageId: number]: number[]
-    }, userWord) => {
-        const words = userWord.userLanguage.languageId;
-        if (!wordsByMediaByLanguage[words].includes(userWord.wordId)) return acc;
-        if (!acc[words]) acc[words] = [];
-        acc[words].push(userWord.wordId);
-        return acc;
-    }, {});
-
-
-
-    return { movie, languagesByMediaByUser, user, wordsByUserByMediaByLanguage, wordsByMediaByLanguage };
+    return { movie, user };
 
 }

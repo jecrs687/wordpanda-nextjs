@@ -32,25 +32,6 @@ export async function middleware(request: NextRequest) {
     requestHeaders.set('email', user.email);
     requestHeaders.set('name', user.name);
     requestHeaders.set('role', user.role);
-    // const userDb = await prisma.user.findUnique({
-    //     where: {
-    //         id: user.id
-    //     },
-    //     select: {
-    //         language: {
-    //             select: {
-    //                 code: true,
-    //                 language: true,
-    //                 id: true
-    //             }
-    //         }
-    //     }
-    // })
-    // requestHeaders.set('language', userDb.language.code);
-    // requestHeaders.set('languageId', userDb.language.id.toString());
-
-    // requestHeaders.set('user', JSON.stringify(user));
-
     const response = NextResponse.next({
         request: {
             headers: requestHeaders,

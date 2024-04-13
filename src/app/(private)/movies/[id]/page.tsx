@@ -7,7 +7,7 @@ export default async function Page({
     params: { id }
 }) {
     const {
-        languagesByMediaByUser, movie, user, wordsByMediaByLanguage, wordsByUserByMediaByLanguage
+        movie, user
     } = await getMovieByUser(+id)
     return (
         <main className={styles.main}>
@@ -30,11 +30,11 @@ export default async function Page({
                             return (
                                 <CardGame key={index}
                                     mediaId={movie.id}
-                                    words={mediaLanguage.mediaWords.map(({ word }) => word)}
+                                    words={[]}
                                     language={mediaLanguage.language.code}>
                                     <h3>{mediaLanguage.language.language} ({mediaLanguage.language.code})</h3>
                                     <h4>
-                                        {+(wordsByUserByMediaByLanguage[mediaLanguage.language.id]?.length) || 0}/{mediaLanguage.mediaWords.length}
+                                        {mediaLanguage.mediaWords.length} / {mediaLanguage._count.mediaWords}
                                     </h4>
                                 </CardGame>
                             )

@@ -7,8 +7,14 @@ import styles from './page.module.scss';
 
 export default async function GamesPage(
     {
-        language
-    }: { language?: Awaited<ReturnType<typeof getLanguage>> }
+        language,
+        languageCode = undefined,
+        mediaId = undefined,
+    }: {
+        language?: Awaited<ReturnType<typeof getLanguage>>,
+        languageCode?: string,
+        mediaId?: number
+    }
 ) {
     const allowedGames = [
         'Translate',
@@ -22,8 +28,8 @@ export default async function GamesPage(
 
         }>
             {
-                !!language && (
-                    <StoreLanguage words={language.languages.words} language={language.languages.code} />
+                (!!language || !!languageCode) && (
+                    <StoreLanguage words={[]} language={language.language.code || languageCode} mediaId={mediaId} />
                 )
 
             }

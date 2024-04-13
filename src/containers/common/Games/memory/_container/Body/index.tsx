@@ -20,7 +20,7 @@ type WordMemory = {
     wasWrong?: boolean;
 }
 const QUANT = 5;
-export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang: string, mediaId?: number | unknown }) => {
+export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang: string, mediaId?: number }) => {
     const [firstSelected, setFirstSelected] = useState<number>()
     const [secondSelected, setSecondSelected] = useState<number>()
     const [wordsFiltered, setWordsFiltered] = useState<Array<WordMemory>>([])
@@ -48,7 +48,8 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
 
     const updateList = useCallback(async () => {
         const wordsResponse = await wordsListTrigger({
-            words: words.slice(index, index + 80),
+            ...(mediaId ? { mediaId } : { words: words.slice(index, index + 40).map(x => x.word) }),
+            limit: 80,
             language: lang,
         })
         setIndex(index + 80)
@@ -75,12 +76,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
                         id,
                     }))
         )
-    }, [
-        words,
-        lang,
-        wordsListTrigger,
-        index
-    ])
+    }, [wordsListTrigger, mediaId, words, index, lang])
     useEffect(() => {
         if (!wordsFiltered.length) {
             updateList()
@@ -222,7 +218,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
 
 
     return (
-        <div className={styles.body}>
+        <div className={styles.memory_container}>
             <div className={styles.sides}>
                 <div className={styles.side}>
                     {

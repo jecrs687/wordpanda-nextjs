@@ -21,6 +21,7 @@
     transition: 250ms;
     transform-style: preserve-3d;
     transform: perspective(1000px) translate(0deg);
+    touch-action: none;
 
     h3 {
         font-size: 1.2rem;

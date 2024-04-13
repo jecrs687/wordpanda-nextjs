@@ -47,16 +47,12 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
 
     const updateWords = useCallback(async () => {
         const response = await wordsListTrigger({
-            words: words.slice(index, index + 40),
             language: lang,
+            ...(mediaId ? { mediaId } : { words: words.slice(index, index + 40).map(x => x.word) }),
+            limit: 40
         })
         setAllWords(prev => [...prev, ...response.data.words])
-    }, [
-        words,
-        lang,
-        wordsListTrigger,
-        index
-    ])
+    }, [wordsListTrigger, mediaId, words, index, lang])
 
     useEffect(() => {
         if (index === allWords.length) updateWords();
@@ -102,7 +98,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
 
 
     return (
-        <div className={styles.body}>
+        <div className={styles.quiz_container}>
             <div className={styles.quiz}>
                 <div className={styles.quiz__word}>
                     {

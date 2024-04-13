@@ -17,7 +17,7 @@ type apiRequest = {
 export const FlashBody = ({ words, lang, mediaId }: {
     words: { word: string }[],
     lang: string,
-    mediaId?: unknown | number
+    mediaId?: number
 }) => {
     const { data: { data: wordsList, err: wordsListErr, msg: wordsListMsg } = {},
         error: wordsListError,
@@ -48,17 +48,13 @@ export const FlashBody = ({ words, lang, mediaId }: {
     const [index, setIndex] = useState(0)
     const updateList = useCallback(async () => {
         const response = await wordsListTrigger({
-            words: words.slice(index, index + 40),
+            ...(mediaId ? { mediaId } : { words: words.slice(index, index + 40).map(x => x.word) }),
+            limit: 40,
             language: lang,
         })
         setIndex(index + 40)
         setWordsCards(response.data.words)
-    }, [
-        words,
-        lang,
-        wordsListTrigger,
-        index
-    ])
+    }, [wordsListTrigger, mediaId, words, index, lang])
     useEffect(() => {
         if (!wordsCards.length) updateList()
     }, [wordsCards, updateList])
@@ -123,7 +119,7 @@ export const FlashBody = ({ words, lang, mediaId }: {
 
     }
     return (
-        <div className={styles.body}>
+        <div className={styles.flashcard_container}>
             <div className={styles.sides}>
                 <div className={styles.side}>
                     <DropSide
