@@ -2,6 +2,7 @@ import { ISubtitlePrime } from "@view/interfaces/ISubtitlePrime";
 
 export const SUBTITLES_MOCK: ISubtitlePrime[] = [
     {
+        provider: "PRIME",
         "responseBody": {
             "catalogMetadata": {
                 "catalog": {

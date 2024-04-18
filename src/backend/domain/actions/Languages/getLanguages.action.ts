@@ -7,9 +7,9 @@ export async function getLanguages() {
                 _count: {
                     select: {
                         words: true,
-                        MediaLanguages: true,
+                        mediaLanguages: true,
                         userLanguage: true,
-                        User: true,
+                        user: true,
                     }
                 },
             }

@@ -13,7 +13,7 @@ export default async function GamesPage(
     }: {
         language?: Awaited<ReturnType<typeof getLanguage>>,
         languageCode?: string,
-        mediaId?: number
+        mediaId?: string
     }
 ) {
     const allowedGames = [

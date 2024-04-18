@@ -4,8 +4,8 @@ const useWords = create<{
     words: { word: string }[],
     allWords: { [key: string]: { word: string }[] },
     language: string,
-    mediaId: number,
-    insert: (words: { word: string }[], language: string, media?: number) => void,
+    mediaId: string,
+    insert: (words: { word: string }[], language: string, media?: string) => void,
     setLanguage: (language: string) => void,
 }>()((set) => ({
     words: [],

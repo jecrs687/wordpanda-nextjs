@@ -6,7 +6,7 @@ export default function FlashCardGame({
     words,
     lang,
     mediaId
-}: { words: { word: string }[], lang: string, mediaId?: number }) {
+}: { words: { word: string }[], lang: string, mediaId?: string }) {
     if (!words.length && !lang) return null;
 
     return (

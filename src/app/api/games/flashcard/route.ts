@@ -8,7 +8,7 @@ import { cookies, headers } from "next/headers";
 export type GamesFlashcardPostRequest = {
     wordId: string,
     hard: boolean,
-    mediaId: number | unknown
+    mediaId?: string
 }
 
 export type GamesFlashcardPostResponse = {

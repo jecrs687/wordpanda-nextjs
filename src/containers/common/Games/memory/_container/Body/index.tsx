@@ -10,7 +10,7 @@ import styles from './Body.module.scss';
 type WordMemory = {
     word: string;
     trans?: string[];
-    id: number;
+    id: string;
     position?: number | undefined;
     translatePosition?: number | undefined;
     isUsed?: boolean;
@@ -20,9 +20,9 @@ type WordMemory = {
     wasWrong?: boolean;
 }
 const QUANT = 5;
-export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang: string, mediaId?: number }) => {
-    const [firstSelected, setFirstSelected] = useState<number>()
-    const [secondSelected, setSecondSelected] = useState<number>()
+export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang: string, mediaId?: string }) => {
+    const [firstSelected, setFirstSelected] = useState<string>()
+    const [secondSelected, setSecondSelected] = useState<string>()
     const [wordsFiltered, setWordsFiltered] = useState<Array<WordMemory>>([])
     const [wordsShowed, setWordsShowed] = useState<WordMemory[]>([])
     const [index, setIndex] = useState(0)
@@ -180,7 +180,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
     }, [])
     useEffect(() => {
         if (!wordsShowed.length) return;
-        if (isNaN(firstSelected) || isNaN(secondSelected)) return;
+        if (!firstSelected || !secondSelected) return;
         setFirstSelected(undefined)
         setSecondSelected(undefined)
         const [first, second] = [firstSelected, secondSelected]

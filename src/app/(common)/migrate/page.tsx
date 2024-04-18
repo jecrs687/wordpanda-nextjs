@@ -1,18 +1,17 @@
-import { createUser } from "@backend/domain/actions/User/createUser.action"
 
 export default async function Page() {
     //await migrateDatabase()
     // await migrateLanguages()
 
-    await createUser({
-        email: "demo@demo.it",
-        firstName: "demo",
-        lastName: "demo",
-        password: "Demo123!",
-        phone: "1234567890",
-        username: "demo",
-        languageId: 1
-    })
+    // await createUser({
+    //     email: "demo@demo.it",
+    //     firstName: "demo",
+    //     lastName: "demo",
+    //     password: "Demo123!",
+    //     phone: "1234567890",
+    //     username: "demo",
+    //     languageId: 1
+    // })
     // // await subtitleMock()
     // await insertSubtitles(SUBTITLES_MOCK)
     // await createUser({

@@ -25,7 +25,7 @@ export default function Page() {
             {current?.catalogMetadata?.catalog?.title}
         </div>
         <div className={styles.image}>
-            <Image src={current.catalogMetadata?.images.imageUrls.title} alt={current?.catalogMetadata?.catalog?.title} width={1000} height={1000} />
+            <Image src={current?.catalogMetadata?.images.imageUrls.title} alt={current?.catalogMetadata?.catalog?.title} width={1000} height={1000} />
         </div>
         <div className={styles.search}>
             <TextSearch

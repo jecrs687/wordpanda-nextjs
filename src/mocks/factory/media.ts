@@ -7,12 +7,12 @@ type MediaFactoryProps = {
     url: string,
     type: MediaType,
     logoUrl: string,
-    platformId: number
+    platformId: string
 }
 export class MediaFactory {
     create(values: Partial<Media>): MediaFactoryProps {
         return {
-            platformId: 1,
+            platformId: faker.string.uuid(),
             name: faker.lorem.words(randomInt(1, 3)),
             url: faker.internet.url(),
             type: MediaType[Object.keys(MediaType)[randomInt(0, 2)]],

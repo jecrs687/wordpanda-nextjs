@@ -23,9 +23,9 @@ export default async function Page() {
                                         code={lang.code}
                                         wordsNumber={userLanguages.find(x => x.language.id === lang.id)?._count.userWords || 0}
                                         totalWordsNumber={lang._count.words}
-                                        totalOfMedias={lang._count.MediaLanguages}
+                                        totalOfMedias={lang._count.mediaLanguages}
                                         totalOfLearnings={lang._count.userLanguage}
-                                        totalOfSpeaks={lang._count.User}
+                                        totalOfSpeaks={lang._count.user}
                                         key={index}
                                     />
                                 )

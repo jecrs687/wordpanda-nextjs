@@ -7,7 +7,7 @@ import styles from './CardMovieBig.module.scss'
 export default function CardMovieBig({
     id, name, language, code, logoUrl, platform, languages, index
 }: {
-    id: number,
+    id: string,
     name: string,
     language?: string,
     code?: string,

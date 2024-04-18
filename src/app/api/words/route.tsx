@@ -51,7 +51,7 @@ export type WordsPostResponse = {
 export type WordsPostRequest = {
     words?: string[],
     language?: string,
-    mediaId?: number,
+    mediaId?: string,
     languageId?: number,
     limit?: number
 }

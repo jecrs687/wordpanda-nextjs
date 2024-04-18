@@ -82,7 +82,7 @@ export interface PlaybackAudioTrack {
     id: string;
     isOriginalLanguage: boolean;
     language: string;
-    type: SubtypeEnum;
+    type: string;
 }
 
 export enum SubtypeEnum {
@@ -119,15 +119,15 @@ export interface CuepointFulfillmentAssetList {
 
 export interface ForcedNarrative {
     displayName: string;
-    format: Format;
+    format: string;
     index: string;
     languageCode: string;
-    subtype: SubtypeEnum;
+    subtype: string;
     timedTextTrackId: string;
     trackGroupId: string;
-    type: PurpleType;
+    type: string;
     url: string;
-    videoMaterialType: VideoMaterialType;
+    videoMaterialType: string;
 }
 
 export enum Format {
@@ -167,7 +167,7 @@ export interface PlaybackUrls {
     cacheKey: string;
     defaultAudioTrackId: string;
     defaultUrlSetId: string;
-    urlSets: string;
+    urlSets: { [key: string]: any };
 }
 
 export interface PlaybackUrlsAudioTrack {
@@ -192,7 +192,7 @@ export interface The1982916431E9730Cc453FB48E46C7Aeff75E71_Failover {
 
 export interface Default {
     mode: Mode;
-    urlSetId: URLSetID;
+    urlSetId: string;
 }
 
 export enum Mode {
@@ -245,7 +245,7 @@ export interface ReturnedTitleRendition {
     pid: string;
     selectedEntitlement: SelectedEntitlement;
     titleId: string;
-    videoMaterialType: VideoMaterialType;
+    videoMaterialType: string;
     videoQuality: string;
     videoResolution: string;
 }

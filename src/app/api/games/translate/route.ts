@@ -6,16 +6,16 @@ import { cookies, headers } from "next/headers";
 
 
 export type GamesTranslatePostRequest = {
-    wordId: number,
+    wordId: string,
     hard: boolean,
-    mediaId: number | null
+    mediaId?: string
 }
 
 export type GamesTranslatePostResponse = {
     data?: {
         userWords: UserWords,
     },
-    err?: string | null,
+    err?: string,
     msg?: string,
 }
 export async function POST(request: Request) {

@@ -17,7 +17,7 @@ type apiRequest = {
 export const FlashBody = ({ words, lang, mediaId }: {
     words: { word: string }[],
     lang: string,
-    mediaId?: number
+    mediaId?: string
 }) => {
     const { data: { data: wordsList, err: wordsListErr, msg: wordsListMsg } = {},
         error: wordsListError,
