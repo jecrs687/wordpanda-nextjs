@@ -1,6 +1,5 @@
 "use client";
 import Input from '@common/Input';
-import { SelectLanguage } from '@common/SelectLanguage';
 import { ROUTES } from '@constants/ROUTES';
 import Button from '@core/Button';
 import { User } from '@prisma/client';
@@ -128,19 +127,7 @@ export default function UserForm({ user }: {
                         value={values.phone}
                         error={errors.phone && touched.phone && errors.phone}
                     />
-                    <SelectLanguage
-                        title="Idioma do sistema"
-                        disabled={!edit}
-                        name='languageId'
-                        error={errors.languageId && touched.languageId && errors.languageId}
-                        value={languageId}
-                        onChange={({ value }) => {
 
-                            handleChange({ target: { name: 'languageId', value } })
-                        }}
-                        onBlur={handleBlur}
-                        className={styles.select}
-                    />
                     <div className={styles.buttons}>
 
                         <div className={styles.buttons__group}>

@@ -11,7 +11,7 @@ export default function RootLayout({
     return (<main className={styles.main}>
         <div className={styles.buttons}>
             <BackButton
-                title='Games'
+                title=''
             />
         </div>
         {children}

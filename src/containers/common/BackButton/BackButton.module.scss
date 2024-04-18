@@ -11,7 +11,6 @@
         min-width: 320px;
         border-radius: 10px;
         overflow: hidden;
-
     }
 
     &__back {
@@ -22,7 +21,8 @@
         border-right: 1px outset $black;
         width: fit-content;
         margin-right: 10px;
-
+        z-index: 200;
+        background-color: transparent;
 
         &:hover {
             span {
@@ -45,5 +45,12 @@
         font-weight: 700;
         color: $white;
         line-height: 40px;
+    }
+
+    &__icon {
+        stroke: white;
+        stroke-width: 1px;
+        height: 35px;
+        width: 35px;
     }
 }

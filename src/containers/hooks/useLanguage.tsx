@@ -10,8 +10,8 @@ const useLanguage = create<
         setLanguages: (languages: Language[]) => void,
     }
 >((set) => ({
-    language: (+localStorage.getItem('language')) || (+getCookie('language')) || -1,
-    languages: localStorage.getItem('languages') ? JSON.parse(localStorage.getItem('languages')) : [],
+    language: typeof localStorage !== undefined ? (+localStorage.getItem('language')) || (+getCookie('language')) || -1 : -1,
+    languages: typeof localStorage !== undefined ? localStorage.getItem('languages') ? JSON.parse(localStorage.getItem('languages')) : [] : [],
     select: (language) => set((state) => {
         localStorage.setItem('language', language.toString());
         setCookie('language', language.toString());

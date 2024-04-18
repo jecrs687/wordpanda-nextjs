@@ -1,4 +1,5 @@
 import { getUserWithWords } from '@backend/domain/actions/User/getUserWithWords.action';
+import { SelectLanguage } from '@common/SelectLanguage';
 import UserForm from '../UserForm';
 import styles from './Profile.module.scss';
 
@@ -40,6 +41,11 @@ export default function UserProfile({ errors, user }: {
             user={user}
           />
         </div>
+        <SelectLanguage
+          title="Idioma do sistema"
+          name='languageId'
+          className={styles.select}
+        />
       </div>
     </main >
   );

@@ -1,5 +1,5 @@
 "use client";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from '@mui/icons-material/ArrowBackRounded';
 import { usePathname, useRouter } from 'next/navigation';
 import styles from './BackButton.module.scss';
 export default function BackButton({
@@ -20,7 +20,7 @@ export default function BackButton({
             <button type="button" onClick={() => router.back()}
                 className={styles.title__back}
             >
-                <ArrowBackIcon />
+                <ArrowBackIcon className={styles.title__icon} />
             </button>
             <h1 className={styles.title__text}>
                 {title}

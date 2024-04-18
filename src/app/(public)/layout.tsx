@@ -9,7 +9,7 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
-    const token = cookies().get('token')
+    const token = cookies().get('token')?.value
     if (token) redirect(ROUTES.DASHBOARD())
 
     return (
