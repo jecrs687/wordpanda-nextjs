@@ -23,7 +23,7 @@ export type GamesQuizPostResponse = {
     msg?: string,
 }
 export async function POST(request: Request) {
-    const token = cookies().user('token') || headers().get('Authorization')
+    const token = cookies().get('token').value || headers().get('Authorization')
     const { decoded: decryptToken } = validateToken(token)
     if (!decryptToken) return Response.json({ err: 'Token invalid' });
     const user = await prisma.user.findFirst({
