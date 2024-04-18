@@ -23,6 +23,7 @@
         align-items: center;
         z-index: 2;
         width: 300px;
+        color: #eee;
 
         input {
             border-radius: 10px;
@@ -41,7 +42,7 @@
         height: 100%;
         object-fit: cover;
         z-index: 1;
-        filter: brightness(0.8) blur(2px)
+        filter: brightness(0.8) blur(1px)
     }
 
     ::-webkit-scrollbar {
@@ -63,9 +64,9 @@
     .subtitles {
 
         z-index: 2;
-        height: 250px;
+        height: 200px;
         overflow-y: scroll;
-        padding: 1rem 1rem;
+        padding: 1.5rem 1rem 0.5rem;
 
         .subtitle {
             font-size: 1.5rem;
@@ -78,5 +79,15 @@
             transition: all 0.3s;
             cursor: pointer;
         }
+    }
+
+    .language {
+        z-index: 20;
+        background-color: #eee;
+        border-radius: 5px;
+        position: absolute;
+        right: 40px;
+        bottom: 20px;
+        width: 200px;
     }
 }

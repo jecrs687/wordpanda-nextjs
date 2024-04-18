@@ -2,7 +2,7 @@ import prisma from "@infra/config/database";
 import { User } from "@prisma/client";
 import { encryptPassword } from "@utils/encrypt";
 import { validateToken } from "@utils/token";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import z from 'zod';
 
 
@@ -91,18 +91,12 @@ export type ProfileGetResponse = {
     msg: string
 }
 export async function GET(request: Request) {
+    const header = headers();
     try {
-        const token = cookies().get('token');
-        if (!token.value) {
-            return Response.json({
-                err: 'Unauthorized',
-                msg: 'NOT_AUTHORIZED'
-            })
-        }
-        const { decoded } = validateToken(token.value);
+        const userId = header.get('id') || validateToken(header.get('Authorization') || '')?.decoded?.id;
         const user = await prisma.user.findUnique({
             where: {
-                id: decoded.id
+                id: userId
             }
         })
         if (!user) {

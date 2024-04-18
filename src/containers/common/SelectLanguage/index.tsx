@@ -2,12 +2,12 @@
 import useLanguage from "@hooks/useLanguage";
 import { fetchClient } from "@services/fetchClient";
 import { capitalizeFirstLetter } from "@utils/capitalizeFirstLetter";
-import { getCookie, setCookie } from "@utils/cookie";
 import clsx from "clsx";
 import { useCallback, useEffect, useMemo } from "react";
 import Select, { ActionMeta } from "react-select";
 import { LanguagesGetResponse } from "src/app/api/languages/route";
 import { ProfileGetResponse } from "src/app/api/profile/route";
+import { UserLanguagePutRequest, UserLanguagePutResponse } from "src/app/api/user/language/route";
 import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import styles from './SelectLanguage.module.scss';
@@ -16,13 +16,12 @@ export function SelectLanguage({
     onChange = ({ }) => { },
     name,
     disabled = false,
-    value,
     error,
     onBlur,
     title,
     className,
     dropdownPosition = 'auto',
-    targetLanguage = false,
+    placeHolder = "Select Language"
 }: {
     onChange?: (value: {
         value: number;
@@ -38,61 +37,24 @@ export function SelectLanguage({
     title?: string,
     className?: string,
     dropdownPosition?: 'auto' | 'bottom' | 'top',
-    targetLanguage?: boolean
-
-}
-
-): JSX.Element {
-    return <></>
-}
-
-export function SelectLanguage2({
-    onChange = ({ }) => { },
-    name,
-    disabled = false,
-    value,
-    error,
-    onBlur,
-    title,
-    className,
-    dropdownPosition = 'auto',
-    targetLanguage = false,
-}: {
-    onChange?: (value: {
-        value: number;
-        label: string;
-    },
-        action: ActionMeta<{ value: number; label: string; }>
-    ) => void,
-    name?: string,
-    disabled?: boolean,
-    value?: number | undefined,
-    error?: string | undefined,
-    onBlur?: (x: any) => void,
-    title?: string,
-    className?: string,
-    dropdownPosition?: 'auto' | 'bottom' | 'top',
-    targetLanguage?: boolean
-
+    targetLanguage?: boolean,
+    placeHolder?: string,
 }
 
 ): JSX.Element {
 
-    const { data: { data } = {} } = useSWR<LanguagesGetResponse, Error>('/api/languages', {
+    const { data: { data } = {}, error: apiError } = useSWR<LanguagesGetResponse, Error>('/api/languages', {
         fetcher: fetchClient("GET")
     });
     const { trigger } = useSWRMutation<ProfileGetResponse, Error>('/api/profile', fetchClient("GET"));
+    const { trigger: updateLanguage } = useSWRMutation<UserLanguagePutResponse, Error, string, UserLanguagePutRequest>('/api/user/language', fetchClient("PUT"));
 
-    const languageHook = useLanguage();
     const {
         language,
         select,
         setLanguages
-    } = {
-        ...languageHook,
-        language: targetLanguage ? languageHook.targetLanguage : languageHook.language,
-        select: targetLanguage ? languageHook.selectTargetLanguage : languageHook.select,
-    }
+    } = useLanguage();
+    console.log({ data, apiError })
 
     useEffect(() => {
         if (data?.languages) setLanguages(data.languages)
@@ -100,32 +62,12 @@ export function SelectLanguage2({
 
     const getLanguage = useCallback(async () => {
         const response = await trigger()
-        localStorage.setItem('wordPand_language', String(response?.data?.languageId))
-        setCookie('language', String(response?.data?.languageId))
-        select(response?.data?.languageId)
+        if (response?.err) alert(response.err)
+        else select(response?.data?.languageId)
     }, [trigger, select])
 
     useEffect(() => {
-        const storageLanguage = localStorage.getItem('wordPand_language')
-        const cookiesLanguage = getCookie('language')
-        if (language) {
-            if (!storageLanguage)
-                localStorage.setItem('wordPand_language', String(language))
-            if (!cookiesLanguage)
-                setCookie('language', String(language))
-            return;
-        }
-        if (storageLanguage) {
-            if (!cookiesLanguage)
-                setCookie('language', String(storageLanguage))
-            select(Number(storageLanguage))
-        }
-        else if (cookiesLanguage) {
-            if (!storageLanguage)
-                localStorage.setItem('wordPand_language', String(cookiesLanguage))
-            select(Number(cookiesLanguage))
-        }
-        else
+        if (language == -1)
             getLanguage()
     }, [getLanguage, language, select])
 
@@ -143,19 +85,22 @@ export function SelectLanguage2({
             onBlur={onBlur}
             options={values}
             name={name}
+            placeholder={placeHolder}
             menuPlacement={dropdownPosition}
             isLoading={!data}
             isDisabled={values.length === 0 || disabled}
             value={values.find((item) => item.value === language)}
             onChange={(...params) => {
                 select(params[0].value)
+                updateLanguage({
+                    languageId: params[0].value
+                })
                 onChange(...params)
             }}
             className={clsx(styles.select)}
             classNames={{
                 input: props => styles.input,
                 menu: props => styles.menu,
-
                 option: props => styles.option,
                 valueContainer: props => styles.valueContainer,
                 control: props => styles.control,

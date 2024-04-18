@@ -1,4 +1,5 @@
 import { Language } from "@prisma/client";
+import { getCookie, setCookie } from "@utils/cookie";
 import { create } from "zustand";
 
 const useLanguage = create<
@@ -7,16 +8,19 @@ const useLanguage = create<
         select: (language: number) => void,
         languages: Language[],
         setLanguages: (languages: Language[]) => void,
-        targetLanguage: number,
-        selectTargetLanguage: (language: number) => void
     }
 >((set) => ({
-    language: 59,
-    targetLanguage: 6,
-    languages: [],
-    select: (language) => set((state) => ({ language: language })),
-    selectTargetLanguage: (language) => set((state) => ({ targetLanguage: language })),
-    setLanguages: (languages) => set((state) => ({ languages: languages }))
+    language: (+localStorage.getItem('language')) || (+getCookie('language')) || -1,
+    languages: localStorage.getItem('languages') ? JSON.parse(localStorage.getItem('languages')) : [],
+    select: (language) => set((state) => {
+        localStorage.setItem('language', language.toString());
+        setCookie('language', language.toString());
+        return { language: language }
+    }),
+    setLanguages: (languages) => set((state) => {
+        localStorage.setItem('languages', JSON.stringify(languages));
+        return { languages: languages }
+    }),
 }));
 
 export default useLanguage;
