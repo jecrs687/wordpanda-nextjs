@@ -2,15 +2,15 @@
 CREATE TYPE "Role" AS ENUM ('USER', 'BKO', 'ADMIN');
 
 -- CreateEnum
-CREATE TYPE "MediaType" AS ENUM ('MOVIE', 'VIDEO', 'AUDIO');
+CREATE TYPE "MediaType" AS ENUM ('MOVIE', 'VIDEO', 'AUDIO', 'SERIE');
 
 -- CreateEnum
 CREATE TYPE "QuizType" AS ENUM ('TRANSLATION', 'MEANING', 'EXAMPLE', 'SYNONYMS', 'ANTONYMS', 'DEFINITION', 'PRONUNCIATION', 'WORD', 'PHRASE', 'IDIOM');
 
 -- CreateTable
 CREATE TABLE "Translation" (
-    "id" SERIAL NOT NULL,
-    "word_id" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
+    "word_id" TEXT NOT NULL,
     "language_id" INTEGER NOT NULL,
     "meaning" VARCHAR(512),
     "meaningTranslated" VARCHAR(512),
@@ -24,7 +24,7 @@ CREATE TABLE "Translation" (
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "first_name" VARCHAR(90),
     "last_name" VARCHAR(90),
     "username" TEXT,
@@ -44,8 +44,8 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "user_language" (
-    "id" SERIAL NOT NULL,
-    "user_id" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
+    "user_id" TEXT NOT NULL,
     "language_id" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3),
@@ -56,13 +56,13 @@ CREATE TABLE "user_language" (
 
 -- CreateTable
 CREATE TABLE "user_word" (
-    "id" SERIAL NOT NULL,
-    "user_id" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
+    "user_id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3),
     "deleted_at" TIMESTAMP(3),
-    "wordId" INTEGER NOT NULL,
-    "user_language_id" INTEGER NOT NULL,
+    "wordId" TEXT NOT NULL,
+    "user_language_id" TEXT NOT NULL,
     "attempts" INTEGER NOT NULL DEFAULT 0,
     "errors" INTEGER NOT NULL DEFAULT 0,
     "streak" INTEGER NOT NULL DEFAULT 0,
@@ -80,8 +80,8 @@ CREATE TABLE "user_word" (
 
 -- CreateTable
 CREATE TABLE "WordGameQuiz" (
-    "id" SERIAL NOT NULL,
-    "wordId" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
+    "wordId" TEXT NOT NULL,
     "languageId" INTEGER NOT NULL,
     "type" "QuizType",
     "phrase" VARCHAR(512) NOT NULL,
@@ -97,9 +97,9 @@ CREATE TABLE "WordGameQuiz" (
 
 -- CreateTable
 CREATE TABLE "Word" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "word" TEXT NOT NULL,
-    "languageId" INTEGER NOT NULL,
+    "language_id" INTEGER NOT NULL,
     "is_not_possible_translate" BOOLEAN DEFAULT false,
     "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3),
@@ -115,7 +115,7 @@ CREATE TABLE "Word" (
 
 -- CreateTable
 CREATE TABLE "Platform" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "url" TEXT NOT NULL,
     "logo_url" TEXT NOT NULL DEFAULT 'https://picsum.photos/500/1000',
@@ -127,12 +127,51 @@ CREATE TABLE "Platform" (
 );
 
 -- CreateTable
+CREATE TABLE "Serie" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+    "deleted_at" TIMESTAMP(3),
+
+    CONSTRAINT "Serie_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "SerieMedia" (
+    "id" TEXT NOT NULL,
+    "serie_id" TEXT NOT NULL,
+    "media_id" TEXT NOT NULL,
+    "episode" INTEGER NOT NULL DEFAULT 1,
+    "season" INTEGER NOT NULL DEFAULT 1,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+    "deleted_at" TIMESTAMP(3),
+
+    CONSTRAINT "SerieMedia_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Subtitle" (
+    "id" TEXT NOT NULL,
+    "media_id" TEXT NOT NULL,
+    "language_id" INTEGER NOT NULL,
+    "url" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+    "deleted_at" TIMESTAMP(3),
+
+    CONSTRAINT "Subtitle_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Media" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "url" TEXT NOT NULL,
     "type" "MediaType" NOT NULL DEFAULT 'VIDEO',
-    "platform_id" INTEGER NOT NULL,
+    "platform_id" TEXT NOT NULL,
     "logo_url" TEXT NOT NULL DEFAULT 'https://picsum.photos/500/1000',
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
@@ -143,9 +182,9 @@ CREATE TABLE "Media" (
 
 -- CreateTable
 CREATE TABLE "MediaLanguages" (
-    "id" SERIAL NOT NULL,
-    "media_id" INTEGER NOT NULL,
-    "language_id" INTEGER NOT NULL DEFAULT 59,
+    "id" TEXT NOT NULL,
+    "media_id" TEXT NOT NULL,
+    "language_id" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
     "deleted_at" TIMESTAMP(3),
@@ -155,9 +194,9 @@ CREATE TABLE "MediaLanguages" (
 
 -- CreateTable
 CREATE TABLE "MediaWords" (
-    "id" SERIAL NOT NULL,
-    "word_id" INTEGER NOT NULL,
-    "media_language_id" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
+    "word_id" TEXT NOT NULL,
+    "media_language_id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
     "deleted_at" TIMESTAMP(3),
@@ -167,11 +206,11 @@ CREATE TABLE "MediaWords" (
 
 -- CreateTable
 CREATE TABLE "MediaUser" (
-    "id" SERIAL NOT NULL,
-    "user_id" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
+    "user_id" TEXT NOT NULL,
     "progress" INTEGER DEFAULT 0,
     "wordsLearned" INTEGER DEFAULT 0,
-    "media_language_id" INTEGER NOT NULL,
+    "media_language_id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
     "deleted_at" TIMESTAMP(3),
@@ -193,8 +232,8 @@ CREATE TABLE "Language" (
 
 -- CreateTable
 CREATE TABLE "_translationsTo" (
-    "A" INTEGER NOT NULL,
-    "B" INTEGER NOT NULL
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
 );
 
 -- CreateIndex
@@ -210,10 +249,10 @@ CREATE UNIQUE INDEX "user_language_user_id_language_id_key" ON "user_language"("
 CREATE UNIQUE INDEX "user_word_user_id_user_language_id_wordId_key" ON "user_word"("user_id", "user_language_id", "wordId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Word_word_languageId_key" ON "Word"("word", "languageId");
+CREATE UNIQUE INDEX "Word_word_language_id_key" ON "Word"("word", "language_id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Word_id_languageId_key" ON "Word"("id", "languageId");
+CREATE UNIQUE INDEX "Word_id_language_id_key" ON "Word"("id", "language_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "MediaLanguages_media_id_language_id_key" ON "MediaLanguages"("media_id", "language_id");
@@ -249,6 +288,9 @@ ALTER TABLE "user_language" ADD CONSTRAINT "user_language_user_id_fkey" FOREIGN 
 ALTER TABLE "user_language" ADD CONSTRAINT "user_language_language_id_fkey" FOREIGN KEY ("language_id") REFERENCES "Language"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "user_word" ADD CONSTRAINT "user_word_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "user_word" ADD CONSTRAINT "user_word_wordId_fkey" FOREIGN KEY ("wordId") REFERENCES "Word"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -261,7 +303,19 @@ ALTER TABLE "WordGameQuiz" ADD CONSTRAINT "WordGameQuiz_wordId_fkey" FOREIGN KEY
 ALTER TABLE "WordGameQuiz" ADD CONSTRAINT "WordGameQuiz_languageId_fkey" FOREIGN KEY ("languageId") REFERENCES "Language"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Word" ADD CONSTRAINT "Word_languageId_fkey" FOREIGN KEY ("languageId") REFERENCES "Language"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Word" ADD CONSTRAINT "Word_language_id_fkey" FOREIGN KEY ("language_id") REFERENCES "Language"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "SerieMedia" ADD CONSTRAINT "SerieMedia_serie_id_fkey" FOREIGN KEY ("serie_id") REFERENCES "Serie"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "SerieMedia" ADD CONSTRAINT "SerieMedia_media_id_fkey" FOREIGN KEY ("media_id") REFERENCES "Media"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Subtitle" ADD CONSTRAINT "Subtitle_media_id_fkey" FOREIGN KEY ("media_id") REFERENCES "Media"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Subtitle" ADD CONSTRAINT "Subtitle_language_id_fkey" FOREIGN KEY ("language_id") REFERENCES "Language"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Media" ADD CONSTRAINT "Media_platform_id_fkey" FOREIGN KEY ("platform_id") REFERENCES "Platform"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

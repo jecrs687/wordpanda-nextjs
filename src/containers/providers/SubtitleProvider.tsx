@@ -1,14 +1,19 @@
 "use client";
 import useEvents from "@hooks/useEvents";
+import useWords from "@hooks/useWords";
+import { MediaType } from "@prisma/client";
 import { fetchClient } from "@services/fetchClient";
-import { getText, orderWords, ttml2ToJson } from "@utils/subtitle";
-import { useCallback, useEffect } from "react";
+import { processSubtitlePrime } from "@utils/subtitle";
+import { useCallback, useEffect, useState } from "react";
 import { ExtensionPrimeSubtitlePostRequest, ExtensionPrimeSubtitlePostResponse } from "src/app/api/extension/prime/subtitle/route";
 import useSWRMutation from "swr/mutation";
 
 
 export default function SubtitleProvider() {
-    const { insertLanguage, events } = useEvents();
+    const { events } = useEvents();
+
+    const { insert } = useWords();
+    const [processed, setProcessed] = useState<Set<number>>(new Set());
     const {
         trigger: subtitleTrigger,
     } = useSWRMutation<
@@ -17,26 +22,54 @@ export default function SubtitleProvider() {
         string,
         ExtensionPrimeSubtitlePostRequest
     >('/api/extension/prime/subtitle', fetchClient("POST"))
-    const captureSubtitles = useCallback(async () => {
-        if (events.subtitles_urls && !Object.keys(events.words).length) {
-            const { name, image, links } = events.subtitles_urls
-            if (links) {
-                if (links[0].includes("https://cf-timedtext.aux.pv-cdn.net"))
-                    subtitleTrigger({ links, name, image, platform: "Prime Video" })
-            }
-            for (const link of events?.subtitles_urls?.links) {
-                const something = await getText(link)
-                const jsonFromTTML = ttml2ToJson(something)
-                const json = jsonFromTTML.subtitles
-                const words = await orderWords(json)
-                console.log({ words, jsonFromTTML })
+    const captureSubtitlesPrime = useCallback(async () => {
+        if (!events.PRIME.length) return;
+        const notProcessedEvents = events.PRIME.filter(x => !processed.has(x.timestamp));
+        if (!notProcessedEvents.length) return;
+        for (const event of notProcessedEvents) {
+            processed.add(event.timestamp);
+            const { responseBody } = event;
+            console.log({ responseBody })
 
-                insertLanguage(jsonFromTTML.lang, { words, jsonFromTTML })
+            const { subtitleUrls } = responseBody;
+            const TYPE = {
+                "TV SHOW": MediaType.SERIE,
+                "MOVIE": MediaType.MOVIE,
+                "SEASON": MediaType.SERIE,
             }
+
+            for (const subtitle of subtitleUrls) {
+                const { languageCode, url } = subtitle;
+                const words = await processSubtitlePrime(url);
+                if (words.words.length < 20) return;
+                insert(words.words, languageCode);
+
+                subtitleTrigger(
+                    {
+                        links: event.responseBody?.subtitleUrls?.map(subtitle => ({
+                            url: subtitle.url,
+                            languageCode: subtitle.languageCode
+                        })),
+                        platformLink: document.referrer,
+                        name: event.responseBody?.catalogMetadata?.catalog?.title,
+                        title: event.responseBody?.catalogMetadata?.family?.tvAncestors?.find(x => x.catalog.type === "SHOW")?.catalog?.title,
+                        platform: "PRIME",
+                        episode: event.responseBody?.catalogMetadata?.catalog?.episodeNumber,
+                        season: event.responseBody?.catalogMetadata?.family?.tvAncestors?.find(x => x.catalog.type === "SEASON")?.catalog?.seasonNumber,
+                        image: event.responseBody?.catalogMetadata?.images?.imageUrls?.title,
+                        type: TYPE[event.responseBody?.catalogMetadata?.catalog?.type] || MediaType.VIDEO,
+                        mediaId: event.responseBody?.catalogMetadata?.catalog?.id,
+                        seasonId: event.responseBody?.catalogMetadata?.family?.tvAncestors?.find(x => x.catalog.type === "SEASON")?.catalog?.id,
+                        serieId: event.responseBody?.catalogMetadata?.family?.tvAncestors?.find(x => x.catalog.type === "SHOW")?.catalog?.id,
+                    }
+                );
+                setProcessed(new Set([...processed, event.timestamp]));
+            }
+
         }
-    }, [events, insertLanguage, subtitleTrigger])
+    }, [events.PRIME, insert, processed, subtitleTrigger])
     useEffect(() => {
-        captureSubtitles()
-    }, [captureSubtitles, events])
+        captureSubtitlesPrime()
+    }, [captureSubtitlesPrime, events.PRIME])
     return <></>
 }

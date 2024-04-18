@@ -8,6 +8,7 @@ export default function FlashCardGame({
     mediaId
 }: { words: { word: string }[], lang: string, mediaId?: number }) {
     if (!words.length && !lang) return null;
+
     return (
         <DndProvider backend={HTML5Backend}>
             <FlashBody words={words} lang={lang} mediaId={mediaId} />

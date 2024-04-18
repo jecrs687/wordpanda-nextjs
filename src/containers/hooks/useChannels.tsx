@@ -26,6 +26,10 @@ export function useChannels() {
                     name: 'setToken',
                     content: token
                 }, '*'),
+            logout: () => window?.parent?.postMessage(
+                {
+                    name: 'logout',
+                }, '*'),
             sendWords: () => window?.parent?.postMessage(
                 {
                     name: 'sendWords',

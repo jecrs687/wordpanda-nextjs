@@ -1,11 +1,13 @@
 "use client";
 
 import Input from '@common/Input';
+import { TOKEN_KEY } from '@constants/CONFIGS';
 import { ROUTES } from '@constants/ROUTES';
 import Button from '@core/Button';
 import LoaderSpinner from '@core/LoaderSpinner';
 import { useChannels } from '@hooks/useChannels';
 import useDevice from '@hooks/useDevice';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -32,23 +34,28 @@ export default function LoginPage({ nextPage }: { nextPage?: string }) {
             localStorage.setItem('admin', state.admin)
 
         if (state.token) {
-            localStorage.setItem('wordPand_token', state.token)
-            route.push(nextPage ? nextPage : extension ? ROUTES.EXTENSION_GAMES() : ROUTES.DASHBOARD())
+            localStorage.setItem(TOKEN_KEY, state.token)
             web.setToken(state.token)
+            route.push(nextPage ? nextPage : extension ? ROUTES.EXTENSION_LANGUAGES() : ROUTES.DASHBOARD())
         }
     }, [state, route, web, extension, nextPage])
     return (
         <main className={styles.main}>
             <form action={formAction}>
-                {/* <Image
-                    src={"/assets/logo.png"}
-                    width={200}
-                    height={200}
-                    alt='logo'
-                    className={styles.image}
-                /> */}
-                <h1>Language boost</h1>
 
+                <div className={styles.logo}>
+                    <Image
+                        src="/assets/logo.png"
+                        alt="logo"
+                        width={100}
+                        height={100}
+                        className={styles.logo__image}
+                    />
+                    <h3 className={styles.logo__title}>
+                        Wordpanda
+                    </h3>
+
+                </div>
                 <Input
                     type='text'
                     placeholder='Email'

@@ -1,6 +1,7 @@
 "use client";
 import Input from '@common/Input';
 import { SelectLanguage } from '@common/SelectLanguage';
+import { TOKEN_KEY } from '@constants/CONFIGS';
 import { ROUTES } from '@constants/ROUTES';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -15,7 +16,7 @@ export default function Register() {
     const route = useRouter()
     useEffect(() => {
         if (state.token) {
-            localStorage.setItem('wordPand_token', state.token)
+            localStorage.setItem(TOKEN_KEY, state.token)
             route.push(ROUTES.DASHBOARD())
         }
     }, [state, route])

@@ -2,6 +2,7 @@
 import Input from '@common/Input';
 import { SelectLanguage } from '@common/SelectLanguage';
 import { ShowIf } from '@common/ShowIf/ShowIf';
+import { TOKEN_KEY } from '@constants/CONFIGS';
 import { ROUTES } from '@constants/ROUTES';
 import Button from '@core/Button';
 import LoaderSpinner from '@core/LoaderSpinner';
@@ -30,7 +31,7 @@ export default function Register() {
 
     useEffect(() => {
         if (state.token) {
-            localStorage.setItem('wordPand_token', state.token)
+            localStorage.setItem(TOKEN_KEY, state.token)
             route.push(ROUTES.DASHBOARD())
         }
         if (state.errors) {

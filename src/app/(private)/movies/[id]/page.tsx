@@ -8,18 +8,20 @@ export default async function Page({
 }) {
     const {
         movie, user
-    } = await getMovieByUser(+id)
+    } = await getMovieByUser(id)
     return (
         <main className={styles.main}>
+            <div className={styles.header}>
+                <BackButton title={movie.name} />
 
-            <BackButton title={movie.name} />
+            </div>
             <div className={styles.container}>
                 <Image
                     src={movie.logoUrl}
                     alt={movie.name}
                     className={styles.logo}
                     width={400}
-                    height={300}
+                    height={400}
                 />
                 <h3>
                     Linguas disponíveis:
@@ -31,12 +33,11 @@ export default async function Page({
                                 <CardGame key={index}
                                     mediaId={movie.id}
                                     words={[]}
-                                    language={mediaLanguage.language.code}>
-                                    <h3>{mediaLanguage.language.language} ({mediaLanguage.language.code})</h3>
-                                    <h4>
-                                        {mediaLanguage.mediaWords.length} / {mediaLanguage._count.mediaWords}
-                                    </h4>
-                                </CardGame>
+                                    language={mediaLanguage.language.code}
+                                    languageName={mediaLanguage.language.language}
+                                    mediaWords={mediaLanguage.mediaWords}
+                                    totalWords={mediaLanguage._count.mediaWords}
+                                />
                             )
                         })
                     }

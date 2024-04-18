@@ -6,7 +6,7 @@ import { cookies, headers } from "next/headers";
 
 
 export type GamesFlashcardPostRequest = {
-    wordId: number,
+    wordId: string,
     hard: boolean,
     mediaId: number | unknown
 }
@@ -28,6 +28,9 @@ export async function POST(request: Request) {
             await prisma.user.findFirst({
                 where: {
                     id: decryptToken.id
+                },
+                include: {
+                    language: true
                 }
             }),
             await prisma.word.findFirst({

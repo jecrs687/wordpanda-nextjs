@@ -7,7 +7,6 @@ export async function getText(ttml2Url) {
 }
 
 export function ttml2ToJson(ttml2Text) {
-
     const parser = typeof window == "undefined" ? new JSDOM(ttml2Text, {
         contentType: "application/xml",
         runScripts: "dangerously",
@@ -25,7 +24,7 @@ export function ttml2ToJson(ttml2Text) {
             word: string
         }[]
     } = {
-        lang: ttml2Xml.querySelector("tt").getAttribute("xml:lang"),
+        lang: ttml2Xml.querySelector("tt").getAttribute("xml:lang")?.toLowerCase(),
         version: ttml2Xml.querySelector("tt").getAttribute("ttp:version"),
         subtitles: []
     };
@@ -76,4 +75,13 @@ export async function orderWords(json) {
         percentage: (values.count / count) * 100
     }))
     return result
+}
+
+
+export const processSubtitlePrime = async (ttml2Url) => {
+    const something = await getText(ttml2Url)
+    const jsonFromTTML = ttml2ToJson(something)
+    const json = jsonFromTTML.subtitles
+    const words = await orderWords(json)
+    return { words, jsonFromTTML }
 }

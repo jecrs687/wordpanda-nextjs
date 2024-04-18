@@ -4,7 +4,7 @@ import useWords from '@hooks/useWords';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import styles from './Card.module.scss';
-export const CardGame = ({ children, words, language, mediaId = undefined, className = "" }) => {
+export const CardGame = ({ words, language, mediaId = undefined, className = "", languageName, mediaWords, totalWords }) => {
     const router = useRouter()
     const { insert } = useWords()
     return (
@@ -14,7 +14,10 @@ export const CardGame = ({ children, words, language, mediaId = undefined, class
                 router.push('/games')
             }}
         >
-            {children}
+            <h3>{languageName} ({language})</h3>
+            <h4>
+                {mediaWords.length} / {totalWords}
+            </h4>
         </div>
     )
 }

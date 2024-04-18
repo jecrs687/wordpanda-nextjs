@@ -1,5 +1,6 @@
 import { decode, sign } from 'jsonwebtoken';
 import { envs } from './envs';
+
 export const generateToken = (user) => {
     const token = sign(
         {
@@ -16,7 +17,7 @@ export const generateToken = (user) => {
 export const validateToken = (token) => {
     token = token?.value || token;
     const decoded: {
-        id: number,
+        id: string,
         name: string,
         email: string,
         role: string,

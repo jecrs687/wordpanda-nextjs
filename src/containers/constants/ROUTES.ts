@@ -33,6 +33,7 @@ export const ROUTES = {
     SAVE_WORDS: () => `/admin/save-words`,
     EXTENSION: () => `/extension`,
     EXTENSION_GAMES: () => `/extension/games`,
+    EXTENSION_LANGUAGES: () => `/extension/languages`,
     POP_LOGIN: () => '/pop-up/login',
     POP_REGISTER: () => '/pop-up/register',
     POP_DASHBOARD: () => '/pop-up/dashboard',

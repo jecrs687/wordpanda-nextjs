@@ -1,13 +1,13 @@
-import { insertSubtitles } from "@backend/domain/actions/Subtitles/insertSubtitles";
+import { IInsertSubtitles, insertSubtitles } from "@backend/domain/actions/Subtitles/insertSubtitles";
 
-export type ExtensionPrimeSubtitlePostRequest = {
-    platform: string, links: string[], name: string, image: string
-}
+export type ExtensionPrimeSubtitlePostRequest = IInsertSubtitles
 
 export type ExtensionPrimeSubtitlePostResponse = {
     err?: string | null,
     msg?: string
 }
+const requests = [];
+let timeout;
 export async function POST(request: Request) {
 
     const body: ExtensionPrimeSubtitlePostRequest = await request.json();
@@ -20,12 +20,17 @@ export async function POST(request: Request) {
     if (!validateImage.some((x) => image.includes(x))) {
         return Response.json({ err: 'Invalid image' });
     }
-    if (!links.every(link => link.includes(validateLinks))) {
+    if (!links.every(link => link.url.includes(validateLinks))) {
         return Response.json({ err: 'Invalid links' });
     }
-    insertSubtitles([{ platform, links, name, image }])
+    requests.push(body)
+    if (requests.length < 20) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            insertSubtitles(requests);
+            requests.length = 0;
+        }, 1200)
+    }
     return Response.json({ msg: 'OK' });
-
-
 }
 

@@ -1,265 +1,311 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider          = "postgresql"
-    url               = env("DATABASE_URI")
-    shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URI")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model Translation {
-    id                Int      @id @default(autoincrement())
-    word              Word     @relation(fields: [wordId], references: [id])
-    wordId            Int      @map(name: "word_id")
-    translations      Word[]   @relation("translationsTo")
-    languageId        Int      @map(name: "language_id")
-    language          Language @relation(fields: [languageId], references: [id])
-    meaning           String?  @db.VarChar(512)
-    meaningTranslated String?  @db.VarChar(512)
+  id                String   @id @default(cuid())
+  word              Word     @relation(fields: [wordId], references: [id])
+  wordId            String   @map(name: "word_id")
+  translations      Word[]   @relation("translationsTo")
+  languageId        Int      @map(name: "language_id")
+  language          Language @relation(fields: [languageId], references: [id])
+  meaning           String?  @db.VarChar(512)
+  meaningTranslated String?  @db.VarChar(512)
 
-    reports   Int?      @default(0)
-    createdAt DateTime  @default(now()) @map(name: "created_at")
-    updatedAt DateTime  @updatedAt @map(name: "updated_at")
-    deletedAt DateTime? @map(name: "deleted_at")
+  reports   Int?      @default(0)
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
 
-    @@unique([wordId, languageId])
+  @@unique([wordId, languageId])
 }
 
 model User {
-    id        Int     @id @default(autoincrement())
-    firstName String? @map(name: "first_name") @db.VarChar(90)
-    lastName  String? @map(name: "last_name") @db.VarChar(90)
-    username  String?
-    phone     String?
-    email     String? @unique @db.VarChar(90)
-    password  String? @db.VarChar(120)
+  id        String  @id @default(cuid())
+  firstName String? @map(name: "first_name") @db.VarChar(90)
+  lastName  String? @map(name: "last_name") @db.VarChar(90)
+  username  String?
+  phone     String?
+  email     String? @unique @db.VarChar(90)
+  password  String? @db.VarChar(120)
 
-    role Role @default(USER)
+  role Role @default(USER)
 
-    languageId    Int            @default(1) @map(name: "language_id")
-    language      Language?      @relation(fields: [languageId], references: [id])
-    score         Int            @default(0)
-    lastLoginAt   DateTime?      @default(now()) @map(name: "last_login_at")
-    createdAt     DateTime?      @default(now()) @map(name: "created_at")
-    updatedAt     DateTime?      @updatedAt @map(name: "updated_at")
-    deletedAt     DateTime?      @map(name: "deleted_at")
-    userLanguages UserLanguage[]
-    mediaUser     MediaUser[]
+  languageId    Int            @default(1) @map(name: "language_id")
+  language      Language?      @relation(fields: [languageId], references: [id])
+  score         Int            @default(0)
+  lastLoginAt   DateTime?      @default(now()) @map(name: "last_login_at")
+  createdAt     DateTime?      @default(now()) @map(name: "created_at")
+  updatedAt     DateTime?      @updatedAt @map(name: "updated_at")
+  deletedAt     DateTime?      @map(name: "deleted_at")
+  userLanguages UserLanguage[]
+  mediaUser     MediaUser[]
+  UserWords     UserWords[]
 }
 
 model UserLanguage {
-    id         Int         @id @default(autoincrement())
-    userId     Int         @map(name: "user_id")
-    languageId Int         @map(name: "language_id")
-    createdAt  DateTime?   @default(now()) @map(name: "created_at")
-    updatedAt  DateTime?   @updatedAt @map(name: "updated_at")
-    deletedAt  DateTime?   @map(name: "deleted_at")
-    user       User        @relation(fields: [userId], references: [id])
-    language   Language    @relation(fields: [languageId], references: [id])
-    userWords  UserWords[]
+  id         String      @id @default(cuid())
+  userId     String      @map(name: "user_id")
+  languageId Int         @map(name: "language_id")
+  createdAt  DateTime?   @default(now()) @map(name: "created_at")
+  updatedAt  DateTime?   @updatedAt @map(name: "updated_at")
+  deletedAt  DateTime?   @map(name: "deleted_at")
+  user       User        @relation(fields: [userId], references: [id])
+  language   Language    @relation(fields: [languageId], references: [id])
+  userWords  UserWords[]
 
-    @@unique([userId, languageId])
-    @@map("user_language")
+  @@unique([userId, languageId])
+  @@map("user_language")
 }
 
 model UserWords {
-    id        Int       @id @default(autoincrement())
-    userId    Int       @map(name: "user_id")
-    createdAt DateTime? @default(now()) @map(name: "created_at")
-    updatedAt DateTime? @updatedAt @map(name: "updated_at")
-    deletedAt DateTime? @map(name: "deleted_at")
+  id     String @id @default(cuid())
+  userId String @map(name: "user_id")
+  user   User   @relation(fields: [userId], references: [id])
 
-    wordId Int
-    word   Word @relation(fields: [wordId], references: [id])
+  createdAt DateTime? @default(now()) @map(name: "created_at")
+  updatedAt DateTime? @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
 
-    userLanguageId Int          @map(name: "user_language_id")
-    userLanguage   UserLanguage @relation(fields: [userLanguageId], references: [id])
+  wordId String
+  word   Word   @relation(fields: [wordId], references: [id])
 
-    attempts Int @default(0)
-    errors   Int @default(0)
-    streak   Int @default(0)
+  userLanguageId String       @map(name: "user_language_id")
+  userLanguage   UserLanguage @relation(fields: [userLanguageId], references: [id])
 
-    lastAttempt DateTime? @map(name: "last_attempt")
-    lastError   DateTime? @map(name: "last_error")
-    lastSuccess DateTime? @map(name: "last_success")
+  attempts Int @default(0)
+  errors   Int @default(0)
+  streak   Int @default(0)
 
-    //recomend another informations to this table
+  lastAttempt DateTime? @map(name: "last_attempt")
+  lastError   DateTime? @map(name: "last_error")
+  lastSuccess DateTime? @map(name: "last_success")
 
-    notLearned  Boolean?  @default(true) @map(name: "not_learned")
-    progress    Int?      @default(0)
-    quality     Int?      @default(0)
-    interval    Int?      @default(0)
-    nextAttempt DateTime? @map(name: "next_attempt")
+  //recomend another informations to this table
 
-    @@unique([userId, userLanguageId, wordId])
-    @@map("user_word")
+  notLearned  Boolean?  @default(true) @map(name: "not_learned")
+  progress    Int?      @default(0)
+  quality     Int?      @default(0)
+  interval    Int?      @default(0)
+  nextAttempt DateTime? @map(name: "next_attempt")
+
+  @@unique([userId, userLanguageId, wordId])
+  @@map("user_word")
 }
 
 model WordGameQuiz {
-    id         Int      @id @default(autoincrement())
-    wordId     Int
-    word       Word     @relation(fields: [wordId], references: [id])
-    languageId Int
-    language   Language @relation(fields: [languageId], references: [id])
+  id         String   @id @default(cuid())
+  wordId     String
+  word       Word     @relation(fields: [wordId], references: [id])
+  languageId Int
+  language   Language @relation(fields: [languageId], references: [id])
 
-    type    QuizType?
-    phrase  String    @db.VarChar(512)
-    options String[]  @db.VarChar(512)
-    answer  String    @db.VarChar(512)
+  type    QuizType?
+  phrase  String    @db.VarChar(512)
+  options String[]  @db.VarChar(512)
+  answer  String    @db.VarChar(512)
 
-    reports   Int?      @default(0)
-    createdAt DateTime? @default(now()) @map(name: "created_at")
-    updatedAt DateTime? @updatedAt @map(name: "updated_at")
-    deletedAt DateTime? @map(name: "deleted_at")
+  reports   Int?      @default(0)
+  createdAt DateTime? @default(now()) @map(name: "created_at")
+  updatedAt DateTime? @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
 }
 
 model Word {
-    id   Int    @id @default(autoincrement())
-    word String
+  id   String @id @default(cuid())
+  word String
 
-    languageId Int
-    language   Language @relation(fields: [languageId], references: [id])
+  languageId Int      @map(name: "language_id")
+  language   Language @relation(fields: [languageId], references: [id])
 
-    translations           Translation[]
-    translationsTo         Translation[] @relation("translationsTo")
-    isNotPossibleTranslate Boolean?      @default(false) @map(name: "is_not_possible_translate")
-    mediaWords             MediaWords[]
+  translations           Translation[]
+  translationsTo         Translation[] @relation("translationsTo")
+  isNotPossibleTranslate Boolean?      @default(false) @map(name: "is_not_possible_translate")
+  mediaWords             MediaWords[]
 
-    createdAt DateTime? @default(now()) @map(name: "created_at")
-    updatedAt DateTime? @updatedAt @map(name: "updated_at")
-    deletedAt DateTime? @map(name: "deleted_at")
+  createdAt DateTime? @default(now()) @map(name: "created_at")
+  updatedAt DateTime? @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
 
-    userWords UserWords[]
+  userWords UserWords[]
 
-    reports      Int?           @default(0)
-    difficulty   Int?           @default(0)
-    attempts     Int?           @default(0)
-    errors       Int?           @default(0)
-    frequency    Int?           @default(0)
-    wordGameQuiz WordGameQuiz[]
+  reports      Int?           @default(0)
+  difficulty   Int?           @default(0)
+  attempts     Int?           @default(0)
+  errors       Int?           @default(0)
+  frequency    Int?           @default(0)
+  wordGameQuiz WordGameQuiz[]
 
-    @@unique([word, languageId])
-    @@unique([id, languageId])
+  @@unique([word, languageId])
+  @@unique([id, languageId])
 }
 
 model Platform {
-    id      Int     @id @default(autoincrement())
-    name    String
-    url     String
-    logoUrl String  @default("https://picsum.photos/500/1000") @map(name: "logo_url")
-    medias  Media[]
+  id      String  @id @default(cuid())
+  name    String
+  url     String
+  logoUrl String  @default("https://picsum.photos/500/1000") @map(name: "logo_url")
+  medias  Media[]
 
-    createdAt DateTime  @default(now()) @map(name: "created_at")
-    updatedAt DateTime  @updatedAt @map(name: "updated_at")
-    deletedAt DateTime? @map(name: "deleted_at")
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
+}
+
+model Serie {
+  id          String       @id @default(cuid())
+  name        String
+  description String?
+  serieMedia  SerieMedia[]
+
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
+}
+
+model SerieMedia {
+  id      String @id @default(cuid())
+  serieId String @map(name: "serie_id")
+  mediaId String @map(name: "media_id")
+  serie   Serie  @relation(fields: [serieId], references: [id])
+  media   Media  @relation(fields: [mediaId], references: [id])
+  episode Int    @default(1)
+  season  Int    @default(1)
+
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
+}
+
+model Subtitle {
+  id         String    @id @default(cuid())
+  mediaId    String    @map(name: "media_id")
+  media      Media     @relation(fields: [mediaId], references: [id])
+  languageId Int       @map(name: "language_id")
+  language   Language  @relation(fields: [languageId], references: [id])
+  url        String
+  createdAt  DateTime  @default(now()) @map(name: "created_at")
+  updatedAt  DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt  DateTime? @map(name: "deleted_at")
 }
 
 model Media {
-    id Int @id @default(autoincrement())
+  id String @id @default(cuid())
 
-    name       String
-    url        String
-    type       MediaType @default(VIDEO)
-    platformId Int       @map(name: "platform_id")
-    platform   Platform  @relation(fields: [platformId], references: [id])
-    logoUrl    String    @default("https://picsum.photos/500/1000") @map(name: "logo_url")
+  name        String
+  url         String
+  type        MediaType    @default(VIDEO)
+  platformId  String       @map(name: "platform_id")
+  platform    Platform     @relation(fields: [platformId], references: [id])
+  logoUrl     String       @default("https://picsum.photos/500/1000") @map(name: "logo_url")
+  serieMedias SerieMedia[]
+  subtitles   Subtitle[]
 
-    mediaLanguages MediaLanguages[]
+  mediaLanguages MediaLanguages[]
 
-    createdAt DateTime  @default(now()) @map(name: "created_at")
-    updatedAt DateTime  @updatedAt @map(name: "updated_at")
-    deletedAt DateTime? @map(name: "deleted_at")
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
 }
 
 model MediaLanguages {
-    id Int @id @default(autoincrement())
+  id String @id @default(cuid())
 
-    mediaId    Int          @map(name: "media_id")
-    media      Media        @relation(fields: [mediaId], references: [id])
-    language   Language     @relation(fields: [languageId], references: [id])
-    languageId Int          @default(59) @map(name: "language_id")
-    mediaWords MediaWords[]
-    mediaUsers MediaUser[]
-    createdAt  DateTime     @default(now()) @map(name: "created_at")
-    updatedAt  DateTime     @updatedAt @map(name: "updated_at")
-    deletedAt  DateTime?    @map(name: "deleted_at")
+  mediaId    String       @map(name: "media_id")
+  media      Media        @relation(fields: [mediaId], references: [id])
+  language   Language     @relation(fields: [languageId], references: [id])
+  languageId Int          @map(name: "language_id")
+  mediaWords MediaWords[]
+  mediaUsers MediaUser[]
+  createdAt  DateTime     @default(now()) @map(name: "created_at")
+  updatedAt  DateTime     @updatedAt @map(name: "updated_at")
+  deletedAt  DateTime?    @map(name: "deleted_at")
 
-    @@unique([mediaId, languageId])
+  @@unique([mediaId, languageId])
 }
 
 model MediaWords {
-    id Int @id @default(autoincrement())
+  id String @id @default(cuid())
 
-    wordId          Int            @map(name: "word_id")
-    word            Word           @relation(fields: [wordId], references: [id])
-    mediaLanguageId Int            @map(name: "media_language_id")
-    mediaLanguage   MediaLanguages @relation(fields: [mediaLanguageId], references: [id])
+  wordId String @map(name: "word_id")
+  word   Word   @relation(fields: [wordId], references: [id])
 
-    createdAt DateTime  @default(now()) @map(name: "created_at")
-    updatedAt DateTime  @updatedAt @map(name: "updated_at")
-    deletedAt DateTime? @map(name: "deleted_at")
+  mediaLanguageId String         @map(name: "media_language_id")
+  mediaLanguage   MediaLanguages @relation(fields: [mediaLanguageId], references: [id])
 
-    @@unique([wordId, mediaLanguageId])
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
+
+  @@unique([wordId, mediaLanguageId])
 }
 
 model MediaUser {
-    id Int @id @default(autoincrement())
+  id String @id @default(cuid())
 
-    userId          Int            @map(name: "user_id")
-    user            User           @relation(fields: [userId], references: [id])
-    progress        Int?           @default(0)
-    wordsLearned    Int?           @default(0)
-    mediaLanguage   MediaLanguages @relation(fields: [mediaLanguageId], references: [id])
-    mediaLanguageId Int            @map(name: "media_language_id")
-    createdAt       DateTime       @default(now()) @map(name: "created_at")
-    updatedAt       DateTime       @updatedAt @map(name: "updated_at")
-    deletedAt       DateTime?      @map(name: "deleted_at")
+  userId       String @map(name: "user_id")
+  user         User   @relation(fields: [userId], references: [id])
+  progress     Int?   @default(0)
+  wordsLearned Int?   @default(0)
 
-    @@unique([userId, mediaLanguageId])
+  mediaLanguage   MediaLanguages @relation(fields: [mediaLanguageId], references: [id])
+  mediaLanguageId String         @map(name: "media_language_id")
+
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
+
+  @@unique([userId, mediaLanguageId])
 }
 
 model Language {
-    id       Int    @id @default(autoincrement())
-    code     String
-    language String
+  id       Int    @id @default(autoincrement())
+  code     String
+  language String
 
-    createdAt   DateTime      @default(now()) @map(name: "created_at")
-    updatedAt   DateTime      @updatedAt @map(name: "updated_at")
-    deletedAt   DateTime?     @map(name: "deleted_at")
-    translation Translation[]
+  translation    Translation[]
+  words          Word[]
+  userLanguage   UserLanguage[]
+  mediaLanguages MediaLanguages[]
+  user           User[]
+  wordGameQuiz   WordGameQuiz[]
+  subtitle       Subtitle[]
 
-    words Word[]
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
 
-    userLanguage   UserLanguage[]
-    MediaLanguages MediaLanguages[]
-    User           User[]
-    wordGameQuiz   WordGameQuiz[]
-
-    @@unique([code])
+  @@unique([code])
 }
 
 enum Role {
-    USER
-    BKO
-    ADMIN
+  USER
+  BKO
+  ADMIN
 }
 
 enum MediaType {
-    MOVIE
-    VIDEO
-    AUDIO
+  MOVIE
+  VIDEO
+  AUDIO
+  SERIE
 }
 
 enum QuizType {
-    TRANSLATION
-    MEANING
-    EXAMPLE
-    SYNONYMS
-    ANTONYMS
-    DEFINITION
-    PRONUNCIATION
-    WORD
-    PHRASE
-    IDIOM
+  TRANSLATION
+  MEANING
+  EXAMPLE
+  SYNONYMS
+  ANTONYMS
+  DEFINITION
+  PRONUNCIATION
+  WORD
+  PHRASE
+  IDIOM
 }

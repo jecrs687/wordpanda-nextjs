@@ -1,7 +1,7 @@
 @import "@styles/index.scss";
 
 .main {
-  background-color: $black;
+  background-color: $background2;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -11,7 +11,7 @@
   flex-direction: column;
 
   form {
-    // background-color: $ninth;
+    background-color: $ninth;
     display: flex;
     flex-direction: column;
     align-items: center;

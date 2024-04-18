@@ -1,4 +1,5 @@
 "use client"
+import { TOKEN_KEY } from "@constants/CONFIGS"
 import { ROUTES } from "@constants/ROUTES"
 import { validateToken } from "@utils/token"
 import { useRouter } from "next/navigation"
@@ -12,11 +13,11 @@ export default function Page(
 ) {
     const router = useRouter()
     useEffect(() => {
-        const token = localStorage.getItem('wordPand_token') || searchParams?.token
+        const token = localStorage.getItem(TOKEN_KEY) || searchParams?.token
         const validated = validateToken(token)
-        if (searchParams?.token) localStorage.setItem('wordPand_token', searchParams?.token)
-        if (token) {
-            router.push(ROUTES.EXTENSION_GAMES())
+        if (searchParams?.token) localStorage.setItem(TOKEN_KEY, searchParams?.token)
+        if (validated?.decoded) {
+            router.push(ROUTES.EXTENSION_LANGUAGES())
         } else {
             router.push(ROUTES.EXTENSION() + ROUTES.LOGIN())
         }

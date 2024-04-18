@@ -1,6 +1,7 @@
 "use client";
 import { GAMES } from '@constants/GAMES';
 import { useChannels } from '@hooks/useChannels';
+import useWords from '@hooks/useWords';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import styles from './page.module.scss';
@@ -15,7 +16,8 @@ export default function Page() {
     useEffect(() => {
         web.sendList()
     }, [web])
-
+    const { allWords, language } = useWords()
+    console.log({ allWords })
     return (
         <main className={styles.main}>
             <h1 className={styles.title}>

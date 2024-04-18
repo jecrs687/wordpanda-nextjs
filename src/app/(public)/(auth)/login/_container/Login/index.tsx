@@ -1,6 +1,7 @@
 "use client";
 
 import Input from '@common/Input';
+import { TOKEN_KEY } from '@constants/CONFIGS';
 import { ROUTES } from '@constants/ROUTES';
 import Button from '@core/Button';
 import LoaderSpinner from '@core/LoaderSpinner';
@@ -33,9 +34,9 @@ export default function LoginPage() {
             localStorage.setItem('admin', state.admin)
 
         if (state.token) {
-            localStorage.setItem('wordPand_token', state.token)
-            route.push(extension ? ROUTES.EXTENSION_GAMES() : ROUTES.DASHBOARD())
+            localStorage.setItem(TOKEN_KEY, state.token)
             web.setToken(state.token)
+            route.push(extension ? ROUTES.EXTENSION_GAMES() : ROUTES.DASHBOARD())
         }
     }, [state, route, web, extension])
     return (

@@ -4,6 +4,7 @@ import prisma from "@infra/config/database"
 import { translateWords } from "@infra/openai/Translate"
 import { Translation, UserWords, Word } from "@prisma/client"
 import { chunkArray } from "@utils/chunkarray"
+import { validateToken } from "@utils/token"
 import { headers } from "next/headers"
 
 
@@ -60,11 +61,11 @@ export async function POST(request: Request) {
     try {
         console.time('before chat')
         const body: WordsPostRequest = await request.json();
-        const id = +header.get('id')
+        const userId = header.get('id') || validateToken((header.get('Authorization') || ""))?.decoded?.id
         const { languageId, mediaId, limit } = body
         const [user, language] = await Promise.all([await prisma.user.findUnique({
             where: {
-                id
+                id: userId
             },
             include: {
                 language: true
@@ -102,9 +103,7 @@ export async function POST(request: Request) {
         })
         const translationLanguageTarget = await prisma.language.findFirst({
             where: {
-                code: {
-                    startsWith: 'pt'
-                }
+                id: user.languageId
             },
         })
         if (!translationLanguageTarget) return Response.json({

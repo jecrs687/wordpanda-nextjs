@@ -1,5 +1,6 @@
 'use client';
 
+import { TOKEN_KEY } from "@constants/CONFIGS";
 import useDevice from "@hooks/useDevice";
 import { setCookie } from "@utils/cookie";
 import { useSearchParams } from "next/navigation";
@@ -23,7 +24,7 @@ function InformationProvider() {
     }
     if (typeof window === 'undefined') return <></>
     if (token)
-        localStorage.setItem('wordPand_token', token);
+        localStorage.setItem(TOKEN_KEY, token);
     return <></>
 }
 export default InformationProvider;

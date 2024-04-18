@@ -7,7 +7,7 @@ import { cookies, headers } from "next/headers";
 
 
 export type GamesQuizPostRequest = {
-    words: number[]
+    words: string[]
 }
 
 export type GamesQuizPostResponse = {
@@ -23,7 +23,7 @@ export type GamesQuizPostResponse = {
     msg?: string,
 }
 export async function POST(request: Request) {
-    const token = cookies().get('token') || headers().get('Authorization')
+    const token = cookies().user('token') || headers().get('Authorization')
     const { decoded: decryptToken } = validateToken(token)
     if (!decryptToken) return Response.json({ err: 'Token invalid' });
     const user = await prisma.user.findFirst({
@@ -42,11 +42,9 @@ export async function POST(request: Request) {
     }: GamesQuizPostRequest = await request.json();
 
 
-    const language = await prisma.language.findFirst({
+    const language = user.language || await prisma.language.findFirst({
         where: {
-            code: {
-                startsWith: 'pt'
-            }
+            id: user.languageId
         }
     })
     const [wordsOnDb] = await Promise.all([await prisma.word.findMany({
