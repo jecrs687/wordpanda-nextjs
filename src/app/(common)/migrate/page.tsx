@@ -1,4 +1,4 @@
-import { InsertEvent } from "./_container/components";
+// import { InsertEvent } from "./_container/components";
 
 export default async function Page() {
     //await migrateDatabase()
@@ -25,5 +25,6 @@ export default async function Page() {
     //     languageId: 2
     // })
     // await migrateWords()
-    return <InsertEvent />
+    // return <InsertEvent />
+    return <></>
 }
