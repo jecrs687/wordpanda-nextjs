@@ -3,7 +3,7 @@ name: Deploy # The name of the workflow
 on: 
   push:
     branches:
-      - develop #Launch the action on every push on the branch main
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest # Setup an environment to run the action
