@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import Input from '@common/Input';
 import { SelectLanguage } from '@common/SelectLanguage';
 import { TOKEN_KEY } from '@constants/CONFIGS';
@@ -15,7 +15,7 @@ export default function Register() {
     const [state, formAction] = useFormState(submit, {})
     const route = useRouter()
     useEffect(() => {
-        if (state.token) {
+        if (state.token && typeof window != undefined) {
             localStorage.setItem(TOKEN_KEY, state.token)
             route.push(ROUTES.DASHBOARD())
         }

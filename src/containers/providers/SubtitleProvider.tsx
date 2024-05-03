@@ -29,13 +29,14 @@ export default function SubtitleProvider() {
         for (const event of notProcessedEvents) {
             processed.add(event.timestamp);
             const { responseBody } = event;
-            console.log({ responseBody })
+            console.log({ event })
 
             const { subtitleUrls } = responseBody;
             const TYPE = {
-                "TV SHOW": MediaType.SERIE,
+                "TV Show": MediaType.SERIE,
                 "MOVIE": MediaType.MOVIE,
                 "SEASON": MediaType.SERIE,
+                "SHOW": MediaType.SERIE,
             }
 
             for (const subtitle of subtitleUrls) {

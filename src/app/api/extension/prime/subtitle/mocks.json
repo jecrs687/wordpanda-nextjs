@@ -1,0 +1,1412 @@
+[
+  {
+    "links": [
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/11b0/1398/bb87/4cfc-abe5-ef5ecd0152f3/22a5ead2-23e9-4927-af03-7253b359306a.ttml2",
+        "languageCode": "ms-my"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/6e6a/8b33/9f9f/4e9b-bdaa-44a5c39c83b5/28f15b0e-635e-4500-876a-3bd48c543a98.ttml2",
+        "languageCode": "ca-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/cd53/bef6/f15c/41dd-901d-27e89d3dff63/02e18076-bceb-4ea4-aecb-c38f78d769f2.ttml2",
+        "languageCode": "da-dk"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/59b6/2356/9c3c/4573-afa2-38022b3840af/248e1c0b-d04f-4d2a-bc57-0988458b55a5.ttml2",
+        "languageCode": "de-de"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/ae19/da94/a0d0/4a71-b047-1c83fb3754dc/c9472b7a-cd81-444b-b68a-8242b8a555f2.ttml2",
+        "languageCode": "en-us"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/5d95/4fff/6420/4700-8a9f-3aca965887b7/7a5f1818-6940-47fa-9c2e-e57b778afbcf.ttml2",
+        "languageCode": "es-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/9799/9c66/f578/4df1-b998-1990f8434032/98cfde06-04b1-4b2d-9424-987c645de94a.ttml2",
+        "languageCode": "es-419"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1b11/34f3/6659/4708-92f7-eec984d18c1f/45aa099c-6db0-4885-b2ed-4cba4677438a.ttml2",
+        "languageCode": "eu-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/fb0a/f6f7/7103/49a8-916b-8951bfe64934/2b03f043-ee2a-41a9-ae32-57656d0f150a.ttml2",
+        "languageCode": "fil-ph"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/49b3/47f0/529f/49a5-94e9-1e50d63d07b7/2d3882fb-acd2-404a-a6bf-f7014650cdd5.ttml2",
+        "languageCode": "fr-ca"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/bcb6/2cab/4583/4c89-ba9d-b408df0fb2e9/58e16190-9fe1-45f5-846c-9a05cda84a8d.ttml2",
+        "languageCode": "fr-fr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/5013/73bd/4c65/47e4-9177-d2983ba1a548/ab75b765-cc8e-47fb-aff4-1444771413a4.ttml2",
+        "languageCode": "gl-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/5884/9c3f/8f6a/4252-b310-bf2a5e0cb540/897a90ed-264d-4ed6-9ddc-578be174df9f.ttml2",
+        "languageCode": "id-id"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/43af/a4b8/c188/4b11-b489-f93b6d6d93bb/d256479c-cad5-47d1-9dc0-af1fadde8da2.ttml2",
+        "languageCode": "it-it"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/ce6a/5854/a814/48f6-bb4e-279f5a85e2d6/97771cef-7719-436b-9607-1319af93c99e.ttml2",
+        "languageCode": "hu-hu"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/e65a/d9b8/23bb/4528-b0d6-6839cb08ab1d/59637255-8838-4eb8-ae8b-0fdee6e26c5f.ttml2",
+        "languageCode": "nl-nl"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/6e72/cca2/3e9a/4067-9d5e-f39de5077ca2/5c7fa469-e5b4-4c2d-a134-bb287007c3b8.ttml2",
+        "languageCode": "nb-no"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1cd9/c197/e19f/4693-a30f-4d583d7cdd42/34d5312b-5be6-47ed-92d2-d4d83cbe0fe2.ttml2",
+        "languageCode": "pl-pl"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/ce07/a1e0/1108/4bc5-a3d5-c17e7d52de5c/0228e883-e462-46cf-ad00-15b0f4f76bba.ttml2",
+        "languageCode": "pt-br"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/b3e7/81a9/7f9b/4475-b925-41e3ea57b1b3/055ab0cf-8775-4448-ae75-98ee3b0c2c71.ttml2",
+        "languageCode": "pt-pt"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/ae2a/2ae8/cd4e/444d-aed1-96ce833f646c/b351ab5f-6c6d-4c23-8f85-8331cb2153f4.ttml2",
+        "languageCode": "ro-ro"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/45b1/91a8/1f62/4e50-b1c7-106a5c173c00/747bdf31-d332-4f23-bed0-77f55a419659.ttml2",
+        "languageCode": "fi-fi"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/c673/afef/8376/4a60-8e36-c91689e76db9/c91a88d6-62bd-471f-8724-0f095c0ea90f.ttml2",
+        "languageCode": "sv-se"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/c8b3/9498/6aa7/4310-8281-3209625435a3/8f64f8fb-24df-4981-a1f9-d3dd45c34044.ttml2",
+        "languageCode": "vi-vn"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/f7a0/1c94/a295/4506-af14-208a01f72563/8a9fe02c-8039-4c70-9920-432512726363.ttml2",
+        "languageCode": "tr-tr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/6b6f/6cc5/b4f0/4eb9-bb44-c744e86b201e/94d3d63a-feb4-4962-b193-04eebe5c0686.ttml2",
+        "languageCode": "cs-cz"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/7566/8c93/128b/49ef-b9d6-42a36dc989c1/63d90994-6ed7-4c7d-a158-53ddc67c119d.ttml2",
+        "languageCode": "el-gr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/98e1/caf7/4078/4155-aec9-e6949b91c491/f8582739-7daa-4f48-8d66-90ba5c56ec1b.ttml2",
+        "languageCode": "ru-ru"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/f1f9/69aa/0489/42ee-ba39-1c52e8f1f779/6ab40927-6ea0-46f9-a82c-baa2e496fd35.ttml2",
+        "languageCode": "uk-ua"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/9283/c4f8/60b0/47f2-94f1-4a808f4d3b14/bfef68d7-7ebc-43cd-9085-b0eb20ff1d82.ttml2",
+        "languageCode": "he-il"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/f6df/2f6d/9527/49c6-9d47-8d89d1862f9c/009ecd7e-f350-4d32-9f0b-558ba3e6fc3d.ttml2",
+        "languageCode": "ar-001"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1f50/f945/6d71/4d8f-8792-ceb52a33e4de/d8880b74-a28a-43c6-9d47-5150fb13e155.ttml2",
+        "languageCode": "hi-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/85b2/799e/f592/4ffd-b58c-93e9ce522601/245e5efc-b50e-492d-9f83-e223e16d10fc.ttml2",
+        "languageCode": "ta-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/6bce/959c/02cc/4136-acea-9480b722fe7a/55369f88-1da4-447e-b2f8-7dafc792383c.ttml2",
+        "languageCode": "te-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/8b73/84ff/c951/4cc8-8cd0-2f4a7635695c/6abae331-28ce-4e32-8636-5a18f4ac1da1.ttml2",
+        "languageCode": "kn-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/da70/289c/0698/4e3f-b8c7-a668d3976c1a/ca888f78-cf42-4eed-b74a-48ea4de01a92.ttml2",
+        "languageCode": "ml-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/fc03/3638/92c8/43c3-a28c-e009ee633da6/1ee97eb6-b55f-4ce9-b7cd-fc35b7477453.ttml2",
+        "languageCode": "th-th"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/d727/9682/e809/462e-a194-5bd5e6f631d5/f0c32cd9-938a-43e8-82f5-ede1d55de468.ttml2",
+        "languageCode": "zh-hans"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/a91a/734e/cae7/425e-a4ae-a37c78c731d8/a7bbefda-4f6d-49f7-8a53-c06f571df005.ttml2",
+        "languageCode": "zh-hant"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/e452/d87d/9927/46ac-80ed-ed2064cbd757/96a297e9-2716-48b9-a327-421ba557c5d1.ttml2",
+        "languageCode": "ja-jp"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/9a07/6c79/479d/4140-b37c-a88727ec9aca/1a112b2c-4f37-4678-a290-7d49a261fb45.ttml2",
+        "languageCode": "ko-kr"
+      }
+    ],
+    "platformLink": "https://www.primevideo.com/",
+    "name": "NÃO VOU A LUGAR NENHUM",
+    "title": "INVENCÍVEL",
+    "platform": "PRIME",
+    "episode": 7,
+    "season": 2,
+    "image": "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/59ccf96d0f484864751227d33d2912842c3e0c5b75e5b116e0a1d1354689fb59._UY500_UX667_UY500_RI_TTW_.jpg",
+    "type": "VIDEO",
+    "mediaId": "amzn1.dv.gti.bc677fb9-1709-4b32-b622-06fe47cf354f",
+    "seasonId": "amzn1.dv.gti.5ec17cf1-2a26-4277-bcca-d7f7a18e3bea",
+    "serieId": "amzn1.dv.gti.32bbb23a-a5ad-20a3-8c6a-515c9b8ba7b1"
+  },
+  {
+    "links": [
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/6f96/161b/5821/432a-80d5-018980c6590c/06952b96-450c-4bb6-885a-e0673e55e13f.ttml2",
+        "languageCode": "ms-my"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1a76/72b5/d744/47ba-8887-d01ff60a81b5/24e6f042-96a0-47c9-88cb-eda43763df08.ttml2",
+        "languageCode": "ca-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/c92e/e77b/ff4b/45d6-94e2-848be89d0b22/0a8311d5-eb9e-42f7-8c92-3e582d5daa02.ttml2",
+        "languageCode": "da-dk"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/72dc/55d1/0232/41e9-a224-f484af3134fb/5d9deed1-122d-4d60-b868-ef82032bdf2e.ttml2",
+        "languageCode": "de-de"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/8c82/d41c/99f1/43c8-918c-797aab6a62c1/3441ee4d-f942-4ff7-af26-8157ba214166.ttml2",
+        "languageCode": "en-us"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/b2ed/e83b/b9f9/45e2-b83b-858a628fca2f/b866fba5-31e8-473a-825f-15b8600e1fef.ttml2",
+        "languageCode": "es-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/65a2/f074/7b15/4a42-8f2f-17157f9b05fc/e9ef897b-28f3-40de-9faa-83d7a5b25a0b.ttml2",
+        "languageCode": "es-419"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/b0ab/574c/c4f2/4b7f-a522-c2d5a5a7c1aa/a25ba418-7d08-4993-b21c-65c43aed9932.ttml2",
+        "languageCode": "eu-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/7edb/9bbe/8711/4140-835f-6198f487f713/b9d20c46-e77c-4278-a059-2903d8a2111e.ttml2",
+        "languageCode": "fil-ph"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/513f/827e/364a/474a-abb2-754029020726/30a80bce-c8fa-4e66-af6a-d8c23e260cb3.ttml2",
+        "languageCode": "fr-ca"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/ce8a/e4e1/73f4/48f5-9e50-676dc76a58f3/c8fdcb86-87cc-4aee-a681-0e36f2890ae2.ttml2",
+        "languageCode": "fr-fr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1e5a/8a30/97f3/4b09-b8c9-c9d8dbe2015c/cf515ba2-f106-4e4f-88e5-f82e99547909.ttml2",
+        "languageCode": "gl-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/edfc/e2b4/2160/45d7-ba76-502b0c7c5e07/8cc7f3dc-573a-456f-8fd8-c865d71ceb96.ttml2",
+        "languageCode": "id-id"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/4cde/91b0/b62e/45c6-9101-4695af273359/a9b4fa4e-de21-4847-a116-7633d8fc1b4c.ttml2",
+        "languageCode": "it-it"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/6e2b/4467/de74/4f35-8856-76c01dcec073/a73e9272-734a-4ac7-947d-9e02b89c14a3.ttml2",
+        "languageCode": "hu-hu"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/607d/d939/18b9/4bde-b73d-16a725878312/e0ee1aa1-7729-49a1-9961-7090393f45ce.ttml2",
+        "languageCode": "nl-nl"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/c93f/c7d6/5818/4543-8e6f-1af294415dba/b6aa07a2-dfb8-4d60-9b41-bc76a7c5ec45.ttml2",
+        "languageCode": "nb-no"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/0e49/771e/abd4/4e60-bb7a-9de84663500b/7df86fca-92ec-4105-96bd-1b9b675ba1d4.ttml2",
+        "languageCode": "pl-pl"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/4885/c143/312d/4642-86e8-640f3735468a/575c57d2-a4cd-4bb3-bdc5-bb9df2a9f2b7.ttml2",
+        "languageCode": "pt-br"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/895e/ba0d/bd99/47a4-b537-43a3bf770fc5/042a1857-ce9d-41c3-bdaa-72fe97119a21.ttml2",
+        "languageCode": "pt-pt"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/80c8/de48/7132/4da7-ac1c-74313e26d081/6d563639-dc82-4b48-96ad-09195db62a80.ttml2",
+        "languageCode": "ro-ro"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/eaf2/6060/bf38/459e-9e7e-13556c9b7a84/68ff1c02-d672-48c3-9128-c2e06a4c912b.ttml2",
+        "languageCode": "fi-fi"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/a3aa/0892/4313/4b1d-9995-edde68ec0219/403c40ac-16bd-4360-ba66-951384f58dab.ttml2",
+        "languageCode": "sv-se"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/9002/7bd0/4cc6/4493-98df-5af20349902a/7ec649e1-36e8-4502-b4fd-1e3674afa013.ttml2",
+        "languageCode": "vi-vn"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/cbd6/39d9/86e3/46b2-8bcf-64bc94773c7e/13bac05a-308c-4335-bd83-0125585a104c.ttml2",
+        "languageCode": "tr-tr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/3644/f7c4/f099/4c9c-8ec2-25e02be80000/71c0bf2b-4ed5-4160-873c-ed9d6890a096.ttml2",
+        "languageCode": "cs-cz"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/bee6/a2bc/c18e/4d47-85b9-66983059c7a1/2fd8755f-10e7-44fd-a44f-555bfd672dde.ttml2",
+        "languageCode": "el-gr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/7e31/bfb7/b67e/48fc-b665-bc2faa006d5c/374937a1-e331-44e4-b800-5e77c7ed6d2f.ttml2",
+        "languageCode": "ru-ru"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/c4de/2319/6ab2/4277-9ded-26eefae47da1/36f27194-fd68-499b-89c7-645d79c5677f.ttml2",
+        "languageCode": "uk-ua"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/5f2b/c888/2344/4f53-ba73-43bf87861e23/dfe164df-c195-4308-81df-c4030de15b42.ttml2",
+        "languageCode": "he-il"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/8a6e/7392/f54a/4f75-b3b8-f431e6a8fcdc/04cf771b-3f08-4921-8046-d8d2b5020348.ttml2",
+        "languageCode": "ar-001"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/dace/7b3b/51af/4398-9a9c-6ec105b3a78c/da703da0-3e1c-45d7-834f-16406e4542ed.ttml2",
+        "languageCode": "hi-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1411/71c0/6152/4e71-8042-59d54cfe037c/8f04cd44-fbfd-4509-8269-653b40b00141.ttml2",
+        "languageCode": "ta-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/dcf9/b43a/b6e9/4092-95d1-f20d7be83cfc/4e3987d0-85ea-4a4f-aeda-2710751d41dc.ttml2",
+        "languageCode": "te-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/0ecd/e767/3622/46a5-aa0d-f39e38c0e09e/97203ba7-1bb0-4382-b428-758b75292cf4.ttml2",
+        "languageCode": "kn-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/467d/56d5/d291/4515-a3f2-5e0f03d7879b/229f10df-711c-452d-aa2b-37e3477369b1.ttml2",
+        "languageCode": "ml-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/5b94/3e90/68d6/4783-8361-1d28b1def04b/768cbc4b-4b4d-4c20-874e-644fe551b131.ttml2",
+        "languageCode": "th-th"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/7ebb/25eb/0d0f/47ef-abd0-1d8a107ec34f/44a760e4-4adf-4518-a01e-05034a15d805.ttml2",
+        "languageCode": "zh-hans"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1e04/dfcb/c7d6/4cec-88eb-4ff625242fd3/bcd9b09a-51f5-43c3-949e-326b911c5662.ttml2",
+        "languageCode": "zh-hant"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/4f66/9d56/d562/4e6d-9c8c-f39b3385822b/46dec7fb-ceaa-452a-884e-e71ea64277c9.ttml2",
+        "languageCode": "ja-jp"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/709d/16d5/3c07/45a0-8c62-65d71cecca25/9660992c-31c7-452b-b12d-60b7ae206de7.ttml2",
+        "languageCode": "ko-kr"
+      }
+    ],
+    "platformLink": "https://www.primevideo.com/",
+    "name": "ACHEI QUE VOCÊ FOSSE MAIS FORTE",
+    "title": "INVENCÍVEL",
+    "platform": "PRIME",
+    "episode": 8,
+    "season": 2,
+    "image": "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/59ccf96d0f484864751227d33d2912842c3e0c5b75e5b116e0a1d1354689fb59._UY500_UX667_UY500_RI_TTW_.jpg",
+    "type": "VIDEO",
+    "mediaId": "amzn1.dv.gti.1820eb17-69ad-49af-be0f-204585939772",
+    "seasonId": "amzn1.dv.gti.5ec17cf1-2a26-4277-bcca-d7f7a18e3bea",
+    "serieId": "amzn1.dv.gti.32bbb23a-a5ad-20a3-8c6a-515c9b8ba7b1"
+  },
+  {
+    "links": [
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/88aa/24b7/f049/41cd-b94e-bc31e9eb4969/dd0675fc-5c2e-4bc5-b362-fede141106b8.ttml2",
+        "languageCode": "ms-my"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/e519/537b/e11a/46dc-9795-2b82f106d3e5/48ecb330-7e5d-4cb2-ba00-8d7137a71810.ttml2",
+        "languageCode": "ca-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/7e7c/32dc/19a0/4189-b52e-1d1e032053c2/fbb962d8-2e94-4651-a65b-1c921999be7e.ttml2",
+        "languageCode": "da-dk"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/fc10/299b/ffb3/4c35-97ab-a60119c245e8/3587ea0a-7503-4746-83f6-b5841991d0a5.ttml2",
+        "languageCode": "de-de"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/c4bb/fd35/9b6e/4e75-84e5-e7491da57f79/9943783f-44cb-4536-8f62-ded9a4ba34e1.ttml2",
+        "languageCode": "en-us"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/4ac3/5bb2/5d60/44a7-b5b1-ee81a717883f/f2625b8f-5954-46f0-bd1a-288e0e40da40.ttml2",
+        "languageCode": "es-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/4500/e30e/5c92/451b-9085-13aa625dd4a3/e6c75c3a-f7ae-4d79-b5a9-92b1df8e2cef.ttml2",
+        "languageCode": "es-419"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/41dc/e367/fb60/48da-9f89-1a35673ea340/38267bee-50e2-4581-8f13-28776a64f062.ttml2",
+        "languageCode": "eu-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1510/f75b/1f62/4464-b0f3-c6e37c61a009/23e2f829-e25d-487e-97d7-76f560739845.ttml2",
+        "languageCode": "fil-ph"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/d753/812e/9773/43e5-9f08-ce5b1d2575ba/fb94ffcd-9fa4-433f-80d3-66afa42f3cff.ttml2",
+        "languageCode": "fr-ca"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/fcb7/92dc/b7dc/478d-bb2e-96fd368630d6/a5708209-bbbe-45c2-8328-e36808f36586.ttml2",
+        "languageCode": "fr-fr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/fbd2/15e7/176b/4f8d-865b-407e1067f38d/6cb66d46-b507-4d63-9e50-71a7d5bc2efc.ttml2",
+        "languageCode": "gl-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/d8cf/b57d/017f/452d-a514-83a74e17d348/22fde60d-5a24-47d8-b1f7-2b8da790d459.ttml2",
+        "languageCode": "id-id"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/2e6e/f787/7be8/4124-9fb0-396c50d1511c/63681ac8-cbac-487d-877a-077c00c6119e.ttml2",
+        "languageCode": "it-it"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/9ea5/ec5f/eaa9/476e-9543-594720a8f738/c8bebe04-c0d4-4cb7-8e90-f4dc88e10d4b.ttml2",
+        "languageCode": "hu-hu"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/fdfa/c729/e7cb/417c-9e09-6f165927fba7/786e27bc-0224-4b0c-82cc-de1d79fc1367.ttml2",
+        "languageCode": "nl-nl"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/cc90/b5fe/8804/4098-9386-1da3da9fb820/0f1215f9-2828-4b82-b4a7-8ca8c64dab68.ttml2",
+        "languageCode": "nb-no"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/8877/173b/f3d4/4e1b-8864-416de7f7495c/53248a6e-2932-4f33-862c-3100bf070b14.ttml2",
+        "languageCode": "pl-pl"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1647/bc7a/0b14/4faa-8452-8afeaa24688d/fe478012-cc5d-4164-85da-7eb041b4148a.ttml2",
+        "languageCode": "pt-br"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/45d1/7cef/18f1/4089-9776-f69047924665/aeb88b39-c1a5-4c66-99e3-f0f52af8a3bf.ttml2",
+        "languageCode": "pt-pt"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/23c0/758e/3379/4bcf-a5ae-f28887cd49d4/6e7a40b4-804d-455f-9cb8-856f8dc6b45a.ttml2",
+        "languageCode": "ro-ro"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/994e/a6fe/c48a/4f2a-a927-db927e0d0d9b/6edd355e-7c35-414a-a4cb-0d96c0ef514f.ttml2",
+        "languageCode": "fi-fi"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/0469/0aac/e66b/41b5-bdb5-1098db5282c7/72f2e419-d514-4c9a-b3d2-38258b32481d.ttml2",
+        "languageCode": "sv-se"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/8d74/d16b/25b6/41d1-ba79-3c80ed07c6a6/370908bf-30ae-47dc-b452-c45787c8217f.ttml2",
+        "languageCode": "vi-vn"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/85d5/2ba1/dfd9/4ae0-8943-b2f9aabaf648/d16a10ee-c29e-4801-843c-f45883c066e7.ttml2",
+        "languageCode": "tr-tr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/b123/a0c9/64dc/41fa-96cd-54c1397c96be/ca9a2a80-eea4-4a82-8f55-b34d8f4bc628.ttml2",
+        "languageCode": "cs-cz"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/f669/7bd2/2d18/4bd7-a57f-aef4f711bccb/32edc5d5-54aa-4163-ba9e-cd429541e808.ttml2",
+        "languageCode": "el-gr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/d45f/64a5/ea94/4162-a109-4bc49dfb8ee9/f5d66af1-5d12-431e-b12f-3b2c5c374d6b.ttml2",
+        "languageCode": "ru-ru"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/83c0/538b/5c1b/4dd2-9b6d-252be295bc07/20d8dc4f-4f5f-4593-970a-e6e1d6bbd61d.ttml2",
+        "languageCode": "uk-ua"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/a97a/842d/ffa9/4e15-877c-7d7f988ea550/984d5789-6350-4015-bf3e-c0779cc55ebd.ttml2",
+        "languageCode": "he-il"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/20d9/3b3c/f4c1/4f58-b45a-28aa5eb5ce58/0cff58a8-0c18-49b1-9e1f-7d696c1cfa1e.ttml2",
+        "languageCode": "ar-001"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/f9bb/d36f/44fc/4215-91f2-ea97a133f103/81f732e7-2b20-476d-aed6-bc313d48241b.ttml2",
+        "languageCode": "hi-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/e73c/ae05/b1de/4d49-8ae0-cd800d3629ae/6cefcaa2-2868-4b2e-b63f-854069092496.ttml2",
+        "languageCode": "ta-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/e17f/01f0/b863/40d1-8316-e01aba54d260/669a0c4b-41fc-4393-a09d-4d2acde0c870.ttml2",
+        "languageCode": "te-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/a19b/7f66/9efd/4b25-b913-153f5135b0ed/c1251964-22ff-44d9-bfad-244654d63455.ttml2",
+        "languageCode": "kn-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1015/fe2d/b969/4ca6-882c-2b51b4e6b4fc/2b456d89-96ad-427b-851d-9a5ac8260d69.ttml2",
+        "languageCode": "ml-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/ac83/a0a4/fdc7/4d34-9337-969cc416c07f/822ce2b3-d941-4594-935c-972e410a47c2.ttml2",
+        "languageCode": "th-th"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/5188/fec5/0a4b/460b-85bf-321b31c10456/a1dffd86-fb8c-4413-a00e-45f4cc8c5c3d.ttml2",
+        "languageCode": "zh-hans"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/9118/f8c5/31bf/4095-b513-3189c88ceb26/ed42cebd-2c28-45b2-bca9-6cc8a7360b1a.ttml2",
+        "languageCode": "zh-hant"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/bbfc/ba5d/3895/4d66-ba6b-7d10cbd411f9/85d4f2c2-1a08-425f-8019-a52108abf278.ttml2",
+        "languageCode": "ja-jp"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/e526/fbde/6bb0/4c1c-900a-c8ff1c655a41/a8f3f6c0-1a30-4387-bf99-31510eff14fd.ttml2",
+        "languageCode": "ko-kr"
+      }
+    ],
+    "platformLink": "https://www.primevideo.com/",
+    "name": "EPISÓDIO ESPECIAL APRESENTANDO EVE ATÔMICA",
+    "title": "INVENCÍVEL",
+    "platform": "PRIME",
+    "episode": 1,
+    "season": 202,
+    "image": "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/cac778bb1c1dff72754896b1e99192d7e2eed2030382ad72fd9d7e773bda21e2._UY500_UX667_UY500_RI_TTW_.jpg",
+    "type": "VIDEO",
+    "mediaId": "amzn1.dv.gti.6073330a-f9cc-4de8-954d-d6d4c2ab8a6d",
+    "seasonId": "amzn1.dv.gti.99f5ca48-0da4-429a-9646-ea25bd233055",
+    "serieId": "amzn1.dv.gti.32bbb23a-a5ad-20a3-8c6a-515c9b8ba7b1"
+  },
+  {
+    "links": [
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/5359/c1af/76d0/4a9d-9b44-4d262366e789/d9904b4d-d98f-4ada-8f23-6a71d0811e7c.ttml2",
+        "languageCode": "ms-my"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/91be/d7bd/4d64/4749-a57a-f9a462d9acd4/5f455886-d373-4798-95c0-3a7e889806ae.ttml2",
+        "languageCode": "ca-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1b84/2f5e/2fed/4043-ae07-3f663e6bafbc/4f1da184-d13a-4ea2-a3bd-c2aa5f2930dd.ttml2",
+        "languageCode": "da-dk"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/f99a/bc18/87b9/4082-ae59-54d1cebe8c36/c9ca8086-1f81-4e07-b203-f1cec370ca32.ttml2",
+        "languageCode": "de-de"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/2d12/27bc/9555/4b4a-8566-1021461cda18/6de3fb94-8192-4cc1-be92-64e9e64f73ca.ttml2",
+        "languageCode": "en-us"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/ff3e/13f2/1a3a/4bdb-89b3-5331b04b6582/6b794d42-8e95-4506-9615-b60954867fb6.ttml2",
+        "languageCode": "es-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/8dfa/ab29/1413/4c4e-b5d7-83cdfbc41baa/5b48f6b4-8f23-4412-ac79-e35715d1bea9.ttml2",
+        "languageCode": "es-419"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/a0aa/4e98/8b72/412b-9fd3-2e979c97f1e9/25746294-e63e-4ece-989c-0036eaad1800.ttml2",
+        "languageCode": "eu-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/282a/5159/bb14/46ca-b889-7e8b175e9e31/6b20be7a-cfe2-483d-97aa-4c57587a4cf1.ttml2",
+        "languageCode": "fil-ph"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/b634/9e47/99ee/4d29-962a-e6c8f010116b/65714e06-a58b-42b9-a4ce-04eba981ae16.ttml2",
+        "languageCode": "fr-ca"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/a2b7/7952/9d2b/4ecd-a4ae-3322a4eda14f/8e70de7b-01cf-4d13-b9a2-af72e705ba26.ttml2",
+        "languageCode": "fr-fr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/6a0d/9bb3/281a/41de-b151-bc4300bbe147/727188cb-0355-4f1a-bfcb-611f2d79e902.ttml2",
+        "languageCode": "gl-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/ab7c/5685/1419/4a03-801f-b6abee280261/4badef91-b0ff-4ad2-b4f6-b095e3b45d1f.ttml2",
+        "languageCode": "id-id"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/a850/1acd/ca7f/4182-a520-1bddd3a5a71c/fd8941ca-80d5-46f2-bd65-c3741b2ceec5.ttml2",
+        "languageCode": "it-it"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/7fbf/d344/20cc/40fe-8b83-fcb563b47406/314c686b-318c-4f2f-8e0b-29c016d359ba.ttml2",
+        "languageCode": "hu-hu"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/489f/e716/3191/414f-8bdc-0a096babecf6/8cad8510-d303-4d47-b2fb-2eb46ed2009c.ttml2",
+        "languageCode": "nl-nl"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/c06f/3bf7/ba5a/4a2c-bc17-c13a29ac975e/4f05fca9-e7a7-4f4b-b7af-1bc7caf793d2.ttml2",
+        "languageCode": "nb-no"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/c50d/eeaa/7735/4f24-8f51-12432123e09f/b4d3c5ce-7c2f-4543-a9d2-72f38544b1aa.ttml2",
+        "languageCode": "pl-pl"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/ffd9/9f3a/4980/438b-a2a0-a05d8c50afe1/f1fc2de1-970c-4420-bb99-a6818971cf80.ttml2",
+        "languageCode": "pt-br"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/533a/9a66/3d8b/444e-8807-3373cbafa260/7cc7562d-b7ab-4320-b18f-001557de8daa.ttml2",
+        "languageCode": "pt-pt"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/6601/e700/ceec/475a-a4ca-a194ae58008f/087d9937-c027-4745-b795-420d8e997b0f.ttml2",
+        "languageCode": "ro-ro"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/0e81/4803/e146/4507-a610-c8cda792d16b/2eab7aa4-ecf1-4a6a-82a3-109044b5d35f.ttml2",
+        "languageCode": "fi-fi"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/153e/6c5c/bd37/45df-bc28-896983be36c4/f29d0c72-dd55-4caf-81f3-7e5f02960321.ttml2",
+        "languageCode": "sv-se"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/9e9c/f759/b30f/47b5-833d-d5f3a6047817/1cab2244-8cbb-4560-b4bb-eb467fea0780.ttml2",
+        "languageCode": "vi-vn"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/87e7/b1fc/6e27/447c-a39c-d37d8196674b/4d5f38dc-0329-455d-8235-06deca1abd54.ttml2",
+        "languageCode": "tr-tr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/4770/015a/751f/481b-a506-e78b8b9af35a/adf56f57-1c51-4b07-9216-a3baf245d4cc.ttml2",
+        "languageCode": "cs-cz"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/c709/6d01/03cb/49d9-a4bd-dd32f4872728/166d1883-1856-4798-b1b8-0030d3218c70.ttml2",
+        "languageCode": "el-gr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/63d1/64ae/76d3/4d38-a953-93c84c362ebf/4e6f5f05-4173-48a6-9ac3-85e56f5c4e4a.ttml2",
+        "languageCode": "ru-ru"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/530c/ab23/0c21/4566-8781-8fdc1c54717c/b0e27c65-382f-4b55-81d2-fb7c5826b593.ttml2",
+        "languageCode": "uk-ua"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/30a3/d607/d40f/4e1d-881a-576ee3af21ea/25720ef5-3e09-429d-82c7-b070519c659d.ttml2",
+        "languageCode": "he-il"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/de70/151f/81a5/48a0-9ab2-521b51dbb55c/0d28a524-b23e-4330-a38c-6c2db06240e5.ttml2",
+        "languageCode": "ar-001"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1eea/3f37/22d9/464b-93e0-ab334091f5aa/e658e420-4e55-414b-8172-f99b0bb31fd8.ttml2",
+        "languageCode": "hi-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/625a/d2cb/b27a/4c80-96eb-1ac3f33dbd2c/29b9e6e8-b35f-46ab-99d4-4cad0ae82897.ttml2",
+        "languageCode": "ta-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/ca67/7b8f/28af/4a60-8839-daf3c5065094/659b32de-67fb-406d-80f4-3ee57a5d216b.ttml2",
+        "languageCode": "te-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/11b2/f499/5e24/4e22-8e86-f25c48581e55/44a6b87c-5324-42c8-8331-a8e8f6d38eec.ttml2",
+        "languageCode": "kn-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/b442/35f7/68ce/42cd-a34e-f9f790955d24/04045385-e5d0-4db5-ac10-5844a970a7c1.ttml2",
+        "languageCode": "ml-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/6334/4c7a/772d/4d0f-bdb4-6f2b01723484/6ca37acd-f432-4732-b92a-39067703a143.ttml2",
+        "languageCode": "th-th"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/412b/6ab7/9995/4408-9b38-61083bc0d7be/f8150460-869b-415b-8c18-38718ee49613.ttml2",
+        "languageCode": "zh-hans"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/b402/c735/56b3/47b1-bfb7-320c608fa8d2/b68b5f82-5e86-4934-9b24-0e578e1bec95.ttml2",
+        "languageCode": "zh-hant"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/8dd6/1529/33ce/4ef4-81f0-69e8d6fe512d/f909a013-63fd-412b-8bb2-97d8a48599c6.ttml2",
+        "languageCode": "ja-jp"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/c365/61f6/4d9f/4016-a0dc-789f2ee6a2f1/a8d67e77-df16-4d5e-8706-3ebc8d713255.ttml2",
+        "languageCode": "ko-kr"
+      }
+    ],
+    "platformLink": "https://www.primevideo.com/",
+    "name": "EM CERCA DE SEIS HORAS PERCO MINHA VIRGINDADE PARA UM PEIXE",
+    "title": "INVENCÍVEL",
+    "platform": "PRIME",
+    "episode": 2,
+    "season": 2,
+    "image": "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/59ccf96d0f484864751227d33d2912842c3e0c5b75e5b116e0a1d1354689fb59._UY500_UX667_UY500_RI_TTW_.jpg",
+    "type": "VIDEO",
+    "mediaId": "amzn1.dv.gti.eb3f6d1b-fdf5-418f-8cd6-54c8cb79401d",
+    "seasonId": "amzn1.dv.gti.5ec17cf1-2a26-4277-bcca-d7f7a18e3bea",
+    "serieId": "amzn1.dv.gti.32bbb23a-a5ad-20a3-8c6a-515c9b8ba7b1"
+  },
+  {
+    "links": [
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/f8a1/3e8c/246c/4741-8d29-396b9f744c43/3e1635f8-e986-4132-a7d9-ae76c223d7b2.ttml2",
+        "languageCode": "ms-my"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/972b/fc3f/988a/4c23-9601-d262af818e95/15da065c-7775-4001-bbe4-31993c507cb3.ttml2",
+        "languageCode": "ca-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/6175/5c53/b9e3/4742-9903-330f4aec2228/da50f948-0bab-4c90-afe9-fedcbc27fb4e.ttml2",
+        "languageCode": "da-dk"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/a680/94ea/11e9/42dd-aa98-00884008c5b6/b7faec3f-f22f-42cb-9176-9d72840275d5.ttml2",
+        "languageCode": "de-de"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/e3d0/45d3/a2f2/4924-8a20-60390cd35678/33a8d39b-c4a2-4751-b77b-fd5e77db6cb9.ttml2",
+        "languageCode": "en-us"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1f30/2a10/766b/4b22-b973-51cc6ff7c086/b62ec21f-71a9-48eb-aeac-ed96d8c0e5a9.ttml2",
+        "languageCode": "es-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/542b/0032/d386/4b1b-ba65-73c8166311a7/3a2b16a3-9ddb-49cd-b223-92e59b1da2d4.ttml2",
+        "languageCode": "es-419"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/fbd6/b0a9/3a21/499b-b423-b5c96118493f/a696d212-db3b-4bed-ae95-7ba2836e95d6.ttml2",
+        "languageCode": "eu-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/0058/5729/2540/4805-a2f0-12a507936314/c67e8046-ebc6-424c-b8b2-c3a72f2b6c23.ttml2",
+        "languageCode": "fil-ph"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/b7a1/dc90/a4e9/44cc-985f-d1d905574aa2/dd7e2180-f27c-40e9-a758-899d67106a08.ttml2",
+        "languageCode": "fr-ca"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/a0f9/4698/ef6d/4e85-855b-d5d938a47828/4d246e5c-72cb-45a4-bf8b-63f2498a1d3d.ttml2",
+        "languageCode": "fr-fr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/6204/2017/d99f/4c97-ac3e-544a2b7fdd96/1b00500d-0d58-45cd-a04d-11f1b6f389cd.ttml2",
+        "languageCode": "gl-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/41ec/30b0/4ea2/4689-b288-b9afa95485fa/fb1b4d06-a30f-478f-94a1-69b320062e14.ttml2",
+        "languageCode": "id-id"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/8341/59af/7a3c/4942-8780-b3d85058ebb6/22555e09-74d8-4e2a-a0bf-4aef300b6676.ttml2",
+        "languageCode": "it-it"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/7fce/4a69/9e9c/41b9-b0d0-940aa0933bd2/d844ce8c-147f-4700-a8ad-0f866f1494a1.ttml2",
+        "languageCode": "hu-hu"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/0e84/5e4a/e870/4df6-9e68-3e8bf79e8995/7923995d-9577-457b-8e60-2667ee8f9d8c.ttml2",
+        "languageCode": "nl-nl"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/f5fa/e876/d619/4797-80b4-6ce0bdbff18b/bf27e695-591f-4dca-911b-6ac5274eff38.ttml2",
+        "languageCode": "nb-no"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/3534/26cd/0d41/411e-8130-f5ef9b58ac4c/35b0b582-30c2-4384-8f83-20e29547187e.ttml2",
+        "languageCode": "pl-pl"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/0a65/d3bf/5b89/4165-9591-caf97aa250c7/5add2671-5aea-4cf1-ad40-71ed516a6600.ttml2",
+        "languageCode": "pt-br"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/4c63/8e8a/8714/465e-ba4d-755123096434/457fca5d-ced0-4fb5-81a9-ab6510406b96.ttml2",
+        "languageCode": "pt-pt"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/b311/d937/403f/404b-bb34-153265b6e777/94712e32-fd4e-41e0-9b57-85a65fdc1e8b.ttml2",
+        "languageCode": "ro-ro"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/a9dd/bb23/b1d5/41b0-851e-fd1f897a3916/dd9d43bb-d852-476b-98b3-5c1f3b32a1ea.ttml2",
+        "languageCode": "fi-fi"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/dfe1/ed01/178b/4989-865c-bdce8d82da00/19f13b8c-6193-48ec-83d0-141b867e1259.ttml2",
+        "languageCode": "sv-se"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/89ef/4ccf/1d7c/409f-8f33-6923a9bac394/1bb6a3d1-1e44-4ae6-adea-bce2e571a433.ttml2",
+        "languageCode": "vi-vn"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/2f07/f377/49f9/4708-8cba-fe8712494bc9/0a13bf60-4d31-4fc6-8280-d69802362d22.ttml2",
+        "languageCode": "tr-tr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/fecb/09f8/3723/42cb-8052-799fe31baf22/8a07aa5b-589c-44cd-9ce5-c50e1350cdf2.ttml2",
+        "languageCode": "cs-cz"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/d0bf/d682/2a0b/4ccc-bdf7-30fba512f58f/7522c780-72dc-4170-9a51-9ac6c41ae930.ttml2",
+        "languageCode": "el-gr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/4844/ebd9/7662/4673-b8f2-4494254bc34b/7540dc8c-9773-404c-bf6a-aeb1de06cc14.ttml2",
+        "languageCode": "ru-ru"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/842a/243c/f95b/4f62-8456-fd274947445a/593b8313-942a-41af-8f0d-9541c5721091.ttml2",
+        "languageCode": "uk-ua"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/bd0a/aa54/e0eb/4e78-b8a6-7e443ba6f671/8a1443de-5cd9-4116-9551-f02d40d17989.ttml2",
+        "languageCode": "he-il"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/0444/1ee7/62e7/48e0-b24b-6ca6c1c3c1d1/09f7f826-ddad-42d3-b39a-263b66d45cde.ttml2",
+        "languageCode": "ar-001"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/2802/0c39/ce38/4f7f-aba4-2ab2e3e91d4b/412504b8-59b5-4d4f-b63d-6e2cbe6f0514.ttml2",
+        "languageCode": "hi-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/de5f/3a8c/ccc2/40a9-8484-e42a3850a69d/84fd592c-5cbc-4ea8-a912-568ce6d90318.ttml2",
+        "languageCode": "ta-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/a53b/4ab6/f2fc/474e-b5f1-1042619c8705/b8f32ca7-4fa8-4010-ac7e-0b4a73870795.ttml2",
+        "languageCode": "te-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/8b1c/cc8e/038c/47be-849e-029c1ab68fc7/89eef3ad-2c7e-47f8-9bf8-5b23b4b825e7.ttml2",
+        "languageCode": "kn-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1e72/e05f/96a1/4176-97aa-85df4e0dbeb3/fbae728f-da60-429f-ae89-646f752b8a89.ttml2",
+        "languageCode": "ml-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/a12e/5139/4160/462d-852a-fc0abf06eb2c/3ca3f486-a837-4507-a351-b98cc7edd7b8.ttml2",
+        "languageCode": "th-th"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/eaef/82d8/a839/435b-af7a-db4dd504df8c/d34d0dba-ca1b-49b3-80a4-20a142d9afdf.ttml2",
+        "languageCode": "zh-hans"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/a97e/7f07/f965/40de-a190-867a7f7c8144/e13d1206-feca-4645-b0d5-a8fa98d6443e.ttml2",
+        "languageCode": "zh-hant"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1bb5/e621/ff88/43d6-9092-5afda901e035/6252aaa2-cb71-455d-b40f-b0f5fa66ea23.ttml2",
+        "languageCode": "ja-jp"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/d354/290d/9fb2/4ecb-bbdb-5654b2405e8a/61dce21b-38ce-43f5-b75a-1c4a805f55dd.ttml2",
+        "languageCode": "ko-kr"
+      }
+    ],
+    "platformLink": "https://www.primevideo.com/",
+    "name": "ESTA MISSIVA, ESTA MAQUINAÇÃO!",
+    "title": "INVENCÍVEL",
+    "platform": "PRIME",
+    "episode": 3,
+    "season": 2,
+    "image": "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/59ccf96d0f484864751227d33d2912842c3e0c5b75e5b116e0a1d1354689fb59._UY500_UX667_UY500_RI_TTW_.jpg",
+    "type": "VIDEO",
+    "mediaId": "amzn1.dv.gti.0198ecb7-7017-4621-8cb9-6e56fa73d7cd",
+    "seasonId": "amzn1.dv.gti.5ec17cf1-2a26-4277-bcca-d7f7a18e3bea",
+    "serieId": "amzn1.dv.gti.32bbb23a-a5ad-20a3-8c6a-515c9b8ba7b1"
+  },
+  {
+    "links": [
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/c623/90ca/6095/4a84-a6cd-3f0b3d555a0b/67fb2812-7e64-4a85-bfa3-6e9c5b722dfc.ttml2",
+        "languageCode": "en-us"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/5c16/ec4e/60de/4ee3-a282-63f4dba514fa/ec6b0991-d072-4374-a59e-1a3cb25e7410.ttml2",
+        "languageCode": "es-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/66af/76f0/cf0f/49d2-8ec6-49d64bebbefa/69651290-d2c8-43eb-9a8c-fcbcbbb9e879.ttml2",
+        "languageCode": "es-419"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/5a9b/0cc5/c978/4f78-bb8d-fdb332437406/c6cff240-e942-411a-a9e0-573ca920a3cd.ttml2",
+        "languageCode": "fr-ca"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/5f63/c554/0273/4b4d-8b10-4e3870e25c6d/65f070ef-594b-4229-8bce-f30a459abd9a.ttml2",
+        "languageCode": "fr-fr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/6981/4c26/71a3/4896-b826-9fe057bb43de/734bc452-2ef1-4cab-a6c3-3d8286f8453c.ttml2",
+        "languageCode": "it-it"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/2a23/6aea/686d/48ee-837e-d2764c157c20/5138234b-ccc4-4edd-a828-b7b75d132329.ttml2",
+        "languageCode": "nl-nl"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/e901/fb77/365d/4052-be44-f47bc562331d/927838d5-10e2-4b21-871c-a03c9f578938.ttml2",
+        "languageCode": "pl-pl"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/122f/c0fa/38d1/4107-b6fe-760a342886f1/3a5eb2f4-c0de-484d-8a9d-29d07912dc1a.ttml2",
+        "languageCode": "pt-br"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/6fba/8186/5886/430b-a33d-f3444cb750c4/36afd545-8d62-4541-98bb-09e4901e669d.ttml2",
+        "languageCode": "sv-se"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/e78f/a815/edd9/4e4a-8800-3463c17265c8/e0df804f-c5d2-40b3-9294-0792db1a0944.ttml2",
+        "languageCode": "tr-tr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/b22c/25a4/6dd0/46ea-a10f-b5c6d091c5f6/e933ee2c-952b-4c43-88c6-de9107ba37f5.ttml2",
+        "languageCode": "hi-in"
+      }
+    ],
+    "platformLink": "https://www.primevideo.com/",
+    "name": "Asteroid City",
+    "platform": "PRIME",
+    "image": "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/8069e5b5e92437a2f9a70b2bef534abe0fcd955978f211477d1a576098ae78f5._UY500_UX375_UY500_RI_TTW_.jpg",
+    "type": "MOVIE",
+    "mediaId": "amzn1.dv.gti.486db62a-3da1-4a56-a6fe-ae5d39afd46a"
+  },
+  {
+    "links": [
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/b5f6/63fe/ed30/408f-97a8-42274a1b9d2e/725ab3fa-64e1-42fa-8df1-477cf73f8016.ttml2",
+        "languageCode": "en-us"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/b306/48b7/19d8/4768-b287-45536daa1f09/ac1a977c-3a5c-44a0-be48-796019ef0fb6.ttml2",
+        "languageCode": "es-419"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/9146/9c49/4b2a/4bd1-857a-abf143045e32/b0d816b3-8a11-4734-8a35-361990a651a1.ttml2",
+        "languageCode": "pt-br"
+      }
+    ],
+    "platformLink": "https://www.primevideo.com/",
+    "name": "Todo Mundo Odeia o Dia dos Pais",
+    "title": "Todo Mundo Odeia o Chris",
+    "platform": "PRIME",
+    "episode": 22,
+    "season": 1,
+    "image": "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/bba44266d3c0c2a3bba4358b3f603d39406f35854a2ab0303f602c72b68113a3._UY500_UX667_UY500_RI_TTW_.jpg",
+    "type": "VIDEO",
+    "mediaId": "amzn1.dv.gti.06ba7128-9e30-ab6c-366d-85293dfb8c53",
+    "seasonId": "amzn1.dv.gti.7eba7125-c381-af73-2f25-4cb3ce5bbcab",
+    "serieId": "amzn1.dv.gti.acba7125-c39b-7488-ae0d-a9e21fc5e3ca"
+  },
+  {
+    "links": [
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/4c1e/c8c2/e9f6/44d1-b78b-450480cc80e9/1b12f62e-b9b1-41d1-96ea-9eeea32b36dd.ttml2",
+        "languageCode": "en-us"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/b920/3e7d/6b76/4440-acef-fab268289cc1/f58b128e-6766-4cc8-b28f-4a3d4072b7f3.ttml2",
+        "languageCode": "es-419"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/3c4d/a483/5ace/448f-9787-061b1c1c0c58/a904a47d-c0ca-4a3f-8db9-e83c360e4033.ttml2",
+        "languageCode": "pt-br"
+      }
+    ],
+    "platformLink": "https://www.primevideo.com/",
+    "name": "Todo Mundo Odeia a Babá",
+    "title": "Todo Mundo Odeia o Chris",
+    "platform": "PRIME",
+    "episode": 7,
+    "season": 1,
+    "image": "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/bba44266d3c0c2a3bba4358b3f603d39406f35854a2ab0303f602c72b68113a3._UY500_UX667_UY500_RI_TTW_.jpg",
+    "type": "VIDEO",
+    "mediaId": "amzn1.dv.gti.0eba7127-442e-613d-cc19-a4fadcd88d0f",
+    "seasonId": "amzn1.dv.gti.7eba7125-c381-af73-2f25-4cb3ce5bbcab",
+    "serieId": "amzn1.dv.gti.acba7125-c39b-7488-ae0d-a9e21fc5e3ca"
+  },
+  {
+    "links": [
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/71c0/06bb/c2ae/4f05-9984-050995041fb4/cf84f30d-e8ad-448d-9083-f38b257b88d3.ttml2",
+        "languageCode": "en-us"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/c2ca/88fe/3bc5/4c4f-8aea-770c87962061/ec18b56f-419e-4e02-bee2-00752d267880.ttml2",
+        "languageCode": "es-419"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/4cfa/8c9c/0ffd/48c4-ac99-aade3651ce37/45804d83-58ba-4647-a1b8-cb85d550f8fb.ttml2",
+        "languageCode": "pt-br"
+      }
+    ],
+    "platformLink": "https://www.primevideo.com/",
+    "name": "Todo Mundo Odeia a Lavanderia",
+    "title": "Todo Mundo Odeia o Chris",
+    "platform": "PRIME",
+    "episode": 8,
+    "season": 1,
+    "image": "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/bba44266d3c0c2a3bba4358b3f603d39406f35854a2ab0303f602c72b68113a3._UY500_UX667_UY500_RI_TTW_.jpg",
+    "type": "VIDEO",
+    "mediaId": "amzn1.dv.gti.ceba7127-84ef-32a6-07bf-902f21ec9b18",
+    "seasonId": "amzn1.dv.gti.7eba7125-c381-af73-2f25-4cb3ce5bbcab",
+    "serieId": "amzn1.dv.gti.acba7125-c39b-7488-ae0d-a9e21fc5e3ca"
+  },
+  {
+    "links": [
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/37c0/053b/6154/4d52-8a2b-2f5a289714b2/65f7748f-b629-49bf-a7fa-c51fb1f33f42.ttml2",
+        "languageCode": "en-us"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/5bce/e22b/b696/437c-bc9d-10b9d928778b/0d5d3d93-d5c8-4c12-900e-6445ac7de80d.ttml2",
+        "languageCode": "es-419"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/344d/be41/c0a1/42ac-accf-36c8a7952993/5df7d9ca-4c27-4fc6-88fe-b84b1d553c05.ttml2",
+        "languageCode": "pt-br"
+      }
+    ],
+    "platformLink": "https://www.primevideo.com/",
+    "name": "Todo Mundo Odeia Rejeição",
+    "title": "Todo Mundo Odeia o Chris",
+    "platform": "PRIME",
+    "episode": 1,
+    "season": 2,
+    "image": "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/bba44266d3c0c2a3bba4358b3f603d39406f35854a2ab0303f602c72b68113a3._UY500_UX667_UY500_RI_TTW_.jpg",
+    "type": "VIDEO",
+    "mediaId": "amzn1.dv.gti.478f1591-3e57-4c6f-9d10-8d60d99bffaa",
+    "seasonId": "amzn1.dv.gti.e0ba714c-d6d5-2b61-9613-aa2749f8163d",
+    "serieId": "amzn1.dv.gti.acba7125-c39b-7488-ae0d-a9e21fc5e3ca"
+  },
+  {
+    "links": [
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/4e5e/a1e5/881c/4f4a-830a-7ba2512435b2/780db0b6-8921-4609-afd6-4d425f91e653.ttml2",
+        "languageCode": "ca-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/f111/d0f9/40d2/4064-bbd5-0550808d97f3/d1108559-7b5f-4b5e-a105-bcc6d68f935e.ttml2",
+        "languageCode": "da-dk"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/c089/5aba/b484/4624-8a84-bec39f76147e/a7e5b02e-2ed9-4868-8769-e892a903d883.ttml2",
+        "languageCode": "de-de"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/bd71/46bc/5b05/4937-824c-8d02b29274ac/5f5e6c1c-fbc1-495f-acc1-76e6bf50321a.ttml2",
+        "languageCode": "en-gb"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/370f/2f75/b06c/418c-a6eb-a085b8ba7568/42ca0d0d-c86e-4c4e-a2cf-da3b4ec30d05.ttml2",
+        "languageCode": "es-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/5595/e11c/1c2a/4e84-b3b0-1685438a16f1/af9dcb93-1cc0-4362-9172-d0a6de2e0178.ttml2",
+        "languageCode": "es-419"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/25b0/24bf/b2af/42ae-be6a-97af0fb998f2/afb52cde-822c-4f62-a499-d45feff9faab.ttml2",
+        "languageCode": "eu-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/019b/9296/b626/485c-bb80-e951bc0e9e68/f89166ef-dd5a-4494-87fa-b90fb1118ee0.ttml2",
+        "languageCode": "fr-fr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/db20/05ae/16bf/43d5-9315-cae40b2f9e66/69144c8b-d003-468a-b456-23921e984041.ttml2",
+        "languageCode": "gl-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/26a3/4d69/7b2b/4f88-a7fe-bd551f728c49/e54ec8bb-4f94-45bb-82b5-152ea01dbbe1.ttml2",
+        "languageCode": "it-it"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/ea96/dc16/4366/472f-91cb-23f4cc05b8f4/cc448675-bb41-49b3-844f-f38e998a2b52.ttml2",
+        "languageCode": "hu-hu"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/9cc0/51ec/20e0/4923-8e5c-8e0d86e8162c/56264387-2d3a-4e29-a5e6-d4699716d341.ttml2",
+        "languageCode": "nl-nl"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/8319/e749/d90d/441f-8000-eefe9c0d667e/1891ac6b-6d7b-4112-bbb3-10812fe1800f.ttml2",
+        "languageCode": "nb-no"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/9e0d/d364/e0d7/412d-a1f8-2f49e34a66cf/742812d9-764e-49c6-bba3-71781d30af87.ttml2",
+        "languageCode": "pl-pl"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/c3d6/7951/3a48/4c27-8a19-5e46c478fe0e/cf96ef5d-9cff-433a-b663-53ae6b3c32b4.ttml2",
+        "languageCode": "pt-br"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/8841/24a7/0306/4704-9b23-af60f0abc155/a6e857fb-1c18-4d22-8a5f-8bed9f6aac46.ttml2",
+        "languageCode": "pt-pt"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/6e51/b7bb/8ce1/440c-98da-88a7838d7bdf/469152a8-7a1f-46de-a85a-89274de921cb.ttml2",
+        "languageCode": "fi-fi"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/3e81/5053/18d8/41da-9fa0-6683a2a36476/9f283ed2-4594-4b28-8cb8-59f1b9202930.ttml2",
+        "languageCode": "sv-se"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1ae4/b4d4/5b75/4086-8bb6-513cd7b72550/9627eec4-96f5-4da3-94cd-2d571f282f3d.ttml2",
+        "languageCode": "tr-tr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/88c9/2d98/6036/4165-8a62-f1695881406d/03614d57-bc53-403f-828f-9672f4d59eb8.ttml2",
+        "languageCode": "cs-cz"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/29a4/e2db/d8ee/44ff-a5f6-ff3daa869407/6d07d6be-b587-4f94-9035-6a17feaad5f5.ttml2",
+        "languageCode": "el-gr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/5888/a017/1d18/4b06-81b3-2f25835bbc2b/76246e6a-2aed-4383-aa76-8e72d9988b6e.ttml2",
+        "languageCode": "ru-ru"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/3cf6/fd05/e61a/46d7-942c-1d33a2754689/38c33f14-c4c7-45aa-80ea-803286a88d72.ttml2",
+        "languageCode": "ar-001"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/4001/18e4/6aaa/4dc2-8acc-ee2030e4cdc6/3b2b747d-d6e6-48b4-a21f-397a44415250.ttml2",
+        "languageCode": "hi-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/48b3/6f4b/c766/45ee-ab94-0a90abf23f53/55009bb5-9420-451e-907c-ef619b459507.ttml2",
+        "languageCode": "ja-jp"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/47b5/e8f4/0909/4525-a7dd-a44dc243e150/b40181aa-039a-4d8d-9c2e-4ef6c158fb03.ttml2",
+        "languageCode": "ko-kr"
+      }
+    ],
+    "platformLink": "https://www.primevideo.com/",
+    "name": "Como conquistar o Billy Walsh",
+    "platform": "PRIME",
+    "image": "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/bac638855e77d625d8de15352d9fa1c3afa43a74edcfc2eca143d3b9a343263c._UY500_UX375_UY500_RI_TTW_.jpg",
+    "type": "MOVIE",
+    "mediaId": "amzn1.dv.gti.2ff15e44-68f7-404b-b740-b89215552cbc"
+  },
+  {
+    "links": [
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/2f5d/0328/3f08/463f-acaa-c62714e1f9f2/1adefcf6-0d2b-4f39-921a-ac6798ec030b.ttml2",
+        "languageCode": "en-us"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/4e2b/53ab/9196/4b8b-ba6f-9f2bec510c86/ebaf1b2a-db48-46f8-8d8a-81e7221f71f1.ttml2",
+        "languageCode": "es-419"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/0ea0/237c/ecea/410a-bda4-07907125ca0a/cbee84a6-26bf-44e3-bf15-42424bfeec14.ttml2",
+        "languageCode": "pt-br"
+      }
+    ],
+    "platformLink": "https://www.primevideo.com/",
+    "name": "Todo Mundo Odeia o Dia dos Namorados",
+    "title": "Todo Mundo Odeia o Chris",
+    "platform": "PRIME",
+    "episode": 14,
+    "season": 1,
+    "image": "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/bba44266d3c0c2a3bba4358b3f603d39406f35854a2ab0303f602c72b68113a3._UY500_UX667_UY500_RI_TTW_.jpg",
+    "type": "VIDEO",
+    "mediaId": "amzn1.dv.gti.60ba7127-efb5-7f4c-3bc9-4a80f12ef901",
+    "seasonId": "amzn1.dv.gti.7eba7125-c381-af73-2f25-4cb3ce5bbcab",
+    "serieId": "amzn1.dv.gti.acba7125-c39b-7488-ae0d-a9e21fc5e3ca"
+  },
+  {
+    "links": [
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/248d/d281/b817/4156-83d6-12f9e80622ca/b4b36b77-add3-4de6-a58b-46b66f6bd57c.ttml2",
+        "languageCode": "en-us"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/c51d/ce05/3279/43aa-95a2-7037b82bcc6e/e1e1c1bf-e0d0-42c1-af63-8b86a35e04ec.ttml2",
+        "languageCode": "es-419"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/7e5f/0885/c0a5/4d73-b670-2e9b06cc19cd/38dfd998-95b6-45e0-af90-4d4246618c4f.ttml2",
+        "languageCode": "pt-br"
+      }
+    ],
+    "platformLink": "https://www.primevideo.com/",
+    "name": "Todo Mundo Odeia o Greg",
+    "title": "Todo Mundo Odeia o Chris",
+    "platform": "PRIME",
+    "episode": 10,
+    "season": 1,
+    "image": "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/bba44266d3c0c2a3bba4358b3f603d39406f35854a2ab0303f602c72b68113a3._UY500_UX667_UY500_RI_TTW_.jpg",
+    "type": "VIDEO",
+    "mediaId": "amzn1.dv.gti.78ba7127-2c0a-bcbe-0962-f16ca06af9c6",
+    "seasonId": "amzn1.dv.gti.7eba7125-c381-af73-2f25-4cb3ce5bbcab",
+    "serieId": "amzn1.dv.gti.acba7125-c39b-7488-ae0d-a9e21fc5e3ca"
+  },
+  {
+    "links": [
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/373d/16bf/be60/4b53-87f6-4f256473b9e3/1ed5aa37-5259-4d53-b6a0-1f111411e5a9.ttml2",
+        "languageCode": "en-us"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/ff7c/f4b4/d772/4e76-ba41-b950260dfa7c/c334ae25-fdc1-4e20-b4ad-ebea66b5119c.ttml2",
+        "languageCode": "es-419"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/b801/a7e8/f1d9/40cd-99af-a2988e41e194/b2bdca8a-1f03-4085-9579-d1a75bf460d2.ttml2",
+        "languageCode": "pt-br"
+      }
+    ],
+    "platformLink": "https://www.primevideo.com/",
+    "name": "Todo Mundo Odeia Dia da Foto",
+    "title": "Todo Mundo Odeia o Chris",
+    "platform": "PRIME",
+    "episode": 13,
+    "season": 1,
+    "image": "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/bba44266d3c0c2a3bba4358b3f603d39406f35854a2ab0303f602c72b68113a3._UY500_UX667_UY500_RI_TTW_.jpg",
+    "type": "VIDEO",
+    "mediaId": "amzn1.dv.gti.eaba7127-f00b-d826-f286-f5de2fd89075",
+    "seasonId": "amzn1.dv.gti.7eba7125-c381-af73-2f25-4cb3ce5bbcab",
+    "serieId": "amzn1.dv.gti.acba7125-c39b-7488-ae0d-a9e21fc5e3ca"
+  },
+  {
+    "links": [
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/2b2b/75b3/71ef/4d41-a8f2-b2a885191e64/c18220f3-fe7b-461c-8877-dda9533f7fe8.ttml2",
+        "languageCode": "ms-my"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/8905/c80e/42f3/4c52-ac28-02460e925b7f/c2d1483d-5987-4014-b75f-52c4ad9409cf.ttml2",
+        "languageCode": "da-dk"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/ec0a/c2d0/cb39/4c4c-9995-c6784ab7162b/fdb9188b-19af-4482-8db8-51a09594caf7.ttml2",
+        "languageCode": "de-de"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/46c2/11a2/5b5a/4bb5-ae8d-22375538ef2a/1ba8cf24-5dc4-4ec2-95e4-48d7e6c06a64.ttml2",
+        "languageCode": "en-us"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/295b/f6f5/35a4/4993-a6e7-f6abebf61aeb/00387762-762c-4066-914f-ef2b6e993d8c.ttml2",
+        "languageCode": "es-es"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/c37e/429f/9003/410c-b07a-9180b5d43e39/45b5ebde-92ab-44c2-bbb7-0978f68d03ea.ttml2",
+        "languageCode": "es-419"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/062b/d5f3/a19f/49c7-ac85-a8ee991f513a/5f660d85-b001-457a-869b-a7d741496864.ttml2",
+        "languageCode": "fil-ph"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/45b4/b39e/f648/4a67-9abd-924013da3de2/485acb54-7b8b-487c-ba9d-cd83571326d3.ttml2",
+        "languageCode": "fr-ca"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/09e4/b03e/ae9b/4e52-996f-3d43b2c45229/4e2d7537-e480-4c2d-8094-ab50cb638068.ttml2",
+        "languageCode": "fr-fr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/93ea/3dd4/fea5/459a-b796-d5d96f74a7c7/9969f5d3-ecc7-4cd7-807b-6f639ab2def3.ttml2",
+        "languageCode": "id-id"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/9019/f095/e40a/4afa-b379-e7d66ca2c82e/ce286485-d264-4c61-9efd-5feaa9d98518.ttml2",
+        "languageCode": "it-it"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/c292/0570/a841/4fdb-a518-cfe1d577b485/fb8ebde5-ba5e-4690-b07e-2b4d762b1b73.ttml2",
+        "languageCode": "hu-hu"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1093/6920/fb67/4039-bc03-4155a0e8783b/f385a1c9-32a2-4f9a-b5d0-830f97cf0cee.ttml2",
+        "languageCode": "nl-nl"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/e547/c709/b40c/46d7-914b-1bfbf7479bcd/018f489e-ecda-44b2-8dbf-cdde51379c3e.ttml2",
+        "languageCode": "nb-no"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/6b0f/5cb8/24a3/4ccb-85aa-80b1724baf77/f0cef479-256c-41d8-bc3e-ec7e37719331.ttml2",
+        "languageCode": "pl-pl"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/236a/e7a7/343f/4be3-86e1-993624f434a3/ac45f09e-f40f-433b-9972-418bf407630d.ttml2",
+        "languageCode": "pt-br"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/a9af/2c88/f6b7/44a0-a34a-bb619067ec6d/bc452bfa-9c13-4e2a-b0e3-2aebe575d367.ttml2",
+        "languageCode": "pt-pt"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/6c3e/4745/f1d5/40a3-b0ec-168f42d94728/a55d73b7-9813-429c-9b9e-bfb629926177.ttml2",
+        "languageCode": "ro-ro"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/8a38/4570/7442/4042-82d6-f2aa2ac0272c/6033f8f8-91d9-4328-ae13-c4b70ded523f.ttml2",
+        "languageCode": "fi-fi"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1200/848b/c710/4fc2-9959-66ff363c8abd/6cf03e98-c22e-4061-b2e9-db5e6887df04.ttml2",
+        "languageCode": "sv-se"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/1c5e/be9f/90ae/4d8d-a4c9-b4d1a67d297b/0f7ef136-bfab-4665-b0c7-d58638ef4214.ttml2",
+        "languageCode": "vi-vn"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/13a4/6ed9/eb2d/4161-b6a2-8961c8389782/319785aa-d205-4542-bc37-807f8fd2a148.ttml2",
+        "languageCode": "tr-tr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/f3d4/6d6d/5217/4705-82b6-512b9121727e/eb10fe70-aae1-4d16-aa14-ad65933fe60f.ttml2",
+        "languageCode": "cs-cz"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/a2ba/8619/2b87/4c4b-ac2d-75d90eb2d76b/b1569bcc-058e-4839-84b4-3849a0501c80.ttml2",
+        "languageCode": "el-gr"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/2e48/2ac4/fd14/48fb-b986-da803c81d95e/233896fc-ea0e-4da5-b9b1-5634b95d83c1.ttml2",
+        "languageCode": "ru-ru"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/0b57/8ec7/5f41/4abe-a1ba-83fe8d65c55e/ecc56c6c-7202-452b-8257-04f24e0f1a34.ttml2",
+        "languageCode": "uk-ua"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/4210/0988/e573/4e96-9ab7-eac531b8340e/ba82316d-9b34-4f9b-8703-bcfbad07e818.ttml2",
+        "languageCode": "he-il"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/422c/e2c9/48d3/44c9-b667-4a612917ded1/e6f79b56-1ec1-4b08-b0c1-3e7b42f58cec.ttml2",
+        "languageCode": "ar-sa"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/79cd/6aaf/2106/4f8a-8b63-7b4fb36a820c/9398dba5-6dca-41bf-9e61-e942cfff47cb.ttml2",
+        "languageCode": "hi-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/aeaf/2152/8429/4407-8251-8d9ddb98f179/9eec15f0-3acc-4161-8626-4e32ce94c90a.ttml2",
+        "languageCode": "ta-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/d453/a174/7d02/4df8-91e3-c8b4b8fb828c/cad5dc94-d8c1-4069-89cf-79bd317a872c.ttml2",
+        "languageCode": "te-in"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/0cd6/af3b/5520/4979-8b44-5406242582a7/ed122cdf-8f4b-4624-a809-c75dca3bf7d7.ttml2",
+        "languageCode": "th-th"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/40af/ff55/7c55/43d8-aa72-bddb02be7cdd/a53e51e9-61ce-4717-8efc-f5268075cbe1.ttml2",
+        "languageCode": "zh-hans"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/7796/14e3/8c41/46a6-b040-1da7c49f8ab9/47f5cc07-4410-4040-9bad-d8a0fa233624.ttml2",
+        "languageCode": "zh-hant"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/15a9/82dd/dd7c/4baa-ae54-99f3e4950051/1599502f-2d84-4940-bc42-7622d5c2e52e.ttml2",
+        "languageCode": "ja-jp"
+      },
+      {
+        "url": "https://cf-timedtext.aux.pv-cdn.net/6018/9f8d/eb33/4a6b-b7c5-916a384089a7/e8bb6a49-3afa-4227-87f8-089391fe46c4.ttml2",
+        "languageCode": "ko-kr"
+      }
+    ],
+    "platformLink": "https://www.primevideo.com/",
+    "name": "O Virgem de 40 Anos",
+    "platform": "PRIME",
+    "image": "https://images-na.ssl-images-amazon.com/images/S/pv-target-images/52901034b97b3e3b803c7dfe5ae94f04d5ab673d2c7de523be2ca2b9d7544525._UY500_UX375_UY500_RI_TTW_.jpg",
+    "type": "MOVIE",
+    "mediaId": "amzn1.dv.gti.caa9f714-5a8d-bf33-00d4-0b77e7ea36de"
+  }
+]

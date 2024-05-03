@@ -1,7 +1,6 @@
 import { IInsertSubtitles, insertSubtitles } from "@backend/domain/actions/Subtitles/insertSubtitles";
-
+import fs from 'fs';
 export type ExtensionPrimeSubtitlePostRequest = IInsertSubtitles
-
 export type ExtensionPrimeSubtitlePostResponse = {
     err?: string | null,
     msg?: string
@@ -23,7 +22,11 @@ export async function POST(request: Request) {
     if (!links.every(link => link.url.includes(validateLinks))) {
         return Response.json({ err: 'Invalid links' });
     }
-    requests.push(body)
+    const mocks = fs.readFileSync('./src/app/api/extension/prime/subtitle/mocks.json', 'utf-8',);
+    const mock = JSON.parse(mocks);
+    if (!mock.some(x => x.mediaId === body.mediaId))
+        fs.writeFileSync('./src/app/api/extension/prime/subtitle/mocks.json', JSON.stringify([...mock, body], null, 2), 'utf-8');
+
     if (requests.length < 20) {
         clearTimeout(timeout);
         timeout = setTimeout(() => {

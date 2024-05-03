@@ -66,7 +66,7 @@ export function NavBar() {
     const route = usePathname()
     const { setSearch, search } = useSearch()
     const updatePath = () => {
-        setPath(window?.location.pathname)
+        setPath(window?.location?.pathname)
     }
     useEffect(() => {
         updatePath();

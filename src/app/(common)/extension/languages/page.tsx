@@ -9,6 +9,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from './page.module.scss';
+
+export const dynamic = 'force-dynamic';
 export default function Page() {
     const { events } = useEvents();
     const { words, setLanguage } = useWords();
@@ -23,9 +25,9 @@ export default function Page() {
     if (!events) return null;
     const current = PRIME?.[0]?.responseBody
     const { catalog, images, family } = current?.catalogMetadata || {}
-    const tvAncestors = family?.tvAncestors
+    const tvAncestors = family?.tvAncestors;
     const season = tvAncestors?.find(tvAncestor => tvAncestor.catalog.type === 'SEASON')?.catalog?.seasonNumber
-    const episode = catalog?.episodeNumber
+    const episode = catalog?.episodeNumber;
     return <div className={styles.container}>
         <div className={styles.title}>
             <ShowIf condition={!!season}>

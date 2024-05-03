@@ -2,7 +2,12 @@ import { NavBar } from '@common/NavBar';
 import { ROUTES } from '@constants/ROUTES';
 import { AuthenticationProvider } from '@providers/AuthenticationProvider';
 import { SwrCacheProvider } from '@providers/SwrCacheProvider';
+import { Suspense } from 'react';
+import Loading from '../loading';
 import styles from './layout.module.scss';
+
+
+
 
 export default function RootLayout({
     children }: {
@@ -15,7 +20,9 @@ export default function RootLayout({
             <AuthenticationProvider redirect={ROUTES.LOGIN()} />
             <NavBar />
             <main id="content" className={styles.content}>
-                {children}
+                <Suspense fallback={<Loading />}>
+                    {children}
+                </Suspense>
             </main>
         </div >
     )

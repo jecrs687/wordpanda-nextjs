@@ -12,6 +12,7 @@ export default function Page(
     }
 ) {
     const router = useRouter()
+    if (searchParams?.movieId) router.push(ROUTES.EXTENSION() + ROUTES.MOVIE(searchParams?.movieId))
     useEffect(() => {
         const token = localStorage.getItem(TOKEN_KEY) || searchParams?.token
         const validated = validateToken(token)

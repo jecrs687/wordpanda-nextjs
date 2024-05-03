@@ -17,7 +17,6 @@ export default function Page() {
         web.sendList()
     }, [web])
     const { allWords, language } = useWords()
-    console.log({ allWords })
     return (
         <main className={styles.main}>
             <h1 className={styles.title}>

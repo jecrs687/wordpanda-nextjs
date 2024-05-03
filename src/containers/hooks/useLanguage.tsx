@@ -1,5 +1,5 @@
 import { Language } from "@prisma/client";
-import { getCookie, setCookie } from "@utils/cookie";
+import { setCookie } from "@utils/cookie";
 import { create } from "zustand";
 
 const useLanguage = create<
@@ -10,15 +10,17 @@ const useLanguage = create<
         setLanguages: (languages: Language[]) => void,
     }
 >((set) => ({
-    language: typeof localStorage !== undefined ? (+localStorage.getItem('language')) || (+getCookie('language')) || -1 : -1,
-    languages: typeof localStorage !== undefined ? localStorage.getItem('languages') ? JSON.parse(localStorage.getItem('languages')) : [] : [],
+    language: -1,
+    languages: [],
     select: (language) => set((state) => {
-        localStorage.setItem('language', language.toString());
+        if (typeof localStorage !== undefined)
+            localStorage.setItem('language', language.toString());
         setCookie('language', language.toString());
         return { language: language }
     }),
     setLanguages: (languages) => set((state) => {
-        localStorage.setItem('languages', JSON.stringify(languages));
+        if (typeof localStorage !== undefined)
+            localStorage.setItem('languages', JSON.stringify(languages));
         return { languages: languages }
     }),
 }));

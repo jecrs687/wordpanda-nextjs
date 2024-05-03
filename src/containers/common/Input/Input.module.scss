@@ -42,7 +42,6 @@
         border-color: transparent transparent $eighth;
         border-style: solid;
         transition: all 0.5s ease-in-out;
-        font-size: 0.9rem;
         outline: none;
 
         &::placeholder {
@@ -53,12 +52,10 @@
             filter: grayscale(1);
             background: #33333311;
             cursor: not-allowed;
-
         }
 
         &:focus {
             border-color: $eighth;
-            font-size: 0.9rem;
         }
     }
 

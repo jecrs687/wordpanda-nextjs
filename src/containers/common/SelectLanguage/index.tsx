@@ -12,7 +12,7 @@ import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import styles from './SelectLanguage.module.scss';
 
-export function SelectLanguage({
+export const SelectLanguage = ({
     onChange = ({ }) => { },
     name,
     disabled = false,
@@ -41,7 +41,7 @@ export function SelectLanguage({
     placeHolder?: string,
 }
 
-): JSX.Element {
+): JSX.Element => {
 
     const { data: { data } = {}, error: apiError } = useSWR<LanguagesGetResponse, Error>('/api/languages', {
         fetcher: fetchClient("GET")
@@ -54,7 +54,6 @@ export function SelectLanguage({
         select,
         setLanguages
     } = useLanguage();
-    console.log({ data, apiError })
 
     useEffect(() => {
         if (data?.languages) setLanguages(data.languages)
