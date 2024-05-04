@@ -5,7 +5,7 @@ export const WELCOME_MAIL = (user: User) => ({
     from: 'panda@wordpanda.app',
     attachments: [{
         filename: 'logo.png',
-        path: __dirname + '/public/assets/logo.png',
+        path: './public/assets/logo.png',
         cid: 'logo'
     }],
     html: `
@@ -19,6 +19,14 @@ export const WELCOME_MAIL = (user: User) => ({
                 max-width: 600px;
                 margin: 0 auto;
                 padding: 20px;
+            }
+            .logo {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .logo img {
+                max-width: 200px;
+                height: auto;
             }
             .header {
                 background-color: #f8f8f8;
@@ -48,7 +56,7 @@ export const WELCOME_MAIL = (user: User) => ({
                     We are happy to have you here. You can now start learning new words and improve your vocabulary.
                 </p>
                 <p>
-                    If you have any questions, feel free to contact us at < href="mailto:panda@wordpanda.app">
+                    If you have any questions, feel free to contact us at <a href="mailto:panda@wordpanda.app">
                     mail us </a>
                 </p>
             </div>
