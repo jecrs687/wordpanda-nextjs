@@ -1,6 +1,7 @@
 export const ROUTES = {
 
     LOGIN: () => '/login',
+    OTP: (id: string) => `/otp/${id}`,
     LOGOUT: () => '/logout',
     REGISTER: () => '/register',
     HOME: () => '/',

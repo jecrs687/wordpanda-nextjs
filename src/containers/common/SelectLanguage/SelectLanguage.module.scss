@@ -5,10 +5,19 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+    z-index: 65765;
 }
 
 .select {
     width: 100%;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+
 }
 
 .label {

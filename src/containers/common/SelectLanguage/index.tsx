@@ -61,7 +61,7 @@ export const SelectLanguage = ({
 
     const getLanguage = useCallback(async () => {
         const response = await trigger()
-        if (response?.err) alert(response.err)
+        if (response?.err) console.log(response.err)
         else select(response?.data?.languageId)
     }, [trigger, select])
 
@@ -87,6 +87,7 @@ export const SelectLanguage = ({
             placeholder={placeHolder}
             menuPlacement={dropdownPosition}
             isLoading={!data}
+            maxMenuHeight={195}
             isDisabled={values.length === 0 || disabled}
             value={values.find((item) => item.value === language)}
             onChange={(...params) => {

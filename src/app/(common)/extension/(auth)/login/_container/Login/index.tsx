@@ -8,7 +8,6 @@ import LoaderSpinner from '@core/LoaderSpinner';
 import { useChannels } from '@hooks/useChannels';
 import useDevice from '@hooks/useDevice';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useFormState, useFormStatus } from "react-dom";
@@ -72,9 +71,11 @@ export default function LoginPage({ nextPage }: { nextPage?: string }) {
                 />
                 <Submit />
             </form>
-            <Link href={ROUTES.REGISTER()} className={styles.link}>
+            <div onClick={()=>{
+               window.open("https://wordpanda.app"+ROUTES.REGISTER())
+            }} className={styles.link}>
                 Não tem uma conta? Registre-se
-            </Link>
+            </div>
         </main>
     )
 }

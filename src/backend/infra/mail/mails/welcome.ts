@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
 
-export const WELCOME_MAIL = (user: User) => ({
-    subject: 'Welcome to wordpanda!!!',
+export const WELCOME_MAIL = (user: User, options: {otp: string}) => ({
+    subject: `Welcome to wordpanda, ${user.firstName} ${user.lastName}!!!`,
     from: 'panda@wordpanda.app',
     attachments: [{
         filename: 'logo.png',
@@ -41,6 +41,7 @@ export const WELCOME_MAIL = (user: User) => ({
                 padding: 20px;
                 text-align: center;
             }
+
         </style>
     </head>
     <body>
@@ -54,6 +55,9 @@ export const WELCOME_MAIL = (user: User) => ({
             <div class="content">
                 <p>
                     We are happy to have you here. You can now start learning new words and improve your vocabulary.
+                </p>
+                <p style="font-size: 20px; text-align: center; color: #333; background-color: #f8f8f8; padding: 10px;">
+                    Your OTP is <strong>${options.otp}</strong>
                 </p>
                 <p>
                     If you have any questions, feel free to contact us at <a href="mailto:panda@wordpanda.app">

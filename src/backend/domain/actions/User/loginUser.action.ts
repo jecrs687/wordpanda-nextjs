@@ -62,7 +62,14 @@ export async function loginUser(login: LoginDto) {
             console.log("Not possible set as admin in cookies")
         }
         const token = generateToken(userFound);
-        return { token, admin: userFound.role === Role.ADMIN }
+        if(userFound.activedAt === null) {
+            return ({
+                errors: {
+                    email: "User not activated"
+                },
+            });
+        }
+        return { token, admin: userFound.role === Role.ADMIN, user: userFound }
 
     } catch (err) {
         return ({

@@ -13,7 +13,7 @@ const schema = z.object({
     username: z.string().min(4).max(100),
 
 });
-type UserDto = Omit<User, 'updatedAt' | "createdAt" | "deletedAt" | "id" | "role" | "lastLoginAt" | "score" | "languageId">
+type UserDto = Omit<User, 'updatedAt' | "createdAt" | "activedAt" | "deletedAt" | "id" | "role" | "lastLoginAt" | "score" | "languageId">
 export async function createUser(userDto: UserDto & { languageId?: number }) {
     try {
         const validate = schema.safeParse(userDto) as typeof userDto & { error: z.ZodError, success: boolean }

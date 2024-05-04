@@ -2,7 +2,6 @@
 import Input from '@common/Input';
 import { SelectLanguage } from '@common/SelectLanguage';
 import { ShowIf } from '@common/ShowIf/ShowIf';
-import { TOKEN_KEY } from '@constants/CONFIGS';
 import { ROUTES } from '@constants/ROUTES';
 import Button from '@core/Button';
 import LoaderSpinner from '@core/LoaderSpinner';
@@ -30,9 +29,8 @@ export default function Register() {
     const [values, setValues] = useState({})
 
     useEffect(() => {
-        if (state.token) {
-            localStorage.setItem(TOKEN_KEY, state.token)
-            route.push(ROUTES.DASHBOARD())
+        if (state.success) {
+            route.push(ROUTES.OTP(state.user.id))
         }
         if (state.errors) {
             const steps = {
@@ -120,7 +118,14 @@ export default function Register() {
                             type='text'
                             {...inputHandle('username')}
                         />
-                        <SelectLanguage />
+                        <div style={{zIndex:12412}}>
+                        <SelectLanguage 
+                        name='languageId'
+                        title='Idioma'
+                        error={state.errors?.languageId}
+                        dropdownPosition='top'
+                         />
+                        </div>
                     </ShowIf>
                     <ShowIf condition={steps === 4} >
                         <Loading />

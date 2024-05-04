@@ -94,6 +94,12 @@ export async function GET(request: Request) {
     const header = headers();
     try {
         const userId = header.get('id') || validateToken(header.get('Authorization') || '')?.decoded?.id;
+        if (!userId) {
+            return Response.json({
+                err: 'Unauthorized',
+                msg: 'NOT_AUTHORIZED'
+            })
+        }
         const user = await prisma.user.findUnique({
             where: {
                 id: userId
