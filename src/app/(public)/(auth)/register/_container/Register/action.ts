@@ -1,5 +1,6 @@
 "use server";
 import { createUser } from "@backend/domain/actions/User/createUser.action";
+import { sendEmail } from "@infra/mail";
 import { cookies, headers } from "next/headers";
 import z from "zod";
 const schema = z.object({
@@ -32,7 +33,7 @@ export async function submit(currentState, form: FormData) {
     const forms = {
         email: form.get('email') as string,
         password: form.get('password') as string,
-        firstName: form.get('name') as string,
+        firstName: form.get('firstName') as string,
         lastName: form.get('lastName') as string,
         phone: form.get('phone') as string,
         passwordConfirmation: form.get('passwordConfirmation') as string,
@@ -46,6 +47,7 @@ export async function submit(currentState, form: FormData) {
     const { passwordConfirmation, ...rest } = forms;
     const languageId = 59 || +cookies().get('language')?.value || +headers().get('language')
     const response = await createUser(rest)
+    sendEmail('WELCOME_MAIL', response.user)
     if (response?.token)
         cookies().set('token', response.token)
     return response;

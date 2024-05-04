@@ -27,7 +27,7 @@ export async function createUser(userDto: UserDto & { languageId?: number }) {
             data: userDto
         })
         const token = generateToken(inserted);
-        return { msg: 'ok', token }
+        return { msg: 'ok', token, user: inserted }
 
     } catch (err) {
         console.log(

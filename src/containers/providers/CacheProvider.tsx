@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useSWRConfig } from "swr";
 
-export const SwrCacheProvider = () => {
+export const CacheProvider = () => {
 
     const [swrCache, setSWRCache] = useState<string>("{}");
     const { cache, mutate } = useSWRConfig();
