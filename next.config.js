@@ -68,7 +68,14 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'styles')],
   },
   reactStrictMode: false,
-
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://www.primevideo.com/:path*',
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig

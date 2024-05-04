@@ -24,7 +24,14 @@ export async function submit(currentState, form: FormData) {
     }
 
     deleteOtp(id);
-
+    await prisma.user.update({
+        where: {
+            id
+        },
+        data: {
+            activedAt: new Date()
+        }
+    });
     const user = await prisma.user.findUnique({
         where: {
             id
