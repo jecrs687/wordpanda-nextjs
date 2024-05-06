@@ -1,9 +1,10 @@
+import { TOKEN_KEY } from "@constants/CONFIGS";
 import prisma from "@infra/config/database";
 import { validateToken } from "@utils/token";
 import { cookies, headers } from "next/headers";
 
-export const getMovieByUser = async (id: string) => {
-    const token = cookies().get('token')?.value || headers().get('Authorization');
+export const getMovieByUser = async (id:string) => {
+    const token = cookies().get(TOKEN_KEY)?.value || headers().get('Authorization');
     if (!token) return { errors: 'Token not found' };
     const { decoded } = validateToken(token);
     if (!decoded) return { errors: 'Token invalid' };

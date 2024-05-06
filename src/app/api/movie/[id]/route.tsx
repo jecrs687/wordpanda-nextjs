@@ -1,4 +1,5 @@
 import { getMovieByUser } from "@backend/domain/actions/Movie/getMovieByUser";
+import { TOKEN_KEY } from "@constants/CONFIGS";
 import { cookies, headers } from "next/headers";
 import { NextRequest } from "next/server";
 
@@ -11,7 +12,7 @@ export type MovieIdGetResponse = {
     msg?: string,
 }
 export async function GET(request: NextRequest, ...rest) {
-    const token = cookies()?.get('token')?.value || headers().get('Authorization')
+    const token = cookies()?.get(TOKEN_KEY)?.value || headers().get('Authorization')
 
     const response: MovieIdGetResponse = {
         err: null,

@@ -1,5 +1,6 @@
 "use server";
 import { createUser } from "@backend/domain/actions/User/createUser.action";
+import { TOKEN_KEY } from "@constants/CONFIGS";
 import { cookies, headers } from "next/headers";
 import z from "zod";
 const schema = z.object({
@@ -45,6 +46,6 @@ export async function submit(currentState, form: FormData) {
 
     const response = await createUser({ ...rest, languageId })
     if (response?.token)
-        cookies().set('token', response.token)
+        cookies().set(TOKEN_KEY, response.token)
     return response;
 }

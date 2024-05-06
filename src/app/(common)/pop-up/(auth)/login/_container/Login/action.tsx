@@ -1,5 +1,6 @@
 "use server";
 import { loginUser } from "@backend/domain/actions/User/loginUser.action";
+import { TOKEN_KEY } from "@constants/CONFIGS";
 import { cookies } from "next/headers";
 
 export async function submit(currentState, form: FormData) {
@@ -11,6 +12,6 @@ export async function submit(currentState, form: FormData) {
         password: password as string
     })
     if (response?.token)
-        cookies().set('token', response?.token)
+        cookies().set(TOKEN_KEY, response?.token)
     return response;
 }

@@ -1,3 +1,4 @@
+import { TOKEN_KEY } from "@constants/CONFIGS";
 import prisma from "@infra/config/database";
 import { User } from "@prisma/client";
 import { encryptPassword } from "@utils/encrypt";
@@ -30,7 +31,7 @@ export async function PUT(request: Request) {
             lastName,
         }: ProfilePutRequest = await request.json();
 
-        const token = cookies().get('token');
+        const token = cookies().get(TOKEN_KEY);
         if (!token.value) {
             return Response.json({
                 err: 'Unauthorized',

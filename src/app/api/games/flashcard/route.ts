@@ -1,3 +1,4 @@
+import { TOKEN_KEY } from "@constants/CONFIGS";
 import prisma from "@infra/config/database";
 import { UserWords } from "@prisma/client";
 import { validateToken } from "@utils/token";
@@ -20,7 +21,7 @@ export type GamesFlashcardPostResponse = {
 }
 export async function POST(request: Request) {
     const body: GamesFlashcardPostRequest = await request.json();
-    const token = cookies().get('token') || headers().get('Authorization')
+    const token = cookies().get(TOKEN_KEY) || headers().get('Authorization')
     const { decoded: decryptToken } = validateToken(token)
     if (!decryptToken) return Response.json({ err: 'Token invalid' });
     try {

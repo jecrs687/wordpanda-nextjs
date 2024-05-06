@@ -1,3 +1,4 @@
+import { TOKEN_KEY } from "@constants/CONFIGS";
 import prisma from "@infra/config/database";
 import { generateQuizByWords } from "@infra/openai/Quiz";
 import { Language, Word, WordGameQuiz } from "@prisma/client";
@@ -23,7 +24,7 @@ export type GamesQuizPostResponse = {
     msg?: string,
 }
 export async function POST(request: Request) {
-    const token = cookies()?.get('token')?.value || headers().get('Authorization')
+    const token = cookies()?.get(TOKEN_KEY)?.value || headers().get('Authorization')
     const { decoded: decryptToken } = validateToken(token)
     if (!decryptToken) return Response.json({ err: 'Token invalid' });
     const user = await prisma.user.findFirst({

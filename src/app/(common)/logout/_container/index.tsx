@@ -1,5 +1,6 @@
 "use client";
 
+import { TOKEN_KEY } from "@constants/CONFIGS";
 import { useChannels } from "@hooks/useChannels";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -12,7 +13,7 @@ export const Logout = async () => {
     const { popUp, web } = useChannels();
     const route = useRouter()
     useEffect(() => {
-        deleteCookie('token')
+        deleteCookie(TOKEN_KEY)
         localStorage.clear()
         popUp.setToken('')
         web.setToken('')

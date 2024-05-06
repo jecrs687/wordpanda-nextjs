@@ -8,11 +8,11 @@ export function AuthenticationProvider({ redirect }) {
     const router = useRouter()
 
     useEffect(() => {
-        const token = getCookie('token') || localStorage.getItem(TOKEN_KEY)
+        const token = getCookie(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY)
         if (token) {
             try {
                 localStorage.setItem(TOKEN_KEY, token);
-                setCookie('token', token);
+                setCookie(TOKEN_KEY, token);
             } catch (e) {
                 console.log(e)
             }

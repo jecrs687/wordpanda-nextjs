@@ -1,3 +1,4 @@
+import { TOKEN_KEY } from "@constants/CONFIGS";
 import prisma from "@infra/config/database";
 import { generateToken } from "@utils/token";
 import { cookies } from "next/headers";
@@ -13,7 +14,7 @@ export async function POST(request: Request) {
 
         })
         const token = generateToken(user);
-        cookies().set('token', token)
+        cookies().set(TOKEN_KEY, token)
         return Response.json({ user, token });
     }
     catch (err) {
