@@ -34,18 +34,20 @@ export default function OtpConfirmation({id}) {
             localStorage.setItem(TOKEN_KEY, state.token)
             setCookie(TOKEN_KEY, state.token)
             route.push(ROUTES.DASHBOARD())
-            
+
         }
 
     }, [state, route])
-    useEffect(()=>{
-        if(values?.otp?.length === 4){
-            const form = new FormData()
-            form.set('otp', values.otp)
-            form.set('id', values.id)
-            formAction(form)
-        }
-    },[formAction, values])
+    
+    //todo: rewrite this code
+    // useEffect(()=>{
+    //     if(values?.otp?.length === 4){
+    //         const form = new FormData()
+    //         form.set('otp', values.otp)
+    //         form.set('id', values.id)
+    //         formAction(form)
+    //     }
+    // },[formAction, values])
  
     const inputHandle = (name) => {
         return {
