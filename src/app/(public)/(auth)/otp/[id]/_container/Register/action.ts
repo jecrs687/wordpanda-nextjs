@@ -1,6 +1,6 @@
 "use server";
 import { TOKEN_KEY } from "@constants/CONFIGS";
-import { deleteOtp, getOtp } from "@infra/cache/otp";
+import { getOtp } from "@infra/cache/otp";
 import prisma from "@infra/config/database";
 import { generateToken } from "@utils/token";
 import { cookies } from "next/headers";
@@ -23,7 +23,7 @@ export async function submit(currentState, form: FormData) {
         return { errors: { otp: 'O código de verificação é inválido' } };
     }
 
-    deleteOtp(id);
+    // deleteOtp(id);
     await prisma.user.update({
         where: {
             id
@@ -46,9 +46,9 @@ export async function submit(currentState, form: FormData) {
     if(!token) {
         return { errors: { otp: 'Erro ao gerar token' } };
     }
-    if (token) {
+    if (token) 
         cookies().set(TOKEN_KEY, token)
-    }
     
-    return { token};
+    
+    return { token };
 }

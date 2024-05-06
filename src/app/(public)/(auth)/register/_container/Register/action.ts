@@ -47,11 +47,15 @@ export async function submit(currentState, form: FormData) {
         return ({ errors });
     }
     const { passwordConfirmation, ...rest } = forms;
-    const response = await createUser(rest)
-    const randomOtp = Math.floor(1000 + Math.random() * 9000).toString();
-    saveOtp(response.user.id, randomOtp);
-    sendEmail('WELCOME_MAIL', response.user, {
-        otp: randomOtp
-    })
-    return {success: true, user: response.user};
+   try{
+        const response = await createUser(rest)
+        const randomOtp = Math.floor(1000 + Math.random() * 9000).toString();
+        saveOtp(response.user.id, randomOtp);
+        sendEmail('WELCOME_MAIL', response.user, {
+            otp: randomOtp
+        })
+        return {success: true, user: response.user};
+    } catch (error) {
+    return {error: error.message}
+}
 }

@@ -5,10 +5,11 @@ import { ShowIf } from '@common/ShowIf/ShowIf';
 import { ROUTES } from '@constants/ROUTES';
 import Button from '@core/Button';
 import LoaderSpinner from '@core/LoaderSpinner';
+import { Dialog } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import Loading from 'src/app/loading';
 import { submit } from './action';
@@ -27,30 +28,42 @@ export default function Register() {
     const route = useRouter()
     const [steps, setSteps] = useState(1)
     const [values, setValues] = useState({})
-
+    const [modalError, setModalError] = useState(false)
+    const [alreadyNavigate, setAlreadyNavigate] = useState(1)
+    const stepsErrors = useMemo(()=>[
+         ['email', 'password', 'passwordConfirmation'],
+         ['firstName', 'lastName'],
+         ['phone', 'username', 'language']
+    ],[])
+    const errorsByStep = Object
+    .entries(stepsErrors)
+    .reduce((acc, [key, value]) => {
+        value.forEach(v => {
+            acc[v] = +key
+        })
+        return acc;
+    }, {})
     useEffect(() => {
         if (state.success) {
             route.push(ROUTES.OTP(state.user.id))
         }
+        if(state.error){
+            setModalError(true)
+        }
         if (state.errors) {
-            const steps = {
-                1: ['email', 'password', 'passwordConfirmation'],
-                2: ['firstName', 'lastName'],
-                3: ['phone', 'username', 'language']
-            }
-            for (const key in steps) {
-                if (steps[key].some(key => state.errors[key])) {
-                    setSteps(Number(key))
+            for (const key in stepsErrors) {
+                if (stepsErrors[key].some(key => state.errors[key])) {
+                    setSteps(Number(key)+1)
                     break;
                 }
             }
         }
-
-    }, [state, route])
-
+    }, [state, route, stepsErrors])
+    
     const inputHandle = (name) => {
+        const findError = errorsByStep[name]
         return {
-            error: state.errors?.[name],
+            error: findError < alreadyNavigate ? state.errors?.[name]: '',
             name,
             value: values[name],
             onChange: (e) => setValues({ ...values, [name]: e.target.value })
@@ -58,6 +71,11 @@ export default function Register() {
     }
     return (
         <main className={styles.main}>
+            <Dialog open={state.error} onClose={()=>{setModalError(false)}}>
+                <div>
+                    {state.error}
+                </div>
+            </Dialog>
             <form action={formAction}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
                     <Image
@@ -147,7 +165,11 @@ export default function Register() {
                     </ShowIf>
                     <ShowIf condition={steps < 3} onlyHide>
                         <Button
-                            onClick={() => setSteps(steps + 1)}
+                            onClick={() => {
+                                setSteps(steps + 1)
+                                if(steps !==1) setAlreadyNavigate(x=>x+1)
+                            }
+                            }
 
                             type='button'
                         >
