@@ -1,4 +1,5 @@
 'use client'
+import { zoomOutMobile } from '@utils/zoomOut'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { useState } from 'react'
@@ -57,7 +58,10 @@ function Input({
         <>
             <div className={clsx(styles.container, styles[color])}>
                 <label htmlFor={name}>{label || title || name}</label>
-                {textarea ? <textarea {...inputProps} /> : <input {...inputProps} />}
+                {textarea ? <textarea {...inputProps} /> : <input {...inputProps}
+                onFocus={()=>{zoomOutMobile()}}
+                onBlur={()=>{zoomOutMobile()}}
+                />}
                 {type === 'password' && (
                     <div className={styles.eye} onClick={toggleHide}>
                         <Image

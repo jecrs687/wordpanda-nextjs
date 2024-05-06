@@ -19,7 +19,7 @@ export default async function GamesPage(
     const allowedGames = [
         'Translate',
         'Memory',
-        'Flashcards'
+        // 'Flashcards'
     ]
 
     return (
