@@ -61,6 +61,9 @@ export async function submit(currentState, form: FormData) {
     const { passwordConfirmation, ...rest } = forms;
    try{
         const response = await createUser(rest)
+        if(response.errors){
+            return {success: false, errors: response.errors};
+        }
         const randomOtp = Math.floor(1000 + Math.random() * 9000).toString();
         saveOtp(response.user.id, randomOtp);
         sendEmail('WELCOME_MAIL', response.user, {
