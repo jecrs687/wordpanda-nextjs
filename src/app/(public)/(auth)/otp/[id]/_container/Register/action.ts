@@ -17,9 +17,9 @@ export async function submit(currentState, form: FormData) {
     if(otp.length !== 4) {
         return { errors: { otp: 'O campo deve conter 4 caracteres' } };
     }
-    const otpCache = getOtp(id);
+    const otpCache = await getOtp(id);
 
-    if(otp !== otpCache) {
+    if(otp != otpCache) {
         return { errors: { otp: 'O código de verificação é inválido' } };
     }
 
