@@ -39,15 +39,14 @@ export default function OtpConfirmation({id}) {
 
     }, [state, route])
     
-    //todo: rewrite this code
-    // useEffect(()=>{
-    //     if(values?.otp?.length === 4){
-    //         const form = new FormData()
-    //         form.set('otp', values.otp)
-    //         form.set('id', values.id)
-    //         formAction(form)
-    //     }
-    // },[formAction, values])
+    useEffect(()=>{
+        if(values?.otp?.length === 4){
+            const form = new FormData()
+            form.set('otp', values.otp)
+            form.set('id', values.id)
+            formAction(form)
+        }
+    },[formAction, values])
  
     const inputHandle = (name) => {
         return {
