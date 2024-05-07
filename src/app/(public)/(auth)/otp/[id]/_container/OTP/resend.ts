@@ -11,10 +11,10 @@ export async function resendOtp({id}) {
         }
     });
     const randomOtp = Math.floor(1000 + Math.random() * 9000).toString();
-    sendEmail('WELCOME_MAIL', user, {
+    saveOtp(id, randomOtp);
+    await sendEmail('WELCOME_MAIL', user, {
         otp: randomOtp
     })
-    saveOtp(id, randomOtp);
 
     return {  };
 }
