@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 
 const mailTransport = nodemailer.createTransport({
-    host: "smtpout.secureserver.net",
+    host:  process.env.EMAIL_HOST,
     secure: true,
     secureConnection: false, // TLS requires secureConnection to be false
     tls: {

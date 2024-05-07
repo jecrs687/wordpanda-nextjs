@@ -75,7 +75,12 @@ export default function Register() {
     }
     return (
         <main className={styles.main}>
-            <Dialog open={state.error} onClose={() => { setModalError(false) }}>
+            <Dialog
+                open={state.error}
+                onClose={() => { setModalError(false) }}
+
+            >
+
                 <div>
                     {state.error}
                 </div>
