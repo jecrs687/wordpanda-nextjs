@@ -30,17 +30,17 @@ export default function RootLayout({
       <head>
         <meta name="google-site-verification" content="ctYiVgIDqF93EFA9K-KPFNJsRgtSRLa3m8JrZsxpiw4" />
 
-        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png"/>
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"/>
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"/>
-        <link rel="manifest" href="/favicon/site.webmanifest"/>
-        <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5"/>
-        <meta name="msapplication-TileColor" content="#2d89ef"/>
-        <meta name="theme-color" content="#ffffff"/>
-          <meta name="viewport" 
-          content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
+        <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#2d89ef" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="viewport"
+          content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;" />
         <script dangerouslySetInnerHTML={{
-          __html:`
+          __html: `
               (function(h,o,t,j,a,r){
                   h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
                   h._hjSettings={hjid:4972560,hjsv:6};
@@ -50,15 +50,24 @@ export default function RootLayout({
                   a.appendChild(r);
               })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
           `
-        }}/>
-        <meta property="og:site_name" content="Wordpanda"/>
+        }} />
+        <meta property="og:site_name" content="Wordpanda" />
         <meta property="og:title" content="Wordpanda" />
         <meta property="og:description" content="Fique preparado para ver seus filmes e aumente seu vocabulário!" />
-        <meta property="og:image"  content="https://www.wordpanda.app/assets/logo.png"/>
+        <meta property="og:image" content="https://www.wordpanda.app/assets/logo.png" />
         <meta property="og:type" content="website" />
         <meta property="og:updated_time" content="1440432930" />
+        <link
+          rel="preload"
+          href="/fonts/Stand-Alone.otf"
+          as="font"
+          type="font/opentype"
+          crossOrigin="anonymous"
+        />
       </head>
-      <body className={poppins.className}>
+      <body
+        className={poppins.className}
+      >
         <Suspense fallback={<Loading />}>
           <EventProvider />
           <InformationProvider />

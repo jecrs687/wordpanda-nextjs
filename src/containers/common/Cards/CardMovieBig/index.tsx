@@ -64,6 +64,10 @@ export default function CardMovieBig({
             src={logoUrl || "https://picsum.photos/200/300"}
             alt={name}
             className={styles.logo}
+            loading='lazy'
+            quality={50}
+            placeholder='blur'
+            blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAB7CAAAewgFu0HU+AAEAAElEQVR4nOzdd3gU5f7H8e9'
         />
     </Link>
 }

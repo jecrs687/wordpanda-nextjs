@@ -57,6 +57,7 @@ const nextConfig = {
     });
   },
   images: {
+    minimumCacheTTL: 360,
     remotePatterns: [
       {
         protocol: 'https',
@@ -75,6 +76,19 @@ const nextConfig = {
         destination: 'https://www.primevideo.com/:path*',
       },
     ]
+  },
+  async headers() {
+    return [
+      {
+        source: "/fonts/Stand-Alone.otf",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
   },
 }
 
