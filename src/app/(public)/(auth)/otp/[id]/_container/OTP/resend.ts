@@ -11,7 +11,7 @@ export async function resendOtp({id}) {
         }
     });
     const randomOtp = Math.floor(1000 + Math.random() * 9000).toString();
-    saveOtp(id, randomOtp);
+    await saveOtp(id, randomOtp);
     await sendEmail('WELCOME_MAIL', user, {
         otp: randomOtp
     })
