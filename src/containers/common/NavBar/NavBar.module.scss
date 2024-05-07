@@ -232,7 +232,7 @@
 
 @media (max-width: $mobile-size) {
     .container {
-        height: 100px;
+        height: 70px;
     }
 
     .nav {
@@ -246,6 +246,10 @@
         justify-content: space-between;
         align-items: center;
         margin: 0px;
+
+        .icon {
+            height: 25px;
+        }
 
         .logo {
             display: none;
