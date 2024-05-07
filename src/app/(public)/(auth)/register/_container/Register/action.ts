@@ -1,6 +1,7 @@
 "use server";
 import { createUser } from "@backend/domain/actions/User/createUser.action";
 import { saveOtp } from "@infra/cache/otp";
+import prisma from "@infra/config/database";
 import { sendEmail } from "@infra/mail";
 import z from "zod";
 const schema = z.object({
@@ -42,6 +43,17 @@ export async function submit(currentState, form: FormData) {
         languageId: +form.get('languageId') 
     }
     const validate = schema.safeParse(forms) as typeof forms & { error: z.ZodError, success: boolean }
+
+    const verifyEmail = prisma.user.findFirst({
+        where: {
+            email: forms.email
+        }
+    });
+    if (verifyEmail) {
+        return {errors:{
+            email: 'Email já cadastrado'
+        }}
+    }
     if (!validate.success && validate?.error) {
         const errors = validate?.error?.flatten()?.fieldErrors
         return ({ errors });
