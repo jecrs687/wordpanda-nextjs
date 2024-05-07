@@ -44,7 +44,7 @@ export async function submit(currentState, form: FormData) {
     }
     const validate = schema.safeParse(forms) as typeof forms & { error: z.ZodError, success: boolean }
 
-    const verifyEmail = prisma.user.findFirst({
+    const verifyEmail = await prisma.user.findFirst({
         where: {
             email: forms.email
         }

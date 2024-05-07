@@ -9,7 +9,7 @@ import { Dialog } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import Loading from 'src/app/loading';
 import { submit } from './action';
@@ -26,44 +26,48 @@ function Submit() {
 export default function Register() {
     const [state, formAction] = useFormState(submit, {})
     const route = useRouter()
+    const ref = useRef();
     const [steps, setSteps] = useState(1)
     const [values, setValues] = useState({})
     const [modalError, setModalError] = useState(false)
     const [alreadyNavigate, setAlreadyNavigate] = useState(1)
-    const stepsErrors = useMemo(()=>[
-         ['email', 'password', 'passwordConfirmation'],
-         ['firstName', 'lastName'],
-         ['phone', 'username', 'language']
-    ],[])
+    const stepsErrors = useMemo(() => [
+        ['email', 'password', 'passwordConfirmation'],
+        ['firstName', 'lastName'],
+        ['phone', 'username', 'language']
+    ], [])
     const errorsByStep = Object
-    .entries(stepsErrors)
-    .reduce((acc, [key, value]) => {
-        value.forEach(v => {
-            acc[v] = +key
-        })
-        return acc;
-    }, {})
+        .entries(stepsErrors)
+        .reduce((acc, [key, value]) => {
+            value.forEach(v => {
+                acc[v] = +key
+            })
+            return acc;
+        }, {})
     useEffect(() => {
         if (state.success) {
             route.push(ROUTES.OTP(state.user.id))
         }
-        if(state.error){
+        if (state.error) {
             setModalError(true)
         }
         if (state.errors) {
             for (const key in stepsErrors) {
                 if (stepsErrors[key].some(key => state.errors[key])) {
-                    setSteps(Number(key)+1)
+                    setSteps(Number(key) + 1)
                     break;
                 }
             }
         }
     }, [state, route, stepsErrors])
-    
+    useEffect(() => {
+        state.errors = {}
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [values])
     const inputHandle = (name) => {
         const findError = errorsByStep[name]
         return {
-            error: findError < alreadyNavigate ? state.errors?.[name]: '',
+            error: findError < alreadyNavigate ? state.errors?.[name] : '',
             name,
             value: values[name],
             onChange: (e) => setValues({ ...values, [name]: e.target.value })
@@ -71,12 +75,12 @@ export default function Register() {
     }
     return (
         <main className={styles.main}>
-            <Dialog open={state.error} onClose={()=>{setModalError(false)}}>
+            <Dialog open={state.error} onClose={() => { setModalError(false) }}>
                 <div>
                     {state.error}
                 </div>
             </Dialog>
-            <form action={formAction}>
+            <form action={formAction} ref={ref}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
                     <Image
                         src={"/assets/logo.png"}
@@ -136,13 +140,13 @@ export default function Register() {
                             type='text'
                             {...inputHandle('username')}
                         />
-                        <div style={{zIndex:12412}}>
-                        <SelectLanguage 
-                        name='languageId'
-                        title='Idioma'
-                        error={state.errors?.languageId}
-                        dropdownPosition='top'
-                         />
+                        <div style={{ zIndex: 12412 }}>
+                            <SelectLanguage
+                                name='languageId'
+                                title='Idioma'
+                                error={state.errors?.languageId}
+                                dropdownPosition='top'
+                            />
                         </div>
                     </ShowIf>
                     <ShowIf condition={steps === 4} >
@@ -165,13 +169,12 @@ export default function Register() {
                     </ShowIf>
                     <ShowIf condition={steps < 3} onlyHide>
                         <Button
+                            type="submit"
                             onClick={() => {
-                                setSteps(steps + 1)
-                                if(steps !==1) setAlreadyNavigate(x=>x+1)
+                                setSteps(steps + 1);
+                                if (steps !== 1) setAlreadyNavigate(x => x + 1)
                             }
                             }
-
-                            type='button'
                         >
                             Próximo
                         </Button>
