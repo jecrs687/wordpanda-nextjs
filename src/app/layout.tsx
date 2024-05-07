@@ -51,6 +51,12 @@ export default function RootLayout({
               })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
           `
         }}/>
+        <meta property="og:site_name" content="Wordpanda"/>
+        <meta property="og:title" content="Wordpanda" />
+        <meta property="og:description" content="Fique preparado para ver seus filmes e aumente seu vocabulário!" />
+        <meta property="og:image"  content="https://www.wordpanda.app/assets/logo.png"/>
+        <meta property="og:type" content="website" />
+        <meta property="og:updated_time" content="1440432930" />
       </head>
       <body className={poppins.className}>
         <Suspense fallback={<Loading />}>
