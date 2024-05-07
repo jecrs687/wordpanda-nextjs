@@ -71,6 +71,7 @@ export async function submit(currentState, form: FormData) {
         })
         return {success: true, user: response.user};
     } catch (error) {
+    console.log({error})
     return {error: error.message}
 }
 }
