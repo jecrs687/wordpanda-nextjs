@@ -38,3 +38,5 @@ certificates
 
 .env.local
 /src/app/(common)/migrate/** 
+# Sentry Config File
+.sentryclirc
