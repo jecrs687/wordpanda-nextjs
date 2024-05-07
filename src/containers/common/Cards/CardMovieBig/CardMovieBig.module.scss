@@ -1,9 +1,10 @@
 @import '@styles/index.scss';
 
 .container {
-    margin: 0px 20px;
+    transform: scale(0.96);
+
+    margin: 0px 10px;
     display: flex;
-    overflow: hidden;
     flex-direction: column;
     position: relative;
     justify-content: flex-end;
@@ -13,8 +14,8 @@
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    min-width: 300px;
-    height: 300px;
+    min-width: 350px;
+    height: 350px;
 
     color: $white;
 
@@ -70,7 +71,7 @@
     }
 
     &:not(:hover) {
-        transform: scale(1.05);
+        transform: scale(1);
 
         .content {
             height: 100px;
