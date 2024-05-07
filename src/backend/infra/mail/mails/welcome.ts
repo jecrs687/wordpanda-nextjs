@@ -5,7 +5,7 @@ export const WELCOME_MAIL = (user: User, options: {otp: string}) => ({
     from: 'panda@wordpanda.app',
     attachments: [{
         filename: 'logo.png',
-        path: './public/assets/logo.png',
+        path: 'https://wordpanda.app/assets/logo.png',
         cid: 'logo'
     }],
     html: `
