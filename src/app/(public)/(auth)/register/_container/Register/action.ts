@@ -10,7 +10,7 @@ const schema = z.object({
     password: z.string().min(6, "A senha deve conter no mínimo 6 caracteres")
         .max(100,
             "A senha deve conter no máximo 100 caracteres"
-        ).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d.!@#$%^&*]{6,}$/,
+        ).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d.!@#$%^&*˜"'-ˆ]{6,}$/,
             {
                 message: "A senha deve conter pelo menos 1 letra maiúscula, 1 letra minúscula, 1 número e um caractere especial"
             }),
