@@ -84,6 +84,9 @@ export default function Register() {
                 <div>
                     {state.error}
                 </div>
+                <Button onClick={() => setModalError(false)}>
+                    Ok
+                </Button>
             </Dialog>
             <form action={formAction} ref={ref}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
