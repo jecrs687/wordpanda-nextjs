@@ -14,7 +14,8 @@ import { useFormState, useFormStatus } from 'react-dom';
 import Loading from 'src/app/loading';
 import { submit } from './action';
 import styles from './index.module.scss';
-function Submit({status}) {
+import { resendOtp } from './resend';
+function Submit({ status }) {
     return <Button disabled={status.pending} type='submit'>
         {
             status.pending ? <LoaderSpinner size='20px' /> : 'Confirmar'
@@ -22,13 +23,21 @@ function Submit({status}) {
     </Button>
 }
 
-export default function OtpConfirmation({id}) {
+export default function OtpConfirmation({ id }) {
     const [state, formAction] = useFormState(submit, {})
     const status = useFormStatus();
-
+    const [time, setTime] = useState(0)
     const route = useRouter()
-    const [values, setValues] = useState<{id: string, otp?:string}>({id})
+    const [values, setValues] = useState<{ id: string, otp?: string }>({ id })
     const ref = useRef(null)
+    const regress = () => {
+        setTime(60)
+        const inverval = setInterval(() => setTime(x => x - 1), 1000);
+        setTimeout(() => {
+            clearInterval(inverval)
+            setTime(0)
+        }, 60000)
+    }
     useEffect(() => {
         if (state.token) {
             localStorage.setItem(TOKEN_KEY, state.token)
@@ -38,16 +47,16 @@ export default function OtpConfirmation({id}) {
         }
 
     }, [state, route])
-    
-    useEffect(()=>{
-        if(values?.otp?.length === 4){
+
+    useEffect(() => {
+        if (values?.otp?.length === 4) {
             const form = new FormData()
             form.set('otp', values.otp)
             form.set('id', values.id)
             formAction(form)
         }
-    },[formAction, values])
- 
+    }, [formAction, values])
+
     const inputHandle = (name) => {
         return {
             error: state.errors?.[name],
@@ -71,21 +80,33 @@ export default function OtpConfirmation({id}) {
                 </div>
                 <div className={styles.form}>
                     <ShowIf condition={false} onlyHide>
-                        <input {...inputHandle('otp')}/>
-                        <input {...inputHandle('id')}/>
+                        <input {...inputHandle('otp')} />
+                        <input {...inputHandle('id')} />
 
-                        </ShowIf>
-                        <OtpInput onOtpSubmit={(otp) => setValues(x=> ({...x,otp}))}/>
-                        {state.errors?.otp && <p className={styles.error}>{state.errors?.otp}</p>}
+                    </ShowIf>
+                    <OtpInput onOtpSubmit={(otp) => setValues(x => ({ ...x, otp }))} />
+                    {state.errors?.otp && <p className={styles.error}>{state.errors?.otp}</p>}
                     <ShowIf condition={status.pending} >
                         <Loading />
                     </ShowIf>
 
                 </div>
                 <div className={styles.buttons}>
-                        <Submit status={status}/>
+                    <Submit status={status} />
+                    <Button
+                        disabled={time !== 0}
+                        type='button'
+                        onClick={() => {
+                            resendOtp({ id })
+                            regress()
+                        }
+                        }>
+                        {
+                            time === 0 ? 'Reenviar código' : `Reenviar código em ${time}`
+                        }
+                    </Button>
                 </div>
-          
+
 
                 <Link href={ROUTES.LOGIN()}
                     className={styles.link}>

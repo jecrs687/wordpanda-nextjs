@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
 
 export const WELCOME_MAIL = (user: User, options: {otp: string}) => ({
-    subject: `Welcome to wordpanda, ${user.firstName} ${user.lastName}!!!`,
+    subject: `Bem vindo ao mundo wordpanda, ${user.firstName} ${user.lastName}!!!`,
     from: 'panda@wordpanda.app',
     attachments: [{
         filename: 'logo.png',

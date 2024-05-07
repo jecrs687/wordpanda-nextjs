@@ -1,4 +1,4 @@
-import OtpConfirmation from './_container/Register';
+import OtpConfirmation from './_container/OTP';
 
 export default async function Page({
         params: { id }
