@@ -66,7 +66,7 @@ export async function submit(currentState, form: FormData) {
         }
         const randomOtp = Math.floor(1000 + Math.random() * 9000).toString();
         saveOtp(response.user.id, randomOtp);
-        sendEmail('WELCOME_MAIL', response.user, {
+        await sendEmail('WELCOME_MAIL', response.user, {
             otp: randomOtp
         })
         return {success: true, user: response.user};
