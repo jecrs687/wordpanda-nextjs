@@ -143,7 +143,7 @@ export default function Register() {
                         <div style={{ zIndex: 12412 }}>
                             <SelectLanguage
                                 name='languageId'
-                                title='Idioma'
+                                title='Sua lingua nativa'
                                 error={state.errors?.languageId}
                                 dropdownPosition='top'
                             />
