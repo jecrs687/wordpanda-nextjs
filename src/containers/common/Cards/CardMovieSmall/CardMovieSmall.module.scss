@@ -1,7 +1,7 @@
 @import '@styles/index.scss';
 
 .wrapper {
-    transform: scale(0.97);
+    transform: scale(0.95);
 
     display: flex;
     align-items: center;
@@ -10,8 +10,8 @@
     min-height: 250px;
     transition: all 0.1s ease-in-out;
     border: 0px solid white;
-    margin: 0px 5px;
-    padding: 10px;
+    margin: 0px 0px;
+    padding: 5px;
 
     * {
         transition: all 0.3s ease-in-out;
