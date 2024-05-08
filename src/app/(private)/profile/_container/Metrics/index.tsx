@@ -1,9 +1,10 @@
-import { TOKEN_KEY } from "@constants/CONFIGS"
-import prisma from "@infra/config/database"
-import { validateToken } from "@utils/token"
-import { cookies } from "next/headers"
-import styles from './Metrics.module.scss'
-import LinearChart from "./container/LinearChart"
+"use server";
+import { TOKEN_KEY } from "@constants/CONFIGS";
+import prisma from "@infra/config/database";
+import { validateToken } from "@utils/token";
+import { cookies } from "next/headers";
+import styles from './Metrics.module.scss';
+import LinearChart from "./container/LinearChart";
 export default async function Metrics() {
     const { decoded } = validateToken(cookies().get(TOKEN_KEY).value)
     const userWords = await prisma.userWords.findMany({
