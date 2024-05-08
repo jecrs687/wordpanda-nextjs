@@ -1,11 +1,13 @@
 @import '@styles/index.scss';
 
 .wrapper {
+    transform: scale(0.97);
+
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 350px;
-    min-height: 230px;
+    min-width: 370px;
+    min-height: 250px;
     transition: all 0.1s ease-in-out;
     border: 0px solid white;
     margin: 0px 5px;
@@ -83,8 +85,8 @@
     &:hover {
         border-width: 2px;
         border-radius: 10px;
-        transform: scale(1.05);
         z-index: 2;
+        transform: scale(1);
 
         .container {
             border-radius: 10px;
