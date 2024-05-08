@@ -12,7 +12,9 @@ export default function GlobalError({ error }) {
   return (
     <html>
       <body>
-        <Error />
+        <Error statusCode={
+          error?.status || 500
+        } />
       </body>
     </html>
   );
