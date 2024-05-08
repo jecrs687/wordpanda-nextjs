@@ -14,7 +14,7 @@ const poppins = Poppins({
 })
 export const metadata: Metadata = {
   title: 'Wordpanda',
-  description: 'Learn new words and phrases',
+  description: `Explore uma nova abordagem envolvente para aprender idiomas com nosso site inovador. Descubra como integrar o aprendizado de idiomas com suas atividades de streaming favoritas, aproveitando legendas de filmes e séries para aprimorar suas habilidades linguísticas. Com uma plataforma abrangente que inclui jogos interativos, estatísticas detalhadas de progresso e suporte a múltiplos idiomas, nosso site oferece uma experiência personalizada e divertida para estudantes de todos os níveis. Aproveite uma jornada de aprendizado envolvente e eficaz, onde assistir a filmes se torna uma oportunidade de aprimorar suas habilidades linguísticas. Comece sua aventura de aprendizado conosco hoje!`,
 }
 
 

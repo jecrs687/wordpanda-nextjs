@@ -1,10 +1,11 @@
 import { getUserWithWords } from '@backend/domain/actions/User/getUserWithWords.action';
 import { SelectLanguage } from '@common/SelectLanguage';
+import Metrics from '../Metrics';
 import UserForm from '../UserForm';
 import styles from './Profile.module.scss';
 
 export const dynamic = 'force-dynamic'
-export default function UserProfile({ errors, user }: {
+export default async function UserProfile({ errors, user }: {
   errors?: any,
   user: Awaited<ReturnType<typeof getUserWithWords>>['user']
 }) {
@@ -33,19 +34,22 @@ export default function UserProfile({ errors, user }: {
   )
   return (
     <main className={styles.main}>
+      <div className={styles.content}>
+        <div className={styles.profile}>
+          <h1>Olá, {user.firstName} {user.lastName}!</h1>
+          <div className={styles.container}>
+            <UserForm
+              user={user}
+            />
+            <SelectLanguage
+              title="Idioma do sistema"
+              name='languageId'
+              className={styles.select}
+            />
+          </div>
 
-      <div className={styles.profile}>
-        <h1>Olá, {user.firstName} {user.lastName}!</h1>
-        <div className={styles.container}>
-          <UserForm
-            user={user}
-          />
         </div>
-        <SelectLanguage
-          title="Idioma do sistema"
-          name='languageId'
-          className={styles.select}
-        />
+        <Metrics />
       </div>
     </main >
   );

@@ -1,0 +1,21 @@
+@import "@styles/index.scss";
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 100%;
+    height: 600px;
+    width: 100%;
+}
+
+@media (max-width: $mobile-size) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 100%;
+        height: 300px;
+        width: 100%;
+    }
+}

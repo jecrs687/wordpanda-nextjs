@@ -154,6 +154,7 @@ export default function Register() {
                                 title='Sua lingua nativa'
                                 error={state.errors?.languageId}
                                 dropdownPosition='top'
+                                notPreload={true}
                             />
                         </div>
                     </ShowIf>

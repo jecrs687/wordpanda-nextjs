@@ -20,6 +20,7 @@ export const SelectLanguage = ({
     onBlur,
     title,
     className,
+    notPreload = false,
     dropdownPosition = 'auto',
     placeHolder = "Select Language"
 }: {
@@ -31,6 +32,7 @@ export const SelectLanguage = ({
     ) => void,
     name?: string,
     disabled?: boolean,
+    notPreload?: boolean,
     value?: number | undefined,
     error?: string | undefined,
     onBlur?: (x: any) => void,
@@ -43,7 +45,8 @@ export const SelectLanguage = ({
 
 ): JSX.Element => {
 
-    const { data: { data } = {}, error: apiError } = useSWR<LanguagesGetResponse, Error>('/api/languages', {
+    const { data: { data } = {}, error: apiError } = useSWR<LanguagesGetResponse, Error>(
+        '/api/languages', {
         fetcher: fetchClient("GET")
     });
     const { trigger } = useSWRMutation<ProfileGetResponse, Error>('/api/profile', fetchClient("GET"));
@@ -66,9 +69,9 @@ export const SelectLanguage = ({
     }, [trigger, select])
 
     useEffect(() => {
-        if (language == -1)
+        if (language == -1 && !notPreload)
             getLanguage()
-    }, [getLanguage, language, select])
+    }, [getLanguage, language, select, notPreload])
 
     const values = useMemo(
         () => data?.languages?.map((item) => ({ value: item.id, label: capitalizeFirstLetter(`${item.language} - ${item.code}`) })) || [],
