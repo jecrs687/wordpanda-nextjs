@@ -5,8 +5,86 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100%;
+  min-height: 100dvh;
   padding-top: 20px;
   color: black;
   background-color: $background;
+  color: $white;
+  min-width: 100dvw;
+
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+    margin-bottom: 20px;
+
+    .logo {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 30px;
+    max-width: 600px;
+
+  }
+
+  .text {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 30px;
+    max-width: 1000px;
+  }
+
+  .title {}
+
+  .button {
+    max-width: 300px;
+    margin-bottom: auto;
+    border-radius: 30px;
+    overflow: hidden;
+  }
+
+  .buttons {
+    &__login {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 20px;
+      gap: 20px;
+      width: 100%;
+      max-width: 300px;
+
+    }
+  }
+}
+
+@media (max-width: $mobile-size) {
+  .main {
+    .header {
+      margin-bottom: auto;
+    }
+
+    .subtitle {
+      max-width: 320px;
+    }
+
+    .text {
+      max-width: 400px;
+    }
+
+    .title {}
+
+    .button {
+      margin-top: auto;
+      margin-bottom: 20px;
+    }
+  }
+
 }

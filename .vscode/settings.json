@@ -7,4 +7,5 @@
     "cSpell.words": [
         "upsert"
     ],
+    "discord.enabled": false,
 }

@@ -1,9 +1,6 @@
-import LoaderSpinner from '@core/LoaderSpinner'
-import styles from './loading.module.scss'
-export default function Loading() {
+import Loading from '../loading'
+export default function Loader() {
   return (
-    <main className={styles.main}>
-      <LoaderSpinner />
-    </main>
+    <Loading />
   )
 }
