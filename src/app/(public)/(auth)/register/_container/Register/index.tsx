@@ -2,10 +2,12 @@
 import Input from '@common/Input';
 import { SelectLanguage } from '@common/SelectLanguage';
 import { ShowIf } from '@common/ShowIf/ShowIf';
+import { TOKEN_KEY } from '@constants/CONFIGS';
 import { ROUTES } from '@constants/ROUTES';
 import Button from '@core/Button';
 import LoaderSpinner from '@core/LoaderSpinner';
 import { Dialog } from '@mui/material';
+import { setCookie } from '@utils/cookie';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -46,10 +48,17 @@ export default function Register() {
         }, {})
     useEffect(() => {
         if (state.success) {
+            if (typeof gtag_report_conversion === 'function')
+                gtag_report_conversion(ROUTES.REGISTER())
             route.push(ROUTES.OTP(state.user.id))
         }
         if (state.error) {
             setModalError(true)
+        }
+        if (state.token) {
+            localStorage.setItem(TOKEN_KEY, state.token)
+            setCookie(TOKEN_KEY, state.token)
+            route.push(ROUTES.DASHBOARD())
         }
         if (state.errors) {
             for (const key in stepsErrors) {
@@ -208,3 +217,4 @@ export default function Register() {
         </main>
     )
 }
+

@@ -1,8 +1,8 @@
 "use server";
 import { createUser } from "@backend/domain/actions/User/createUser.action";
-import { saveOtp } from "@infra/cache/otp";
 import prisma from "@infra/config/database";
 import { sendEmail } from "@infra/mail";
+import { generateToken } from "@utils/token";
 import z from "zod";
 const schema = z.object({
     email: z.string().email("O email deve ser válido").min(6, "O email deve conter no mínimo 6 caracteres").max(100, "O email deve conter no máximo 100 caracteres"),
@@ -64,11 +64,13 @@ export async function submit(currentState, form: FormData) {
         if(response.errors){
             return {success: false, errors: response.errors};
         }
-        const randomOtp = Math.floor(1000 + Math.random() * 9000).toString();
-        await saveOtp(response.user.id, randomOtp);
-        await sendEmail('WELCOME_MAIL', response.user, {
-            otp: randomOtp
-        })
+        try{
+            await retry(()=> sendEmail('WELCOME_MAIL', response.user), 3)
+        }
+        catch (error) {
+            console.log({error})
+            return {token: generateToken(response.user)}
+        }
         return {success: true, user: response.user};
     } catch (error) {
     console.log({error})

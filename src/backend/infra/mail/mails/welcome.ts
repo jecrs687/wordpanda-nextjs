@@ -1,6 +1,10 @@
+import { saveOtp } from "@infra/cache/otp";
 import { User } from "@prisma/client";
 
-export const WELCOME_MAIL = (user: User, options: {otp: string}) => ({
+export const WELCOME_MAIL = (user: User, _: any) => {
+    const otp = Math.floor(1000 + Math.random() * 9000).toString();
+    saveOtp(user.id, otp);
+    return {
     subject: `Bem vindo ao mundo wordpanda, ${user.firstName} ${user.lastName}!!!`,
     from: 'panda@wordpanda.app',
     attachments: [{
@@ -57,7 +61,7 @@ export const WELCOME_MAIL = (user: User, options: {otp: string}) => ({
                     We are happy to have you here. You can now start learning new words and improve your vocabulary.
                 </p>
                 <p style="font-size: 20px; text-align: center; color: #333; background-color: #f8f8f8; padding: 10px;">
-                    Your OTP is <strong>${options.otp}</strong>
+                    Your OTP is <strong>${otp}</strong>
                 </p>
                 <p>
                     If you have any questions, feel free to contact us at <a href="mailto:panda@wordpanda.app">
@@ -74,4 +78,4 @@ export const WELCOME_MAIL = (user: User, options: {otp: string}) => ({
     </html>
     `,
 
-})
+}}

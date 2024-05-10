@@ -3,7 +3,7 @@ import { User } from '@prisma/client';
 import * as emails from './mails';
 
 export const sendEmail = 
-async (kind: keyof typeof emails, user: User, options ) => {
+async (kind: keyof typeof emails, user: User, options?: any ) => {
     await new Promise((resolve, reject) => {
         mailTransport.sendMail({
             ...emails[kind](user, options),

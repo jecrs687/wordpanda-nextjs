@@ -39,6 +39,20 @@ export default function RootLayout({
 
           gtag('config', 'AW-757587162');`}}
         />
+        <script dangerouslySetInnerHTML={{
+          __html: `function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+            'send_to': 'AW-757587162/vE9bCKuSxa4ZENq5n-kC',
+            'event_callback': callback
+        });
+        return false;
+      }`
+        }} />
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
