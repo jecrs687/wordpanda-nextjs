@@ -26,7 +26,7 @@ const Dashboard = ({
         const medias = platform?.medias?.filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()))
         return { ...platform, medias }
     }).filter(({ medias }) => medias.length)
-    const mostViewed = platforms?.[0]?.medias?.sort((a, b) => b.mediaLanguages.length - a.mediaLanguages.length).slice(0, 25) || []
+    const mostViewed = platforms?.[0]?.medias?.sort((a, b) => b.mediaLanguages.reduce((a, c) => a + c._count.mediaUsers, 0) - a.mediaLanguages.reduce((a, c) => a + c._count.mediaUsers, 0)).slice(0, 25) || []
 
     return (
         <main className={styles.main}>

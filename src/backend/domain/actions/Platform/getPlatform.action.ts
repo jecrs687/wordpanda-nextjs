@@ -2,13 +2,17 @@
 import prisma from "@infra/config/database";
 export async function getPlatforms() {
     try {
-
         const platformsFound = await prisma.platform.findMany({
             include: {
                 medias: {
                     include: {
                         mediaLanguages: {
                             include: {
+                                _count:{
+                                    select:{
+                                        mediaUsers:true
+                                    }
+                                },
                                 language: true,
                             }
                         },
