@@ -48,8 +48,6 @@ export default function Register() {
         }, {})
     useEffect(() => {
         if (state.success) {
-            if (typeof gtag_report_conversion === 'function')
-                gtag_report_conversion(ROUTES.REGISTER())
             route.push(ROUTES.OTP(state.user.id))
         }
         if (state.error) {

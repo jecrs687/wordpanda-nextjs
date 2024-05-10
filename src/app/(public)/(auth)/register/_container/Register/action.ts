@@ -2,6 +2,7 @@
 import { createUser } from "@backend/domain/actions/User/createUser.action";
 import prisma from "@infra/config/database";
 import { sendEmail } from "@infra/mail";
+import { retry } from "@utils/retry";
 import { generateToken } from "@utils/token";
 import z from "zod";
 const schema = z.object({
@@ -69,6 +70,14 @@ export async function submit(currentState, form: FormData) {
         }
         catch (error) {
             console.log({error})
+            await prisma.user.update({
+                where: {
+                    id: response.user.id
+                },
+                data: {
+                    activedAt: new Date()
+                }
+            })
             return {token: generateToken(response.user)}
         }
         return {success: true, user: response.user};
