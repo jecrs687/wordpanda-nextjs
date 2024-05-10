@@ -9,8 +9,8 @@
   padding-top: 20px;
   color: black;
   background-color: $background;
-  color: $white;
   min-width: 100dvw;
+  animation: all 2s ease-in-out;
 
   .header {
     display: flex;

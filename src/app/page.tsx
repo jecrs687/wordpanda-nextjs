@@ -12,23 +12,32 @@ export default function Page() {
   const [step, setStep] = useState(0);
   const router = useRouter();
   const {
-    isMobile, windowWidth
+    isMobile, windowWidth, windowHeight
   } = useWindowSize();
   useEffect(() => {
     if (step === 1)
       setTimeout(() => setStep(step + 1), 2000)
   }, [step])
   const lottiesOptions = {
-    height: !isMobile ? 500 : windowWidth / 2,
-    width: !isMobile ? 500 : windowWidth / 3,
+    height: !isMobile ? 500 : windowHeight / 3,
+    width: !isMobile ? 500 : windowWidth / 1.2,
     style: {
-      width: !isMobile ? '500px' : `${windowWidth / 1.4}px`,
+      width: !isMobile ? '1000px' : `${windowWidth / 1.2}px`,
       marginBottom: 'auto'
     }
   }
 
   return (
-    <main className={styles.main}>
+    <main className={styles.main}
+
+      style={
+        {
+          color: 'black',
+          background: step % 2 === 0 ?
+            'linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0.5) 100%)'
+            : 'linear-gradient(90deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 100%)'
+        }
+      }>
       <header className={styles.header}>
         <Image
           className={styles.logo}
