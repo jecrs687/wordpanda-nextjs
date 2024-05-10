@@ -18,14 +18,15 @@ export default function Page() {
     if (step === 1)
       setTimeout(() => setStep(step + 1), 2000)
   }, [step])
-  const lottiesOptions = {
-    height: !isMobile ? 500 : windowHeight / 3,
-    width: !isMobile ? 500 : windowWidth / 1.2,
+  const lottiesOptions = (size = 1) => ({
+    height: !isMobile ? 500 : windowHeight / (size * 3),
+    width: !isMobile ? 500 : windowWidth / (size * 2),
     style: {
-      width: !isMobile ? '1000px' : `${windowWidth / 1.2}px`,
+      width: !isMobile ? '1000px' : `${windowWidth / size}px`,
+      height: !isMobile ? '1000px' : `${windowHeight / (size * 3.2)}px`,
       marginBottom: 'auto'
     }
-  }
+  })
 
   return (
     <main className={styles.main}
@@ -53,7 +54,7 @@ export default function Page() {
             autoplay: true,
             loop: true,
           }}
-          {...lottiesOptions}
+          {...lottiesOptions()}
         />
         <h3
           className={styles.subtitle}
@@ -107,7 +108,7 @@ export default function Page() {
             autoplay: true,
             loop: true,
           }}
-          {...lottiesOptions}
+          {...lottiesOptions()}
         />
         <h3
           className={styles.subtitle}
@@ -131,7 +132,7 @@ export default function Page() {
             autoplay: true,
             loop: true,
           }}
-          {...lottiesOptions}
+          {...lottiesOptions(1.8)}
         />
         <h3
           className={styles.subtitle}
@@ -144,7 +145,7 @@ export default function Page() {
           Selecione um filme e treine sua lingua estrangeira com as legendas dele <br />
           Por aqui a gente salva todo o seu histórico de filmes e palavras aprendidas<br />
           Aplicamos inteligência artificial para te ajudar a aprender mais rápido<br />
-          E o melhor de tudo, é de graça!
+          <span style={{ fontSize: 20, color: 'red', fontWeight: 'bold' }}> E o melhor de tudo, é de graça!</span>
         </h4>
         <Button
           className={styles.button}
@@ -160,7 +161,7 @@ export default function Page() {
             autoplay: true,
             loop: true,
           }}
-          {...lottiesOptions}
+          {...lottiesOptions(1.5)}
         />
         <h3
           className={styles.subtitle}
