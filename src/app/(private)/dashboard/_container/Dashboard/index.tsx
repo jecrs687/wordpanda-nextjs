@@ -7,6 +7,7 @@ import LanguageCard from '@common/Cards/LanguageCard';
 import { ShowIf } from '@common/ShowIf/ShowIf';
 import TextSearch from '@common/TextSearch';
 import useSearch from '@hooks/useSearch';
+import { deepcopy } from '@utils/deepcopy';
 import styles from './page.module.scss';
 
 type Platform = Awaited<ReturnType<typeof getPlatforms>>['platforms']
@@ -26,9 +27,8 @@ const Dashboard = ({
         const medias = platform?.medias?.filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()))
         return { ...platform, medias }
     }).filter(({ medias }) => medias.length)
-    const mostViewed = platforms?.[0]?.medias?.sort((a, b) => b.mediaLanguages.reduce((a, c) => a + c._count.mediaUsers, 0) - a.mediaLanguages.reduce((a, c) => a + c._count.mediaUsers, 0)).slice(0, 25) || []
-
-    return (
+    const mostViewed = deepcopy<typeof platforms>(platforms)?.[0]?.medias?.sort((a, b) => b.mediaLanguages.reduce((a, c) => a + c._count.mediaUsers, 0) - a.mediaLanguages.reduce((a, c) => a + c._count.mediaUsers, 0)).slice(0, 25) || []
+    const recentAdded = deepcopy<typeof platforms>(platforms)?.[0]?.medias?.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).slice(0, 25) || []; return (
         <main className={styles.main}>
 
             <div className={styles.header}>
@@ -42,6 +42,8 @@ const Dashboard = ({
                 </div>
             </div>
             <div className={styles.container}>
+
+
                 <div className={styles.card}>
                     <ShowIf condition={!!userLanguages.length}>
                         <div className={styles.carrossel}>
@@ -127,6 +129,27 @@ const Dashboard = ({
                                             key={index}
                                         />
                                     )}
+                                </div>
+                            </div>
+                        </ShowIf>
+                        <ShowIf condition={!!platforms.length}>
+                            <div className={styles.carrossel}>
+                                <h4>Adicionados recentemente</h4>
+                                <div className={styles.contents}>
+                                    {
+                                        recentAdded.map(
+                                            (platform, id) =>
+                                                <CardMovieSmall
+                                                    languages={platform.mediaLanguages.map((x) => x.language.language).join(', ')}
+                                                    id={platform.id}
+                                                    logoUrl={platform.logoUrl}
+                                                    name={platform.name}
+                                                    platform={platform.name}
+                                                    key={id}
+                                                />
+
+                                        )
+                                    }
                                 </div>
                             </div>
                         </ShowIf>
