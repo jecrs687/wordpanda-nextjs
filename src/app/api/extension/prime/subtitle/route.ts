@@ -1,4 +1,5 @@
 import { IInsertSubtitles, insertSubtitles } from "@backend/domain/actions/Subtitles/insertSubtitles";
+import { deepcopy } from "@utils/deepcopy";
 import fs from 'fs';
 export type ExtensionPrimeSubtitlePostRequest = IInsertSubtitles
 export type ExtensionPrimeSubtitlePostResponse = {
@@ -26,11 +27,11 @@ export async function POST(request: Request) {
     const mock = JSON.parse(mocks);
     if (!mock.some(x => x.mediaId === body.mediaId))
         fs.writeFileSync('./src/app/api/extension/prime/subtitle/mocks.json', JSON.stringify([...mock, body], null, 2), 'utf-8');
-
+    requests.push(body);
     if (requests.length < 20) {
         clearTimeout(timeout);
         timeout = setTimeout(() => {
-            insertSubtitles(requests);
+            insertSubtitles(deepcopy(requests));
             requests.length = 0;
         }, 1200)
     }

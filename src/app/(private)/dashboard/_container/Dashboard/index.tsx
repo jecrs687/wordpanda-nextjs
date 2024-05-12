@@ -28,7 +28,12 @@ const Dashboard = ({
         return { ...platform, medias }
     }).filter(({ medias }) => medias.length)
     const mostViewed = deepcopy<typeof platforms>(platforms)?.[0]?.medias?.sort((a, b) => b.mediaLanguages.reduce((a, c) => a + c._count.mediaUsers, 0) - a.mediaLanguages.reduce((a, c) => a + c._count.mediaUsers, 0)).slice(0, 25) || []
-    const recentAdded = deepcopy<typeof platforms>(platforms)?.[0]?.medias?.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).slice(0, 25) || []; return (
+    const recentAdded = deepcopy<typeof platforms>(platforms)
+        ?.map(({ medias, name }) => ({ ...medias, platformName: name }))
+        ?.[0]?.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+        .slice(0, 25) || [];
+
+    return (
         <main className={styles.main}>
 
             <div className={styles.header}>
@@ -138,13 +143,13 @@ const Dashboard = ({
                                 <div className={styles.contents}>
                                     {
                                         recentAdded.map(
-                                            (platform, id) =>
+                                            (recent, id) =>
                                                 <CardMovieSmall
-                                                    languages={platform.mediaLanguages.map((x) => x.language.language).join(', ')}
-                                                    id={platform.id}
-                                                    logoUrl={platform.logoUrl}
-                                                    name={platform.name}
-                                                    platform={platform.name}
+                                                    languages={recent.mediaLanguages.map((x) => x.language.language).join(', ')}
+                                                    id={recent.id}
+                                                    logoUrl={recent.logoUrl}
+                                                    name={recent.name}
+                                                    platform={recent.platformId}
                                                     key={id}
                                                 />
 
