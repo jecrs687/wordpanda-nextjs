@@ -89,6 +89,7 @@
     justify-content: center;
     gap: 20px;
     width: 100%;
+    height: 100%;
     max-width: 600px;
     height: fit-content;
     position: relative;
@@ -99,7 +100,7 @@
 
     &_lottie {
       position: absolute;
-      top: 5dvh;
+      top: 0px;
     }
 
     .lottie {
