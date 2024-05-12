@@ -89,11 +89,11 @@ const nextConfig = {
           },
           {
             key: "Access-Control-Allow-Methods",
-            value: "GET, POST, HEAD, PUT, PATCH, DELETE, OPTIONS",
+            value: "*",
           },
           {
             key: "Access-Control-Allow-Headers",
-            value: "Content-Type, Authorization",
+            value: "*",
           },
         ]
       }
