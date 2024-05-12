@@ -11,6 +11,7 @@
   color: black;
   background-color: $background;
   animation: all 2s ease-in-out;
+  text-align: center;
 
   .header {
     display: flex;
@@ -38,6 +39,8 @@
     padding-bottom: 20px;
 
   }
+
+
 
   .subtitle {
     font-size: 1.5rem;
@@ -78,18 +81,75 @@
 
     }
   }
+
+  .first {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+    height: fit-content;
+    position: relative;
+
+    .title {
+      margin: auto;
+    }
+
+    &_lottie {
+      position: absolute;
+      top: 5dvh;
+    }
+
+    .lottie {
+      width: 10px;
+      height: 10px;
+    }
+
+    .subtitle {
+      margin: none;
+    }
+
+    .title {
+      font-weight: 700;
+      margin-top: auto;
+
+      -webkit-text-stroke: 1px #dbdbdbde;
+      /* width and color */
+      animation: floating 5s infinite;
+    }
+
+    .button {
+      margin: 0px;
+    }
+  }
 }
 
-.active {
-  animation: fadeIn 1s ease-in-out;
+.fadeIn {
+  animation: fadeIn 0.5s ease-in-out;
   opacity: 1;
 }
 
-.inactive {
-  animation: fadeIn 1s ease-in-out reverse;
+.fadeOut {
+  animation: fadeOut 0.7s ease-out;
   opacity: 0;
 }
 
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+
+}
 
 @keyframes fadeIn {
   from {
@@ -98,6 +158,16 @@
 
   to {
     opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
   }
 }
 

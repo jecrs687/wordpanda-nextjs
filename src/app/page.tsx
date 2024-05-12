@@ -11,28 +11,40 @@ import { useEffect, useState } from 'react';
 import styles from './page.module.scss';
 export default function Page() {
   const [step, setStep] = useState(0);
+  const [transaction, setTransaction] = useState(false);
   const router = useRouter();
   const {
     isMobile, windowWidth, windowHeight
   } = useWindowSize();
   useEffect(() => {
     if (step === 1)
-      setTimeout(() => setStep(step + 1), 2000)
+      setTimeout(() => setStep(step + 1), 5000)
   }, [step])
+
+  const changeStep = (step: number) => {
+    setTransaction(true);
+    setTimeout(() => {
+      setStep(step);
+      setTransaction(false);
+    }, 500)
+  }
+  const first = step !== 0
   const lottiesOptions = (size = 1) => ({
-    height: !isMobile ? 1000 : windowHeight / (size * 3),
-    width: !isMobile ? 1000 : windowWidth / (size * 2),
+    height: first && !isMobile ? 1000 : windowHeight / (size * 3),
+    width: first && !isMobile ? 1000 : windowWidth / (size * 2),
     containerProps: {
+      className: styles.lottie,
       style: {
-        width: !isMobile ? '600px' : `${windowWidth / size}px`,
-        height: !isMobile ? '600px' : `${windowHeight / (size * 3.2)}px`,
+        width: first && !isMobile ? '550px' : `${windowWidth / size}px`,
+        height: first && !isMobile ? '550px' : `${windowHeight / (size * 3.2)}px`,
         overflow: 'hidden',
-        marginTop: 'auto'
+        marginTop: 'auto',
+        marginBottom: 'auto',
       }
     },
     style: {
-      width: !isMobile ? '600px' : `${windowWidth / size}px`,
-      height: !isMobile ? '600px' : `${windowHeight / (size * 3.2)}px`,
+      width: first && !isMobile ? '550px' : `${windowWidth / size}px`,
+      height: first && !isMobile ? '550px' : `${windowHeight / (size * 3.2)}px`,
       marginBottom: 'auto',
     }
   })
@@ -57,22 +69,31 @@ export default function Page() {
       </header>
       <ShowIf condition={step === 0} onlyHide>
         <div className={clsx(
-          styles.container, step === 0 ? styles.active : styles.inactive
+          styles.container,
+          styles.first,
+          {
+            [styles.fadeIn]: step === 0,
+            [styles.fadeOut]: step === 0 && transaction
+          }
         )}>
-          <Lottie
-            options={{
-              animationData: require('@assets/lotties/eating-panda.json'),
-              autoplay: true,
-              loop: true,
-            }}
-            {...lottiesOptions()}
-          />
-          <h3
-            className={styles.subtitle}
+          <div className={styles.first_lottie}>
 
-          >Seja bem-vindo ao worldpanda!</h3>
+            <Lottie
+              options={{
+                animationData: require('@assets/lotties/eating-panda.json'),
+                autoplay: true,
+                loop: true,
+              }}
+              {...lottiesOptions()}
+            />
+          </div>
+
+          <h1
+            className={styles.title}
+
+          >Seja bem-vindo ao worldpanda!</h1>
           <Button
-            onClick={() => setStep(2)}
+            onClick={() => changeStep(2)}
             className={styles.button}
           >
             Comece sua jornada aqui <br />
@@ -81,7 +102,7 @@ export default function Page() {
 
           <Button
             variety='secondary'
-            onClick={() => setStep(1)}
+            onClick={() => changeStep(1)}
             className={styles.button}
             style={{ borderRadius: 10, zoom: 0.6, marginBottom: '20px' }}
           >
@@ -92,7 +113,10 @@ export default function Page() {
 
       <ShowIf condition={step === 1} onlyHide>
         <div className={clsx(
-          styles.container, step === 1 ? styles.active : styles.inactive
+          styles.container, {
+          [styles.fadeIn]: step === 1,
+          [styles.fadeOut]: step === 1 && transaction
+        }
         )}>
           <h3
             className={styles.subtitle}
@@ -119,7 +143,10 @@ export default function Page() {
       </ShowIf>
       <ShowIf condition={step === 2} onlyHide>
         <div className={clsx(
-          styles.container, step === 2 ? styles.active : styles.inactive
+          styles.container, {
+          [styles.fadeIn]: step === 2,
+          [styles.fadeOut]: step === 2 && transaction
+        }
         )}>
           <Lottie
             options={{
@@ -139,7 +166,7 @@ export default function Page() {
           </h4>
           <Button
             className={styles.button}
-            onClick={() => setStep(3)}
+            onClick={() => changeStep(3)}
           >
             Clique aqui para começar
           </Button>
@@ -147,7 +174,10 @@ export default function Page() {
       </ShowIf>
       <ShowIf condition={step === 3} onlyHide>
         <div className={clsx(
-          styles.container, step === 3 ? styles.active : styles.inactive
+          styles.container, {
+          [styles.fadeIn]: step === 3,
+          [styles.fadeOut]: step === 3 && transaction
+        }
         )}>
           <Lottie
             options={{
@@ -170,7 +200,7 @@ export default function Page() {
           </h4>
           <Button
             className={styles.button}
-            onClick={() => setStep(4)}
+            onClick={() => changeStep(4)}
           >
             Clique aqui para começar!
           </Button>
@@ -178,7 +208,10 @@ export default function Page() {
       </ShowIf>
       <ShowIf condition={step === 4} onlyHide>
         <div className={clsx(
-          styles.container, step === 4 ? styles.active : styles.inactive
+          styles.container, {
+          [styles.fadeIn]: step === 4,
+          [styles.fadeOut]: step === 4 && transaction
+        }
         )}>
           <Lottie
             options={{
@@ -201,7 +234,7 @@ export default function Page() {
           </h4>
           <Button
             className={styles.button}
-            onClick={() => setStep(5)}
+            onClick={() => changeStep(5)}
           >
             Clique aqui para começar!
           </Button>
@@ -209,7 +242,10 @@ export default function Page() {
       </ShowIf>
       <ShowIf condition={step === 5} onlyHide>
         <div className={clsx(
-          styles.container, step === 5 ? styles.active : styles.inactive
+          styles.container, {
+          [styles.fadeIn]: step === 5,
+          [styles.fadeOut]: step === 5 && transaction
+        }
         )}>
           <Lottie
             options={{
@@ -222,7 +258,7 @@ export default function Page() {
           <h3
             className={styles.subtitle}
           >
-            Sei que nem todo mundo gosta, mas o panda precisa saber quem é você
+            Sabemos que nem todo mundo gosta, mas o panda precisa saber quem é você
           </h3>
           <h4
             className={styles.text}
