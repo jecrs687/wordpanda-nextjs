@@ -1,10 +1,11 @@
 "use client";
 
+import { ComponentProps } from "react";
 import LottieComponent, { LottieProps } from "react-lottie";
 
-export const Lottie = (props: LottieProps) => {
+export const Lottie = (props: LottieProps & { containerProps?: ComponentProps<'div'> }) => {
     return (
-        <div style={props?.style}>
+        <div {...props?.containerProps}>
             <LottieComponent
                 options={{
                     autoplay: true,
