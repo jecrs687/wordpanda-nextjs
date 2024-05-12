@@ -1,9 +1,11 @@
 "use client";
 import { ShowIf } from '@common/ShowIf/ShowIf';
+import { TOKEN_KEY } from '@constants/CONFIGS';
 import { ROUTES } from '@constants/ROUTES';
 import Button from '@core/Button';
 import { Lottie } from '@core/Lotties';
 import useWindowSize from '@hooks/useWindowSize';
+import { getCookie } from '@utils/cookie';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -16,6 +18,12 @@ export default function Page() {
   const {
     isMobile, windowWidth, windowHeight
   } = useWindowSize();
+  useEffect(() => {
+    const token = getCookie(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY);
+    if (token)
+      router.push(ROUTES.DASHBOARD());
+
+  }, [router])
   useEffect(() => {
     if (step === 1)
       setTimeout(() => setStep(step + 1), 5000)

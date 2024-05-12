@@ -26,7 +26,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         Error,
         string,
         WordsPostRequest
-    >('/api/words', fetchClient("POST"))
+    >('https://lanboost-04a196880f88.herokuapp.com/api/words', fetchClient("POST"))
     const {
         trigger: quizTrigger,
     } = useSWRMutation<
@@ -34,7 +34,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         Error,
         string,
         GamesQuizPostRequest
-    >('/api/games/quiz', fetchClient("POST"))
+    >('https://lanboost-04a196880f88.herokuapp.com/api/games/quiz', fetchClient("POST"))
 
     const {
         trigger: memoryTrigger,
@@ -43,7 +43,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         Error,
         string,
         GamesMemoryPostRequest
-    >('/api/games/memory', fetchClient("POST"))
+    >('https://lanboost-04a196880f88.herokuapp.com/api/games/memory', fetchClient("POST"))
 
     const updateWords = useCallback(async () => {
         const response = await wordsListTrigger({
