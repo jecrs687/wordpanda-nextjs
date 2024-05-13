@@ -196,6 +196,17 @@ model Subtitle {
   updatedAt  DateTime  @updatedAt @map(name: "updated_at")
   deletedAt  DateTime? @map(name: "deleted_at")
 }
+model Images{
+  id String @id @default(cuid())
+  url String
+  type String
+  mediaId String @map(name: "media_id")
+  media Media @relation(fields: [mediaId], references: [id])
+  
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
+}
 
 model Media {
   id String @id @default(cuid())
@@ -208,6 +219,7 @@ model Media {
   logoUrl     String       @default("https://picsum.photos/500/1000") @map(name: "logo_url")
   serieMedias SerieMedia[]
   subtitles   Subtitle[]
+  images      Images[]
 
   mediaLanguages MediaLanguages[]
 

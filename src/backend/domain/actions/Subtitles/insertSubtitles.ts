@@ -18,6 +18,9 @@ export interface IInsertSubtitles {
     serieId?: string,
     episodeId?: string,
     platformLink?: string,
+    images: {
+        [key: string]: string
+    }
     links: {
         url: string,
         languageCode?: string
@@ -66,7 +69,7 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[]) => {
         })
 
         if (!media) {
-            const media = await prisma.media.create({
+            await prisma.media.create({
                 data: {
                     ...(subtitle?.mediaId && { id: subtitle.mediaId }),
                     name: subtitle.name,
@@ -74,6 +77,14 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[]) => {
                     type: subtitle.type || MediaType.MOVIE,
                     logoUrl: subtitle?.image || "https://picsum.photos/500/1000",
                     platformId: platform.id,
+                    images:{
+                        createMany:{
+                            data :Object.entries(subtitle.images).map(([type, url])=>({
+                                type,
+                                url
+                            }))
+                        }
+                    },
                     ...(subtitle.seasonId && {
                         serieMedias: {
                             connectOrCreate: {
