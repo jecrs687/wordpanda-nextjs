@@ -18,7 +18,7 @@ export interface IInsertSubtitles {
     serieId?: string,
     episodeId?: string,
     platformLink?: string,
-    images: {
+    images?: {
         [key: string]: string
     }
     links: {
