@@ -4,6 +4,7 @@ import { TOKEN_KEY } from '@constants/CONFIGS';
 import { ROUTES } from '@constants/ROUTES';
 import Button from '@core/Button';
 import { Lottie } from '@core/Lotties';
+import useQueryParams from '@hooks/useQueryParams';
 import useWindowSize from '@hooks/useWindowSize';
 import { getCookie } from '@utils/cookie';
 import clsx from 'clsx';
@@ -15,6 +16,7 @@ export default function Page() {
   const [step, setStep] = useState(0);
   const [transaction, setTransaction] = useState(false);
   const router = useRouter();
+  const { queryParams } = useQueryParams();
   const {
     isMobile, windowWidth, windowHeight
   } = useWindowSize();
@@ -59,6 +61,7 @@ export default function Page() {
 
   return (
     <main className={styles.main}
+
       style={
         {
           color: 'black',
@@ -67,7 +70,11 @@ export default function Page() {
             : 'linear-gradient(90deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 100%)'
         }
       }>
-      <header className={styles.header}>
+      <header className={styles.header}
+        style={{
+          marginTop: `${(+queryParams?.statusBarHeight || 0) * 2}px`
+        }}
+      >
         <Image
           className={styles.logo}
           src="/assets/logo.png" alt="panda" width={100} height={100} />

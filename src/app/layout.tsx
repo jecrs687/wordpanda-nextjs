@@ -1,5 +1,6 @@
 import EventProvider from '@providers/EventProvider'
 import InformationProvider from '@providers/InformationProvider'
+import { QueryParamProvider } from '@providers/QueryParamProvider'
 import type { Metadata } from 'next'
 import { ErrorBoundary } from 'next/dist/client/components/error-boundary'
 import { Poppins } from 'next/font/google'
@@ -61,7 +62,9 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#2d89ef" />
         <meta name="theme-color" content="#ffffff" />
         <meta name="viewport"
-          content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;" />
+          content="width=device-width, height=device-height,  initial-scale=1.0,  maximum-scale=1.0, user-scalable=no; user-scalable=0;"
+        />
+
         <script dangerouslySetInnerHTML={{
           __html: `
               (function(h,o,t,j,a,r){
@@ -94,6 +97,7 @@ export default function RootLayout({
         <Suspense fallback={<Loading />}>
           <EventProvider />
           <InformationProvider />
+          <QueryParamProvider />
         </Suspense>
         <ErrorBoundary errorComponent={Error}>
           <Suspense fallback={<Loading />}>
