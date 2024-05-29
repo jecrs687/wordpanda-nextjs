@@ -80,8 +80,10 @@ export default function Register() {
             onChange: (e) => setValues({ ...values, [name]: e.target.value })
         }
     }
-    return (
+    return (<>
+
         <main className={styles.main}>
+
             <Dialog
                 open={modalError}
                 onClose={() => { setModalError(false) }}
@@ -212,7 +214,8 @@ export default function Register() {
                 </Link>
             </form>
 
-        </main>
+        </main></>
+
     )
 }
 

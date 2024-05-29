@@ -1,9 +1,11 @@
 import EventProvider from '@providers/EventProvider'
 import InformationProvider from '@providers/InformationProvider'
+import { MetaTagsProvider } from '@providers/MetaTags.provide'
 import { QueryParamProvider } from '@providers/QueryParamProvider'
 import type { Metadata } from 'next'
 import { ErrorBoundary } from 'next/dist/client/components/error-boundary'
 import { Poppins } from 'next/font/google'
+import Script from 'next/script'
 import { Suspense } from 'react'
 import Error from './error'
 import './globals.scss'
@@ -29,8 +31,10 @@ export default function RootLayout({
 
     <html lang="en">
       <head>
+
+        <MetaTagsProvider />
         <meta name="google-site-verification" content="ctYiVgIDqF93EFA9K-KPFNJsRgtSRLa3m8JrZsxpiw4" />
-        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-757587162"></script>
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-757587162" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -54,16 +58,7 @@ export default function RootLayout({
         return false;
       }`
         }} />
-        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
-        <link rel="manifest" href="/favicon/site.webmanifest" />
-        <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#2d89ef" />
-        <meta name="theme-color" content="#ffffff" />
-        <meta name="viewport"
-          content="width=device-width, height=device-height,  initial-scale=1.0,  maximum-scale=1.0, user-scalable=no; user-scalable=0;"
-        />
+
 
         <script dangerouslySetInnerHTML={{
           __html: `
