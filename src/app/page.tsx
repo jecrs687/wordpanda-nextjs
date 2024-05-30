@@ -8,6 +8,7 @@ import useQueryParams from '@hooks/useQueryParams';
 import useWindowSize from '@hooks/useWindowSize';
 import { getCookie } from '@utils/cookie';
 import clsx from 'clsx';
+import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -59,7 +60,13 @@ export default function Page() {
     }
   })
 
-  return (
+  return (<>
+    <Head>
+      <script dangerouslySetInnerHTML={{
+        __html: ` 
+<script> function gtag_report_conversion(url) { var callback = function () { if (typeof(url) != 'undefined') { window.location = url; } }; gtag('event', 'conversion', { 'send_to': 'AW-757587162/vE9bCKuSxa4ZENq5n-kC', 'event_callback': callback }); return false; } </script>
+`}}></script>
+    </Head>
     <main className={styles.main}
 
       style={
@@ -300,6 +307,6 @@ export default function Page() {
           </div>
         </div>
       </ShowIf>
-    </main >
+    </main ></>
   )
 }
