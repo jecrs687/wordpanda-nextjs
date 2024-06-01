@@ -34,7 +34,8 @@
         }
 
         .image {
-            border-radius: 50px;
+            width: 150px;
+            height: 80px;
         }
 
         /* width */
@@ -143,9 +144,6 @@
                 width: 100%;
             }
 
-            .image {
-                border-radius: 50px;
-            }
 
             /* width */
             &::-webkit-scrollbar {

@@ -86,10 +86,11 @@ export default function Page() {
       >
         <Image
           className={styles.logo}
-          src="/assets/logo.png" alt="panda" width={100} height={100} />
-        <h1 className={styles.title}>
-          WorldPanda
-        </h1>
+          src="/assets/logo.png"
+          alt="panda"
+          width={200}
+          height={200}
+        />
       </header>
       <ShowIf condition={step === 0} onlyHide>
         <div className={clsx(

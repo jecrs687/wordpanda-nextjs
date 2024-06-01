@@ -8,10 +8,10 @@ export default function Loading() {
       <header className={styles.header}>
         <Image
           className={styles.logo}
-          src="/assets/logo.png" alt="panda" width={100} height={100} />
-        <h1 className={styles.title}>
-          WorldPanda
-        </h1>
+          src="/assets/logo_white.png"
+          alt="panda"
+          width={150}
+          height={100} />
       </header>
     </main>
   )

@@ -112,16 +112,12 @@ export function NavBar() {
         }>
             <div className={styles.logo}>
                 <Image
-                    src="/assets/logo.png"
+                    src="/assets/logo_white.png"
                     alt="logo"
-                    width={20}
-                    height={20}
+                    width={200}
+                    height={200}
                     className={styles.logo__image}
                 />
-                <h3 className={styles.logo__title}>
-                    Wordpanda
-                </h3>
-
             </div>
 
             <ul className={styles.list}>

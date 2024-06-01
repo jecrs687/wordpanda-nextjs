@@ -54,13 +54,11 @@ export default function LoginPage() {
                     <Image
                         src="/assets/logo.png"
                         alt="logo"
-                        width={100}
-                        height={100}
+                        width={200}
+                        height={200}
                         className={styles.logo__image}
                     />
-                    <h3 className={styles.logo__title}>
-                        Wordpanda
-                    </h3>
+
 
                 </div>
 

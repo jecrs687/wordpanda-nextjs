@@ -71,12 +71,11 @@ export default function OtpConfirmation({ id }) {
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
                     <Image
                         src={"/assets/logo.png"}
-                        width={40}
-                        height={40}
+                        width={200}
+                        height={200}
                         alt='logo'
                         className={styles.image}
                     />
-                    <h1 className={styles.title}>Wordpanda</h1>
                 </div>
                 <div className={styles.form}>
                     <ShowIf condition={false} onlyHide>

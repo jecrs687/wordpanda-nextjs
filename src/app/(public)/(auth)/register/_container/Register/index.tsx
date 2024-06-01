@@ -101,12 +101,11 @@ export default function Register() {
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
                     <Image
                         src={"/assets/logo.png"}
-                        width={40}
-                        height={40}
+                        width={150}
+                        height={150}
                         alt='logo'
                         className={styles.image}
                     />
-                    <h1 className={styles.title}>Wordpanda</h1>
                 </div>
                 <div className={styles.form}>
                     <ShowIf condition={steps === 1} onlyHide>

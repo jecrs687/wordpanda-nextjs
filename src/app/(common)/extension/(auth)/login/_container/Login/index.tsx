@@ -46,13 +46,10 @@ export default function LoginPage({ nextPage }: { nextPage?: string }) {
                     <Image
                         src="/assets/logo.png"
                         alt="logo"
-                        width={100}
-                        height={100}
+                        width={200}
+                        height={200}
                         className={styles.logo__image}
                     />
-                    <h3 className={styles.logo__title}>
-                        Wordpanda
-                    </h3>
 
                 </div>
                 <Input
@@ -71,8 +68,8 @@ export default function LoginPage({ nextPage }: { nextPage?: string }) {
                 />
                 <Submit />
             </form>
-            <div onClick={()=>{
-               window.open("https://wordpanda.app"+ROUTES.REGISTER())
+            <div onClick={() => {
+                window.open("https://wordpanda.app" + ROUTES.REGISTER())
             }} className={styles.link}>
                 Não tem uma conta? Registre-se
             </div>
