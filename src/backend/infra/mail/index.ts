@@ -18,8 +18,11 @@ export const sendEmail =
                     mailTransport().sendMail({
                         ...emails.REPORT_MAIL(user, options),
                         to: 'emanuelcascone@gmail.com'
-                    }, () => { });
-                    resolve(info);
+                    }, (err2, info2) => {
+                        if (err2)
+                            resolve({ info });
+                        resolve({ info, info2 });
+                    });
                 }
             });
         });
