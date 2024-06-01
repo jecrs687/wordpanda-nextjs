@@ -119,7 +119,7 @@ export default function Page() {
           >
             <TypeWriter delay={75}>
               <h3>
-                Bem vindo ao mundo dos pandas! 🐼
+                Bem vindo ao WordPanda! 🐼
               </h3>
             </TypeWriter>
 
@@ -129,10 +129,7 @@ export default function Page() {
             className={styles.button}
           >
             <h3>
-              Seja um pandawan! 🐼
-              <br />
-              (Clique aqui para continuar)
-
+              Clique aqui para continuar!
             </h3>
           </Button>
 
