@@ -2,6 +2,7 @@
 
 import { TOKEN_KEY } from "@constants/CONFIGS";
 import prisma from "@infra/config/database";
+import { sendEmail } from "@infra/mail";
 import { validateToken } from "@utils/token";
 import { cookies } from "next/headers";
 
@@ -30,4 +31,10 @@ export async function insertMissingMovies(forms: FormData) {
 
         }
     })
+    const user = await prisma.user.findUnique({
+        where: {
+            id: decoded.id
+        }
+    })
+    await sendEmail('REPORT_MOVIE_MAIL', user, { name, provider, to: 'emanuelcascone@gmail.com' });
 }
