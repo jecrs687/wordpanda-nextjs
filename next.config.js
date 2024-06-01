@@ -28,6 +28,10 @@ const nextConfig = {
       module: Object.assign({}, config.module, {
         rules: config.module.rules.concat([
           {
+            test: /\.html$/,
+            use: 'raw-loader',
+          },
+          {
             test: /\.svg$/i,
             use: [
               {

@@ -1,14 +1,10 @@
+import welcome from "@assets/templates/welcome.html";
 import { saveOtp } from "@infra/cache/otp";
 import { User } from "@prisma/client";
-import { readFileSync } from "fs";
-import { join } from "path";
-
 export const WELCOME_MAIL = (user: User, _: any) => {
     const otp = Math.floor(1000 + Math.random() * 9000).toString();
     saveOtp(user.id, otp);
-    const path = join(process.cwd(), 'src/backend/infra/mail/mails/templates', 'welcome.html');
-    const html = readFileSync(path).toString()
-    const htmlFormatted = eval('`' + html + '`');
+    const htmlFormatted = eval('`' + welcome + '`');
     console.log('OTP:', otp);
     return {
         subject: `Bem vindo ao mundo wordpanda, ${user.firstName} ${user.lastName}!!!`,
