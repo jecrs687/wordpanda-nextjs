@@ -41,7 +41,7 @@ export async function submit(currentState, form: FormData) {
         phone: form.get('phone') as string,
         passwordConfirmation: form.get('passwordConfirmation') as string,
         username: form.get('username') as string,
-        languageId: +form.get('languageId') 
+        languageId: +form.get('languageId')
     }
     const validate = schema.safeParse(forms) as typeof forms & { error: z.ZodError, success: boolean }
 
@@ -51,25 +51,46 @@ export async function submit(currentState, form: FormData) {
         }
     });
     if (verifyEmail) {
-        return {errors:{
-            email: 'Email já cadastrado'
-        }}
+        return {
+            errors: {
+                email: 'Email já cadastrado'
+            }
+        }
     }
+
     if (!validate.success && validate?.error) {
         const errors = validate?.error?.flatten()?.fieldErrors
+        try {
+            await prisma.probableUser.create({
+                data: {
+                    email: forms.email,
+                }
+            })
+        } catch (error) {
+            console.log({ error })
+        }
         return ({ errors });
     }
+    try {
+        await prisma.probableUser.deleteMany({
+            where: {
+                email: forms.email
+            }
+        })
+    } catch (error) {
+        console.log({ error })
+    }
     const { passwordConfirmation, ...rest } = forms;
-   try{
+    try {
         const response = await createUser(rest)
-        if(response.errors){
-            return {success: false, errors: response.errors};
+        if (response.errors) {
+            return { success: false, errors: response.errors };
         }
-        try{
-            await retry(()=> sendEmail('WELCOME_MAIL', response.user), 3)
+        try {
+            await retry(() => sendEmail('WELCOME_MAIL', response.user), 3)
         }
         catch (error) {
-            console.log({error})
+            console.log({ error })
             await prisma.user.update({
                 where: {
                     id: response.user.id
@@ -78,11 +99,11 @@ export async function submit(currentState, form: FormData) {
                     activedAt: new Date()
                 }
             })
-            return {token: generateToken(response.user)}
+            return { token: generateToken(response.user) }
         }
-        return {success: true, user: response.user};
+        return { success: true, user: response.user };
     } catch (error) {
-    console.log({error})
-    return {error: error.message}
-}
+        console.log({ error })
+        return { error: error.message }
+    }
 }

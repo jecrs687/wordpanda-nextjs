@@ -21,6 +21,24 @@
         }
     }
 
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 0px 20px;
+        background-color: $white;
+        color: black;
+        padding: 20px;
+        max-width: 400px;
+        border-radius: 10px;
+        margin: auto;
+
+        input::placeholder {
+            color: gray;
+        }
+    }
+
+
     .container {
         display: flex;
         flex-direction: column;

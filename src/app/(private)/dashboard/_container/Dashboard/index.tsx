@@ -4,10 +4,13 @@ import { getPlatforms } from '@backend/domain/actions/Platform/getPlatform.actio
 import CardMovieBig from '@common/Cards/CardMovieBig';
 import CardMovieSmall from '@common/Cards/CardMovieSmall';
 import LanguageCard from '@common/Cards/LanguageCard';
+import Input from '@common/Input';
 import { ShowIf } from '@common/ShowIf/ShowIf';
 import TextSearch from '@common/TextSearch';
+import Button from '@core/Button';
 import useSearch from '@hooks/useSearch';
 import { deepcopy } from '@utils/deepcopy';
+import { insertMissingMovies } from './action';
 import styles from './page.module.scss';
 
 type Platform = Awaited<ReturnType<typeof getPlatforms>>['platforms']
@@ -28,7 +31,9 @@ const Dashboard = ({
         return { ...platform, medias }
     }).filter(({ medias }) => medias.length)
     const mostViewed = deepcopy<typeof platforms>(platforms)?.[0]?.medias?.sort((a, b) => b.mediaLanguages.reduce((a, c) => a + c._count.mediaUsers, 0) - a.mediaLanguages.reduce((a, c) => a + c._count.mediaUsers, 0)).slice(0, 25) || []
-    const recentAdded = deepcopy<typeof platforms>(platforms)?.[0]?.medias?.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).slice(0, 25) || []; return (
+    const recentAdded = deepcopy<typeof platforms>(platforms)?.[0]?.medias?.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).slice(0, 25) || [];
+    const notFound = !mostViewed.length && !recentAdded.length
+    return (
         <main className={styles.main}>
 
             <div className={styles.header}>
@@ -42,7 +47,30 @@ const Dashboard = ({
                 </div>
             </div>
             <div className={styles.container}>
+                <ShowIf condition={notFound}>
 
+                    <form className={styles.form}
+                        onSubmit={(event) => {
+                            insertMissingMovies(new FormData(event.currentTarget))
+                        }}>
+                        <h2>
+                            Não encontramos nada com o termo pesquisado
+                        </h2>
+                        <h4>
+                            Quer adicionar a nossa base de dados?
+                            <br />
+                            Basta clicar no botão abaixo e adicionar o filme ou série que deseja:
+                        </h4>
+                        <Input name='name' title='Nome' placeholder='Se beber não case' />
+                        <Input name='provider' title='Provedor' placeholder='Netflix, prime' />
+                        <Button type='submit'>Adicionar</Button>
+
+                        <p>
+                            Apos adicionar, aguarde a aprovação da nossa equipe para que o conteúdo seja disponibilizado
+                        </p>
+                    </form>
+
+                </ShowIf>
 
                 <div className={styles.card}>
                     <ShowIf condition={!!userLanguages.length}>
