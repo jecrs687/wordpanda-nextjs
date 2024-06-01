@@ -1,0 +1,97 @@
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            margin-right: 20px;
+        }
+
+        .logo img {
+            width: 100px;
+        }
+
+        .content {
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <img src="cid:panda" alt="Logo">
+            </div>
+            <div class="title">
+                <h1>Bem vindo ao wordpanda, ${user.firstName}!!!</h1>
+                <h5>Seu assistente pessoal para aprimorar seu vocabulário</h5>
+            </div>
+        </div>
+        <div class="content">
+            <p>
+                Estamos muito felizes em ter você conosco. A partir de agora, você poderá desfrutar de todos os recursos
+                que o wordpanda tem a oferecer.
+            </p>
+            <p>
+                Para começar, você precisa ativar sua conta. Para isso, basta inserir o código de ativação abaixo:
+            </p>
+
+            <p style="font-size: 20px; text-align: center; color: #333; background-color: #f8f8f8; padding: 10px;">
+                Seu código de ativação é <strong>${otp}</strong>
+            </p>
+            <p>
+                Se você não solicitou a ativação da sua conta, por favor, ignore este e-mail.
+            </p>
+            <p>
+                Em caso de dúvida, não hesite em
+                <a href="mailto:panda@wordpanda.app">
+                    entrar em contato conosco
+                </a>
+            </p>
+        </div>
+        <div class="footer">
+            <p>
+                <a href="https://wordpanda.app">@wordpanda.app</a>
+            </p>
+            <p>
+                &copy; 2024 wordpanda. Todos os direitos reservados.
+            </p>
+        </div>
+        <div class="social">
+            <a href="https://instagram.com/wordpanda.app" target="_blank">
+                <img src="https://img.freepik.com/free-vector/instagram-background-gradient-colors_23-2147823814.jpg?size=338&ext=jpg&ga=GA1.1.44546679.1717113600&semt=ais_user"
+                    alt="Instagram" width="20px">
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,16 +1,13 @@
-import { saveOtp } from "@infra/cache/otp";
 import { User } from "@prisma/client";
 
-export const WELCOME_MAIL = (user: User, _: any) => {
-    const otp = Math.floor(1000 + Math.random() * 9000).toString();
-    saveOtp(user.id, otp);
+export const REPORT_MAIL = (user: User, _: any) => {
     return {
-    subject: `Bem vindo ao mundo wordpanda, ${user.firstName} ${user.lastName}!!!`,
+    subject: `Novo usuário no wordpanda: ${user.firstName} ${user.lastName}!!!`,
     from: 'panda@wordpanda.app',
     attachments: [{
-        filename: 'logo.png',
-        path: 'https://wordpanda.app/assets/logo.png',
-        cid: 'logo'
+        filename: 'panda.gif',
+        path: 'https://media.tenor.com/xaJrTrfiRcEAAAAM/happy-panda-bamboo.gif',
+        cid: 'panda'
     }],
     html: `
     <html>
@@ -52,26 +49,20 @@ export const WELCOME_MAIL = (user: User, _: any) => {
         <div class="container">
             <div class="header">
                 <div class="logo">
-                    <img src="cid:logo" alt="Logo">
+                    <img src="cid:panda" alt="Logo">
                 </div>
-                <h1>Welcome to wordpanda, ${user.firstName}!!!</h1>
+                <h1>Novo usuário no wordpanda: ${user.firstName} ${user.lastName}!!!</h1>
             </div>
             <div class="content">
                 <p>
-                    We are happy to have you here. You can now start learning new words and improve your vocabulary.
-                </p>
-                <p style="font-size: 20px; text-align: center; color: #333; background-color: #f8f8f8; padding: 10px;">
-                    Your OTP is <strong>${otp}</strong>
-                </p>
-                <p>
-                    If you have any questions, feel free to contact us at <a href="mailto:panda@wordpanda.app">
-                    mail us </a>
+                    O usuário ${user.firstName} ${user.lastName} acabou de se cadastrar no wordpanda.
+                    email: ${user.email}
+                    telefone: ${user.phone}
+                    hour: ${new Date().toLocaleTimeString()}
                 </p>
             </div>
             <div class="footer">
-                <p>
-                    Thanks for joining us.
-                </p>
+                <p>© 2021 wordpanda</p>
             </div>
         </div>
     </body>
