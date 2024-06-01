@@ -14,14 +14,7 @@ export const sendEmail = async (kind: keyof typeof emails, user: User, options?:
                 reject(err);
             } else {
                 console.log(info);
-                mailTransport().sendMail({
-                    ...emails.REPORT_MAIL(user, options),
-                    to: 'emanuelcascone@gmail.com'
-                }, (err2, info2) => {
-                    if (err2)
-                        resolve({ info });
-                    resolve({ info, info2 });
-                });
+                resolve(info);
             }
         });
     });

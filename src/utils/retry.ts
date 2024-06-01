@@ -1,6 +1,6 @@
-export const retry = async (fn: () => Promise<any>, retries = 3) => {
+export const retry = async (fn: Promise<any>, retries = 3) => {
     try {
-        return await fn();
+        return await fn;
     } catch (error) {
         if (retries > 0) {
             return await retry(fn, retries - 1);

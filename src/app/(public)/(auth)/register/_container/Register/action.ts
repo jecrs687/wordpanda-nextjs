@@ -87,7 +87,12 @@ export async function submit(currentState, form: FormData) {
             return { success: false, errors: response.errors };
         }
         try {
-            await retry(() => sendEmail('WELCOME_MAIL', response.user), 3)
+            await retry(sendEmail('WELCOME_MAIL', response.user), 3)
+            try {
+                await retry(sendEmail('REPORT_MAIL', response.user, { to: 'emanuelcascone@gmail.com' }), 3)
+            } catch (error) {
+                console.log({ error })
+            }
         }
         catch (error) {
             console.log({ error })
