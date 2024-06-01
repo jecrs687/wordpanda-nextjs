@@ -3,7 +3,9 @@ import { ShowIf } from '@common/ShowIf/ShowIf';
 import { TOKEN_KEY } from '@constants/CONFIGS';
 import { ROUTES } from '@constants/ROUTES';
 import Button from '@core/Button';
+import { FadeIn } from '@core/FadeIn';
 import { Lottie } from '@core/Lotties';
+import TypeWriter from '@core/TypeWriter';
 import useQueryParams from '@hooks/useQueryParams';
 import useWindowSize from '@hooks/useWindowSize';
 import { getCookie } from '@utils/cookie';
@@ -113,13 +115,24 @@ export default function Page() {
           <h1
             className={styles.title}
 
-          >Seja bem-vindo ao worldpanda!</h1>
+          >
+            <TypeWriter delay={75}>
+              <h3>
+                Bem vindo ao mundo dos pandas! 🐼
+              </h3>
+            </TypeWriter>
+
+          </h1>
           <Button
             onClick={() => changeStep(2)}
             className={styles.button}
           >
-            Comece sua jornada aqui <br />
-            (sim eu sou um botão de verdade...)
+            <h3>
+              Seja um pandawan! 🐼
+              <br />
+              (Clique aqui para continuar)
+
+            </h3>
           </Button>
 
           <Button
@@ -140,16 +153,18 @@ export default function Page() {
           [styles.fadeOut]: step === 1 && transaction
         }
         )}>
-          <h3
-            className={styles.subtitle}
+          <TypeWriter delay={80}>
+            <h3
+              className={styles.subtitle}
 
-          >Já se deparou com um panda comendo?</h3>
-          <h4
-            className={styles.text}
+            >Já se deparou com um panda comendo?</h3>
+            <h4
+              className={styles.text}
 
-          >
-            Acredite, é uma das coisas mais fofas que você verá na vida...
-          </h4>
+            >
+              Acredite, é uma das coisas mais fofas que você verá na vida...
+            </h4>
+          </TypeWriter>
           <Image
             alt='panda eating'
             src="/assets/gifs/panda-eating.gif"
@@ -178,11 +193,15 @@ export default function Page() {
             }}
             {...lottiesOptions()}
           />
-          <h3
-            className={styles.subtitle}
-          >
-            Você está tentando aprender uma nova lingua com filmes?
-          </h3>
+          <TypeWriter delay={60}>
+            <h3
+              className={styles.subtitle}
+            >
+              Você está tentando aprender uma nova lingua com filmes?
+            </h3>
+
+          </TypeWriter>
+
           <h4 className={styles.text}>
             Nós podemos te ajudar com isso! 🐼
           </h4>
@@ -190,7 +209,7 @@ export default function Page() {
             className={styles.button}
             onClick={() => changeStep(3)}
           >
-            Clique aqui para começar
+            Clique aqui para continuar!
           </Button>
         </div>
       </ShowIf>
@@ -214,17 +233,19 @@ export default function Page() {
           >
             Aprenda uma nova lingua com os melhores filmes!
           </h3>
-          <h4
-            className={styles.text}
-          >
-            Selecione um filme e treine sua lingua estrangeira com as legendas dele <br />
-            E o melhor de tudo, é <span style={{ fontSize: 20, color: 'red', fontWeight: 'bold' }}> de graça! 💰</span>
-          </h4>
+          <FadeIn delay={0.5} duration={4}>
+            <h4
+              className={styles.text}
+            >
+              Selecione um filme e treine sua lingua estrangeira com as legendas dele <br />
+              E o melhor de tudo, é <span style={{ fontSize: 20, color: 'red', fontWeight: 'bold' }}> de graça! 💰</span>
+            </h4>
+          </FadeIn>
           <Button
             className={styles.button}
             onClick={() => changeStep(4)}
           >
-            Clique aqui para começar!
+            Clique aqui para continuar!
           </Button>
         </div>
       </ShowIf>
@@ -248,17 +269,19 @@ export default function Page() {
           >
             Aprenda novas palavras com o panda 🐼
           </h3>
-          <h4
-            className={styles.text}
-          >
-            Uma IA opera por trás do panda, ela te ajudará a aprender novas palavras.
-            Ela organiza as palavras de acordo com o seu nível de conhecimento e te ajuda a memorizá-las.
-          </h4>
+          <FadeIn delay={0.5} duration={3}>
+            <h4
+              className={styles.text}
+            >
+              Uma IA opera por trás do panda, ela te ajudará a aprender novas palavras.
+              Ela organiza as palavras de acordo com o seu nível de conhecimento e te ajuda a memorizá-las.
+            </h4>
+          </FadeIn>
           <Button
             className={styles.button}
             onClick={() => changeStep(5)}
           >
-            Clique aqui para começar!
+            Clique aqui para continuar!
           </Button>
         </div>
       </ShowIf>
