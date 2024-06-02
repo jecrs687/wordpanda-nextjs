@@ -14,6 +14,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Loading from './loading';
 import styles from './page.module.scss';
 export default function Page() {
   const [step, setStep] = useState(0);
@@ -23,11 +24,12 @@ export default function Page() {
   const {
     isMobile, windowWidth, windowHeight
   } = useWindowSize();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const token = getCookie(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY);
     if (token)
       router.push(ROUTES.DASHBOARD());
-
+    else setLoading(false)
   }, [router])
   useEffect(() => {
     if (step === 1)
@@ -61,7 +63,7 @@ export default function Page() {
       marginBottom: 'auto',
     }
   })
-
+  if (loading) return <Loading />
   return (<>
     <Head>
       <script dangerouslySetInnerHTML={{
