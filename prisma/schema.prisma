@@ -45,6 +45,22 @@ model MissingMedia {
   deletedAt DateTime? @map(name: "deleted_at")
 }
 
+model Subscription {
+  id String @id @default(cuid())
+
+  userId String @unique @map(name: "user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  type     String
+  status   String
+  period   DateTime
+  duration Int      @default(1)
+
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
+}
+
 model User {
   id        String  @id @default(cuid())
   firstName String? @map(name: "first_name") @db.VarChar(90)
@@ -60,6 +76,7 @@ model User {
   language    Language? @relation(fields: [languageId], references: [id])
   score       Int       @default(0)
   lastLoginAt DateTime? @default(now()) @map(name: "last_login_at")
+
   createdAt   DateTime? @default(now()) @map(name: "created_at")
   updatedAt   DateTime? @updatedAt @map(name: "updated_at")
   deletedAt   DateTime? @map(name: "deleted_at")
@@ -69,6 +86,7 @@ model User {
   mediaUser     MediaUser[]
   UserWords     UserWords[]
   MissingMedia  MissingMedia[]
+  Subscription  Subscription?
 }
 
 model UserLanguage {
@@ -330,6 +348,11 @@ enum MediaType {
   VIDEO
   AUDIO
   SERIE
+  DOCUMENTARY
+  SHORT
+  BOOK
+  PODCAST
+  MUSIC
 }
 
 enum QuizType {

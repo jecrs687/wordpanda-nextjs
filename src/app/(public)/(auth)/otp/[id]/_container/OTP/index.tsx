@@ -77,7 +77,10 @@ export default function OtpConfirmation({ id }) {
                         className={styles.image}
                     />
                 </div>
+                <h3>Verificação</h3>
+                <h5>Enviamos um código de verificação para o seu email</h5>
                 <div className={styles.form}>
+
                     <ShowIf condition={false} onlyHide>
                         <input {...inputHandle('otp')} />
                         <input {...inputHandle('id')} />

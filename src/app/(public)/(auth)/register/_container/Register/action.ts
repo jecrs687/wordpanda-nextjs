@@ -34,13 +34,13 @@ const schema = z.object({
 export async function submit(currentState, form: FormData) {
 
     const forms = {
-        email: form.get('email') as string,
-        password: form.get('password') as string,
-        firstName: form.get('firstName') as string,
-        lastName: form.get('lastName') as string,
-        phone: form.get('phone') as string,
-        passwordConfirmation: form.get('passwordConfirmation') as string,
-        username: form.get('username') as string,
+        email: form.get('email').toString().toLowerCase(),
+        password: form.get('password').toString(),
+        firstName: form.get('firstName').toString(),
+        lastName: form.get('lastName').toString(),
+        phone: form.get('phone').toString(),
+        passwordConfirmation: form.get('passwordConfirmation').toString(),
+        username: form.get('username').toString().toLowerCase(),
         languageId: +form.get('languageId')
     }
     const validate = schema.safeParse(forms) as typeof forms & { error: z.ZodError, success: boolean }

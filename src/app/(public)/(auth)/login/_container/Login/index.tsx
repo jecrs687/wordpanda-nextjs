@@ -38,6 +38,9 @@ export default function LoginPage() {
             web.setToken(state.token)
             route.push(extension ? ROUTES.EXTENSION_GAMES() : ROUTES.DASHBOARD())
         }
+        if (state.error === "USER_NOT_ACTIVATED")
+            route.push(ROUTES.OTP(state.id))
+
     }, [state, route, web, extension])
     return (
         <main className={styles.main}>
