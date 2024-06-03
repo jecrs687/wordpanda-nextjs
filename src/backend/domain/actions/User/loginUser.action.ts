@@ -24,7 +24,7 @@ export async function loginUser(login: LoginDto) {
 
         const userFound = await prisma.user.findFirst({
             where: {
-                email: login.email.toLowerCase()
+                email: login.email.toLowerCase().trim()
             }
         })
 

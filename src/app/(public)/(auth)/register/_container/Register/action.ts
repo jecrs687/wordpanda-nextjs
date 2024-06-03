@@ -34,7 +34,7 @@ const schema = z.object({
 export async function submit(currentState, form: FormData) {
 
     const forms = {
-        email: form.get('email').toString().toLowerCase(),
+        email: form.get('email').toString().toLowerCase().trim(),
         password: form.get('password').toString(),
         firstName: form.get('firstName').toString(),
         lastName: form.get('lastName').toString(),
