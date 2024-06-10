@@ -24,7 +24,7 @@ function Input({
 }: {
     label?: string,
     placeholder?: string,
-    type?: string,
+    type?: 'text' | 'password' | 'phone' | 'email',
     name: string,
     error?: string,
     value?: string,
@@ -41,12 +41,35 @@ function Input({
     const [hide, setHide] = useState(true)
     const toggleHide = () => setHide(!hide)
     const typePassword = hide ? 'password' : 'text'
+    const [current, setCurrent] = useState(value);
+    const updateValue = (e: any) => {
+
+        if (type === 'phone') {
+            e.target.value = e.target.value.replace(/\D/g, '');
+            e.target.value = e.target.value.slice(0, 30);
+            if (e.target.value.length > 10)
+                e.target.value = e.target.value.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+            else if (e.target.value.length > 6)
+                e.target.value = e.target.value.replace(/^(\d{2})(\d{4})(\d{1})/, '($1) $2-$3');
+            else if (e.target.value.length > 2)
+                e.target.value = e.target.value.replace(/^(\d{2})(\d{1})/, '($1) $2');
+            else if (e.target.value.length > 0)
+                e.target.value = e.target.value.replace(/^(\d{1})/, '($1');
+            setCurrent(e.target.value);
+            e.target.value = e.target.value.replace(/\D/g, '');
+            onChange && onChange(e);
+
+        } else {
+            setCurrent(e.target.value);
+            onChange && onChange(e);
+        }
+    }
     const inputProps = {
         type: type === 'password' ? typePassword : type,
         name,
         id: name,
-        value,
-        onChange,
+        value: current,
+        onChange: updateValue,
         placeholder,
         className: clsx(styles.input, className),
         onFocus,
@@ -59,8 +82,8 @@ function Input({
             <div className={clsx(styles.container, styles[color])}>
                 <label htmlFor={name}>{label || title || name}</label>
                 {textarea ? <textarea {...inputProps} /> : <input {...inputProps}
-                onFocus={()=>{zoomOutMobile()}}
-                onBlur={()=>{zoomOutMobile()}}
+                    onFocus={() => { zoomOutMobile() }}
+                    onBlur={() => { zoomOutMobile() }}
                 />}
                 {type === 'password' && (
                     <div className={styles.eye} onClick={toggleHide}>

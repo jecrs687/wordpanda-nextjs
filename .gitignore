@@ -40,3 +40,5 @@ certificates
 /src/app/(common)/migrate/** 
 # Sentry Config File
 .sentryclirc
+
+*storybook.log

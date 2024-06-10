@@ -9,7 +9,9 @@
     "migrate": "NODE_ENV=development npx tsx ./src/backend/infra/database/migrations",
     "start": "next start",
     "lint": "next lint",
-    "heroku-cleanup": "rm -rf .next/cache && find node_modules/@next -depth -maxdepth 1 -type d -name 'swc*' -exec rm -rf {} \\; -prune #Remove cache and SWC binaries to reduce heroku slug size"
+    "heroku-cleanup": "rm -rf .next/cache && find node_modules/@next -depth -maxdepth 1 -type d -name 'swc*' -exec rm -rf {} \\; -prune #Remove cache and SWC binaries to reduce heroku slug size",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@ant-design/plots": "^2.1.15",
@@ -53,11 +55,22 @@
     "zustand": "^4.4.7"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.5.0",
     "@faker-js/faker": "^8.3.1",
+    "@storybook/addon-essentials": "^8.1.6",
+    "@storybook/addon-interactions": "^8.1.6",
+    "@storybook/addon-links": "^8.1.6",
+    "@storybook/addon-onboarding": "^8.1.6",
+    "@storybook/blocks": "^8.1.6",
+    "@storybook/nextjs": "^8.1.6",
+    "@storybook/react": "^8.1.6",
+    "@storybook/test": "^8.1.6",
     "@svgr/webpack": "^8.1.0",
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
-    "sass": "^1.70.0"
+    "eslint-plugin-storybook": "^0.8.0",
+    "sass": "^1.70.0",
+    "storybook": "^8.1.6"
   }
 }

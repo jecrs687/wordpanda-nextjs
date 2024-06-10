@@ -118,7 +118,7 @@ export default function UserForm({ user }: {
                         error={errors.lastName && touched.lastName && errors.lastName}
                     />
                     <Input
-                        type="text"
+                        type="phone"
                         name="phone"
                         title="Telefone"
                         disabled={!edit}
