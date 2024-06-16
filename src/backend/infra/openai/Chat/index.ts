@@ -46,7 +46,7 @@ export const verifyPhrases = async (
             content: prompt
         }],
 
-        model: "gpt-3.5-turbo-1106",
+        model: "gpt-3.5-turbo-0125",
         response_format: { type: 'json_object' }
     });
     try {
