@@ -43,6 +43,12 @@ export default function RootLayout({
 
           gtag('config', 'AW-757587162');`}}
         />
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6674406373472669"
+          crossOrigin="anonymous"
+        />
+
         <script dangerouslySetInnerHTML={{
           __html: `function gtag_report_conversion(url) {
         var callback = function () {
