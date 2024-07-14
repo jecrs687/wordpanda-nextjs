@@ -40,11 +40,13 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[], retry: numb
     for (const subtitle of subtitles) {
         try {
             await prisma.$transaction(async (prisma) => {
+                const name = subtitle.name;
                 const platformInDb = await prisma.platform.findFirst({
                     where: {
                         name: subtitle.platform
                     }
                 })
+                console.log(`${name} - platform in db: ${platformInDb ? 'found' : 'not found'}`);
                 if (!platformInDb) {
                     await prisma.platform.create({
                         data: {
@@ -70,7 +72,7 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[], retry: numb
                         ]
                     }
                 })
-
+                console.log(`${name} - media in db: ${media ? 'found' : 'not found'}`);
                 if (!media) {
                     await prisma.media.create({
                         data: {
@@ -150,6 +152,7 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[], retry: numb
 
 
                 const subtitles = await Promise.all(subtitle.links.map(async link => ({ ...link, subtitle: await processSubtitlePrime(link.url) })))
+                console.log(`${name} - subtitles processed: ${subtitles.length}`);
                 for (const sub of subtitles) {
                     if (prisma.subtitle.findFirst({
                         where: {
@@ -182,7 +185,7 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[], retry: numb
 
                     if (!words[languageCode]) continue
                     const wordsAllowed = sub.subtitle.words.filter(word => words[languageCode].includes(word.word.toLowerCase()))
-
+                    console.log(`${name} - words allowed: ${wordsAllowed.length}`);
                     const listOfWords = await prisma.word.findMany({
                         where: {
                             word: {
@@ -200,7 +203,7 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[], retry: numb
                             frequency: word.count
                         }))
                     })
-
+                    console.log(`${name} - words created: ${wordsCreated.count}`);
                     const allWordsInDb = await prisma.word.findMany({
                         where: {
                             word: {
@@ -228,6 +231,7 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[], retry: numb
                             languageId: languageInDb.id
                         }
                     })
+                    console.log(`${name} - media ${languageInDb.code} in db: ${mediaLanguage ? 'found' : 'not found'}`);
                     if (!mediaLanguage) {
                         await prisma.mediaLanguages.create({
                             data: {
@@ -264,6 +268,7 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[], retry: numb
                             }
                         }
                     })
+                    console.log(`${name} - words in media: ${wordsInMedia.length}`);
                     const wordsNotInMedia = allWordsInDb.filter(word => !wordsInMedia.find(wordInMedia => wordInMedia.wordId === word.id))
                     const wordsInMediaToCreate = await prisma.mediaWords.createMany({
                         data: wordsNotInMedia.map(word => ({
@@ -271,6 +276,8 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[], retry: numb
                             wordId: word.id
                         }))
                     })
+                    console.log(`${name} - words in media created: ${wordsInMediaToCreate.count}`);
+                    console.log(`${name} - process finished`);
 
                 }
             }, {
