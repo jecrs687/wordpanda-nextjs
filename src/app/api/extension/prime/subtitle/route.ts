@@ -33,7 +33,7 @@ export async function POST(request: Request) {
         timeout = setTimeout(() => {
             insertSubtitles(deepcopy(requests));
             requests.length = 0;
-        }, envs.POOL_TIMEOUT || 60000)
+        }, envs.POOL_INSERT_SUBTITLE_TIMEOUT || 60000)
     }
     return Response.json({ msg: 'OK' });
 }
