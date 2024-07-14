@@ -278,8 +278,9 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[], retry: numb
             })
         }
         catch (e) {
-            if (retry > 5) throw new Error('Too many retries')
-            await insertSubtitles(subtitles, retry + 1)
+            if (retry < 5)
+                return await insertSubtitles(subtitles, retry + 1)
+            console.log('Error inserting subtitles')
             console.log(e)
         }
     }
