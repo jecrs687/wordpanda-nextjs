@@ -1,5 +1,6 @@
 import { IInsertSubtitles, insertSubtitles } from "@backend/domain/actions/Subtitles/insertSubtitles";
 import { deepcopy } from "@utils/deepcopy";
+import { envs } from "@utils/envs";
 export type ExtensionPrimeSubtitlePostRequest = IInsertSubtitles
 export type ExtensionPrimeSubtitlePostResponse = {
     err?: string | null,
@@ -32,7 +33,7 @@ export async function POST(request: Request) {
         timeout = setTimeout(() => {
             insertSubtitles(deepcopy(requests));
             requests.length = 0;
-        }, 60000)
+        }, envs.POOL_TIMEOUT || 60000)
     }
     return Response.json({ msg: 'OK' });
 }
