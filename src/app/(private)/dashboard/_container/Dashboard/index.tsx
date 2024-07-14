@@ -172,7 +172,7 @@ const Dashboard = ({
                                                     id={recent.id}
                                                     logoUrl={recent.logoUrl}
                                                     name={recent.name}
-                                                    platform={recent.platformId}
+                                                    platform={''}
                                                     key={id}
                                                 />
 
