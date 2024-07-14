@@ -1,5 +1,6 @@
 import prisma from "@infra/config/database"
 import { MediaType, Prisma } from "@prisma/client"
+import { envs } from "@utils/envs"
 import { PromisePoll } from "@utils/promisePoll"
 import { processSubtitlePrime } from "@utils/subtitle"
 import { LANGUAGES } from "../../../infra/database/migration/languages/constants/LANGUAGES"
@@ -273,7 +274,8 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[], retry: numb
 
                 }
             }, {
-                timeout: 20000,
+                maxWait: envs.POOL_INSERT_SUBTITLE_TRANSACTION_MAX_WAIT || 10000,
+                timeout: envs.POOL_INSERT_SUBTITLE_TRANSACTION_TIMEOUT || 20000,
                 isolationLevel: Prisma.TransactionIsolationLevel.Serializable,
             })
         }
