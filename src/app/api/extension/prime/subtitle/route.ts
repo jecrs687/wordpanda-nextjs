@@ -32,7 +32,7 @@ export async function POST(request: Request) {
         timeout = setTimeout(() => {
             insertSubtitles(deepcopy(requests));
             requests.length = 0;
-        }, 1200)
+        }, 60000)
     }
     return Response.json({ msg: 'OK' });
 }
