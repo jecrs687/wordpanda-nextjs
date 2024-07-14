@@ -274,8 +274,8 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[], retry: numb
 
                 }
             }, {
-                maxWait: envs.POOL_INSERT_SUBTITLE_TRANSACTION_MAX_WAIT || 10000,
-                timeout: envs.POOL_INSERT_SUBTITLE_TRANSACTION_TIMEOUT || 20000,
+                maxWait: +envs.POOL_INSERT_SUBTITLE_TRANSACTION_MAX_WAIT || 10000,
+                timeout: +envs.POOL_INSERT_SUBTITLE_TRANSACTION_TIMEOUT || 20000,
                 isolationLevel: Prisma.TransactionIsolationLevel.Serializable,
             })
         }
