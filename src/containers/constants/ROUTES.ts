@@ -23,6 +23,7 @@ export const ROUTES = {
     GAME_CHAT: () => `/games/chat`,
     GAME_HANGMAN: () => `/games/hangman`,
     GAME_MEMORY: () => `/games/memory`,
+    GAME_LIST: () => `/games/list`,
     WORDS: () => '/words',
     WORD: (id) => `/words/${id}`,
     WORDS_RESULT: () => '/words/result',
