@@ -1,8 +1,8 @@
 import prisma from "@infra/config/database"
 import { MediaType, Prisma } from "@prisma/client"
 import { envs } from "@utils/envs"
-import { PromisePoll } from "@utils/promisePoll"
 import { processSubtitlePrime } from "@utils/subtitle"
+import { readFileSync, writeFileSync } from "fs"
 import { LANGUAGES } from "../../../infra/database/migration/languages/constants/LANGUAGES"
 
 
@@ -70,6 +70,9 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[], retry: numb
                                 name: subtitle.name
                             }
                         ]
+                    },
+                    include: {
+                        subtitles: true
                     }
                 })
                 console.log(`${name} - media in db: ${media ? 'found' : 'not found'}`);
@@ -151,14 +154,12 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[], retry: numb
                 }
 
 
-                const subtitles = await Promise.all(subtitle.links.map(async link => ({ ...link, subtitle: await processSubtitlePrime(link.url) })))
+                const subtitles = await Promise.all(
+                    subtitle.links
+                        .filter(x => !media?.subtitles?.some(y => y.url == x.url && y.downloaded))
+                        .map(async link => ({ ...link, subtitle: await processSubtitlePrime(link.url) })))
                 console.log(`${name} - subtitles processed: ${subtitles.length}`);
                 for (const sub of subtitles) {
-                    if (prisma.subtitle.findFirst({
-                        where: {
-                            url: sub.url
-                        }
-                    }) && media) continue;
                     const languageCode = sub.languageCode?.split('-')[0] || sub?.subtitle?.jsonFromTTML?.lang?.split('-')[0] || 'undefined';
                     const language = await prisma.language.findFirst({
                         where: {
@@ -175,7 +176,7 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[], retry: numb
                             }
                         })
                     }
-                    const languageInDb = await prisma.language.findFirst({
+                    const languageInDb = language || await prisma.language.findFirst({
                         where: {
                             code: {
                                 startsWith: languageCode
@@ -223,8 +224,12 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[], retry: numb
                                     name: subtitle.name
                                 }
                             ]
+                        },
+                        include: {
+                            subtitles: true
                         }
                     })
+
                     const mediaLanguage = await prisma.mediaLanguages.findFirst({
                         where: {
                             mediaId: mediaInDb.id,
@@ -239,21 +244,17 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[], retry: numb
                                 languageId: languageInDb.id,
                             }
                         })
-                        await PromisePoll(
-                            listOfWords.map(async word => {
-                                await prisma.word.update({
-                                    where: {
-                                        id: word.id
-                                    },
-                                    data: {
-                                        frequency: wordsInDb.find(wordInDb => wordInDb.word === word.word).count + word.frequency
-                                    }
-                                })
+                        const mocks = readFileSync('./src/backend/domain/actions/Subtitles/mocks.json', 'utf-8',);
+                        const mock = JSON.parse(mocks) as { [key: string]: { frequency: number } };
+                        listOfWords.forEach(word => {
+                            const wordInMock = mock[word.id] || { frequency: 0 }
+                            mock[word.id] = {
+                                frequency: wordInMock.frequency + word.frequency
                             }
-                            ), 0, 10
-                        )
+                        })
+                        writeFileSync('./src/backend/domain/actions/Subtitles/mocks.json', JSON.stringify(mock, null, 2), 'utf-8');
                     }
-                    const mediaLanguageInDb = await prisma.mediaLanguages.findFirst({
+                    const mediaLanguageInDb = mediaLanguage || await prisma.mediaLanguages.findFirst({
                         where: {
                             mediaId: mediaInDb.id,
                             languageId: languageInDb.id
@@ -273,24 +274,34 @@ export const insertSubtitles = async (subtitles: IInsertSubtitles[], retry: numb
                     const wordsInMediaToCreate = await prisma.mediaWords.createMany({
                         data: wordsNotInMedia.map(word => ({
                             mediaLanguageId: mediaLanguageInDb.id,
-                            wordId: word.id
+                            wordId: word.id,
+                            frequency: word.frequency
                         }))
                     })
+                    const subInDb = mediaInDb.subtitles.find(subInDb => subInDb.url == sub.url)
+                    await prisma.subtitle.update({
+                        data: {
+                            downloaded: true
+                        },
+                        where: {
+                            id: subInDb.id
+                        }
+                    })
                     console.log(`${name} - words in media created: ${wordsInMediaToCreate.count}`);
-                    console.log(`${name} - process finished`);
-
                 }
+                console.log(`${name} - process finished`);
             }, {
                 maxWait: +envs.POOL_INSERT_SUBTITLE_TRANSACTION_MAX_WAIT || 10000,
                 timeout: +envs.POOL_INSERT_SUBTITLE_TRANSACTION_TIMEOUT || 20000,
                 isolationLevel: Prisma.TransactionIsolationLevel.Serializable,
             })
+            return { success: true }
         }
         catch (e) {
-            if (retry < 5)
-                return await insertSubtitles(subtitles, retry + 1)
+            if (retry < 5) return await insertSubtitles(subtitles, retry + 1)
             console.log('Error inserting subtitles')
             console.log(e)
+            return { success: false }
         }
     }
 }
