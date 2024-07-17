@@ -16,7 +16,7 @@ model Translation {
   languageId        Int      @map(name: "language_id")
   language          Language @relation(fields: [languageId], references: [id])
   meaning           String?  @db.VarChar(512)
-  meaningTranslated String?  @db.VarChar(512)
+  meaningTranslated String?  @db.VarChar(512)   @map(name: "meaning_translated")
 
   reports   Int?      @default(0)
   createdAt DateTime  @default(now()) @map(name: "created_at")
@@ -109,11 +109,7 @@ model UserWords {
   userId String @map(name: "user_id")
   user   User   @relation(fields: [userId], references: [id])
 
-  createdAt DateTime? @default(now()) @map(name: "created_at")
-  updatedAt DateTime? @updatedAt @map(name: "updated_at")
-  deletedAt DateTime? @map(name: "deleted_at")
-
-  wordId String
+  wordId String @map(name: "word_id")
   word   Word   @relation(fields: [wordId], references: [id])
 
   userLanguageId String       @map(name: "user_language_id")
@@ -135,27 +131,15 @@ model UserWords {
   interval    Int?      @default(0)
   nextAttempt DateTime? @map(name: "next_attempt")
 
+  createdAt DateTime? @default(now()) @map(name: "created_at")
+  updatedAt DateTime? @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
+
   @@unique([userId, userLanguageId, wordId])
   @@map("user_word")
 }
 
-model WordGameQuiz {
-  id         String   @id @default(cuid())
-  wordId     String
-  word       Word     @relation(fields: [wordId], references: [id])
-  languageId Int
-  language   Language @relation(fields: [languageId], references: [id])
 
-  type    QuizType?
-  phrase  String    @db.VarChar(512)
-  options String[]  @db.VarChar(512)
-  answer  String    @db.VarChar(512)
-
-  reports   Int?      @default(0)
-  createdAt DateTime? @default(now()) @map(name: "created_at")
-  updatedAt DateTime? @updatedAt @map(name: "updated_at")
-  deletedAt DateTime? @map(name: "deleted_at")
-}
 
 model Word {
   id   String @id @default(cuid())
@@ -184,6 +168,8 @@ model Word {
 
   @@unique([word, languageId])
   @@unique([id, languageId])
+  BookWord BookWord[]
+  Games Games[]
 }
 
 model Platform {
@@ -202,7 +188,7 @@ model Serie {
   id          String       @id @default(cuid())
   name        String
   description String?
-  serieMedia  SerieMedia[]
+  serieMedia  SerieMedia[] 
 
   createdAt DateTime  @default(now()) @map(name: "created_at")
   updatedAt DateTime  @updatedAt @map(name: "updated_at")
@@ -230,6 +216,7 @@ model Subtitle {
   languageId Int       @map(name: "language_id")
   language   Language  @relation(fields: [languageId], references: [id])
   url        String
+  downloaded Boolean  @default(false)
   createdAt  DateTime  @default(now()) @map(name: "created_at")
   updatedAt  DateTime  @updatedAt @map(name: "updated_at")
   deletedAt  DateTime? @map(name: "deleted_at")
@@ -245,6 +232,7 @@ model Images {
   createdAt DateTime  @default(now()) @map(name: "created_at")
   updatedAt DateTime  @updatedAt @map(name: "updated_at")
   deletedAt DateTime? @map(name: "deleted_at")
+
 }
 
 model Media {
@@ -259,13 +247,16 @@ model Media {
   serieMedias SerieMedia[]
   subtitles   Subtitle[]
   images      Images[]
-
   mediaLanguages MediaLanguages[]
 
   createdAt DateTime  @default(now()) @map(name: "created_at")
   updatedAt DateTime  @updatedAt @map(name: "updated_at")
   deletedAt DateTime? @map(name: "deleted_at")
-}
+  }
+
+
+
+
 
 model MediaLanguages {
   id String @id @default(cuid())
@@ -276,18 +267,36 @@ model MediaLanguages {
   languageId Int          @map(name: "language_id")
   mediaWords MediaWords[]
   mediaUsers MediaUser[]
+  MediaImage MediaImage[]
+  
+  
   createdAt  DateTime     @default(now()) @map(name: "created_at")
   updatedAt  DateTime     @updatedAt @map(name: "updated_at")
   deletedAt  DateTime?    @map(name: "deleted_at")
 
   @@unique([mediaId, languageId])
 }
+model MediaImage{
+  id             String @id @default(cuid())
+  type           String
 
+  mediaLanguageId String         @map(name: "media_language_id")
+  mediaLanguage   MediaLanguages @relation(fields: [mediaLanguageId], references: [id])
+
+  url            String          
+  createdAt      DateTime @default(now()) @map(name: "created_at")
+  updatedAt      DateTime @updatedAt @map(name: "updated_at")
+  deletedAt      DateTime? @map(name: "deleted_at")
+
+
+
+}
 model MediaWords {
   id String @id @default(cuid())
 
   wordId String @map(name: "word_id")
   word   Word   @relation(fields: [wordId], references: [id])
+  frequency Int? @default(0)
 
   mediaLanguageId String         @map(name: "media_language_id")
   mediaLanguage   MediaLanguages @relation(fields: [mediaLanguageId], references: [id])
@@ -305,7 +314,7 @@ model MediaUser {
   userId       String @map(name: "user_id")
   user         User   @relation(fields: [userId], references: [id])
   progress     Int?   @default(0)
-  wordsLearned Int?   @default(0)
+  wordsLearned Int?   @default(0) @map(name: "words_learned")
 
   mediaLanguage   MediaLanguages @relation(fields: [mediaLanguageId], references: [id])
   mediaLanguageId String         @map(name: "media_language_id")
@@ -334,8 +343,128 @@ model Language {
   updatedAt DateTime  @updatedAt @map(name: "updated_at")
   deletedAt DateTime? @map(name: "deleted_at")
 
+  BookLanguage BookLanguage[]
   @@unique([code])
+  Games Games[]
 }
+model Book{
+  id             String @id @default(cuid())
+  authors        Author[] 
+  translators    Translator[]
+  subjects       String[]
+  bookshelves    String[]
+  copyright      Boolean
+  mediaType      MediaType
+  formats        Json
+  BookLanguage   BookLanguage[]
+}
+
+model BookLanguage{
+  id             String @id @default(cuid())
+  bookId         String
+
+  languageId     Int
+  language       Language @relation(fields: [languageId], references: [id])
+  BookWord       BookWord[]
+
+  book           Book @relation(fields: [bookId], references: [id])
+  title          String
+  description    String?
+
+
+  createdAt      DateTime @default(now()) @map(name: "created_at")
+  updatedAt      DateTime @updatedAt @map(name: "updated_at")
+  deletedAt      DateTime? @map(name: "deleted_at")
+
+  @@unique([bookId, languageId])
+  BookImage BookImage[]
+}
+
+
+model BookImage{
+  id             String @id @default(cuid())
+
+  type           String
+  url            String
+
+  bookLanguageId String         @map(name: "book_language_id")
+  bookLanguage   BookLanguage   @relation(fields: [bookLanguageId], references: [id])
+
+  createdAt      DateTime @default(now()) @map(name: "created_at")
+  updatedAt      DateTime @updatedAt @map(name: "updated_at")
+  deletedAt      DateTime? @map(name: "deleted_at")
+}
+
+model BookWord{
+  id             String @id @default(cuid())
+  bookId         String
+  wordId         String
+  
+  word           Word @relation(fields: [wordId], references: [id])
+  language       BookLanguage @relation(fields: [bookId], references: [id])
+
+
+  createdAt      DateTime @default(now()) @map(name: "created_at")
+  updatedAt      DateTime @updatedAt @map(name: "updated_at")
+  deletedAt      DateTime? @map(name: "deleted_at")
+}
+
+
+
+model Author{
+  id             String @id @default(cuid())
+  name           String
+  birth          DateTime
+  death          DateTime
+  mediaType      MediaType
+  books          Book[]  
+}
+
+model Translator {
+  id             String @id @default(cuid())
+  name           String
+  birth          DateTime
+  death          DateTime
+  mediaType      MediaType
+  books          Book[]  
+}
+
+model WordGameQuiz {
+  id         String   @id @default(cuid())
+  wordId     String   @map(name: "word_id")
+  word       Word     @relation(fields: [wordId], references: [id])
+  languageId Int      @map(name: "language_id")
+  language   Language @relation(fields: [languageId], references: [id])
+
+  type    QuizType?
+  phrase  String    @db.VarChar(512)
+  options String[]  @db.VarChar(512)
+  answer  String    @db.VarChar(512)
+
+  reports   Int?      @default(0)
+  createdAt DateTime? @default(now()) @map(name: "created_at")
+  updatedAt DateTime? @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
+}
+
+model Games{
+  id             String @id @default(cuid())
+
+  wordId     String @map(name: "word_id")
+  word       Word     @relation(fields: [wordId], references: [id])
+
+  languageId Int    @map(name: "language_id")
+  language   Language @relation(fields: [languageId], references: [id])
+
+  type    GameType?
+  data    Json
+
+  createdAt DateTime? @default(now()) @map(name: "created_at")
+  updatedAt DateTime? @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
+}
+
+
 
 enum Role {
   USER
@@ -353,9 +482,25 @@ enum MediaType {
   BOOK
   PODCAST
   MUSIC
+  Dataset
+  TEXT
 }
 
+
 enum QuizType {
+  TRANSLATION
+  MEANING
+  EXAMPLE
+  SYNONYMS
+  ANTONYMS
+  DEFINITION
+  PRONUNCIATION
+  WORD
+  PHRASE
+  IDIOM
+}
+
+enum GameType {
   TRANSLATION
   MEANING
   EXAMPLE
