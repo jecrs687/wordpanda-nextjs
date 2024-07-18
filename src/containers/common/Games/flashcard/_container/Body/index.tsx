@@ -28,7 +28,7 @@ export const FlashBody = ({ words, lang, mediaId }: {
         Error,
         string,
         WordsPostRequest
-    >('https://lanboost-04a196880f88.herokuapp.com/api/words', fetchClient("POST"))
+    >('https://wordpanda.app/api/words', fetchClient("POST"))
     const [wordsCards, setWordsCards] = useState<WordWithTranslationsAndUserWords[]>([])
     const { data:
         {
@@ -44,7 +44,7 @@ export const FlashBody = ({ words, lang, mediaId }: {
         Error,
         string,
         GamesFlashcardPostRequest
-    >('https://lanboost-04a196880f88.herokuapp.com/api/games/flashcard', fetchClient("POST"))
+    >('https://wordpanda.app/api/games/flashcard', fetchClient("POST"))
     const [index, setIndex] = useState(0)
     const updateList = useCallback(async () => {
         const response = await wordsListTrigger({

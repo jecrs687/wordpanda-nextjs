@@ -6,7 +6,7 @@ export default async function Page() {
         <p>
             <span>
                 Your privacy is important to us. It is language-boost&apos;s policy to respect your privacy regarding any information we may collect from you across our website,
-                <a href="https://lanboost-04a196880f88.herokuapp.com/">language-boost
+                <a href="https://wordpanda.app/">language-boost
                 </a>, and other sites we own and operate.</span>
         </p>
         <p>
