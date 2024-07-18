@@ -1,4 +1,5 @@
 
+import { readFileSync, writeFileSync } from "fs";
 import { JSDOM } from "jsdom";
 export async function getText(ttml2Url) {
     const values = await fetch(ttml2Url)
@@ -47,41 +48,54 @@ export function ttml2ToJson(ttml2Text) {
 
 export async function orderWords(json) {
     let words: {
-        [word: string]: {
-            count: number,
-            moments: {
-                begin: string,
-                end: string,
-                text: string
-            }[]
-        }
-    } = {}
+        word: string
+        count: number,
+        moments: {
+            begin: string,
+            end: string,
+            text: string
+        }[]
+    }[] = [];
     let count = 0;
     for (let i = 0; i < json.length; i++) {
         const word = json[i].word;
         if (!new RegExp(/^[a-zA-Z][a-zA-Z'\-]+[a-zA-Z]$/).test(word)) continue;
-        if (!words[word]) {
-            words[word] = { count: 0, moments: [] }
-        }
-        words[word].count += 1;
+        if (!words.some(w => w.word === word))
+            words.push({ word, count: 0, moments: [] })
+        let index = words.findIndex(w => w.word === word)
+        words[index].count += 1;
         count += 1;
-        words[word].moments.push({ ...json[i].moment, text: json[i].text })
+        words[index].moments.push({ ...json[i].moment, text: json[i].text })
     }
-    let sortedWords = Object.entries(words).sort((a, b) => b[1].count - a[1].count)
-    let result = sortedWords.map(([word, values], index) => ({
-        word,
-        ...values,
+    let sortedWords = words.sort((a, b) => b.count - a.count)
+    let result = sortedWords.map((words, index) => ({
+        ...words,
         position: index,
-        percentage: (values.count / count) * 100
+        percentage: (words.count / count) * 100
     }))
     return result
 }
 
 
 export const processSubtitlePrime = async (ttml2Url) => {
-    const something = await getText(ttml2Url)
-    const jsonFromTTML = ttml2ToJson(something)
-    const json = jsonFromTTML.subtitles
-    const words = await orderWords(json)
-    return { words, jsonFromTTML }
+    try {
+        let cache;
+        const convert = ttml2Url.split("/").pop()
+        try {
+            cache = readFileSync(`./src/utils/subtitles/${convert}`, 'utf-8')
+        } catch (e) { }
+        const something = cache || await getText(ttml2Url)
+        if (!cache)
+            writeFileSync(`./src/utils/subtitles/${convert}`, something)
+        const jsonFromTTML = ttml2ToJson(something)
+        const json = jsonFromTTML.subtitles
+        const words = await orderWords(json)
+        return { words, jsonFromTTML }
+    } catch (e) {
+        const errors = readFileSync(`./src/utils/errors.json`, 'utf-8')
+        const errorsJson = JSON.parse(errors)
+        errorsJson.push(e)
+        writeFileSync(`./src/utils/errors.json`, JSON.stringify(errorsJson, null, 2))
+        console.log("Error processing subtitle")
+    }
 }

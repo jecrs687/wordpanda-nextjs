@@ -239,6 +239,7 @@ model Media {
   id String @id @default(cuid())
 
   name        String
+  description String?      @db.VarChar(1024)
   url         String
   type        MediaType    @default(VIDEO)
   platformId  String       @map(name: "platform_id")
@@ -261,6 +262,9 @@ model Media {
 model MediaLanguages {
   id String @id @default(cuid())
 
+  title       String?
+  description String?    @db.VarChar(1024)
+
   mediaId    String       @map(name: "media_id")
   media      Media        @relation(fields: [mediaId], references: [id])
   language   Language     @relation(fields: [languageId], references: [id])
@@ -268,6 +272,8 @@ model MediaLanguages {
   mediaWords MediaWords[]
   mediaUsers MediaUser[]
   MediaImage MediaImage[]
+
+  categories String[]
   
   
   createdAt  DateTime     @default(now()) @map(name: "created_at")

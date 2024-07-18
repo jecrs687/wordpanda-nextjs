@@ -27,7 +27,6 @@ const TypeWriter = ({ delay, children, after = null }) => {
   }, [])
 
   useEffect(() => {
-    let tree;
     if (ref.current)
       setTree(findInsideText(ref.current));
   }, [findInsideText, ref]);

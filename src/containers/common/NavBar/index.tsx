@@ -64,7 +64,7 @@ export function NavBar() {
     const { extension } = useDevice()
     const [showSearch, setShowSearch] = useState(false)
     const route = usePathname()
-    const { setSearch, search } = useSearch()
+    const { setSearch } = useSearch()
     const updatePath = () => {
         setPath(window?.location?.pathname)
     }
@@ -155,11 +155,8 @@ export function NavBar() {
             <div className={styles.search}>
                 <div className={styles.search__input}>
                     <TextSearch
-                        name=''
-                        title=''
                         placeholder='Encontre seu filme, língua ou série'
                         onChange={(e) => setSearch(e.target.value)}
-                        value={search}
                     />
                 </div>
                 <SearchIcon

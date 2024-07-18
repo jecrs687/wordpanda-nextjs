@@ -8,8 +8,8 @@ function TextSearch({
     label,
     placeholder,
     type = 'text',
-    title,
-    name,
+    title = '',
+    name = '',
     error,
     value,
     textarea = false,
@@ -20,12 +20,13 @@ function TextSearch({
     onBlur,
     disabled,
     iconRight,
+    debounceTime,
     ...rest
 }: {
     label?: string,
     placeholder?: string,
     type?: string,
-    name: string,
+    name?: string,
     error?: string,
     value?: string,
     textarea?: boolean,
@@ -34,7 +35,7 @@ function TextSearch({
     className?: string,
     onFocus?: (e: any) => void,
     onBlur?: (e: any) => void,
-    title: string,
+    title?: string,
     disabled?: boolean,
     iconRight?: string,
     [x: string]: any
@@ -47,12 +48,12 @@ function TextSearch({
         name,
         id: name,
         value,
-        onChange,
         placeholder,
         className: clsx(styles.input, className),
         onFocus,
         disabled,
         onBlur,
+        onChange,
         ...rest?.field,
     }
     return (
