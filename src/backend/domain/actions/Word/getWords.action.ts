@@ -24,6 +24,8 @@ const sortWords = ({ userWords, frequency }, { userWords: userWords2, frequency:
     if (!userWords2?.length) return 1
     return 1
 }
+
+
 export const getWords = async (body: WordsPostRequest): Promise<WordsPostResponse> => {
     const header = headers()
     const cookie = cookies()

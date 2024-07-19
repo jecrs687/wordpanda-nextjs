@@ -4,9 +4,7 @@ import { getWords } from "@backend/domain/actions/Word/getWords.action";
 import { Translation, UserWords, Word } from "@prisma/client";
 
 
-export const config = {
-    maxDuration: 60,
-};
+export const maxDuration = 60;
 
 
 
