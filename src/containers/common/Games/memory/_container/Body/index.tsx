@@ -1,6 +1,7 @@
 'use client';
 import { memoryGameAction } from '@backend/domain/actions/Games/memory.action';
 import { getWords } from '@backend/domain/actions/Word/getWords.action';
+import LoaderSpinner from '@core/LoaderSpinner';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 import { WordsPostResponse } from 'src/app/api/words/route';
@@ -26,9 +27,10 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
     const [wordsShowed, setWordsShowed] = useState<WordMemory[]>([])
     const [index, setIndex] = useState(0)
     const [{ data: wordsList, err: wordsListErr, msg: wordsListMsg }, setWordsList] = useState<WordsPostResponse>({})
-
+    const [loading, setLoading] = useState(false)
 
     const updateList = useCallback(async () => {
+        setLoading(true)
         const wordsResponse = await getWords({
             ...(mediaId ? { mediaId } : { words: words.slice(index, index + 20).map(x => x.word) }),
             limit: 20,
@@ -59,6 +61,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
                         id,
                     }))
         )
+        setLoading(false)
     }, [mediaId, words, index, lang])
     useEffect(() => {
         if (!wordsFiltered.length) {
@@ -201,6 +204,23 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
 
     return (
         <div className={styles.memory_container}>
+            {
+                loading && <div
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        background: 'rgba(255, 255, 255, 0.2)',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        zIndex: 100
+                    }}>
+                    <LoaderSpinner />
+                </div>
+            }
             <div className={styles.sides}>
                 <div className={styles.side}>
                     {
