@@ -11,6 +11,6 @@
         },
         "games/quiz": {
             "maxDuration": 60
-        },
+        }
     }
 }
