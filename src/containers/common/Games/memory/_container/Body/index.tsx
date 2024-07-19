@@ -1,12 +1,10 @@
 'use client';
+import { memoryGameAction } from '@backend/domain/actions/Games/memory.action';
 import { getWords } from '@backend/domain/actions/Word/getWords.action';
-import { fetchClient } from '@services/fetchClient';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
-import { GamesMemoryPostRequest, GamesMemoryPostResponse } from 'src/app/api/games/memory/route';
 import { WordsPostResponse } from 'src/app/api/words/route';
 import Loading from 'src/app/loading';
-import useSWRMutation from 'swr/mutation';
 import styles from './Body.module.scss';
 type WordMemory = {
     word: string;
@@ -28,15 +26,6 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
     const [wordsShowed, setWordsShowed] = useState<WordMemory[]>([])
     const [index, setIndex] = useState(0)
     const [{ data: wordsList, err: wordsListErr, msg: wordsListMsg }, setWordsList] = useState<WordsPostResponse>({})
-
-    const {
-        trigger: memoryTrigger
-    } = useSWRMutation<
-        GamesMemoryPostResponse,
-        Error,
-        string,
-        GamesMemoryPostRequest
-    >('https://lanboost-04a196880f88.herokuapp.com/api/games/memory', fetchClient("POST"))
 
 
     const updateList = useCallback(async () => {
@@ -178,7 +167,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         setFirstSelected(undefined)
         setSecondSelected(undefined)
         const [first, second] = [firstSelected, secondSelected]
-        memoryTrigger({
+        memoryGameAction({
             wordId: first,
             hard: first !== second,
             mediaId
@@ -204,7 +193,6 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         wordsShowed,
         check,
         removeWrong,
-        memoryTrigger,
         mediaId
     ])
 

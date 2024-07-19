@@ -1,14 +1,12 @@
 'use client';
-import { fetchClient } from '@services/fetchClient';
 import { useCallback, useEffect, useState } from 'react';
 import { WordWithTranslationsAndUserWords } from 'src/app/api/words/route';
-import useSWRMutation from 'swr/mutation';
 
+import { memoryGameAction } from '@backend/domain/actions/Games/memory.action';
+import { quizGameAction } from '@backend/domain/actions/Games/quiz.action';
 import { getWords } from '@backend/domain/actions/Word/getWords.action';
 import { WordGameQuiz } from '@prisma/client';
 import clsx from 'clsx';
-import { GamesMemoryPostRequest, GamesMemoryPostResponse } from 'src/app/api/games/memory/route';
-import { GamesQuizPostRequest, GamesQuizPostResponse } from 'src/app/api/games/quiz/route';
 import Loading from 'src/app/loading';
 import styles from './Body.module.scss';
 
@@ -18,23 +16,6 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
     const [option, setOption] = useState<WordGameQuiz & { options: { value: string, correct: boolean }[] }>()
     const [selected, setSelected] = useState<number>(undefined)
     const [allWords, setAllWords] = useState<WordWithTranslationsAndUserWords[]>([])
-    const {
-        trigger: quizTrigger,
-    } = useSWRMutation<
-        GamesQuizPostResponse,
-        Error,
-        string,
-        GamesQuizPostRequest
-    >('https://lanboost-04a196880f88.herokuapp.com/api/games/quiz', fetchClient("POST"))
-
-    const {
-        trigger: memoryTrigger,
-    } = useSWRMutation<
-        GamesMemoryPostResponse,
-        Error,
-        string,
-        GamesMemoryPostRequest
-    >('https://lanboost-04a196880f88.herokuapp.com/api/games/memory', fetchClient("POST"))
 
     const updateWords = useCallback(async () => {
         const response = await getWords({
@@ -53,7 +34,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         updateWords
     ])
     const getNewQuiz = useCallback(async () => {
-        const response = await quizTrigger({
+        const response = await quizGameAction({
             words: allWords.map(word => word.id).slice(
                 quizList.length,
                 quizList.length + 4
@@ -63,7 +44,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         const quiz = response.data.words.map(({ wordGameQuiz }) => wordGameQuiz).flat()
         setQuizList(prev => [...prev, ...quiz])
 
-    }, [allWords, quizTrigger, quizList])
+    }, [allWords, quizList])
     useEffect(() => {
         if (!allWords.length) return;
         if (index === allWords.length) return;
@@ -108,7 +89,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
                             key={i}
 
                             onClick={() => {
-                                memoryTrigger({
+                                memoryGameAction({
                                     wordId: quizList[index].wordId,
                                     hard: !answer.correct,
                                     mediaId
