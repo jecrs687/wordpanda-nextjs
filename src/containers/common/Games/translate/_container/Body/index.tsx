@@ -1,9 +1,10 @@
 'use client';
 import { fetchClient } from '@services/fetchClient';
 import { useCallback, useEffect, useState } from 'react';
-import { WordWithTranslationsAndUserWords, WordsPostRequest, WordsPostResponse } from 'src/app/api/words/route';
+import { WordWithTranslationsAndUserWords } from 'src/app/api/words/route';
 import useSWRMutation from 'swr/mutation';
 
+import { getWords } from '@backend/domain/actions/Word/getWords.action';
 import { WordGameQuiz } from '@prisma/client';
 import clsx from 'clsx';
 import { GamesMemoryPostRequest, GamesMemoryPostResponse } from 'src/app/api/games/memory/route';
@@ -17,16 +18,6 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
     const [option, setOption] = useState<WordGameQuiz & { options: { value: string, correct: boolean }[] }>()
     const [selected, setSelected] = useState<number>(undefined)
     const [allWords, setAllWords] = useState<WordWithTranslationsAndUserWords[]>([])
-    const { data: { data: wordsList, err: wordsListErr, msg: wordsListMsg } = {},
-        error: wordsListError,
-        isMutating: wordsListIsMutating,
-        trigger: wordsListTrigger
-    } = useSWRMutation<
-        WordsPostResponse,
-        Error,
-        string,
-        WordsPostRequest
-    >('https://wordpanda.app/api/words', fetchClient("POST"))
     const {
         trigger: quizTrigger,
     } = useSWRMutation<
@@ -34,7 +25,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         Error,
         string,
         GamesQuizPostRequest
-    >('https://wordpanda.app/api/games/quiz', fetchClient("POST"))
+    >('https://lanboost-04a196880f88.herokuapp.com/api/games/quiz', fetchClient("POST"))
 
     const {
         trigger: memoryTrigger,
@@ -43,16 +34,16 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         Error,
         string,
         GamesMemoryPostRequest
-    >('https://wordpanda.app/api/games/memory', fetchClient("POST"))
+    >('https://lanboost-04a196880f88.herokuapp.com/api/games/memory', fetchClient("POST"))
 
     const updateWords = useCallback(async () => {
-        const response = await wordsListTrigger({
+        const response = await getWords({
             language: lang,
             ...(mediaId ? { mediaId } : { words: words.slice(index, index + 40).map(x => x.word) }),
             limit: 40
         })
         setAllWords(prev => [...prev, ...response.data.words])
-    }, [wordsListTrigger, mediaId, words, index, lang])
+    }, [mediaId, words, index, lang])
 
     useEffect(() => {
         if (index === allWords.length) updateWords();

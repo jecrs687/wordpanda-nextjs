@@ -1,10 +1,11 @@
 'use client';
+import { getWords } from '@backend/domain/actions/Word/getWords.action';
 import { fetchClient } from '@services/fetchClient';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 import { useDrag } from 'react-dnd';
 import { GamesFlashcardPostRequest, GamesFlashcardPostResponse } from 'src/app/api/games/flashcard/route';
-import { WordWithTranslationsAndUserWords, WordsPostRequest, WordsPostResponse } from 'src/app/api/words/route';
+import { WordWithTranslationsAndUserWords, WordsPostResponse } from 'src/app/api/words/route';
 import Loading from 'src/app/loading';
 import useSWRMutation from 'swr/mutation';
 import Card from '../Card';
@@ -19,16 +20,8 @@ export const FlashBody = ({ words, lang, mediaId }: {
     lang: string,
     mediaId?: string
 }) => {
-    const { data: { data: wordsList, err: wordsListErr, msg: wordsListMsg } = {},
-        error: wordsListError,
-        isMutating: wordsListIsMutating,
-        trigger: wordsListTrigger
-    } = useSWRMutation<
-        WordsPostResponse,
-        Error,
-        string,
-        WordsPostRequest
-    >('https://wordpanda.app/api/words', fetchClient("POST"))
+    const [{ data: wordsList, err: wordsListErr, msg: wordsListMsg }, setWordsList] = useState<WordsPostResponse>({})
+    const [isLoading, setIsLoading] = useState(false)
     const [wordsCards, setWordsCards] = useState<WordWithTranslationsAndUserWords[]>([])
     const { data:
         {
@@ -44,17 +37,18 @@ export const FlashBody = ({ words, lang, mediaId }: {
         Error,
         string,
         GamesFlashcardPostRequest
-    >('https://wordpanda.app/api/games/flashcard', fetchClient("POST"))
+    >('https://lanboost-04a196880f88.herokuapp.com/api/games/flashcard', fetchClient("POST"))
     const [index, setIndex] = useState(0)
     const updateList = useCallback(async () => {
-        const response = await wordsListTrigger({
+        const response = await getWords({
             ...(mediaId ? { mediaId } : { words: words.slice(index, index + 40).map(x => x.word) }),
             limit: 40,
             language: lang,
         })
         setIndex(index + 40)
-        setWordsCards(response.data.words)
-    }, [wordsListTrigger, mediaId, words, index, lang])
+        setWordsCards(response?.data?.words)
+        setWordsList(response)
+    }, [index, lang, mediaId, words])
     useEffect(() => {
         if (!wordsCards.length) updateList()
     }, [wordsCards, updateList])
@@ -73,7 +67,7 @@ export const FlashBody = ({ words, lang, mediaId }: {
             test: monitor.didDrop()
         }),
     }))
-    if (wordsListIsMutating || !wordsList) return <Loading />
+    if (!wordsList) return <Loading />
     const current = slice[0];
 
     const moveToEndItem = () => {

@@ -1,0 +1,16 @@
+{
+    "functions": {
+        "games/*": {
+            "maxDuration": 60
+        },
+        "games/memory": {
+            "maxDuration": 60
+        },
+        "games/flashcard": {
+            "maxDuration": 60
+        },
+        "games/quiz": {
+            "maxDuration": 60
+        },
+    }
+}

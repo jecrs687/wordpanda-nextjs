@@ -1,9 +1,10 @@
 'use client';
+import { getWords } from '@backend/domain/actions/Word/getWords.action';
 import { fetchClient } from '@services/fetchClient';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 import { GamesMemoryPostRequest, GamesMemoryPostResponse } from 'src/app/api/games/memory/route';
-import { WordsPostRequest, WordsPostResponse } from 'src/app/api/words/route';
+import { WordsPostResponse } from 'src/app/api/words/route';
 import Loading from 'src/app/loading';
 import useSWRMutation from 'swr/mutation';
 import styles from './Body.module.scss';
@@ -26,16 +27,8 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
     const [wordsFiltered, setWordsFiltered] = useState<Array<WordMemory>>([])
     const [wordsShowed, setWordsShowed] = useState<WordMemory[]>([])
     const [index, setIndex] = useState(0)
-    const { data: { data: wordsList, err: wordsListErr, msg: wordsListMsg } = {},
-        error: wordsListError,
-        isMutating: wordsListIsMutating,
-        trigger: wordsListTrigger
-    } = useSWRMutation<
-        WordsPostResponse,
-        Error,
-        string,
-        WordsPostRequest
-    >('https://wordpanda.app/api/words', fetchClient("POST"))
+    const [{ data: wordsList, err: wordsListErr, msg: wordsListMsg }, setWordsList] = useState<WordsPostResponse>({})
+
     const {
         trigger: memoryTrigger
     } = useSWRMutation<
@@ -43,15 +36,16 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         Error,
         string,
         GamesMemoryPostRequest
-    >('https://wordpanda.app/api/games/memory', fetchClient("POST"))
+    >('https://lanboost-04a196880f88.herokuapp.com/api/games/memory', fetchClient("POST"))
 
 
     const updateList = useCallback(async () => {
-        const wordsResponse = await wordsListTrigger({
+        const wordsResponse = await getWords({
             ...(mediaId ? { mediaId } : { words: words.slice(index, index + 40).map(x => x.word) }),
             limit: 80,
             language: lang,
         })
+        setWordsList(wordsResponse)
         setIndex(index + 80)
         const wordsResponseFiltered = wordsResponse?.data?.words?.filter(({ translations }) => translations?.[0]?.translations?.length)
 
@@ -76,7 +70,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
                         id,
                     }))
         )
-    }, [wordsListTrigger, mediaId, words, index, lang])
+    }, [mediaId, words, index, lang])
     useEffect(() => {
         if (!wordsFiltered.length) {
             updateList()
