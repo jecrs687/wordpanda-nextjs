@@ -41,11 +41,11 @@ export const FlashBody = ({ words, lang, mediaId }: {
     const [index, setIndex] = useState(0)
     const updateList = useCallback(async () => {
         const response = await getWords({
-            ...(mediaId ? { mediaId } : { words: words.slice(index, index + 40).map(x => x.word) }),
-            limit: 40,
+            ...(mediaId ? { mediaId } : { words: words.slice(index, index + 20).map(x => x.word) }),
+            limit: 20,
             language: lang,
         })
-        setIndex(index + 40)
+        setIndex(index + 20)
         setWordsCards(response?.data?.words)
         setWordsList(response)
     }, [index, lang, mediaId, words])

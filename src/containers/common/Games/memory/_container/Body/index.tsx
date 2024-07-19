@@ -41,12 +41,12 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
 
     const updateList = useCallback(async () => {
         const wordsResponse = await getWords({
-            ...(mediaId ? { mediaId } : { words: words.slice(index, index + 40).map(x => x.word) }),
-            limit: 80,
+            ...(mediaId ? { mediaId } : { words: words.slice(index, index + 20).map(x => x.word) }),
+            limit: 20,
             language: lang,
         })
         setWordsList(wordsResponse)
-        setIndex(index + 80)
+        setIndex(index + 20)
         const wordsResponseFiltered = wordsResponse?.data?.words?.filter(({ translations }) => translations?.[0]?.translations?.length)
 
         const wordsWithoutRepetitions = [];

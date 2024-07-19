@@ -39,8 +39,8 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
     const updateWords = useCallback(async () => {
         const response = await getWords({
             language: lang,
-            ...(mediaId ? { mediaId } : { words: words.slice(index, index + 40).map(x => x.word) }),
-            limit: 40
+            ...(mediaId ? { mediaId } : { words: words.slice(index, index + 20).map(x => x.word) }),
+            limit: 20
         })
         setAllWords(prev => [...prev, ...response.data.words])
     }, [mediaId, words, index, lang])
