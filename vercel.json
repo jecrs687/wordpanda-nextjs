@@ -1,8 +1,5 @@
 {
     "functions": {
-        "games/*": {
-            "maxDuration": 60
-        },
         "games/memory": {
             "maxDuration": 60
         },
