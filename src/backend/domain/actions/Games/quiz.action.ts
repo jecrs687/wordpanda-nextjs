@@ -1,3 +1,4 @@
+"use server";
 import { TOKEN_KEY } from "@constants/CONFIGS";
 import prisma from "@infra/config/database";
 import { generateQuizByWords } from "@infra/openai/Quiz";
