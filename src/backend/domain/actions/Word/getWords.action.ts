@@ -30,250 +30,295 @@ export const getWords = async (body: WordsPostRequest): Promise<WordsPostRespons
     const header = headers()
     const cookie = cookies()
     console.time('before chat')
-
     try {
-        const token = cookie.get(TOKEN_KEY)?.value || header.get('Authorization');
-        const userId = header.get('id') || validateToken(token)?.decoded?.id
-        const { languageId, mediaId, limit } = body
-        const [user, language] = await Promise.all([
-            await prisma.user.findUnique({
-                where: {
-                    id: userId
-                },
-                include: {
-                    language: true
-                }
-            }),
-            await prisma.language.findFirst({
-                where: {
-                    OR: [
-                        {
-                            id: languageId
+        return await prisma.$transaction(async (prisma) => {
+            const token = cookie.get(TOKEN_KEY)?.value || header.get('Authorization');
+            const userId = header.get('id') || validateToken(token)?.decoded?.id
+            const { languageId, mediaId, limit } = body
+            const [user, language] = await Promise.all([
+                await prisma.user.findUnique({
+                    where: {
+                        id: userId
+                    },
+                    include: {
+                        language: true
+                    }
+                }),
+                await prisma.language.findFirst({
+                    where: {
+                        OR: [
+                            {
+                                id: languageId
 
-                        },
-                        {
-                            code: {
-                                startsWith: body.language?.toLowerCase()?.split('-')[0]
+                            },
+                            {
+                                code: {
+                                    startsWith: body.language?.toLowerCase()?.split('-')[0]
+                                }
+                            },
+                            {
+                                language: {
+                                    contains: body.language?.toLowerCase()
+                                }
                             }
-                        },
-                        {
-                            language: {
-                                contains: body.language?.toLowerCase()
-                            }
-                        }
-                    ]
+                        ]
+                    },
+                })
+            ])
+            if (!user) {
+                err: 'Not authorized'
+            }
+
+            if (!language) return {
+                err: 'Language not found'
+            }
+            const translationLanguageTarget = await prisma.language.findFirst({
+                where: {
+                    id: user.languageId
                 },
             })
-        ])
-        if (!user) {
-            err: 'Not authorized'
-        }
-
-        if (!language) return {
-            err: 'Language not found'
-        }
-        const translationLanguageTarget = await prisma.language.findFirst({
-            where: {
-                id: user.languageId
-            },
-        })
-        if (!translationLanguageTarget) return {
-            err: 'Translation language not found'
-        }
-        const wordsWhere = {}
-        if (body.words?.length) Object.assign(wordsWhere, {
-            word: {
-                in: body.words.map(word => word.toLowerCase()),
+            if (!translationLanguageTarget) return {
+                err: 'Translation language not found'
             }
-        })
-        if (mediaId) Object.assign(wordsWhere, {
-            mediaWords: {
-                some: {
-                    mediaLanguage: {
-                        mediaId,
-                    }
+            const wordsWhere = {}
+            if (body.words?.length) Object.assign(wordsWhere, {
+                word: {
+                    in: body.words.map(word => word.toLowerCase()),
                 }
-            }
-        })
-
-        const wordsOnDb = (await prisma.word.findMany({
-            where: {
-                ...wordsWhere,
-                languageId: language.id,
-                isNotPossibleTranslate: false,
-            },
-            include: {
-                userWords: {
-                    where: {
-                        userId: user.id
-                    }
-                },
-                translations: {
-                    where: {
-                        languageId: translationLanguageTarget.id
-                    }
-                },
+            })
+            if (mediaId) Object.assign(wordsWhere, {
                 mediaWords: {
-                    include: {
-                        mediaLanguage: true
+                    some: {
+                        mediaLanguage: {
+                            mediaId,
+                        }
                     }
                 }
-            },
-        })).sort(sortWords).slice(0, limit * 2)
-        const wordsWithoutTranslation = wordsOnDb.filter(word => !word.translations.length)
-        const wordsNotOnDb = body?.words?.filter(word => !wordsOnDb.map(x => x.word).includes(word)) || []
+            })
 
-        const getTranslations = async () => await Promise.all(
-            chunkArray(wordsWithoutTranslation, 40).map(
-                async words => await translateWords(
-                    words.map(word => word?.word?.toLowerCase()),
-                    body.language,
-                    translationLanguageTarget.code
-                )
-            ))
-        console.timeEnd('before chat')
-        console.log("missing words: " + wordsWithoutTranslation.length)
-        console.log(JSON.stringify({
-            language,
-            translationLanguageTarget
-        }, null, 2))
-        console.time('during chat')
-        const translatedWords = await getTranslations()
-        console.timeEnd('during chat')
-        console.time("after chat")
-        const translatedWordsFlat = translatedWords.reduce((acc, val) => ({ ...acc, ...val }), {})
-        const translationWords = Object.entries(translatedWordsFlat).map(([key, words]) => words?.translation?.map((value) => [key, value]) || []).flat()
-        const translationsOnDb = await prisma.word.findMany({
-            where: {
-                word: {
-                    in: translationWords.map(([key, word]) => [word.toLowerCase(), word]).flat()
+            const wordsOnDb = (await prisma.word.findMany({
+                where: {
+                    ...wordsWhere,
+                    languageId: language.id,
+                    isNotPossibleTranslate: false,
                 },
-                languageId: translationLanguageTarget.id
-            }
-        })
-        const translationWordsOnDbFlat = translationsOnDb.map(x => x.word.toLowerCase())
-        const translationsNotOnDb = translationWords
-            .filter(
-                ([key, word]) =>
-                    !translationWordsOnDbFlat.includes(word.toLowerCase())
-            )
-        const notTranslatedWords = wordsWithoutTranslation.map(x => x.word.toLowerCase()).filter(
-            x => !Object.keys(translatedWordsFlat).includes(x)
-        )
-
-        try {
-            await Promise.all(
-                notTranslatedWords.map(async (key) => {
-                    const word = wordsOnDb.find(x => x.word === key);
-                    await prisma.word.update({
-                        where: {
-                            id: word.id
-                        },
-                        data: {
-                            isNotPossibleTranslate: true
+                take: limit * 3,
+                orderBy: [
+                    {
+                        userWords: {
+                            _count: 'asc'
                         }
-                    })
-                })
-            )
-        } catch (err) {
-            console.log(err)
-        }
-
-        const translationWordsToCreate = Array.from(new Set(translationsNotOnDb.map(([key, word]) => word.toLowerCase())))
-
-        await prisma.word.createMany({
-            data: translationWordsToCreate.map((word) => ({
-                word: word,
-                languageId: translationLanguageTarget.id
-            }))
-        })
-
-        const translationWordsOnDb = await prisma.word.findMany({
-            where: {
-                word: {
-                    in: Array.from(translationWords).map(([key, word]) => word.toLowerCase())
-                },
-                languageId: translationLanguageTarget.id
-            }
-        })
-        await Promise.all(
-            Object.entries(translatedWordsFlat).map(async ([key, words]) => {
-                const word = wordsOnDb.find(x => x.word === key.toLowerCase());
-                const translations = translationWordsOnDb.filter(x => words?.translation.map(word => word.toLowerCase())?.includes(x.word.toLowerCase()))
-                try {
-                    if (!translations.length) return await prisma.word.update({
+                    },
+                    {
+                        frequency: 'desc'
+                    },
+                    {
+                        errors: 'desc'
+                    },
+                    {
+                        attempts: 'asc'
+                    }
+                ],
+                include: {
+                    userWords: {
                         where: {
-                            id: word.id
-                        },
-                        data: {
-                            isNotPossibleTranslate: true
+                            userId: user.id
                         }
-                    })
-                    await prisma.word.update({
+                    },
+                    translations: {
                         where: {
-                            id: word.id
+                            languageId: translationLanguageTarget.id,
                         },
-                        data: {
+                        include: {
                             translations: {
-                                create: {
-                                    meaning: words?.meaning?.join('\n'),
-                                    meaningTranslated: words?.meaningTranslated?.join('\n'),
-                                    translations: {
-                                        connect: translations.map(({ id }) => ({ id }))
-                                    },
+                                where: {
                                     languageId: translationLanguageTarget.id
                                 }
                             }
                         }
-                    })
-                }
-                catch (err) {
-                    console.log({ err })
-                }
-            })
-        )
-        const words = await prisma.word.findMany({
-            where: {
-                ...wordsWhere,
-                languageId: language.id,
-                translations: {
-                    some: {
-                        languageId: translationLanguageTarget.id
+                    },
+                    mediaWords: {
+                        include: {
+                            mediaLanguage: true
+                        }
                     }
                 },
-                isNotPossibleTranslate: false
-            },
-            include: {
-                userWords: {
-                    where: {
-                        userId: user.id
+            })).sort(sortWords).slice(0, limit * 2)
+            const verify = wordsOnDb.filter(word => !!word.translations.length).length
+            console.log(`words verified: ${verify}, limit: ${limit}`)
+            if (verify >= limit) {
+                console.timeEnd('before chat')
+                return {
+                    data: {
+                        wordsOnDb,
+                        wordsNotOnDb: [],
+                        words: wordsOnDb.slice(0, limit)
                     },
-                },
-                translations: {
-                    where: {
-                        languageId: translationLanguageTarget.id
+                    err: null,
+                    msg: 'Words fetched'
+                }
+            }
+            const wordsWithoutTranslation = wordsOnDb.filter(word => !word.translations.length)
+            const wordsNotOnDb = body?.words?.filter(word => !wordsOnDb.map(x => x.word).includes(word)) || []
+
+            const getTranslations = async () => await Promise.all(
+                chunkArray(wordsWithoutTranslation, 40).map(
+                    async words => await translateWords(
+                        words.map(word => word?.word?.toLowerCase()),
+                        body.language,
+                        translationLanguageTarget.code
+                    )
+                ))
+            console.timeEnd('before chat')
+            console.log("missing words: " + wordsWithoutTranslation.length)
+            console.log(JSON.stringify({
+                language,
+                translationLanguageTarget
+            }, null, 2))
+            console.time('during chat')
+            const translatedWords = await getTranslations()
+            console.timeEnd('during chat')
+            console.time("after chat")
+            const translatedWordsFlat = translatedWords.reduce((acc, val) => ({ ...acc, ...val }), {})
+            const translationWords = Object.entries(translatedWordsFlat)
+                .map(([key, words]) => words?.translation?.map((value) => [key, value]) || [])
+                .flat()
+            const translationsOnDb = await prisma.word.findMany({
+                where: {
+                    word: {
+                        in: translationWords.map(([key, word]) => [word.toLowerCase(), word]).flat()
                     },
-                    include: {
-                        translations: {
+                    languageId: translationLanguageTarget.id
+                }
+            })
+            const translationWordsOnDbFlat = translationsOnDb.map(x => x.word.toLowerCase())
+            const translationsNotOnDb = translationWords
+                .filter(
+                    ([key, word]) =>
+                        !translationWordsOnDbFlat.includes(word.toLowerCase())
+                )
+            const notTranslatedWords = wordsWithoutTranslation.map(x => x.word.toLowerCase()).filter(
+                x => !Object.keys(translatedWordsFlat).includes(x)
+            )
+
+            try {
+                await Promise.all(
+                    notTranslatedWords.map(async (key) => {
+                        const word = wordsOnDb.find(x => x.word === key);
+                        await prisma.word.update({
                             where: {
-                                languageId: translationLanguageTarget.id
+                                id: word.id
+                            },
+                            data: {
+                                isNotPossibleTranslate: true
+                            }
+                        })
+                    })
+                )
+            } catch (err) {
+                console.log(err)
+            }
+
+            const translationWordsToCreate = Array.from(new Set(translationsNotOnDb.map(([key, word]) => word.toLowerCase())))
+
+            await prisma.word.createMany({
+                data: translationWordsToCreate.map((word) => ({
+                    word: word,
+                    languageId: translationLanguageTarget.id
+                }))
+            })
+
+            const translationWordsOnDb = await prisma.word.findMany({
+                where: {
+                    word: {
+                        in: Array.from(translationWords).map(([key, word]) => word.toLowerCase())
+                    },
+                    languageId: translationLanguageTarget.id
+                }
+            })
+            await Promise.all(
+                Object.entries(translatedWordsFlat).map(async ([key, words]) => {
+                    const word = wordsOnDb.find(x => x.word === key.toLowerCase());
+                    const translations = translationWordsOnDb.filter(x => words?.translation.map(word => word.toLowerCase())?.includes(x.word.toLowerCase()))
+                    try {
+                        if (!translations.length) return await prisma.word.update({
+                            where: {
+                                id: word.id
+                            },
+                            data: {
+                                isNotPossibleTranslate: true
+                            }
+                        })
+                        await prisma.word.update({
+                            where: {
+                                id: word.id
+                            },
+                            data: {
+                                translations: {
+                                    create: {
+                                        meaning: words?.meaning?.join('\n'),
+                                        meaningTranslated: words?.meaningTranslated?.join('\n'),
+                                        translations: {
+                                            connect: translations.map(({ id }) => ({ id }))
+                                        },
+                                        languageId: translationLanguageTarget.id
+                                    }
+                                }
+                            }
+                        })
+                    }
+                    catch (err) {
+                        console.log({ err })
+                    }
+                })
+            )
+            const words = (await prisma.word.findMany({
+                where: {
+                    ...wordsWhere,
+                    languageId: language.id,
+                    translations: {
+                        some: {
+                            languageId: translationLanguageTarget.id
+                        }
+                    },
+                    isNotPossibleTranslate: false
+                },
+                include: {
+                    userWords: {
+                        where: {
+                            userId: user.id
+                        },
+                    },
+                    translations: {
+                        where: {
+                            languageId: translationLanguageTarget.id
+                        },
+                        include: {
+                            translations: {
+                                where: {
+                                    languageId: translationLanguageTarget.id
+                                }
                             }
                         }
                     }
                 }
+            })).sort(sortWords).slice(0, limit)
+            console.timeEnd("after chat")
+            const response: WordsPostResponse = {
+                data: {
+                    wordsOnDb,
+                    wordsNotOnDb,
+                    words: words
+                },
+                err: null,
+                msg: 'Words fetched'
             }
-        })
-        console.timeEnd("after chat")
-        const response: WordsPostResponse = {
-            data: {
-                wordsOnDb,
-                wordsNotOnDb,
-                words: words.sort(sortWords).slice(0, limit)
-            },
-            err: null,
-            msg: 'Words fetched'
-        }
-        return response
+            return response
+        }, {
+            isolationLevel: 'Serializable',
+            maxWait: 60000,
+            timeout: 120000
+        });
     }
     catch (err) {
         console.log(err)
