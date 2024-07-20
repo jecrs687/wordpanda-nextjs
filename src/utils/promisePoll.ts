@@ -2,7 +2,7 @@
 export async function promisePoll<T>(fns: (value: T) => Promise<void>, values: T[], parallel: number, showLogs: Boolean = true) {
     const results = [];
     let promisePoll = 0;
-    while (!!values.length) {
+    while (!!values.length || promisePoll) {
         if (promisePoll < parallel) {
             promisePoll++;
             const value = values.shift()
@@ -10,7 +10,7 @@ export async function promisePoll<T>(fns: (value: T) => Promise<void>, values: T
                 results.push(res);
                 promisePoll--;
                 if (showLogs)
-                    console.log(`Finished ${results.length} of ${values.length + results.length}`);
+                    console.log(`Finished ${results.length} of ${values.length + results.length + promisePoll}`);
             });
         }
         await new Promise((resolve) => setTimeout(resolve, 50));
