@@ -26,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
 
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
 
         <MetaTagsProvider />
