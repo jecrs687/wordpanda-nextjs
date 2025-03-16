@@ -1,8 +1,10 @@
+import { NextConfig } from "next"
+
 /** @type {import('next').NextConfig} */
 const path = require('path')
 const tsconfig = require(__dirname + '/tsconfig.json')
 
-const alias = Object.entries(tsconfig.compilerOptions.paths)
+const alias = Object.entries(tsconfig.compilerOptions.paths as Record<string, string[]>)
   .reduce(
     (x, [name, [pathname]]) => (
       {
@@ -11,11 +13,28 @@ const alias = Object.entries(tsconfig.compilerOptions.paths)
       }
     ), {})
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   logging: {
     fetches: {
       fullUrl: true,
     },
+  },
+  experimental: {
+
+    turbo: {
+      rules: {
+        '*.html': {
+          loaders: ['raw-loader'],
+          as: 'string',
+        },
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+      resolveAlias: alias
+      ,
+    }
   },
   webpack: (config) => {
     config.resolve.alias = {
@@ -25,39 +44,8 @@ const nextConfig = {
     config.resolve.fallback = { fs: false, tls: false, net: false, child_process: false, canvas: false };
 
     return Object.assign({}, config, {
-      module: Object.assign({}, config.module, {
-        rules: config.module.rules.concat([
-          {
-            test: /\.html$/,
-            use: 'raw-loader',
-          },
-          {
-            test: /\.svg$/i,
-            use: [
-              {
-                loader: '@svgr/webpack',
-                options: {
-                  prettier: false,
-                  svgo: true,
-                  svgoConfig: {
-                    plugins: [{ removeViewBox: false }, {
-                      name: 'preset-default',
-                      params: {
-                        overrides: { removeViewBox: false },
-                      },
-                    }]
-                  },
-                  titleProp: true,
-                  svgo: false,
-                  memo: true,
-                  typescript: true,
-                },
-              }
-            ],
+      module: Object.assign({}, config.module),
 
-          }
-        ]),
-      }),
     });
   },
   images: {
@@ -123,19 +111,12 @@ const { withSentryConfig } = require("@sentry/nextjs");
 module.exports = withSentryConfig(
   module.exports,
   {
-    // For all available options, see:
-    // https://github.com/getsentry/sentry-webpack-plugin#options
 
-    // Suppresses source map uploading logs during build
     silent: true,
     org: "jecrs687",
     project: "wordpanda-next",
   },
   {
-    // For all available options, see:
-    // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
-
-    // Upload a larger set of source maps for prettier stack traces (increases build time)
     widenClientFileUpload: true,
 
     // Transpiles SDK to be compatible with IE11 (increases bundle size)

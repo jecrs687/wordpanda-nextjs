@@ -1,6 +1,5 @@
-import LoginPage from './_container/Login';
+import LoginPage from './_container/Login'
+
 export default async function Page() {
-    return (
-        <LoginPage />
-    )
+    return <LoginPage />
 }

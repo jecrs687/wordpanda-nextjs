@@ -39,5 +39,5 @@ export const RingChart = ({
         ],
     };
 
-    return <Ring {...config} />;
+    return <></>;
 };

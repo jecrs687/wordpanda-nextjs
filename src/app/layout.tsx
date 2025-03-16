@@ -5,22 +5,19 @@ import { QueryParamProvider } from '@providers/QueryParamProvider'
 import { ThemeProvider } from '@providers/ThemeProvider'
 import type { Metadata } from 'next'
 import { ErrorBoundary } from 'next/dist/client/components/error-boundary'
-import { Poppins } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import { Suspense } from 'react'
 import Error from './error'
-import './globals.scss'
+import './globals.css'
 import Loading from './loading'
 
-const poppins = Poppins({
-  subsets: ['latin', 'latin-ext'],
-  weight: ['400', '700', '100', '200', '300', '500', '600', '800', '900'],
-})
-export const metadata: Metadata = {
-  title: 'Wordpanda',
-  description: `Explore uma nova abordagem envolvente para aprender idiomas com nosso site inovador. Descubra como integrar o aprendizado de idiomas com suas atividades de streaming favoritas, aproveitando legendas de filmes e séries para aprimorar suas habilidades linguísticas. Com uma plataforma abrangente que inclui jogos interativos, estatísticas detalhadas de progresso e suporte a múltiplos idiomas, nosso site oferece uma experiência personalizada e divertida para estudantes de todos os níveis. Aproveite uma jornada de aprendizado envolvente e eficaz, onde assistir a filmes se torna uma oportunidade de aprimorar suas habilidades linguísticas. Comece sua aventura de aprendizado conosco hoje!`,
-}
+const inter = Inter({ subsets: ['latin'] })
 
+export const metadata: Metadata = {
+  title: 'WordPanda - Language Learning Platform',
+  description: 'Learn languages effectively with WordPanda',
+}
 
 export default function RootLayout({
   children,
@@ -29,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
 
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
 
         <MetaTagsProvider />
@@ -92,10 +89,13 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body
-        className={poppins.className}
-      >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <body className={`${inter.className} antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <Suspense fallback={<Loading />}>
             <EventProvider />
             <InformationProvider />
