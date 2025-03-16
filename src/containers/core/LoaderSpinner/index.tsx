@@ -1,5 +1,7 @@
-import styles from './index.module.scss'
-export default function LoaderSpinner({
+import styles from './index.module.scss';
+
+// Default export
+function LoaderSpinner({
     size = '48px'
 }) {
     return (
@@ -12,3 +14,8 @@ export default function LoaderSpinner({
         </div>
     )
 }
+
+export default LoaderSpinner;
+
+// Named export for convenience
+export { LoaderSpinner };

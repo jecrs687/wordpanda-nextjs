@@ -2,6 +2,7 @@ import EventProvider from '@providers/EventProvider'
 import InformationProvider from '@providers/InformationProvider'
 import { MetaTagsProvider } from '@providers/MetaTags.provide'
 import { QueryParamProvider } from '@providers/QueryParamProvider'
+import { ThemeProvider } from '@providers/ThemeProvider'
 import type { Metadata } from 'next'
 import { ErrorBoundary } from 'next/dist/client/components/error-boundary'
 import { Poppins } from 'next/font/google'
@@ -94,17 +95,18 @@ export default function RootLayout({
       <body
         className={poppins.className}
       >
-        <Suspense fallback={<Loading />}>
-          <EventProvider />
-          <InformationProvider />
-          <QueryParamProvider />
-        </Suspense>
-        <ErrorBoundary errorComponent={Error}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Suspense fallback={<Loading />}>
-            {children}
+            <EventProvider />
+            <InformationProvider />
+            <QueryParamProvider />
           </Suspense>
-        </ErrorBoundary>
-
+          <ErrorBoundary errorComponent={Error}>
+            <Suspense fallback={<Loading />}>
+              {children}
+            </Suspense>
+          </ErrorBoundary>
+        </ThemeProvider>
       </body>
     </html >
   )

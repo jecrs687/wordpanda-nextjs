@@ -1,4 +1,4 @@
-@import "@styles/index.scss";
+@import "tailwindcss";
 
 @font-face {
   font-family: "Stand-Alone";
@@ -42,6 +42,13 @@ body {
   max-width: 100dvw;
   max-height: 100dvh;
 
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  -webkit-user-drag: none; /* Fix: Add proper value after the property */
+  user-drag: none; /* Add standard property for better compatibility */
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:800) {
