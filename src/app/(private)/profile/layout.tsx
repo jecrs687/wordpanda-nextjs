@@ -1,13 +1,14 @@
-import styles from './layout.module.scss';
+"use client";
 
-export default function RootLayout({
-    children }: {
-        children: React.ReactNode
-    }) {
+import { ThemeProvider } from 'next-themes';
+import { ReactNode } from 'react';
 
+export default function ProfileLayout({ children }: { children: ReactNode }) {
     return (
-        <div className={styles.container}>
-            {children}
-        </div >
-    )
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <div className="min-h-screen">
+                {children}
+            </div>
+        </ThemeProvider>
+    );
 }
