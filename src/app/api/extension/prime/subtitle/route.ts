@@ -15,13 +15,13 @@ async function processRequests() {
     flag = true;
     let inc = 0;
     let err = 0;
+    let onCache = 0;
     console.log(`Processing ${requests.length} requests`);
     await promisePoll<IInsertSubtitles>(async (x) => {
-        requests.shift();
         const results = readFileSync('./src/app/api/extension/prime/subtitle/mocks1.json', 'utf-8',);
         const data = JSON.parse(results);
         if (data.some((y) => y.mediaId === x.mediaId)) {
-            requests.shift();
+            onCache++
             return;
         }
         const result = await insertSubtitles([deepcopy(x)])
@@ -33,16 +33,16 @@ async function processRequests() {
             writeFileSync('./src/app/api/extension/prime/subtitle/mocks1.json', JSON.stringify(data, null, 2));
 
         } else {
-            requests.push(x);
             err++
         };
         console.log({
             success: result.success,
             totSuccess: inc,
-            totError: err
+            totError: err,
+            onCache
         })
         return;
-    }, requests, 12);
+    }, requests, 1);
     console.log('Finished');
     flag = false;
     if (requests.length > 0) processRequests();
