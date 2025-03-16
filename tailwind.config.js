@@ -24,16 +24,6 @@ module.exports = {
                 primary: {
                     DEFAULT: "hsl(var(--primary))",
                     foreground: "hsl(var(--primary-foreground))",
-                    50: "#ecfdf5",
-                    100: "#d1fae5",
-                    200: "#a7f3d0",
-                    300: "#6ee7b7",
-                    400: "#34d399",
-                    500: "#10b981", // emerald-500
-                    600: "#059669", // emerald-600
-                    700: "#047857", // emerald-700
-                    800: "#065f46",
-                    900: "#064e3b",
                 },
                 secondary: {
                     DEFAULT: "hsl(var(--secondary))",
@@ -50,7 +40,6 @@ module.exports = {
                 accent: {
                     DEFAULT: "hsl(var(--accent))",
                     foreground: "hsl(var(--accent-foreground))",
-                    400: "#fbbf24", // amber-400
                 },
                 popover: {
                     DEFAULT: "hsl(var(--popover))",
@@ -109,8 +98,8 @@ module.exports = {
             },
             borderRadius: {
                 lg: "var(--radius)",
-                md: "calc(var(--radius) - 0.25rem)",
-                sm: "calc(var(--radius) - 0.5rem)",
+                md: "calc(var(--radius) - 2px)",
+                sm: "calc(var(--radius) - 4px)",
             },
             boxShadow: {
                 sm: "var(--shadow-sm)",
@@ -130,18 +119,51 @@ module.exports = {
                     "0%, 100%": { backgroundPosition: "0% 50%" },
                     "50%": { backgroundPosition: "100% 50%" },
                 },
+                pulse: {
+                    '0%, 100%': { opacity: 1 },
+                    '50%': { opacity: 0.5 },
+                },
+                float: {
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-10px)' },
+                },
             },
             animation: {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
                 "gradient": "gradient 3s ease infinite",
+                "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+                "float": "float 5s ease-in-out infinite",
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-                'gradient-conic':
-                    'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+                'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
             },
         },
     },
-    plugins: [],
+    plugins: [
+        require("tailwindcss-animate"),
+        require('tailwind-scrollbar')({
+            nocompatible: true,
+            themePrefs: {
+                scrollbarWidth: 'thin',
+                scrollbarColor: '#6b7280'
+            }
+        }),
+    ],
+    safelist: [
+        // Add dynamic classes that need to be included in production builds
+        {
+            pattern: /bg-gradient-to-r/,
+        },
+        {
+            pattern: /from-(emerald|green|red|blue|yellow|amber|gray|pink|indigo|purple|violet|cyan|slate|brown)-\d+/,
+        },
+        {
+            pattern: /to-(emerald|green|red|blue|yellow|amber|gray|pink|indigo|purple|violet|cyan|slate|brown)-\d+/,
+        },
+        {
+            pattern: /text-(emerald|green|red|blue|yellow|amber|gray|pink|indigo|purple|violet|cyan|slate|brown)-\d+/,
+        },
+    ],
 }

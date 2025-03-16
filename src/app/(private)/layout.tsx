@@ -1,29 +1,41 @@
-import { NavBar } from '@common/NavBar';
+"use client";
+
 import { ROUTES } from '@constants/ROUTES';
 import { AuthenticationProvider } from '@providers/AuthenticationProvider';
 import { SwrCacheProvider } from '@providers/SwrCacheProvider';
-import { Suspense } from 'react';
+import { motion } from 'framer-motion';
+import { Suspense, useState } from 'react';
+import Navbar from '../../components/common/NavBar';
 import Loading from '../loading';
-import styles from './layout.module.scss';
 
+export default function PrivateLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    const [searchQuery, setSearchQuery] = useState('');
 
-
-
-export default function RootLayout({
-    children }: {
-        children: React.ReactNode
-    }) {
+    const handleSearch = (query: string) => {
+        setSearchQuery(query);
+        // Any additional search handling logic
+    };
 
     return (
-        <div className={styles.container}>
+        <div className="min-h-screen flex flex-col">
             <SwrCacheProvider />
             <AuthenticationProvider redirect={ROUTES.LOGIN()} />
-            <NavBar />
-            <main id="content" className={styles.content}>
+            <Navbar onSearch={handleSearch} />
+
+            <motion.main
+                className="flex-grow"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+            >
                 <Suspense fallback={<Loading />}>
                     {children}
                 </Suspense>
-            </main>
-        </div >
-    )
+            </motion.main>
+        </div>
+    );
 }

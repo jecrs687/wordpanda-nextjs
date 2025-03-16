@@ -12,11 +12,11 @@ import Error from './error'
 import './globals.css'
 import Loading from './loading'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], display: 'swap' })
 
 export const metadata: Metadata = {
-  title: 'WordPanda - Language Learning Platform',
-  description: 'Learn languages effectively with WordPanda',
+  title: 'WordPanda - Aprimore seu vocabulário',
+  description: 'Aprenda novos idiomas enquanto assiste seus filmes e séries favoritos',
 }
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
 
-    <html lang="en" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning>
       <head>
 
         <MetaTagsProvider />

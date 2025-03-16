@@ -10,10 +10,12 @@ import TextSearch from '@common/TextSearch';
 import Button from '@core/Button';
 import LoaderSpinner from '@core/LoaderSpinner';
 import useSearch from '@hooks/useSearch';
+import { getCategoryBadge, getCategoryEmoji } from '@utils/categoryUtils';
 import { deepcopy } from '@utils/deepcopy';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useTheme } from 'next-themes';
 import { useCallback, useEffect, useState } from 'react';
 import { insertMissingMovies } from './action';
-import styles from './page.module.scss';
 
 type Platform = Awaited<ReturnType<typeof getPlatforms>>['platforms']
 const Dashboard = ({
@@ -30,6 +32,9 @@ const Dashboard = ({
     const [medias, setMedias] = useState(mediasProp);
     const [plat, setPlat] = useState(platProp);
     const [loading, setLoading] = useState(false);
+    const { theme, setTheme } = useTheme();
+    const isDark = theme === 'dark';
+
     const updateValues = useCallback(async () => {
         const [{ user }, { platforms }] = await Promise.all([getUser(), getPlatforms({
             search
@@ -37,6 +42,7 @@ const Dashboard = ({
         const { userLanguages: languages, mediaUser: medias } = user
         return { languages, medias, platforms }
     }, [search])
+
     useEffect(() => {
         let debounce = setTimeout(async () => {
             setLoading(true)
@@ -52,6 +58,7 @@ const Dashboard = ({
             debounce = null
         }
     }, [search, updateValues])
+
     const userLanguages = languages.filter(({ language }) => language.language.toLowerCase().includes(search.toLowerCase()))
     const mediaUser = medias.filter(({ mediaLanguage }) => mediaLanguage.media.name.toLowerCase().includes(search.toLowerCase()))
     const platforms = plat.map((platform) => ({ ...platform, medias: platform?.medias })
@@ -79,193 +86,617 @@ const Dashboard = ({
                 return acc
             }, {}
         )
-    return (<main className={styles.main}>
 
-        <div className={styles.header}>
-            <div className={styles.search}>
-                <TextSearch
-                    name=''
-                    title=''
-                    placeholder='Encontre seu filme, lingua ou série'
-                    onChange={(e) => setSearch(e.target.value)}
-                />
-            </div>
-        </div>
-        {
-            !!loading &&
-            <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center', width: '100%'
-            }}>
-                <LoaderSpinner />
-
-            </div>
+    const containerVariants = {
+        hidden: { opacity: 0, y: 20 },
+        show: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.1
+            }
         }
-        <div className={styles.container}>
-            <ShowIf condition={notFound}>
+    };
 
-                <form className={styles.form}
-                    onSubmit={(event) => {
-                        insertMissingMovies(new FormData(event.currentTarget))
-                    }}>
-                    <h2>
-                        Não encontramos nada com o termo pesquisado
-                    </h2>
-                    <h4>
-                        Quer adicionar a nossa base de dados?
-                        <br />
-                        Basta clicar no botão abaixo e adicionar o filme ou série que deseja:
-                    </h4>
-                    <Input name='name' title='Nome' placeholder='Se beber não case' />
-                    <Input name='provider' title='Provedor' placeholder='Netflix, prime' />
-                    <Button type='submit'>Adicionar</Button>
+    const itemVariants = {
+        hidden: { opacity: 0, y: 10 },
+        show: { opacity: 1, y: 0 }
+    };
 
-                    <p>
-                        Apos adicionar, aguarde a aprovação da nossa equipe para que o conteúdo seja disponibilizado
-                    </p>
-                </form>
+    return (
+        <main className={`min-h-screen w-full pb-12 overflow-x-hidden
+            ${isDark
+                ? 'bg-gradient-to-br from-gray-950 via-gray-950/95 to-gray-900 text-white'
+                : 'bg-gradient-to-br from-white via-sky-50/30 to-zinc-100'}`}
+        >
+            {/* Enhanced Header with branding and search */}
+            <div className={`sticky top-0 z-50 w-full backdrop-blur-xl 
+                ${isDark
+                    ? 'bg-black/40 border-b border-gray-800/70 shadow-lg shadow-black/10'
+                    : 'bg-white/70 border-b border-zinc-200/70 shadow-sm shadow-black/5'}`}
+            >
+                <div className="container mx-auto px-4 py-4">
+                    <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center">
+                            <motion.div
+                                className="mr-6 hidden md:block"
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.5 }}
+                            >
+                                <div className="flex items-center gap-3">
+                                    <div className="text-2xl md:text-3xl">🐼</div>
+                                    <h1 className={`text-lg md:text-xl font-bold 
+                                        ${isDark
+                                            ? 'bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent'
+                                            : 'bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent'}`}>
+                                        WordPanda
+                                    </h1>
+                                </div>
+                            </motion.div>
 
-            </ShowIf>
+                            <div className="flex-1 w-full max-w-xl">
+                                <TextSearch
+                                    name=''
+                                    title=''
+                                    placeholder='Encontre seu filme, lingua ou série'
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    iconRight={() =>
+                                        <motion.button
+                                            whileHover={{ scale: 1.1, rotate: 15 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            onClick={() => setTheme(isDark ? 'light' : 'dark')}
+                                            className={`p-2 rounded-full transition-colors
+                                                ${isDark
+                                                    ? 'text-amber-300 hover:bg-gray-800/80'
+                                                    : 'text-violet-500 hover:bg-gray-100/80'}`}
+                                        >
+                                            {isDark ? (
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                </svg>
+                                            ) : (
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                                                </svg>
+                                            )}
+                                        </motion.button>
+                                    }
+                                />
+                            </div>
+                        </div>
 
-            <div className={styles.card}>
-                <ShowIf condition={!!userLanguages.length}>
-                    <div className={styles.carrossel}>
-                        <h4>Aprendendo</h4>
-                        <div className={styles.contents}>
-                            {
-                                userLanguages.map((language, index) => {
-                                    return (
-                                        <LanguageCard
-                                            key={index}
-                                            language={language.language.language}
-                                            code={language.language.code}
-                                            id={language.language.id}
-                                            wordsNumber={language._count.userWords}
-                                            totalWordsNumber={language.language._count.words}
-                                        />
-                                    )
-                                })
-                            }
+                        <div className="flex items-center gap-3">
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className={`hidden md:flex items-center gap-2 py-2 px-4 rounded-xl text-sm font-medium
+                                    ${isDark
+                                        ? 'bg-gray-800 hover:bg-gray-700 text-gray-200'
+                                        : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}`}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                                <span>Perfil</span>
+                            </motion.button>
+
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className={`hidden sm:flex items-center gap-2 py-2 px-4 rounded-xl font-medium 
+                                    ${isDark
+                                        ? 'bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white'
+                                        : 'bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white'}`}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
+                                <span>Novo Estudo</span>
+                            </motion.button>
                         </div>
                     </div>
-                </ShowIf>
-                <div className={styles.media}>
-                    <ShowIf condition={!!mediaUser.length}>
-                        <div className={styles.carrossel}>
-                            <h4>Assistidos</h4>
-                            <div className={styles.contents}>
-                                {mediaUser.map((content, index) => {
-                                    return (
+                </div>
+            </div>
 
-                                        <CardMovieSmall
-                                            code={content.mediaLanguage.language.code}
-                                            id={content.mediaLanguage.media.id}
-                                            language={content.mediaLanguage.language.language}
-                                            logoUrl={content.mediaLanguage.media.logoUrl}
-                                            name={content.mediaLanguage.media.name}
-                                            platform={content.mediaLanguage.media.platform.name}
+            {/* Main content with enhanced background and UI */}
+            <div className="container mx-auto px-4 pt-8 relative">
+                {/* Background decorations */}
+                {!loading && !search && (
+                    <>
+                        <div className="absolute top-20 left-10 w-64 h-64 bg-emerald-400/10 rounded-full blur-3xl -z-10 animate-pulse" />
+                        <div className="absolute top-40 right-10 w-96 h-96 bg-indigo-400/10 rounded-full blur-3xl -z-10 animate-pulse" style={{ animationDuration: '8s' }} />
+                        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-cyan-400/10 rounded-full blur-3xl -z-10 animate-pulse" style={{ animationDuration: '12s' }} />
+                    </>
+                )}
+
+                {loading && (
+                    <div className="flex flex-col justify-center items-center w-full py-32">
+                        <LoaderSpinner size="large" />
+                        <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5 }}
+                            className={`mt-6 text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
+                        >
+                            Buscando conteúdo...
+                        </motion.p>
+                    </div>
+                )}
+
+                <AnimatePresence>
+                    <motion.div
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="show"
+                        className="space-y-12"
+                    >
+                        {/* Not found content with improved UI */}
+                        <ShowIf condition={!loading && notFound}>
+                            <motion.div
+                                variants={itemVariants}
+                                className={`relative overflow-hidden rounded-2xl p-8 border shadow-xl
+                                    ${isDark
+                                        ? 'bg-gray-900/70 backdrop-blur-xl border-gray-800/50'
+                                        : 'bg-white/80 backdrop-blur-lg border-zinc-200/50'}`}
+                            >
+                                <form
+                                    onSubmit={(event) => {
+                                        insertMissingMovies(new FormData(event.currentTarget))
+                                    }}
+                                    className="space-y-8 max-w-2xl mx-auto relative z-10"
+                                >
+                                    {/* Decorative elements */}
+                                    <div className="absolute -top-20 -right-10 w-40 h-40 bg-emerald-400/20 rounded-full blur-3xl -z-0" />
+                                    <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-indigo-400/20 rounded-full blur-3xl -z-0" />
+
+                                    <div className="text-center space-y-4 relative">
+                                        <span className="inline-block text-5xl mb-2">🧐</span>
+                                        <h2 className={`text-3xl font-extrabold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                                            Não encontramos nada com o termo pesquisado
+                                        </h2>
+                                        <p className={`text-lg ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                                            Quer adicionar a nossa base de dados?
+                                            <br />
+                                            Basta preencher o formulário abaixo:
+                                        </p>
+                                    </div>
+
+                                    <div className="space-y-5">
+                                        <Input name='name' title='Nome' placeholder='Se beber não case' />
+                                        <Input name='provider' title='Provedor' placeholder='Netflix, prime' />
+                                    </div>
+
+                                    <div className="pt-4">
+                                        <Button
+                                            type='submit'
+                                            className={`w-full font-medium py-3.5 rounded-xl shadow-lg
+                                                ${isDark
+                                                    ? 'bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white hover:shadow-cyan-500/20'
+                                                    : 'bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white hover:shadow-cyan-500/30'}`}
+                                            leftIcon={
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                </svg>
+                                            }
+                                        >
+                                            Adicionar
+                                        </Button>
+                                    </div>
+
+                                    <p className={`text-center text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                                        Após adicionar, aguarde a aprovação da nossa equipe para que o conteúdo seja disponibilizado
+                                    </p>
+                                </form>
+                            </motion.div>
+                        </ShowIf>
+
+                        {/* User Languages Section with enhanced styling */}
+                        <ShowIf condition={!!userLanguages.length}>
+                            <motion.div variants={itemVariants} className="space-y-6">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center space-x-3">
+                                        <span className="text-2xl">🗣️</span>
+                                        <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                                            Aprendendo
+                                        </h2>
+                                    </div>
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className={`flex items-center gap-2 py-1.5 px-3 rounded-lg text-sm font-medium
+                                            ${isDark
+                                                ? 'bg-gray-800 hover:bg-gray-700 text-emerald-400'
+                                                : 'bg-gray-100 hover:bg-gray-200 text-emerald-600'}`}
+                                    >
+                                        Ver todos
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </motion.button>
+                                </div>
+
+                                <motion.div
+                                    className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5"
+                                    variants={{
+                                        hidden: { opacity: 0 },
+                                        show: {
+                                            opacity: 1,
+                                            transition: {
+                                                staggerChildren: 0.1
+                                            }
+                                        }
+                                    }}
+                                >
+                                    {userLanguages.map((language, index) => (
+                                        <motion.div
                                             key={index}
-                                        />
-                                    )
-                                })}
-                            </div>
+                                            variants={{
+                                                hidden: { opacity: 0, scale: 0.9, y: 20 },
+                                                show: {
+                                                    opacity: 1,
+                                                    scale: 1,
+                                                    y: 0,
+                                                    transition: { type: "spring", stiffness: 100 }
+                                                }
+                                            }}
+                                        >
+                                            <LanguageCard
+                                                language={language.language.language}
+                                                code={language.language.code}
+                                                id={language.language.id}
+                                                wordsNumber={language._count.userWords}
+                                                totalWordsNumber={language.language._count.words}
+                                            />
+                                        </motion.div>
+                                    ))}
+                                </motion.div>
+                            </motion.div>
+                        </ShowIf>
 
-                        </div>
-                    </ShowIf>
+                        {/* Media User Has Watched with enhanced styling */}
+                        <ShowIf condition={!!mediaUser.length}>
+                            <motion.div variants={itemVariants} className="space-y-6">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center space-x-3">
+                                        <span className="text-2xl">📺</span>
+                                        <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                                            Assistidos
+                                        </h2>
+                                    </div>
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className={`flex items-center gap-2 py-1.5 px-3 rounded-lg text-sm font-medium
+                                            ${isDark
+                                                ? 'bg-gray-800 hover:bg-gray-700 text-emerald-400'
+                                                : 'bg-gray-100 hover:bg-gray-200 text-emerald-600'}`}
+                                    >
+                                        Ver todos
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </motion.button>
+                                </div>
 
-                    <ShowIf condition={!!platforms.length}>
-                        {
-                            platforms.map(
-                                (platform, id) =>
-                                    <ShowIf key={id} condition={!!platform.medias.length}>
-                                        <div className={styles.carrossel}>
-                                            <h4>{platform.name}</h4>
-                                            <div className={styles.contents}>
-                                                {platform.medias.map((content, index) =>
+                                <div className="relative">
+                                    <div className="flex gap-5 overflow-x-auto pb-6 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-500/30 dark:scrollbar-thumb-gray-700/50 snap-x">
+                                        {mediaUser.map((content, index) => (
+                                            <motion.div
+                                                key={index}
+                                                className="snap-start flex-shrink-0 w-64"
+                                                initial={{ opacity: 0, x: 50 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: index * 0.05 }}
+                                                whileHover={{ y: -5, scale: 1.02, transition: { duration: 0.2 } }}
+                                            >
+                                                <CardMovieSmall
+                                                    code={content.mediaLanguage.language.code}
+                                                    id={content.mediaLanguage.media.id}
+                                                    language={content.mediaLanguage.language.language}
+                                                    logoUrl={content.mediaLanguage.media.logoUrl}
+                                                    name={content.mediaLanguage.media.name}
+                                                    platform={content.mediaLanguage.media.platform.name}
+                                                />
+                                            </motion.div>
+                                        ))}
+                                    </div>
+
+                                    {/* Gradient overlay for scrollable content */}
+                                    <div className="absolute top-0 right-0 w-16 h-full bg-gradient-to-l from-white dark:from-gray-950 to-transparent pointer-events-none"></div>
+                                </div>
+                            </motion.div>
+                        </ShowIf>
+
+                        {/* Platforms with enhanced styling */}
+                        {platforms.map((platform, id) => (
+                            <ShowIf key={id} condition={!!platform.medias.length}>
+                                <motion.div
+                                    variants={itemVariants}
+                                    className={`space-y-6 rounded-2xl p-8
+                                        ${isDark
+                                            ? 'bg-gray-900/30'
+                                            : 'bg-gray-50/50'}`}
+                                >
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-2xl">🎬</span>
+                                            <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                                                {platform.name}
+                                            </h2>
+                                        </div>
+                                        <motion.button
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            className={`flex items-center gap-2 py-1.5 px-3 rounded-lg text-sm font-medium
+                                                ${isDark
+                                                    ? 'bg-gray-800 hover:bg-gray-700 text-emerald-400'
+                                                    : 'bg-gray-100 hover:bg-gray-200 text-emerald-600'}`}
+                                        >
+                                            Ver todos
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </motion.button>
+                                    </div>
+
+                                    <div className="relative">
+                                        <div className="flex gap-5 overflow-x-auto pb-6 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-500/30 dark:scrollbar-thumb-gray-700/50 snap-x">
+                                            {platform.medias.map((content, index) => (
+                                                <motion.div
+                                                    key={index}
+                                                    className="snap-start flex-shrink-0 w-64"
+                                                    initial={{ opacity: 0, scale: 0.9 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    transition={{ delay: index * 0.05 }}
+                                                    whileHover={{ y: -5, scale: 1.02, transition: { duration: 0.2 } }}
+                                                >
                                                     <CardMovieSmall
                                                         languages={content.mediaLanguages.map((x) => x.language.language).join(', ')}
                                                         id={content.id}
                                                         logoUrl={content.logoUrl}
                                                         name={content.name}
                                                         platform={platform.name}
-                                                        key={index}
                                                     />
-                                                )}
-                                            </div>
+                                                </motion.div>
+                                            ))}
                                         </div>
-                                    </ShowIf>
 
-                            )
-                        }
-                    </ShowIf>
+                                        {/* Gradient overlay for scrollable content */}
+                                        <div className="absolute top-0 right-0 w-16 h-full bg-gradient-to-l from-white dark:from-gray-900/90 to-transparent pointer-events-none"></div>
+                                    </div>
+                                </motion.div>
+                            </ShowIf>
+                        ))}
 
-                    <ShowIf condition={!!mostViewed.length}>
-                        <div className={styles.carrossel}>
-                            <h4>Mais vistos</h4>
-                            <div className={styles.contents}>
-                                {mostViewed.map((content, index) =>
-                                    <CardMovieBig
-                                        id={content.id}
-                                        logoUrl={content.logoUrl}
-                                        name={content.name}
-                                        languages={content.mediaLanguages.map((x) => x.language.language).join(', ')}
-                                        index={index}
-                                        key={index}
-                                    />
-                                )}
-                            </div>
-                        </div>
-                    </ShowIf>
-                    <ShowIf condition={!!platforms.length}>
-                        <div className={styles.carrossel}>
-                            <h4>Adicionados recentemente</h4>
-                            <div className={styles.contents}>
-                                {
-                                    recentAdded.map(
-                                        (recent, id) =>
-                                            <CardMovieSmall
-                                                languages={recent.mediaLanguages.map((x) => x.language.language).join(', ')}
-                                                id={recent.id}
-                                                logoUrl={recent.logoUrl}
-                                                name={recent.name}
-                                                platform={''}
-                                                key={id}
-                                            />
+                        {/* Most Viewed with enhanced grid styling */}
+                        <ShowIf condition={!!mostViewed.length}>
+                            <motion.div variants={itemVariants} className="space-y-6">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center space-x-3">
+                                        <span className="text-2xl">🔥</span>
+                                        <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                                            Mais vistos
+                                        </h2>
+                                    </div>
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className={`flex items-center gap-2 py-1.5 px-3 rounded-lg text-sm font-medium
+                                            ${isDark
+                                                ? 'bg-gray-800 hover:bg-gray-700 text-emerald-400'
+                                                : 'bg-gray-100 hover:bg-gray-200 text-emerald-600'}`}
+                                    >
+                                        Ver todos
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </motion.button>
+                                </div>
 
-                                    )
-                                }
-                            </div>
-                        </div>
-                    </ShowIf>
-                    <ShowIf condition={!!orderByCategory}>
-                        {
-                            Object.entries(orderByCategory).map(([category, medias], index) =>
-                                <div key={index} className={styles.carrossel}>
-                                    <h4>{category}</h4>
-                                    <div className={styles.contents}>
-                                        {medias.map((content, index) =>
-                                            <CardMovieSmall
-                                                languages={content.mediaLanguages.map((x) => x.language.language).join(', ')}
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+                                    {mostViewed.slice(0, 8).map((content, index) => (
+                                        <motion.div
+                                            key={index}
+                                            initial={{ opacity: 0, scale: 0.9 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ delay: index * 0.05 }}
+                                            whileHover={{ y: -5, scale: 1.02, transition: { duration: 0.2 } }}
+                                        >
+                                            <CardMovieBig
                                                 id={content.id}
                                                 logoUrl={content.logoUrl}
                                                 name={content.name}
-                                                platform={content.name}
-                                                key={index}
+                                                languages={content.mediaLanguages.map((x) => x.language.language).join(', ')}
+                                                index={index}
                                             />
-                                        )}
-                                    </div>
+                                        </motion.div>
+                                    ))}
                                 </div>
-                            )
-                        }
-                    </ShowIf>
-                </div>
+                            </motion.div>
+                        </ShowIf>
+
+                        {/* Recently Added with enhanced styling */}
+                        <ShowIf condition={!!recentAdded.length}>
+                            <motion.div variants={itemVariants} className="space-y-6">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center space-x-3">
+                                        <span className="text-2xl">🆕</span>
+                                        <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                                            Adicionados recentemente
+                                        </h2>
+                                    </div>
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className={`flex items-center gap-2 py-1.5 px-3 rounded-lg text-sm font-medium
+                                            ${isDark
+                                                ? 'bg-gray-800 hover:bg-gray-700 text-emerald-400'
+                                                : 'bg-gray-100 hover:bg-gray-200 text-emerald-600'}`}
+                                    >
+                                        Ver todos
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </motion.button>
+                                </div>
+
+                                <div className="relative">
+                                    {/* New feature: Content showcase slider with indicator dots */}
+                                    <div className="flex gap-5 overflow-x-auto pb-6 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-500/30 dark:scrollbar-thumb-gray-700/50 snap-x">
+                                        {recentAdded.map((recent, id) => (
+                                            <motion.div
+                                                key={id}
+                                                className="snap-start flex-shrink-0 w-64"
+                                                initial={{ opacity: 0, x: 50 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: id * 0.05 }}
+                                                whileHover={{ y: -5, scale: 1.02, transition: { duration: 0.2 } }}
+                                            >
+                                                <CardMovieSmall
+                                                    languages={recent.mediaLanguages.map((x) => x.language.language).join(', ')}
+                                                    id={recent.id}
+                                                    logoUrl={recent.logoUrl}
+                                                    name={recent.name}
+                                                    platform={''}
+                                                    badge={<span className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-2 py-0.5 text-xs rounded-full font-medium">Novo</span>}
+                                                />
+                                            </motion.div>
+                                        ))}
+                                    </div>
+
+                                    {/* Gradient overlay for scrollable content */}
+                                    <div className="absolute top-0 right-0 w-16 h-full bg-gradient-to-l from-white dark:from-gray-950 to-transparent pointer-events-none"></div>
+                                </div>
+                            </motion.div>
+                        </ShowIf>
+
+                        {/* Categories with enhanced styling */}
+                        {Object.entries(orderByCategory).map(([category, medias], index) => (
+                            <motion.div
+                                key={index}
+                                variants={itemVariants}
+                                className={`space-y-6 rounded-2xl p-8 ${index % 2 === 0 ?
+                                    (isDark ? 'bg-gradient-to-br from-gray-900/30 to-gray-800/20' : 'bg-gradient-to-br from-gray-50/60 to-blue-50/30') :
+                                    (isDark ? 'bg-gradient-to-br from-gray-900/30 to-emerald-900/10' : 'bg-gradient-to-br from-gray-50/60 to-emerald-50/30')
+                                    }`}
+                            >
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center space-x-3">
+                                        <span className="text-2xl">{getCategoryEmoji(category)}</span>
+                                        <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                                            {category}
+                                        </h2>
+                                    </div>
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className={`flex items-center gap-2 py-1.5 px-3 rounded-lg text-sm font-medium
+                                            ${isDark
+                                                ? 'bg-gray-800 hover:bg-gray-700 text-emerald-400'
+                                                : 'bg-gray-100 hover:bg-gray-200 text-emerald-600'}`}
+                                    >
+                                        Ver todos
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </motion.button>
+                                </div>
+
+                                <div className="relative">
+                                    <div className="flex gap-5 overflow-x-auto pb-6 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-500/30 dark:scrollbar-thumb-gray-700/50 snap-x">
+                                        {medias.map((content, mediaIndex) => (
+                                            <motion.div
+                                                key={mediaIndex}
+                                                className="snap-start flex-shrink-0 w-64"
+                                                initial={{ opacity: 0, scale: 0.9 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                transition={{ delay: mediaIndex * 0.05 }}
+                                                whileHover={{ y: -5, scale: 1.02, transition: { duration: 0.2 } }}
+                                            >
+                                                <CardMovieSmall
+                                                    languages={content.mediaLanguages.map((x) => x.language.language).join(', ')}
+                                                    id={content.id}
+                                                    logoUrl={content.logoUrl}
+                                                    name={content.name}
+                                                    platform={content.platformId}
+                                                    badge={getCategoryBadge(category, isDark)}
+                                                />
+                                            </motion.div>
+                                        ))}
+                                    </div>
+
+                                    {/* Gradient overlay for scrollable content */}
+                                    <div className="absolute top-0 right-0 w-16 h-full bg-gradient-to-l from-white dark:from-gray-900/90 to-transparent pointer-events-none"></div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </AnimatePresence>
+
+                {/* Enhanced footer with newsletter subscription */}
+                {!loading && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1 }}
+                        className="mt-20 space-y-8"
+                    >
+                        {/* Newsletter section */}
+                        <div className={`relative overflow-hidden rounded-2xl p-8 
+                            ${isDark ? 'bg-gradient-to-r from-emerald-900/30 to-cyan-900/30 border border-gray-800'
+                                : 'bg-gradient-to-r from-emerald-50 to-cyan-50 border border-emerald-100'}`}
+                        >
+                            <div className="max-w-3xl mx-auto text-center space-y-6 relative z-10">
+                                <h3 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                                    Novidades no WordPanda
+                                </h3>
+                                <p className={isDark ? 'text-gray-300' : 'text-gray-700'}>
+                                    Receba dicas, novos conteúdos e atualizações para melhorar seu aprendizado
+                                </p>
+
+                                <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                                    <input
+                                        type="email"
+                                        placeholder="Seu melhor e-mail"
+                                        className={`flex-1 px-4 py-3 rounded-xl backdrop-blur-sm
+                                            ${isDark ? 'bg-gray-900/50 border-gray-700 text-white' : 'bg-white/90 border-gray-200 text-gray-900'}
+                                            border focus:outline-none focus:ring-2 focus:ring-emerald-500/40`}
+                                    />
+                                    <Button
+                                        className={`px-6 ${isDark ? 'bg-gradient-to-r from-emerald-600 to-cyan-600'
+                                            : 'bg-gradient-to-r from-emerald-500 to-cyan-500'} text-white font-medium`}
+                                    >
+                                        Inscrever-me
+                                    </Button>
+                                </div>
+                            </div>
+
+                            {/* Decorative elements */}
+                            <div className="absolute -top-20 -right-10 w-40 h-40 bg-emerald-400/10 rounded-full blur-3xl"></div>
+                            <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-400/10 rounded-full blur-3xl"></div>
+                        </div>
+
+                        {/* Footer links and copyright */}
+                        <div className={`py-8 text-center opacity-80 border-t ${isDark ? 'border-gray-800' : 'border-gray-200'}`}>
+                            <div className="flex justify-center gap-6 mb-4">
+                                <a href="#" className={isDark ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'}>Sobre nós</a>
+                                <a href="#" className={isDark ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'}>FAQ</a>
+                                <a href="#" className={isDark ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'}>Contato</a>
+                            </div>
+                            <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>
+                                WordPanda — Seu assistente para aprendizado de idiomas © {new Date().getFullYear()}
+                            </p>
+                        </div>
+                    </motion.div>
+                )}
             </div>
-
-        </div>
-
-    </main>
+        </main>
     )
 }
+
+
+
 
 export default Dashboard;
