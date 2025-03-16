@@ -14,7 +14,7 @@ export async function POST(request: Request) {
 
         })
         const token = generateToken(user);
-        cookies().set(TOKEN_KEY, token)
+        (await cookies()).set(TOKEN_KEY, token)
         return Response.json({ user, token });
     }
     catch (err) {

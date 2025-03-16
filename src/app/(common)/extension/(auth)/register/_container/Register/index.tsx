@@ -6,13 +6,12 @@ import { ROUTES } from '@constants/ROUTES';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { useFormState } from 'react-dom';
+import { useEffect, useActionState } from 'react';
 import { submit } from './action';
 import styles from './index.module.scss';
 
 export default function Register() {
-    const [state, formAction] = useFormState(submit, {})
+    const [state, formAction] = useActionState(submit, {})
     const route = useRouter()
     useEffect(() => {
         if (state.token && typeof window != undefined) {

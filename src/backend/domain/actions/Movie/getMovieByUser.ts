@@ -4,7 +4,7 @@ import { validateToken } from "@utils/token";
 import { cookies, headers } from "next/headers";
 
 export const getMovieByUser = async (id:string) => {
-    const token = cookies().get(TOKEN_KEY)?.value || headers().get('Authorization');
+    const token = (await cookies()).get(TOKEN_KEY)?.value || (await headers()).get('Authorization');
     if (!token) return { errors: 'Token not found' };
     const { decoded } = validateToken(token);
     if (!decoded) return { errors: 'Token invalid' };

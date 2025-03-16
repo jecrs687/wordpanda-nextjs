@@ -12,7 +12,7 @@ type InsertMissingMovies = {
 }
 
 export async function insertMissingMovies(forms: FormData) {
-    const cookie = cookies()
+    const cookie = await cookies()
     const form: InsertMissingMovies = {
         name: forms.get('name') as string,
         provider: forms.get('provider') as string

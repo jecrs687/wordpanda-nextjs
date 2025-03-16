@@ -12,6 +12,6 @@ export async function submit(currentState, form: FormData) {
         password: password as string
     })
     if (response?.token)
-        cookies().set(TOKEN_KEY, response?.token)
+        (await cookies()).set(TOKEN_KEY, response?.token)
     return response;
 }

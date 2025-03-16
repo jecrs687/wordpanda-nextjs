@@ -42,9 +42,9 @@ export async function submit(currentState, form: FormData) {
         });
     }
     const { passwordConfirmation, ...rest } = forms;
-    const languageId = 59 || +cookies().get('language')?.value || +headers().get('language')
+    const languageId = 59 || +(await cookies()).get('language')?.value || +(await headers()).get('language')
     const response = await createUser({ ...rest, languageId })
     if (response?.token)
-        cookies().set(TOKEN_KEY, response.token)
+        (await cookies()).set(TOKEN_KEY, response.token)
     return response;
 }

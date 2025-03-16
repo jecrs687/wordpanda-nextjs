@@ -6,7 +6,7 @@ import { cookies, headers } from "next/headers";
 import { GamesMemoryPostRequest, GamesMemoryPostResponse } from "src/app/api/games/memory/route";
 
 export const memoryGameAction = async (body: GamesMemoryPostRequest) => {
-    const token = cookies().get(TOKEN_KEY) || headers().get('Authorization')
+    const token = (await cookies()).get(TOKEN_KEY) || (await headers()).get('Authorization')
     const { decoded: decryptToken } = validateToken(token)
     if (!decryptToken) return { err: 'Token invalid' };
     try {
@@ -68,12 +68,12 @@ export const memoryGameAction = async (body: GamesMemoryPostRequest) => {
                 }
             })
         }
-        const languageOnDb = language ?? await prisma.userLanguage.findFirst({
+        const languageOnDb = language ?? (await prisma.userLanguage.findFirst({
             where: {
                 userId: user.id,
                 languageId: word.languageId
             }
-        })
+        }))
         const verifyWord = await prisma.userWords.findFirst({
             where: {
                 userId: user.id,
@@ -91,12 +91,12 @@ export const memoryGameAction = async (body: GamesMemoryPostRequest) => {
                 }
             })
         }
-        const userWord = verifyWord ?? await prisma.userWords.findFirst({
+        const userWord = verifyWord ?? (await prisma.userWords.findFirst({
             where: {
                 userId: user.id,
                 wordId: word.id
             }
-        })
+        }))
         await prisma.userWords.update({
             where: {
                 id: userWord.id

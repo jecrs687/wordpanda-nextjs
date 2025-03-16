@@ -31,7 +31,7 @@ export async function PUT(request: Request) {
             lastName,
         }: ProfilePutRequest = await request.json();
 
-        const token = cookies().get(TOKEN_KEY);
+        const token = (await cookies()).get(TOKEN_KEY);
         if (!token.value) {
             return Response.json({
                 err: 'Unauthorized',
@@ -92,7 +92,7 @@ export type ProfileGetResponse = {
     msg: string
 }
 export async function GET(request: Request) {
-    const header = headers();
+    const header = await headers();
     try {
         const userId = header.get('id') || validateToken(header.get('Authorization') || '')?.decoded?.id;
         if (!userId) {

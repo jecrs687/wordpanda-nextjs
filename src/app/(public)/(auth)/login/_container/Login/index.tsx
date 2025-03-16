@@ -10,8 +10,8 @@ import useDevice from '@hooks/useDevice';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { useFormState, useFormStatus } from "react-dom";
+import { useEffect, useActionState } from 'react';
+import { useFormStatus } from "react-dom";
 import { submit } from './action';
 import styles from './index.module.scss';
 
@@ -25,7 +25,7 @@ function Submit() {
 }
 
 export default function LoginPage() {
-    const [state, formAction] = useFormState(submit, {})
+    const [state, formAction] = useActionState(submit, {})
     const { extension } = useDevice()
     const route = useRouter()
     const { web } = useChannels()

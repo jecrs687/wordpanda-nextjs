@@ -5,7 +5,7 @@ type OtpInputProps = {
     onOtpSubmit?: (otp: string) => void;
 };
 const OtpInput = ({ length = 4,
-    onOtpSubmit}:OtpInputProps):React.ReactElement => {
+    onOtpSubmit}:OtpInputProps):React.ReactElement<any> => {
     const [otp, setOtp] = useState<Array<string>>(
         new Array(length).fill(""));
     const inputRefs = useRef([]);
@@ -58,23 +58,27 @@ const OtpInput = ({ length = 4,
         }
     };
  
-    return   <div className={styles.otp}>
-    {otp.map((value, index) => {
-        return (
-            <input
-                
-                key={index}
-                type="text"
-                ref={(input) => (inputRefs.current[index] = input)}
-                value={value}
-                onChange={(e) => handleChange(index, e)}
-                onClick={() => handleClick(index)}
-                onKeyDown={(e) => handleKeyDown(index, e)}
-                className={styles.otp__input}
-            />
-        );
-    })}
-</div>;
+    return (
+        <div className={styles.otp}>
+        {otp.map((value, index) => {
+            return (
+                <input
+                    
+                    key={index}
+                    type="text"
+                    ref={input => {
+                        (inputRefs.current[index] = input);
+                    }}
+                    value={value}
+                    onChange={(e) => handleChange(index, e)}
+                    onClick={() => handleClick(index)}
+                    onKeyDown={(e) => handleKeyDown(index, e)}
+                    className={styles.otp__input}
+                />
+            );
+        })}
+    </div>
+    );
     
 };
 export default OtpInput;

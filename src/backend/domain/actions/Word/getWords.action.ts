@@ -27,8 +27,8 @@ const sortWords = ({ userWords, frequency }, { userWords: userWords2, frequency:
 
 
 export const getWords = async (body: WordsPostRequest): Promise<WordsPostResponse> => {
-    const header = headers()
-    const cookie = cookies()
+    const header = await headers()
+    const cookie = await cookies()
     console.time('before chat')
     try {
         return await prisma.$transaction(async (prisma) => {

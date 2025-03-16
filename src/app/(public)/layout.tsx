@@ -5,12 +5,14 @@ import { ROUTES } from 'src/containers/constants/ROUTES'
 
 
 
-export default function RootLayout({
-    children,
-}: {
-    children: React.ReactNode
-}) {
-    const token = cookies().get(TOKEN_KEY)?.value
+export default async function RootLayout(
+    {
+        children,
+    }: {
+        children: React.ReactNode
+    }
+) {
+    const token = (await cookies()).get(TOKEN_KEY)?.value
     if (token) redirect(ROUTES.DASHBOARD())
 
     return (

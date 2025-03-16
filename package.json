@@ -75,8 +75,10 @@
     "sass": "^1.70.0",
     "storybook": "^8.1.6"
   },
-  "resolutions": {
-    "@types/react": "19.0.10",
-    "@types/react-dom": "19.0.4"
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.0.10",
+      "@types/react-dom": "19.0.4"
+    }
   }
 }

@@ -3,9 +3,13 @@ import BackButton from '@common/BackButton';
 import { CardGame } from '@common/Cards/CardGame';
 import Image from 'next/image';
 import styles from './page.module.scss';
-export default async function Page({
-    params: { id }
-}) {
+export default async function Page(props) {
+    const params = await props.params;
+
+    const {
+        id
+    } = params;
+
     const {
         movie, user
     } = await getMovieByUser(id)

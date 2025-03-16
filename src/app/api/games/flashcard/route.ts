@@ -21,7 +21,7 @@ export type GamesFlashcardPostResponse = {
 }
 export async function POST(request: Request) {
     const body: GamesFlashcardPostRequest = await request.json();
-    const token = cookies().get(TOKEN_KEY) || headers().get('Authorization')
+    const token = (await cookies()).get(TOKEN_KEY) || (await headers()).get('Authorization')
     const { decoded: decryptToken } = validateToken(token)
     if (!decryptToken) return Response.json({ err: 'Token invalid' });
     try {
@@ -81,12 +81,12 @@ export async function POST(request: Request) {
                 }
             })
         }
-        const languageOnDb = language ?? await prisma.userLanguage.findFirst({
+        const languageOnDb = language ?? (await prisma.userLanguage.findFirst({
             where: {
                 userId: user.id,
                 languageId: word.languageId
             }
-        })
+        }))
 
         const verifyWord = await prisma.userWords.findFirst({
             where: {
@@ -105,12 +105,12 @@ export async function POST(request: Request) {
                 }
             })
         }
-        const userWord = verifyWord ?? await prisma.userWords.findFirst({
+        const userWord = verifyWord ?? (await prisma.userWords.findFirst({
             where: {
                 userId: user.id,
                 wordId: word.id
             }
-        })
+        }))
         await prisma.userWords.update({
             where: {
                 id: userWord.id

@@ -3,7 +3,7 @@ import useLanguage from "@hooks/useLanguage";
 import { fetchClient } from "@services/fetchClient";
 import { capitalizeFirstLetter } from "@utils/capitalizeFirstLetter";
 import clsx from "clsx";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, type JSX } from "react";
 import Select, { ActionMeta } from "react-select";
 import { LanguagesGetResponse } from "src/app/api/languages/route";
 import { ProfileGetResponse } from "src/app/api/profile/route";

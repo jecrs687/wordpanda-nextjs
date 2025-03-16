@@ -9,8 +9,8 @@ export async function getLanguage({
     id: string,
     userId?: number
 }) {
-    const cookie = cookies();
-    const header = headers();
+    const cookie = await cookies();
+    const header = await headers();
     try {
         const token = cookie.get(TOKEN_KEY)?.value || header.get('Authorization');
 

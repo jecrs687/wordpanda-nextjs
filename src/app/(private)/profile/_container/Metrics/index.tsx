@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 import styles from './Metrics.module.scss';
 import LinearChart from "./container/LinearChart";
 export default async function Metrics() {
-    const { decoded } = validateToken(cookies().get(TOKEN_KEY).value)
+    const { decoded } = validateToken((await cookies()).get(TOKEN_KEY).value)
     const userWords = await prisma.userWords.findMany({
         where: {
             userId: decoded.id

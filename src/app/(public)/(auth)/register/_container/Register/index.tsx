@@ -11,8 +11,8 @@ import { setCookie } from '@utils/cookie';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useEffect, useMemo, useRef, useState, useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import Loading from 'src/app/loading';
 import { submit } from './action';
 import styles from './index.module.scss';
@@ -26,9 +26,9 @@ function Submit() {
 }
 
 export default function Register() {
-    const [state, formAction] = useFormState(submit, {})
+    const [state, formAction] = useActionState(submit, {})
     const route = useRouter()
-    const ref = useRef();
+    const ref = useRef(undefined);
     const [steps, setSteps] = useState(1)
     const [values, setValues] = useState({})
     const [modalError, setModalError] = useState(false)

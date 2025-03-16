@@ -1,14 +1,21 @@
-"use client";
+"use client";;
 import BackButton from '@common/BackButton';
 import { CardGame } from '@common/Cards/CardGame';
 import { fetchClient } from '@services/fetchClient';
 import Image from 'next/image';
+import { use } from "react";
 import { MovieIdGetResponse } from 'src/app/api/movie/[id]/route';
 import useSWR from 'swr';
 import styles from './page.module.scss';
-export default function Page({
-    params: { id }
-}) {
+export default async function Page(props) {
+    const params: {
+        id: string;
+    } = use(props.params);
+
+    const {
+        id
+    } = params;
+
     const {
         data: { data: { movie, user } }
     } = useSWR<MovieIdGetResponse, Error>('/api/movie/' + id, {

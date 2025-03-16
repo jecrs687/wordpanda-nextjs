@@ -1,5 +1,5 @@
 import { getUserWithWords } from '@backend/domain/actions/User/getUserWithWords.action';
-import styles from './Profile.module.scss';
+import styles from './Metrics.module.scss';
 
 export const dynamic = 'force-dynamic'
 export default function Metrics({ errors, user }: {

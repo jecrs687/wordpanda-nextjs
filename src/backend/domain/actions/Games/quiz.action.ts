@@ -8,7 +8,7 @@ import { cookies, headers } from "next/headers";
 import { GamesQuizPostRequest, GamesQuizPostResponse } from "src/app/api/games/quiz/route";
 
 export const quizGameAction = async ({ words }: GamesQuizPostRequest) => {
-    const token = cookies()?.get(TOKEN_KEY)?.value || headers().get('Authorization')
+    const token = await cookies()?.get(TOKEN_KEY)?.value || (await headers()).get('Authorization')
     const { decoded: decryptToken } = validateToken(token)
     if (!decryptToken) return { err: 'Token invalid' };
     const user = await prisma.user.findFirst({
@@ -20,14 +20,14 @@ export const quizGameAction = async ({ words }: GamesQuizPostRequest) => {
         }
     })
     if (!user) return { err: 'User not found' }
-    const languageId = +(cookies().get('language')?.value || headers().get('language') || user.languageId)
+    const languageId = +((await cookies()).get('language')?.value || (await headers()).get('language') || user.languageId)
 
 
-    const language = user.language || await prisma.language.findFirst({
+    const language = user.language || (await prisma.language.findFirst({
         where: {
             id: user.languageId
         }
-    })
+    }))
     const [wordsOnDb] = await Promise.all([await prisma.word.findMany({
         where: {
             id: {

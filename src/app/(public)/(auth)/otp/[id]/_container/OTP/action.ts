@@ -47,7 +47,7 @@ export async function submit(currentState, form: FormData) {
         return { errors: { otp: 'Erro ao gerar token' } };
     }
     if (token) 
-        cookies().set(TOKEN_KEY, token)
+        (await cookies()).set(TOKEN_KEY, token)
     
     
     return { token };

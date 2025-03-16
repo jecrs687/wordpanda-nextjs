@@ -10,7 +10,7 @@ export default async function RootLayout({
     children }: {
         children: React.ReactNode
     }) {
-    const token = cookies().get("token")?.value
+    const token = (await cookies()).get("token")?.value
     if (!token) redirect(ROUTES.DASHBOARD())
     const { decoded } = validateToken(token)
     const user = await prisma.user.findUnique(

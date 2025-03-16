@@ -11,7 +11,7 @@ export const TextCard = ({
     world: string,
     percentage: number,
     total: number
-}): React.ReactElement => {
+}): React.ReactElement<any> => {
     const data = [
         { name: 'Total', value: total },
         { name: 'Percentage', value: percentage },

@@ -7,7 +7,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-    const cookie = cookies().getAll()
+    const cookie = (await cookies()).getAll()
 
     const body = await request.json()
     const { words, jsonFromTTML } = body

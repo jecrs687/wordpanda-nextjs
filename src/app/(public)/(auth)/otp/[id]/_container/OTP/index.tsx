@@ -9,8 +9,8 @@ import { setCookie } from '@utils/cookie';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useEffect, useRef, useState, useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import Loading from 'src/app/loading';
 import { submit } from './action';
 import styles from './index.module.scss';
@@ -24,7 +24,7 @@ function Submit({ status }) {
 }
 
 export default function OtpConfirmation({ id }) {
-    const [state, formAction] = useFormState(submit, {})
+    const [state, formAction] = useActionState(submit, {})
     const status = useFormStatus();
     const [time, setTime] = useState(0)
     const route = useRouter()

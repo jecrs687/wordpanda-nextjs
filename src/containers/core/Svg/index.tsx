@@ -17,7 +17,7 @@ export function Svg(
             className?: string
         }
 ) {
-    const ref = useRef<SVGSVGElement>()
+    const ref = useRef<SVGSVGElement>(undefined)
 
     const importSvg = useCallback(() => {
 

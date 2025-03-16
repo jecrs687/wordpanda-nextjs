@@ -15,7 +15,7 @@ export type UserLanguagePutRequest = {
 
 export async function PUT(request: Request) {
     const body: UserLanguagePutRequest = await request.json();
-    const userId = headers().get("id") || validateToken(request.headers.get('Authorization') || '')?.decoded?.id
+    const userId = (await headers()).get("id") || validateToken(request.headers.get('Authorization') || '')?.decoded?.id
     const language = await prisma.language.findUnique({
         where: {
             id: body.languageId

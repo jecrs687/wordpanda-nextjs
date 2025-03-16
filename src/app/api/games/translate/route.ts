@@ -21,7 +21,7 @@ export type GamesTranslatePostResponse = {
 }
 export async function POST(request: Request) {
     const body: GamesTranslatePostRequest = await request.json();
-    const token = cookies().get(TOKEN_KEY) || headers().get('Authorization')
+    const token = (await cookies()).get(TOKEN_KEY) || (await headers()).get('Authorization')
     const { decoded: decryptToken } = validateToken(token)
     if (!decryptToken) return Response.json({ err: 'Token invalid' });
     try {
@@ -71,7 +71,7 @@ export async function POST(request: Request) {
             }
         })
 
-        if (!await userLanguage()) {
+        if (!(await userLanguage())) {
             await prisma.userLanguage.create({
                 data: {
                     userId: user.id,
@@ -97,12 +97,12 @@ export async function POST(request: Request) {
                 }
             })
         }
-        const userWord = verifyWord ?? await prisma.userWords.findFirst({
+        const userWord = verifyWord ?? (await prisma.userWords.findFirst({
             where: {
                 userId: user.id,
                 wordId: word.id
             }
-        })
+        }))
         await prisma.userWords.update({
             where: {
                 id: userWord.id

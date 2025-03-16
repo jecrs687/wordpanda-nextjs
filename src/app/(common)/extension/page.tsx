@@ -3,14 +3,11 @@ import { TOKEN_KEY } from "@constants/CONFIGS"
 import { ROUTES } from "@constants/ROUTES"
 import { validateToken } from "@utils/token"
 import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { useEffect, use } from "react";
 
 
-export default function Page(
-    {
-        params, searchParams
-    }
-) {
+export default function Page(props) {
+    const searchParams = use(props.searchParams);
     const router = useRouter()
     if (searchParams?.movieId) router.push(ROUTES.EXTENSION() + ROUTES.MOVIE(searchParams?.movieId))
     useEffect(() => {

@@ -54,9 +54,9 @@ export async function loginUser(login: LoginDto) {
         })
         try {
             if (userFound.role === Role.ADMIN)
-                cookies().set("admin", "true")
+                (await cookies()).set("admin", "true")
             else
-                cookies().delete("admin")
+                (await cookies()).delete("admin")
         }
         catch {
             console.log("Not possible set as admin in cookies")
