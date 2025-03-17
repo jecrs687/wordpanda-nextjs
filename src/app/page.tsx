@@ -1,335 +1,151 @@
 "use client";
-import { ShowIf } from '@common/ShowIf/ShowIf';
 import { TOKEN_KEY } from '@constants/CONFIGS';
 import { ROUTES } from '@constants/ROUTES';
-import Button from '@core/Button';
-import { FadeIn } from '@core/FadeIn';
-import { Lottie } from '@core/Lotties';
-import TypeWriter from '@core/TypeWriter';
 import useQueryParams from '@hooks/useQueryParams';
 import useWindowSize from '@hooks/useWindowSize';
 import { getCookie } from '@utils/cookie';
-import clsx from 'clsx';
-import Head from 'next/head';
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import AIAssistanceStep from './_container/AIAssistanceStep';
+import LanguageLearningStep from './_container/LanguageLearningStep';
+import LoginRegisterStep from './_container/LoginRegisterStep';
+import NewAmazingStep from './_container/NewAmazingStep';
+import PandaEatingStep from './_container/PandaEatingStep';
+import WelcomeStep from './_container/WelcomeStep';
 import Loading from './loading';
-import styles from './page.module.scss';
+
 export default function Page() {
   const [step, setStep] = useState(0);
-  const [transaction, setTransaction] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const { queryParams } = useQueryParams();
-  const {
-    isMobile, windowWidth, windowHeight
-  } = useWindowSize();
-  const [loading, setLoading] = useState(true);
+  const { windowWidth, windowHeight } = useWindowSize();
+  const totalSteps = 6;
+  const [progressStatus, setProgressStatus] = useState(Array(totalSteps).fill(0));
+
+  const storyDuration = 8000; // 8 seconds per step
+  const autoAdvance = step !== totalSteps - 1;
+
   useEffect(() => {
     const token = getCookie(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY);
-    if (token)
-      router.push(ROUTES.DASHBOARD());
-    else setLoading(false)
-  }, [router])
+    if (token) router.push(ROUTES.DASHBOARD());
+    else setIsLoading(false);
+  }, [router]);
+
   useEffect(() => {
-    if (step === 1)
-      setTimeout(() => setStep(step + 1), 5000)
-  }, [step])
+    if (isLoading || !autoAdvance) return;
+    let startTime = Date.now();
+    let animationFrame;
 
-  const changeStep = (step: number) => {
-    setTransaction(true);
-    setTimeout(() => {
-      setStep(step);
-      setTransaction(false);
-    }, 500)
-  }
-  const first = step !== 0
-  const lottiesOptions = (size = 1) => ({
-    height: first && !isMobile ? 1000 : windowHeight / (size * 3),
-    width: first && !isMobile ? 1000 : windowWidth / (size * 2),
-    containerProps: {
-      className: styles.lottie,
-      style: {
-        width: first && !isMobile ? '550px' : `${windowWidth / size}px`,
-        height: first && !isMobile ? '550px' : `${windowHeight / (size * 3.2)}px`,
-        overflow: 'hidden',
-        marginTop: 'auto',
-        marginBottom: 'auto',
-      }
-    },
-    style: {
-      width: first && !isMobile ? '550px' : `${windowWidth / size}px`,
-      height: first && !isMobile ? '550px' : `${windowHeight / (size * 3.2)}px`,
-      marginBottom: 'auto',
+    const updateProgress = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / storyDuration, 1);
+      setProgressStatus((prev) => {
+        const newStatus = [...prev];
+        newStatus[step] = progress;
+        return newStatus;
+      });
+      if (progress < 1) animationFrame = requestAnimationFrame(updateProgress);
+      else if (step < totalSteps - 1) goToStep(step + 1);
+    };
+
+    animationFrame = requestAnimationFrame(updateProgress);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [step, isLoading, autoAdvance]);
+
+  const goToStep = (newStep) => {
+    if (newStep >= 0 && newStep < totalSteps) {
+      setStep(newStep);
+      setProgressStatus((prev) => {
+        const newStatus = [...prev];
+        for (let i = 0; i < newStep; i++) newStatus[i] = 1;
+        newStatus[newStep] = 0;
+        for (let i = newStep + 1; i < totalSteps; i++) newStatus[i] = 0;
+        return newStatus;
+      });
     }
-  })
-  if (loading) return <Loading />
-  return (<>
-    <Head>
-      <script dangerouslySetInnerHTML={{
-        __html: ` 
-<script> function gtag_report_conversion(url) { var callback = function () { if (typeof(url) != 'undefined') { window.location = url; } }; gtag('event', 'conversion', { 'send_to': 'AW-757587162/vE9bCKuSxa4ZENq5n-kC', 'event_callback': callback }); return false; } </script>
-`}}></script>
-    </Head>
-    <main className={styles.main}
+  };
 
-      style={
-        {
-          color: 'black',
-          background: step % 2 === 0 ?
-            'linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0.5) 100%)'
-            : 'linear-gradient(90deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 100%)'
-        }
-      }>
-      <header className={styles.header}
-        style={{
-          marginTop: `${(+queryParams?.statusBarHeight || 0) * 2}px`
-        }}
+  const handleTap = (direction) => {
+    if (direction === 'left' && step > 0) goToStep(step - 1);
+    else if (direction === 'right' && step < totalSteps - 1) goToStep(step + 1);
+  };
+
+  if (isLoading) return <Loading />;
+
+  return (
+    <div className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 animate-gradient-bg">
+      {/* Progress Bar */}
+      <div
+        className="absolute top-0 left-0 right-0 z-50 flex gap-2 p-4"
+        style={{ paddingTop: `${Math.max(4 + (+queryParams?.statusBarHeight || 0) * 2, 16)}px` }}
       >
-        <Image
-          className={styles.logo}
-          src="/assets/logo.png"
-          alt="panda"
-          width={200}
-          height={200}
-        />
-      </header>
-      <ShowIf condition={step === 0} onlyHide>
-        <div className={clsx(
-          styles.container,
-          styles.first,
-          {
-            [styles.fadeIn]: step === 0,
-            [styles.fadeOut]: step === 0 && transaction
-          }
-        )}>
-          <div className={styles.first_lottie}>
-
-            <Lottie
-              options={{
-                animationData: require('@assets/lotties/eating-panda.json'),
-                autoplay: true,
-                loop: true,
-              }}
-              {...lottiesOptions()}
+        {Array(totalSteps).fill(0).map((_, i) => (
+          <motion.div
+            key={i}
+            className="h-1 flex-1 bg-gray-200 rounded-full cursor-pointer overflow-hidden"
+            onClick={() => goToStep(i)}
+            whileHover={{ scale: 1.1 }}
+          >
+            <motion.div
+              className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
+              initial={{ width: 0 }}
+              animate={{ width: `${progressStatus[i] * 100}%` }}
+              transition={{ ease: 'linear' }}
             />
-          </div>
+          </motion.div>
+        ))}
+      </div>
 
-          <h1
-            className={styles.title}
+      {/* Logo Header */}
+      <motion.div
+        className="absolute top-0 left-0 right-0 flex justify-center pt-8 z-40"
+        style={{ paddingTop: `${Math.max(8 + (+queryParams?.statusBarHeight || 0) * 2, 32)}px` }}
+        animate={{ scale: [1, 1.05, 1] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <Image src="/assets/logo.png" alt="WordPanda" width={200} height={56} className="h-14 w-auto" />
+      </motion.div>
 
+      {/* Navigation Arrows */}
+      <div className="absolute inset-0 z-30 flex justify-between items-center px-4 py-20">
+        {step > 0 && (
+          <motion.div
+            className="p-2 rounded-full bg-white/50 cursor-pointer"
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => handleTap('left')}
           >
-            <TypeWriter delay={75}>
-              <h3>
-                Bem vindo ao WordPanda! 🐼
-              </h3>
-            </TypeWriter>
+            <svg className="w-8 h-8 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </motion.div>
+        )}
+        {step < totalSteps - 1 && (
+          <motion.div
+            className="p-2 rounded-full bg-white/50 cursor-pointer"
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => handleTap('right')}
+          >
+            <svg className="w-8 h-8 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </motion.div>
+        )}
+      </div>
 
-          </h1>
-          <Button
-            onClick={() => changeStep(2)}
-            className={styles.button}
-          >
-            <h3>
-              Clique aqui para continuar!
-            </h3>
-          </Button>
-
-          <Button
-            variety='secondary'
-            onClick={() => changeStep(1)}
-            className={styles.button}
-            style={{ borderRadius: 10, zoom: 0.6, marginBottom: '20px' }}
-          >
-            Caso goste de pandas e queira ver um panda comendo clique aqui
-          </Button>
-        </div>
-      </ShowIf>
-
-      <ShowIf condition={step === 1} onlyHide>
-        <div className={clsx(
-          styles.container, {
-          [styles.fadeIn]: step === 1,
-          [styles.fadeOut]: step === 1 && transaction
-        }
-        )}>
-          <TypeWriter delay={80}>
-            <h3
-              className={styles.subtitle}
-
-            >Já se deparou com um panda comendo?</h3>
-            <h4
-              className={styles.text}
-
-            >
-              Acredite, é uma das coisas mais fofas que você verá na vida...
-            </h4>
-          </TypeWriter>
-          <Image
-            alt='panda eating'
-            src="/assets/gifs/panda-eating.gif"
-            width={200}
-            height={250}
-          />
-          <h3
-            className={styles.subtitle}
-          >
-            E é por isso que estamos aqui, para te mostrar o melhor dos pandas!
-          </h3>
-        </div>
-      </ShowIf>
-      <ShowIf condition={step === 2} onlyHide>
-        <div className={clsx(
-          styles.container, {
-          [styles.fadeIn]: step === 2,
-          [styles.fadeOut]: step === 2 && transaction
-        }
-        )}>
-          <Lottie
-            options={{
-              animationData: require('@assets/lotties/screens.json'),
-              autoplay: true,
-              loop: true,
-            }}
-            {...lottiesOptions()}
-          />
-          <TypeWriter delay={60}>
-            <h3
-              className={styles.subtitle}
-            >
-              Você está tentando aprender uma nova lingua com filmes?
-            </h3>
-
-          </TypeWriter>
-
-          <h4 className={styles.text}>
-            Nós podemos te ajudar com isso! 🐼
-          </h4>
-          <Button
-            className={styles.button}
-            onClick={() => changeStep(3)}
-          >
-            Clique aqui para continuar!
-          </Button>
-        </div>
-      </ShowIf>
-      <ShowIf condition={step === 3} onlyHide>
-        <div className={clsx(
-          styles.container, {
-          [styles.fadeIn]: step === 3,
-          [styles.fadeOut]: step === 3 && transaction
-        }
-        )}>
-          <Lottie
-            options={{
-              animationData: require('@assets/lotties/panda-select.json'),
-              autoplay: true,
-              loop: true,
-            }}
-            {...lottiesOptions(1.8)}
-          />
-          <h3
-            className={styles.subtitle}
-          >
-            Aprenda uma nova lingua com os melhores filmes!
-          </h3>
-          <FadeIn delay={0.5} duration={4}>
-            <h4
-              className={styles.text}
-            >
-              Selecione um filme e treine sua lingua estrangeira com as legendas dele <br />
-              E o melhor de tudo, é <span style={{ fontSize: 20, color: 'red', fontWeight: 'bold' }}> de graça! 💰</span>
-            </h4>
-          </FadeIn>
-          <Button
-            className={styles.button}
-            onClick={() => changeStep(4)}
-          >
-            Clique aqui para continuar!
-          </Button>
-        </div>
-      </ShowIf>
-      <ShowIf condition={step === 4} onlyHide>
-        <div className={clsx(
-          styles.container, {
-          [styles.fadeIn]: step === 4,
-          [styles.fadeOut]: step === 4 && transaction
-        }
-        )}>
-          <Lottie
-            options={{
-              animationData: require('@assets/lotties/ai.json'),
-              autoplay: true,
-              loop: true,
-            }}
-            {...lottiesOptions(1.5)}
-          />
-          <h3
-            className={styles.subtitle}
-          >
-            Aprenda novas palavras com o panda 🐼
-          </h3>
-          <FadeIn delay={0.5} duration={3}>
-            <h4
-              className={styles.text}
-            >
-              Uma IA opera por trás do panda, ela te ajudará a aprender novas palavras.
-              Ela organiza as palavras de acordo com o seu nível de conhecimento e te ajuda a memorizá-las.
-            </h4>
-          </FadeIn>
-          <Button
-            className={styles.button}
-            onClick={() => changeStep(5)}
-          >
-            Clique aqui para continuar!
-          </Button>
-        </div>
-      </ShowIf>
-      <ShowIf condition={step === 5} onlyHide>
-        <div className={clsx(
-          styles.container, {
-          [styles.fadeIn]: step === 5,
-          [styles.fadeOut]: step === 5 && transaction
-        }
-        )}>
-          <Lottie
-            options={{
-              animationData: require('@assets/lotties/loging.json'),
-              autoplay: true,
-              loop: true,
-            }}
-            {...lottiesOptions(1.5)}
-          />
-          <h3
-            className={styles.subtitle}
-          >
-            Sabemos que nem todo mundo gosta, mas o panda precisa saber quem é você
-          </h3>
-          <h4
-            className={styles.text}
-          >
-            Por favor, faça login ou crie uma conta para continuar
-          </h4>
-          <div
-            className={styles.buttons__login}
-          >
-            <Button
-              onClick={() => {
-                router.push(ROUTES.REGISTER())
-              }}
-            >
-              Registre-se
-            </Button>
-            <Button
-              onClick={() => {
-                router.push(ROUTES.LOGIN())
-              }}
-            >
-              Faça login
-            </Button>
-          </div>
-        </div>
-      </ShowIf>
-    </main ></>
-  )
+      {/* Step Content */}
+      <AnimatePresence mode="wait">
+        {step === 0 && <WelcomeStep key="welcome" goToStep={goToStep} windowWidth={windowWidth} windowHeight={windowHeight} />}
+        {step === 1 && <PandaEatingStep key="panda-eating" goToStep={goToStep} windowWidth={windowWidth} windowHeight={windowHeight} />}
+        {step === 2 && <LanguageLearningStep key="language-learning" goToStep={goToStep} windowWidth={windowWidth} windowHeight={windowHeight} />}
+        {step === 3 && <AIAssistanceStep key="ai-assistance" goToStep={goToStep} windowWidth={windowWidth} windowHeight={windowHeight} />}
+        {step === 4 && <NewAmazingStep key="new-amazing" goToStep={goToStep} windowWidth={windowWidth} windowHeight={windowHeight} />}
+        {step === 5 && <LoginRegisterStep key="login-register" router={router} windowWidth={windowWidth} windowHeight={windowHeight} />}
+      </AnimatePresence>
+    </div>
+  );
 }

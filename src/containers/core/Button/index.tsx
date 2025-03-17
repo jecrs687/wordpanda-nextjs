@@ -25,6 +25,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     rightIcon?: ReactNode;
     fullWidth?: boolean;
     isLoading?: boolean;
+    [key: string]: any;
 }
 
 export default function Button({
@@ -38,6 +39,8 @@ export default function Button({
     rightIcon,
     fullWidth,
     isLoading,
+    whileHover,
+    whileTap,
     ...props
 }: ButtonProps) {
     // Core button styling
