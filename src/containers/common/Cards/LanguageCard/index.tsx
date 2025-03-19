@@ -1,4 +1,5 @@
 "use client";
+import { ROUTES } from '@/src/constants/ROUTES';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
@@ -17,7 +18,6 @@ const LanguageCard = ({ id, language, code, wordsNumber, totalWordsNumber }: Lan
     const { theme } = useTheme();
     const isDark = theme === 'dark';
     const [isHovered, setIsHovered] = useState(false);
-
     // Calculate progress percentage
     const progress = totalWordsNumber > 0 ? Math.min((wordsNumber / totalWordsNumber) * 100, 100) : 0;
     const formattedProgress = progress.toFixed(0);
@@ -52,7 +52,7 @@ const LanguageCard = ({ id, language, code, wordsNumber, totalWordsNumber }: Lan
     const progressColor = getProgressColor(progress);
 
     return (
-        <Link href={`/languages/${code}`} passHref>
+        <Link href={ROUTES.LANGUAGE_DETAILS(id)} passHref>
             <motion.div
                 className={clsx(
                     "overflow-hidden rounded-xl h-full relative group",
