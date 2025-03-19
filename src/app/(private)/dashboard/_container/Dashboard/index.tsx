@@ -6,7 +6,6 @@ import CardMovieSmall from '@common/Cards/CardMovieSmall';
 import LanguageCard from '@common/Cards/LanguageCard';
 import Input from '@common/Input';
 import { ShowIf } from '@common/ShowIf/ShowIf';
-import TextSearch from '@common/TextSearch';
 import Button from '@core/Button';
 import LoaderSpinner from '@core/LoaderSpinner';
 import useSearch from '@hooks/useSearch';
@@ -110,95 +109,7 @@ const Dashboard = ({
                 ? 'bg-gradient-to-br from-gray-950 via-gray-950/95 to-gray-900 text-white'
                 : 'bg-gradient-to-br from-white via-sky-50/30 to-zinc-100'}`}
         >
-            {/* Enhanced Header with branding and search */}
-            <div className={`sticky top-0 z-50 w-full backdrop-blur-xl 
-                ${isDark
-                    ? 'bg-black/40 border-b border-gray-800/70 shadow-lg shadow-black/10'
-                    : 'bg-white/70 border-b border-zinc-200/70 shadow-sm shadow-black/5'}`}
-            >
-                <div className="container mx-auto px-4 py-4">
-                    <div className="flex items-center justify-between gap-4">
-                        <div className="flex items-center">
-                            <motion.div
-                                className="mr-6 hidden md:block"
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.5 }}
-                            >
-                                <div className="flex items-center gap-3">
-                                    <div className="text-2xl md:text-3xl">🐼</div>
-                                    <h1 className={`text-lg md:text-xl font-bold 
-                                        ${isDark
-                                            ? 'bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent'
-                                            : 'bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent'}`}>
-                                        WordPanda
-                                    </h1>
-                                </div>
-                            </motion.div>
 
-                            <div className="flex-1 w-full max-w-xl">
-                                <TextSearch
-                                    name=''
-                                    title=''
-                                    placeholder='Encontre seu filme, lingua ou série'
-                                    onChange={(e) => setSearch(e.target.value)}
-                                    iconRight={() =>
-                                        <motion.button
-                                            whileHover={{ scale: 1.1, rotate: 15 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            onClick={() => setTheme(isDark ? 'light' : 'dark')}
-                                            className={`p-2 rounded-full transition-colors
-                                                ${isDark
-                                                    ? 'text-amber-300 hover:bg-gray-800/80'
-                                                    : 'text-violet-500 hover:bg-gray-100/80'}`}
-                                        >
-                                            {isDark ? (
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                                                </svg>
-                                            ) : (
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                                                </svg>
-                                            )}
-                                        </motion.button>
-                                    }
-                                />
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className={`hidden md:flex items-center gap-2 py-2 px-4 rounded-xl text-sm font-medium
-                                    ${isDark
-                                        ? 'bg-gray-800 hover:bg-gray-700 text-gray-200'
-                                        : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}`}
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
-                                <span>Perfil</span>
-                            </motion.button>
-
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className={`hidden sm:flex items-center gap-2 py-2 px-4 rounded-xl font-medium 
-                                    ${isDark
-                                        ? 'bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white'
-                                        : 'bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white'}`}
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                </svg>
-                                <span>Novo Estudo</span>
-                            </motion.button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             {/* Main content with enhanced background and UI */}
             <div className="container mx-auto px-4 pt-8 relative">

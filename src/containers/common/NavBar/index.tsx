@@ -1,10 +1,11 @@
 "use client";
 import TextSearch from '@common/TextSearch';
-import Button from '@core/Button';
+import { ROUTES } from '@constants/ROUTES';
+import useSearch from '@hooks/useSearch';
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 type NavbarProps = {
@@ -17,10 +18,13 @@ const Navbar = ({ onSearch, transparent = false }: NavbarProps) => {
     const isDark = theme === 'dark';
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const pathname = usePathname();
+    const router = useRouter();
+    const { search, setSearch } = useSearch();
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (onSearch) {
             onSearch(e.target.value);
+            setSearch(e.target.value);
         }
     };
 
@@ -57,10 +61,10 @@ const Navbar = ({ onSearch, transparent = false }: NavbarProps) => {
                         </Link>
 
                         <nav className="hidden md:flex items-center gap-6">
-                            <NavLink href="/dashboard" isActive={pathname === '/dashboard'}>Dashboard</NavLink>
-                            <NavLink href="/languages" isActive={pathname.startsWith('/languages')}>Idiomas</NavLink>
-                            <NavLink href="/explore" isActive={pathname.startsWith('/explore')}>Explorar</NavLink>
-                            <NavLink href="/learning" isActive={pathname.startsWith('/learning')}>Aprender</NavLink>
+                            <NavLink href={ROUTES.DASHBOARD()} isActive={pathname === '/dashboard'}>Dashboard</NavLink>
+                            <NavLink href={ROUTES.LANGUAGES()} isActive={pathname.startsWith('/languages')}>Idiomas</NavLink>
+                            {/* <NavLink href={} isActive={pathname.startsWith('/explore')}>Explorar</NavLink> */}
+                            {/* <NavLink href="/learning" isActive={pathname.startsWith('/learning')}>Aprender</NavLink> */}
                         </nav>
                     </div>
 
@@ -104,6 +108,7 @@ const Navbar = ({ onSearch, transparent = false }: NavbarProps) => {
                   ${isDark
                                         ? 'bg-gray-800 hover:bg-gray-700 text-gray-200'
                                         : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}`}
+                                onClick={() => router.push(ROUTES.PROFILE())}
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -111,18 +116,7 @@ const Navbar = ({ onSearch, transparent = false }: NavbarProps) => {
                                 <span>Perfil</span>
                             </motion.button>
 
-                            <Button
-                                variety="primary"
-                                size="medium"
-                                className={`flex items-center gap-2 py-2 px-4 rounded-xl font-medium`}
-                                leftIcon={
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                    </svg>
-                                }
-                            >
-                                Novo Estudo
-                            </Button>
+
                         </div>
 
                         {/* Mobile menu toggle */}

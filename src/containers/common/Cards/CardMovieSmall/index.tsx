@@ -31,7 +31,7 @@ const CardMovieSmall = ({
     const isDark = theme === 'dark';
 
     return (
-        <Link href={`/media/${id}${code ? `?code=${code}` : ''}`} passHref>
+        <Link href={`/movie/${id}${code ? `?code=${code}` : ''}`} passHref>
             <motion.div
                 className={clsx(
                     "group overflow-hidden rounded-xl w-full h-full transition-all duration-300",
