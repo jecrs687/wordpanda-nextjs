@@ -11,7 +11,7 @@ import { setCookie } from '@utils/cookie';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useMemo, useRef, useState, useActionState } from 'react';
+import { useActionState, useEffect, useMemo, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import Loading from 'src/app/loading';
 import { submit } from './action';
@@ -20,7 +20,7 @@ function Submit() {
     const status = useFormStatus();
     return <Button disabled={status.pending} type='submit'>
         {
-            status.pending ? <LoaderSpinner size='20px' /> : 'Cadastrar'
+            status.pending ? <LoaderSpinner size='large' /> : 'Cadastrar'
         }
     </Button>
 }
@@ -108,7 +108,7 @@ export default function Register() {
                     />
                 </div>
                 <div className={styles.form}>
-                    <ShowIf condition={steps === 1} onlyHide>
+                    <ShowIf condition={steps === 1} preserveSpace>
                         <Input
                             placeholder='Email'
                             title='Email'
@@ -128,7 +128,7 @@ export default function Register() {
                             {...inputHandle('passwordConfirmation')}
                         />
                     </ShowIf>
-                    <ShowIf condition={steps === 2} onlyHide>
+                    <ShowIf condition={steps === 2} preserveSpace>
                         <Input
                             placeholder='Primeiro nome'
                             title='Primeiro nome'
@@ -142,7 +142,7 @@ export default function Register() {
                             {...inputHandle('lastName')}
                         />
                     </ShowIf>
-                    <ShowIf condition={steps === 3} onlyHide>
+                    <ShowIf condition={steps === 3} preserveSpace>
                         <Input
                             placeholder='Telefone'
                             title='Telefone'
@@ -172,7 +172,7 @@ export default function Register() {
 
                 </div>
                 <div className={styles.buttons}>
-                    <ShowIf condition={steps > 1} onlyHide>
+                    <ShowIf condition={steps > 1} preserveSpace>
                         <Button
                             onClick={() => setSteps(steps - 1)}
 
@@ -181,10 +181,10 @@ export default function Register() {
                             Anterior
                         </Button>
                     </ShowIf>
-                    <ShowIf condition={steps > 2} onlyHide>
+                    <ShowIf condition={steps > 2} preserveSpace>
                         <Submit />
                     </ShowIf>
-                    <ShowIf condition={steps < 3} onlyHide>
+                    <ShowIf condition={steps < 3} preserveSpace>
                         <Button
                             type="submit"
                             onClick={() => {
@@ -197,7 +197,7 @@ export default function Register() {
                         </Button>
                     </ShowIf>
                 </div>
-                <ShowIf condition={steps > 1} onlyHide>
+                <ShowIf condition={steps > 1} preserveSpace>
                     <div className={styles.progress}>
                         <div className={styles.progress__bar}
                             style={{

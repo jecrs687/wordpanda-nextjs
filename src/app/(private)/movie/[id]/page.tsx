@@ -1,6 +1,7 @@
 import { getMovieByUser } from '@backend/domain/actions/Movie/getMovieByUser';
 import BackButton from '@common/BackButton';
 import CardGame from '@common/Cards/CardGame';
+import Image from 'next/image';
 import { Suspense } from 'react';
 import MoviesLayout from '../_components/MoviesLayout';
 import MovieDetailSkeleton from './_components/MovieDetailSkeleton';
@@ -31,7 +32,9 @@ export default async function Page(props) {
                         <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
                             <div className="w-full max-w-xs">
                                 <div className="relative aspect-[3/4] w-full rounded-xl overflow-hidden shadow-2xl">
-                                    <img
+                                    <Image
+                                        width={300}
+                                        height={400}
                                         src={movie.logoUrl}
                                         alt={movie.name}
                                         className="object-cover w-full h-full"

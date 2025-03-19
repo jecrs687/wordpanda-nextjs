@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { useEffect, useRef } from "react";
 import { useDrop } from "react-dnd";
 import styles from './DropSide.module.scss';
 export default function DropSide({
@@ -19,6 +20,14 @@ export default function DropSide({
         [onDrop],
     );
 
+    const dropRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (dropRef.current) {
+            drop(dropRef.current);
+        }
+    }, [drop]);
+
     return (
         <div
             className={
@@ -26,7 +35,7 @@ export default function DropSide({
                     styles.side, {
                     [styles.sideOver]: isOver,
                 }, className)}
-            ref={drop}
+            ref={dropRef}
             style={
                 isOver ? styleOnDragOver : {}}
         />

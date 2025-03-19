@@ -51,7 +51,7 @@ function TextSearch({
         if (value !== undefined && value !== inputValue) {
             setInputValue(value);
         }
-    }, [value]);
+    }, [inputValue, value]);
 
     // Debounce logic for search
     useEffect(() => {

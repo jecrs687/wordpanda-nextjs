@@ -152,7 +152,7 @@ export default function NewAmazingStep({ goToStep, windowWidth, windowHeight }) 
                 transition={{ delay: 1.5 }}
                 onClick={() => goToStep(5)}
             >
-                Let's Get Started!
+                {"Let's Get Started!"}
             </motion.button>
         </motion.div>
     );

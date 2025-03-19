@@ -256,7 +256,7 @@ const Dashboard = ({
                                             <LanguageCard
                                                 language={language.language.language}
                                                 code={language.language.code}
-                                                id={language.language.id}
+                                                id={language.language.id.toString()}
                                                 wordsNumber={language._count.userWords}
                                                 totalWordsNumber={language.language._count.words}
                                             />

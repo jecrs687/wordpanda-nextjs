@@ -160,7 +160,7 @@ export const FlashBody = ({ words, lang, mediaId }: {
 
                             }
                             ref={
-                                index === 0 ? drag : undefined
+                                index === 0 ? (el) => { if (el) drag(el); } : undefined
                             }>
                             <Card
                                 word={word}

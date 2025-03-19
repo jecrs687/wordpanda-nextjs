@@ -9,7 +9,7 @@ import { useChannels } from '@hooks/useChannels';
 import useDevice from '@hooks/useDevice';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useActionState } from 'react';
+import { useActionState, useEffect } from 'react';
 import { useFormStatus } from "react-dom";
 import { submit } from './action';
 import styles from './index.module.scss';
@@ -18,7 +18,7 @@ function Submit() {
     const status = useFormStatus();
     return <Button disabled={status.pending} type='submit'>
         {
-            status.pending ? <LoaderSpinner size='16px' /> : 'Login'
+            status.pending ? <LoaderSpinner size='medium' /> : 'Login'
         }
     </Button>
 }
