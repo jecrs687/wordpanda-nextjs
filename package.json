@@ -21,6 +21,7 @@
     "@mui/material": "^5.16.14",
     "@prisma/client": "^6.5.0",
     "@radix-ui/react-label": "^2.1.2",
+    "@radix-ui/react-progress": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.2",
     "@sentry/nextjs": "^7.120.3",
     "@tailwindcss/postcss": "^4.0.14",
