@@ -1,5 +1,5 @@
 'use client';
-import TranslateGame from '@common/Games/translate/page';
+import WordAssociationGame from '@common/Games/wordassociation/page';
 import useWords from '@hooks/useWords';
 
 export const maxDuration = 60;
@@ -9,7 +9,7 @@ export default function Page() {
 
     return (
         <div className="h-full w-full flex items-center justify-center">
-            <TranslateGame words={words} lang={language} mediaId={mediaId} />
+            <WordAssociationGame words={words} lang={language} mediaId={mediaId} />
         </div>
     );
 }

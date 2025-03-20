@@ -15,7 +15,6 @@ export async function loginUser(login: LoginDto) {
     try {
 
         const validate = schema.safeParse(login) as { error: z.ZodError, success: boolean }
-
         if (!validate.success && validate?.error) {
             return ({
                 errors: validate?.error?.flatten()?.fieldErrors,
@@ -27,6 +26,7 @@ export async function loginUser(login: LoginDto) {
                 email: login.email.toLowerCase().trim()
             }
         })
+        console.log(userFound)
 
         if (!userFound) {
             return ({

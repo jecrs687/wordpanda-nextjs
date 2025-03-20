@@ -1,7 +1,7 @@
 'use client';
 import { Body } from './_container/Body';
 
-export default function TranslateGame({
+export default function SpellingBeeGame({
     words,
     lang,
     mediaId
