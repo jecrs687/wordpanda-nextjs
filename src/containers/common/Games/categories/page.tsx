@@ -6,7 +6,7 @@ import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { Body } from './_container/Body';
 
-export default function TranslateGame({ words, lang, mediaId }: {
+export default function CategoriesGame({ words, lang, mediaId }: {
     words: { word: string }[],
     lang: string,
     mediaId?: string
@@ -68,7 +68,7 @@ export default function TranslateGame({ words, lang, mediaId }: {
                 : 'bg-gradient-to-br from-white via-zinc-50 to-sky-50/50'
                 } rounded-2xl shadow-xl overflow-hidden backdrop-blur-sm border border-zinc-200/30 dark:border-zinc-800/30`}
         >
-            <Body lang={lang} mediaId={mediaId} />
+            <Body words={words} lang={lang} mediaId={mediaId} />
         </motion.div>
     );
 }

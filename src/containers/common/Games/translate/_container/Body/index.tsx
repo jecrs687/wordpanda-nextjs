@@ -1,111 +1,135 @@
 'use client';
 
 import { Progress } from '@/components/ui/progress';
-import Input from '@common/Input';
+import { memoryGameAction } from '@backend/domain/actions/Games/memory.action';
+import { quizGameAction } from '@backend/domain/actions/Games/quiz.action';
+import { getWords } from '@backend/domain/actions/Word/getWords.action';
 import { ROUTES } from '@constants/ROUTES';
 import Button from '@core/Button';
+import { WordGameQuiz } from '@prisma/client';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Award, CheckCircle2, ChevronRight, Loader2, RefreshCw, XCircle } from 'lucide-react';
+import { Award, Check, ChevronRight, Loader2, X } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { WordWithTranslationsAndUserWords } from 'src/app/api/words/route';
 
-interface BodyProps {
-    words: { word: string }[];
-    lang: string;
-    mediaId?: string;
-}
-
-export const Body = ({ words, lang, mediaId }: BodyProps) => {
+export const Body = ({ lang, mediaId }: { lang: string, mediaId?: string }) => {
     const { theme } = useTheme();
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [userInput, setUserInput] = useState('');
-    const [result, setResult] = useState<'correct' | 'incorrect' | null>(null);
-    const [score, setScore] = useState(0);
-    const [attempts, setAttempts] = useState(0);
-    const [loading, setLoading] = useState(false);
-    const [gameCompleted, setGameCompleted] = useState(false);
-    const inputRef = useRef<HTMLInputElement>(null);
+    const [quizList, setQuizList] = useState<WordGameQuiz[]>([]);
+    const [index, setIndex] = useState<number>(0);
+    const [option, setOption] = useState<WordGameQuiz & { options: { value: string, correct: boolean }[] }>();
+    const [selected, setSelected] = useState<number | undefined>(undefined);
+    const [allWords, setAllWords] = useState<WordWithTranslationsAndUserWords[]>([]);
+    const [score, setScore] = useState<number>(0);
+    const [attempts, setAttempts] = useState<number>(0);
+    const [isGameCompleted, setIsGameCompleted] = useState<boolean>(false);
 
-    // Shuffle words at the beginning
-    const [shuffledWords, setShuffledWords] = useState<{ word: string }[]>([]);
+    const updateWords = useCallback(async () => {
+        const response = await getWords({
+            language: lang,
+            mediaId,
+            limit: 20
+        });
+        setAllWords(prev => [...prev, ...response.data.words]);
+    }, [mediaId, lang]);
 
     useEffect(() => {
-        const shuffled = [...words].sort(() => Math.random() - 0.5);
-        setShuffledWords(shuffled);
-    }, [words]);
+        if (index === allWords.length) updateWords();
+    }, [index, allWords, updateWords]);
+
+    const getNewQuiz = useCallback(async () => {
+        const response = await quizGameAction({
+            words: allWords.map(word => word.id).slice(
+                quizList.length,
+                quizList.length + 4
+            ),
+        });
+
+        const quiz = response.data.words.map(({ wordGameQuiz }) => wordGameQuiz).flat();
+        setQuizList(prev => [...prev, ...quiz]);
+    }, [allWords, quizList]);
 
     useEffect(() => {
-        // Focus input field when component mounts or after answering
-        if (inputRef.current) {
-            inputRef.current.focus();
+        if (!allWords.length) return;
+        if (index === allWords.length) return;
+        if (index + 4 > quizList.length) getNewQuiz();
+    }, [allWords, index, getNewQuiz, quizList]);
+
+    useEffect(() => {
+        if (!quizList.length) return;
+        if (!quizList[index]) return;
+        const current = quizList[index];
+        const options: any = current.options?.map((value, index) => ({
+            value,
+            correct: current.answer === value
+        }));
+        const findCorrect = options.find((option: { correct: boolean }) => option.correct);
+        if (!findCorrect) {
+            options.pop();
+            options.push({ value: current.answer, correct: true });
         }
-    }, [currentIndex, result]);
+        setOption({ ...current, options: options?.sort(() => Math.random() - 0.5) });
+    }, [index, quizList]);
 
-    const checkAnswer = () => {
-        if (!userInput.trim() || loading) return;
+    const handleOptionSelect = (answer: { value: string, correct: boolean }, i: number) => {
+        memoryGameAction({
+            wordId: quizList[index].wordId,
+            hard: !answer.correct,
+            mediaId
+        });
+        setSelected(i);
+        setAttempts(prev => prev + 1);
 
-        setLoading(true);
-        const currentWord = shuffledWords[currentIndex].word.toLowerCase();
-        const userAnswer = userInput.toLowerCase().trim();
+        if (answer.correct) {
+            setScore(prev => prev + 1);
+        }
 
-        // Simulate API call to check translation
         setTimeout(() => {
-            // For demo purposes, we'll consider it correct if the input contains the word
-            // In a real app, you'd check against actual translations
-            const isCorrect = userAnswer.includes(currentWord) || currentWord.includes(userAnswer);
-
-            setResult(isCorrect ? 'correct' : 'incorrect');
-            if (isCorrect) {
-                setScore(prev => prev + 1);
+            setSelected(undefined);
+            if (answer.correct) {
+                if (index + 1 < quizList.length) {
+                    setIndex(prev => prev + 1);
+                } else {
+                    setIsGameCompleted(true);
+                }
             }
-            setAttempts(prev => prev + 1);
-            setLoading(false);
-        }, 800);
-    };
-
-    const handleNextWord = () => {
-        setUserInput('');
-        setResult(null);
-
-        if (currentIndex < shuffledWords.length - 1) {
-            setCurrentIndex(prev => prev + 1);
-        } else {
-            setGameCompleted(true);
-        }
+        }, 1000);
     };
 
     const restartGame = () => {
-        const shuffled = [...words].sort(() => Math.random() - 0.5);
-        setShuffledWords(shuffled);
-        setCurrentIndex(0);
-        setUserInput('');
-        setResult(null);
+        setIndex(0);
         setScore(0);
         setAttempts(0);
-        setGameCompleted(false);
+        setIsGameCompleted(false);
+        setSelected(undefined);
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (e.key === 'Enter') {
-            if (result) {
-                handleNextWord();
-            } else {
-                checkAnswer();
-            }
-        }
-    };
+    // Loading state
+    if (!allWords?.length || !quizList.length) {
+        return (
+            <div className="flex flex-col items-center justify-center h-[60vh]">
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex flex-col items-center"
+                >
+                    <Loader2 className="h-12 w-12 text-emerald-500 animate-spin mb-4" />
+                    <p className="text-zinc-600 dark:text-zinc-300 text-lg">Loading translation challenge...</p>
+                </motion.div>
+            </div>
+        );
+    }
 
-    const progressPercentage = (currentIndex / shuffledWords.length) * 100;
-
-    if (gameCompleted) {
+    // Game completed state
+    if (isGameCompleted) {
         return (
             <AnimatePresence mode="wait">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
-                    className="flex flex-col items-center justify-center h-full p-8"
+                    className="flex flex-col items-center justify-center min-h-[60vh] p-6 md:p-8"
                 >
                     <motion.div
                         className="p-8 rounded-2xl bg-white/20 dark:bg-gray-900/50 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 shadow-xl max-w-md w-full"
@@ -141,7 +165,7 @@ export const Body = ({ words, lang, mediaId }: BodyProps) => {
                                 onClick={restartGame}
                                 className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-xl flex items-center justify-center gap-2 transition-all hover:shadow-lg"
                             >
-                                <RefreshCw className="h-4 w-4" />
+                                <ChevronRight className="h-4 w-4" />
                                 Play Again
                             </Button>
 
@@ -160,13 +184,8 @@ export const Body = ({ words, lang, mediaId }: BodyProps) => {
         );
     }
 
-    if (shuffledWords.length === 0) {
-        return (
-            <div className="flex items-center justify-center h-full">
-                <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
-            </div>
-        );
-    }
+    // Calculate progress
+    const progressPercentage = (index / quizList.length) * 100;
 
     return (
         <div className="flex flex-col h-full">
@@ -178,7 +197,7 @@ export const Body = ({ words, lang, mediaId }: BodyProps) => {
                             Translation Challenge
                         </h2>
                         <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                            Translate the words from {lang} to your language
+                            Translate words from {lang} to your language
                         </p>
                     </div>
                     <div className="flex items-center gap-2 bg-white/20 dark:bg-gray-900/40 backdrop-blur-sm px-4 py-2 rounded-full">
@@ -191,22 +210,17 @@ export const Body = ({ words, lang, mediaId }: BodyProps) => {
                 <div className="mt-4">
                     <div className="flex justify-between text-xs text-zinc-500 dark:text-zinc-400 mb-1">
                         <span>Progress</span>
-                        <span>{currentIndex + 1} of {shuffledWords.length}</span>
+                        <span>{index + 1} of {quizList.length}</span>
                     </div>
-                    <Progress value={progressPercentage} className="h-2 bg-zinc-200 dark:bg-zinc-800">
-                        <div
-                            className="h-full bg-emerald-500 rounded-full"
-                            style={{ width: `${progressPercentage}%` }}
-                        />
-                    </Progress>
+                    <Progress value={progressPercentage} />
                 </div>
             </div>
 
             {/* Game Content */}
-            <div className="flex-1 flex flex-col items-center justify-center p-6 md:p-12">
+            <div className="flex-1 flex flex-col items-center justify-center p-6 md:p-8">
                 <AnimatePresence mode="wait">
                     <motion.div
-                        key={currentIndex}
+                        key={index}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
@@ -223,98 +237,52 @@ export const Body = ({ words, lang, mediaId }: BodyProps) => {
                                     Translate this word
                                 </h3>
                                 <p className="text-3xl font-bold text-zinc-800 dark:text-white">
-                                    {shuffledWords[currentIndex].word}
+                                    {allWords?.find(word => word.id === quizList[index]?.wordId)?.word}
                                 </p>
+                                {quizList[index]?.phrase && (
+                                    <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-300 italic">
+                                        &quot;{quizList[index].phrase}&quot;
+                                    </p>
+                                )}
                             </motion.div>
                         </div>
 
-                        <div className="mb-6">
-                            <div className="relative">
-                                <Input
-                                    ref={inputRef}
-                                    type="text"
-                                    value={userInput}
-                                    onChange={(e) => setUserInput(e.target.value)}
-                                    onKeyDown={handleKeyDown}
-                                    placeholder="Type your translation here..."
-                                    disabled={loading || !!result}
-                                    className={`w-full px-4 py-3 rounded-xl text-lg ${result === 'correct'
-                                        ? 'border-emerald-500 dark:border-emerald-400 bg-emerald-50/50 dark:bg-emerald-900/20'
-                                        : result === 'incorrect'
-                                            ? 'border-rose-500 dark:border-rose-400 bg-rose-50/50 dark:bg-rose-900/20'
-                                            : 'border-zinc-300 dark:border-zinc-700 bg-white/70 dark:bg-gray-900/50'
-                                        } backdrop-blur-sm focus:ring-2 focus:ring-emerald-400/30 dark:focus:ring-emerald-400/20 focus:outline-none transition-all`}
-                                />
-
-                                {result && (
-                                    <motion.div
-                                        initial={{ scale: 0 }}
-                                        animate={{ scale: 1 }}
-                                        className="absolute right-3 top-1/2 transform -translate-y-1/2"
-                                    >
-                                        {result === 'correct' ? (
-                                            <CheckCircle2 className="h-6 w-6 text-emerald-500" />
-                                        ) : (
-                                            <XCircle className="h-6 w-6 text-rose-500" />
-                                        )}
-                                    </motion.div>
-                                )}
-
-                                {loading && (
-                                    <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                                        <Loader2 className="h-5 w-5 animate-spin text-zinc-400" />
-                                    </div>
-                                )}
-                            </div>
-
-                            {result === 'incorrect' && (
-                                <motion.p
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={{ opacity: 1, height: 'auto' }}
-                                    className="mt-2 text-sm text-rose-500 dark:text-rose-400"
-                                >
-                                    The correct translation was &quot;{shuffledWords[currentIndex].word}&quot;.
-                                </motion.p>
-                            )}
-                        </div>
-
-                        <div className="flex justify-center">
-                            {!result ? (
-                                <Button
-                                    onClick={checkAnswer}
-                                    disabled={!userInput.trim() || loading}
-                                    className={`px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium flex items-center gap-2 transition-all ${!userInput.trim() || loading ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-lg shadow-emerald-500/20'
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {option?.options?.map((answer, i) => (
+                                <motion.button
+                                    key={i}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: i * 0.1 }}
+                                    onClick={() => selected === undefined && handleOptionSelect(answer, i)}
+                                    className={`relative p-4 md:p-5 rounded-xl text-left transition-all transform font-medium text-lg
+                                        ${selected === i && answer.correct ?
+                                            'bg-emerald-500/90 dark:bg-emerald-600/80 text-white scale-105 shadow-lg' :
+                                            selected === i && !answer.correct ?
+                                                'bg-rose-500/90 dark:bg-rose-600/80 text-white scale-95' :
+                                                selected !== undefined ?
+                                                    'bg-white/20 dark:bg-gray-800/40 text-zinc-500 dark:text-zinc-400 cursor-not-allowed opacity-70' :
+                                                    'bg-white/40 dark:bg-gray-800/50 text-zinc-800 dark:text-white hover:bg-indigo-500/80 dark:hover:bg-indigo-600/70 hover:text-white hover:shadow-md hover:scale-102 backdrop-blur-sm border border-zinc-200/50 dark:border-zinc-700/30'
                                         }`}
+                                    disabled={selected !== undefined}
                                 >
-                                    {loading ? (
-                                        <>
-                                            <Loader2 className="h-4 w-4 animate-spin" />
-                                            Checking...
-                                        </>
-                                    ) : (
-                                        <>
-                                            Check Answer
-                                        </>
+                                    {answer.value}
+
+                                    {selected === i && (
+                                        <motion.div
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                            className="absolute top-3 right-3"
+                                        >
+                                            {answer.correct ? (
+                                                <Check className="h-5 w-5 text-white" />
+                                            ) : (
+                                                <X className="h-5 w-5 text-white" />
+                                            )}
+                                        </motion.div>
                                     )}
-                                </Button>
-                            ) : (
-                                <Button
-                                    onClick={handleNextWord}
-                                    className="px-6 py-3 rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white font-medium flex items-center gap-2 transition-all hover:shadow-lg shadow-indigo-500/20"
-                                >
-                                    {currentIndex < shuffledWords.length - 1 ? (
-                                        <>
-                                            Next Word
-                                            <ChevronRight className="h-4 w-4" />
-                                        </>
-                                    ) : (
-                                        <>
-                                            Complete
-                                            <Award className="h-4 w-4" />
-                                        </>
-                                    )}
-                                </Button>
-                            )}
+                                </motion.button>
+                            ))}
                         </div>
                     </motion.div>
                 </AnimatePresence>
