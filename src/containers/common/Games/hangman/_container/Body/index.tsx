@@ -5,7 +5,7 @@ import LoaderSpinner from '@core/LoaderSpinner';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useCallback, useEffect, useState } from 'react';
-
+import { LoadingGames } from '../../../_container/Loading';
 type GameWord = {
     id: string;
     word: string;
@@ -275,18 +275,7 @@ export const Body = ({
         );
     };
 
-    if (isLoading && allWords.length === 0) {
-        return (
-            <div className="h-full w-full flex items-center justify-center">
-                <div className="flex flex-col items-center">
-                    <LoaderSpinner size="large" />
-                    <p className="mt-4 text-zinc-300 dark:text-zinc-400">
-                        Loading hangman game...
-                    </p>
-                </div>
-            </div>
-        );
-    }
+    if (isLoading && allWords.length === 0) return <LoadingGames />;
 
     if (!currentWord) {
         return (
