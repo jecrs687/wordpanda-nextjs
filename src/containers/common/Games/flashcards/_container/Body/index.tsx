@@ -1,10 +1,10 @@
 'use client';
 import { memoryGameAction } from '@backend/domain/actions/Games/memory.action';
 import { getWords } from '@backend/domain/actions/Word/getWords.action';
-import LoaderSpinner from '@core/LoaderSpinner';
 import { motion } from 'framer-motion';
 import { useCallback, useEffect, useState } from 'react';
 import { WordWithTranslationsAndUserWords } from 'src/app/api/words/route';
+import { LoadingGames } from '../../../_container/Loading';
 
 type FlashCard = {
     id: string;
@@ -230,18 +230,7 @@ export const Body = ({
     };
 
     // Loading state
-    if (isLoading && cards.length === 0) {
-        return (
-            <div className="h-full w-full flex items-center justify-center">
-                <div className="flex flex-col items-center">
-                    <LoaderSpinner size="large" />
-                    <p className="mt-4 text-zinc-300 dark:text-zinc-400">
-                        Loading flashcards...
-                    </p>
-                </div>
-            </div>
-        );
-    }
+    if (isLoading && cards.length === 0) return <LoadingGames />
 
     // No more cards state
     if (showNoMoreCards) {

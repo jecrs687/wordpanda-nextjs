@@ -171,7 +171,7 @@ export const Body = ({ words, lang, mediaId }: {
         return (
             <div className="h-full w-full flex items-center justify-center">
                 <div className="flex flex-col items-center">
-                    <LoaderSpinner size="large" color="emerald" />
+                    <LoaderSpinner size="large" />
                     <p className="mt-4 text-zinc-300 dark:text-zinc-400">
                         Loading word scramble game...
                     </p>
@@ -184,7 +184,7 @@ export const Body = ({ words, lang, mediaId }: {
         return (
             <div className="h-full w-full flex items-center justify-center">
                 <div className="flex flex-col items-center">
-                    <LoaderSpinner size="large" color="emerald" />
+                    <LoaderSpinner size="large" />
                     <p className="mt-4 text-zinc-300 dark:text-zinc-400">
                         Preparing next word...
                     </p>

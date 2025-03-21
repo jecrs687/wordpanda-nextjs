@@ -140,7 +140,7 @@ const FlashCard = ({
                                     animate={{ scale: [0.95, 1], opacity: [0.8, 1] }}
                                     transition={{ duration: 0.4 }}
                                 >
-                                    {word?.translations?.[0]?.text || 'No translation'}
+                                    {word?.translations?.[0]?.meaningTranslated || 'No translation'}
                                 </motion.h2>
 
                                 {word?.translations?.[0]?.example && (

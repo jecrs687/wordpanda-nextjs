@@ -8,8 +8,6 @@ export default function Page() {
     const { words, language, mediaId } = useWords();
 
     return (
-        <div className="h-full w-full flex items-center justify-center">
-            <DefinitionMatchGame words={words} lang={language} mediaId={mediaId} />
-        </div>
+        <DefinitionMatchGame words={words} lang={language} mediaId={mediaId} />
     );
 }

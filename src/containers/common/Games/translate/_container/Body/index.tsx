@@ -107,7 +107,7 @@ export const Body = ({
     if (isLoading) {
         return (
             <div className="h-full w-full flex items-center justify-center">
-                <LoaderSpinner size="large" color="emerald" />
+                <LoaderSpinner size="large" />
             </div>
         );
     }

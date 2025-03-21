@@ -53,7 +53,8 @@ export default function GamesPage({
     };
 
     const allowedGames = ['Translate', 'Memory', 'Flashcards'];
-    const filteredGames = GAMES.filter(({ title }) => allowedGames.includes(title));
+    const filteredGames = GAMES
+    // .filter(({ title }) => allowedGames.includes(title));
 
     return (
         <div className="min-h-screen w-full bg-gradient-to-br from-white via-zinc-50 to-sky-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 px-4 py-8">

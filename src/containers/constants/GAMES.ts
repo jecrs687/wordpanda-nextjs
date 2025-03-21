@@ -1,6 +1,3 @@
-import FlashCardIcon from '@assets/icons/flashcard.svg';
-import MindIcon from '@assets/icons/mind.svg';
-import TranslationIcon from '@assets/icons/translation.svg';
 import { ROUTES } from "src/containers/constants/ROUTES";
 
 export const GAMES: {
@@ -11,59 +8,83 @@ export const GAMES: {
     Icon?: any
 }[] = [
         {
-            title: 'Flashcards',
-            description: 'Learn new words and phrases',
-            image: '/images/flashcards.png',
+            title: 'Definição e Correspondência',
+            description: 'Combine as palavras com suas definições correspondentes.',
+            image: '/assets/games/definitionmatch.png',
+            url: ROUTES.GAME_DEFINITIONMATCH(),
+        },
+        {
+            title: 'Flashcard',
+            description: 'Pratique seu vocabulário com cartões de memória.',
+            image: '/assets/games/flashcard.png',
             url: ROUTES.GAME_FLASHCARD(),
-            Icon: FlashCardIcon
-        }, {
-            title: 'Hangman',
-            description: 'Guess the word or get hanged',
-            image: '/images/hangman.png',
-            url: ROUTES.GAME_HANGMAN()
-        }, {
-            title: 'Memory',
-            description: 'Find the matching pairs',
-            image: '/images/memory.png',
+        },
+        {
+            title: 'Flashcards',
+            description: 'Pratique seu vocabulário com cartões de memória.',
+            image: '/assets/games/flashcards.png',
+            url: ROUTES.GAME_FLASHCARDS(),
+        },
+        {
+            title: 'jogo da forca',
+            description: 'Adivinhe a palavra antes que o boneco seja enforcado',
+            image: '/assets/games/hangman.png',
+            url: ROUTES.GAME_HANGMAN(),
+        },
+        {
+            title: 'Jogo da Memória',
+            description: 'Encontre os pares de palavras correspondentes.',
+            image: '/assets/games/memory.png',
             url: ROUTES.GAME_MEMORY(),
-            Icon: MindIcon
-
-        }, {
-            title: 'Quiz',
-            description: 'Test your knowledge',
-            image: '/images/quiz.png',
-            url: ROUTES.GAME_QUIZ(),
-
         },
         {
-            title: 'Listening',
-            description: 'Test your listening skills',
-            image: '/images/listening.png',
-            url: ROUTES.GAME_LISTENING()
+            title: 'soletrando',
+            description: 'Pratique a ortografia soletrando palavras.',
+            image: '/assets/games/spellingbee.png',
+            url: ROUTES.GAME_SPELLINGBEE(),
         },
         {
-            title: 'Speaking',
-            description: 'Test your speaking skills',
-            image: '/images/speaking.png',
-            url: ROUTES.GAME_SPEAK()
-        },
-        {
-            title: 'Writing',
-            description: 'Translate phrases and words to the language you are learning',
-            image: '/images/writing.png',
-            url: ROUTES.GAME_WRITE()
-        },
-        {
-            title: 'Translate',
-            description: 'Translate phrases and words to your language',
-            image: '/images/translate.png',
+            title: 'Tradução',
+            description: 'Traduza palavras para o idioma escolhido.',
+            image: '/assets/games/translation.png',
             url: ROUTES.GAME_TRANSLATE(),
-            Icon: TranslationIcon
         },
         {
-            title: 'Chat',
-            description: 'Chat with other users',
-            image: '/images/chat.png',
-            url: ROUTES.GAME_CHAT()
-        }
+            title: 'Associação de Palavras',
+            description: 'Associe palavras comuns em pares.',
+            image: '/assets/games/wordassociation.png',
+            url: ROUTES.GAME_WORDASSOCIATION(),
+        },
+        {
+            title: 'Categorias de Palavras',
+            description: 'Categorize palavras em grupos.',
+            image: '/assets/games/wordcategories.png',
+            url: ROUTES.GAME_WORDCATEGORIES(),
+        },
+        {
+            title: 'Correntes de Palavras',
+            description: 'Crie correntes de palavras com palavras relacionadas.',
+            image: '/assets/games/wordchains.png',
+            url: ROUTES.GAME_WORDCHAINS(),
+        },
+        {
+            title: 'Pares de Palavras',
+            description: 'Combine palavras em pares.',
+            image: '/assets/games/wordpairs.png',
+            url: ROUTES.GAME_WORDPAIRS(),
+        },
+        {
+            title: 'Corrida de Palavras',
+            description: 'Corra para encontrar as palavras correspondentes.',
+            image: '/assets/games/wordrace.png',
+            url: ROUTES.GAME_WORDRACE(),
+        },
+        {
+            title: 'Embaralhar Palavras',
+            description: 'Desembaralhe as letras para formar palavras.',
+            image: '/assets/games/wordscramble.png',
+            url: ROUTES.GAME_WORDSCRAMBLE(),
+        },
+
+
     ]
