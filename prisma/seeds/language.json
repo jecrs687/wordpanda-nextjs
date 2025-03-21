@@ -1,0 +1,422 @@
+[
+  {
+    "id": 1,
+    "code": "en",
+    "language": "english",
+    "createdAt": "2024-04-18T01:12:21.200Z",
+    "updatedAt": "2024-04-18T01:12:21.200Z"
+  },
+  {
+    "id": 2,
+    "code": "hi",
+    "language": "hindi",
+    "createdAt": "2024-04-18T01:12:21.200Z",
+    "updatedAt": "2024-04-18T01:12:21.200Z"
+  },
+  {
+    "id": 3,
+    "code": "sv",
+    "language": "swedish",
+    "createdAt": "2024-04-18T01:12:21.200Z",
+    "updatedAt": "2024-04-18T01:12:21.200Z"
+  },
+  {
+    "id": 4,
+    "code": "pt",
+    "language": "portuguese",
+    "createdAt": "2024-04-18T01:12:21.200Z",
+    "updatedAt": "2024-04-18T01:12:21.200Z"
+  },
+  {
+    "id": 5,
+    "code": "pl",
+    "language": "polish",
+    "createdAt": "2024-04-18T01:12:21.200Z",
+    "updatedAt": "2024-04-18T01:12:21.200Z"
+  },
+  {
+    "id": 6,
+    "code": "nl",
+    "language": "dutch",
+    "createdAt": "2024-04-18T01:12:21.200Z",
+    "updatedAt": "2024-04-18T01:12:21.200Z"
+  },
+  {
+    "id": 7,
+    "code": "it",
+    "language": "italian",
+    "createdAt": "2024-04-18T01:12:21.200Z",
+    "updatedAt": "2024-04-18T01:12:21.200Z"
+  },
+  {
+    "id": 8,
+    "code": "fr",
+    "language": "french",
+    "createdAt": "2024-04-18T01:12:21.200Z",
+    "updatedAt": "2024-04-18T01:12:21.200Z"
+  },
+  {
+    "id": 9,
+    "code": "es",
+    "language": "spanish",
+    "createdAt": "2024-04-18T01:12:21.200Z",
+    "updatedAt": "2024-04-18T01:12:21.200Z"
+  },
+  {
+    "id": 10,
+    "code": "ca",
+    "language": "catalan",
+    "createdAt": "2024-04-18T01:45:20.423Z",
+    "updatedAt": "2024-04-18T01:45:20.423Z"
+  },
+  {
+    "id": 11,
+    "code": "ko",
+    "language": "korean",
+    "createdAt": "2024-04-18T01:45:20.423Z",
+    "updatedAt": "2024-04-18T01:45:20.423Z"
+  },
+  {
+    "id": 12,
+    "code": "ja",
+    "language": "japanese",
+    "createdAt": "2024-04-18T01:45:20.423Z",
+    "updatedAt": "2024-04-18T01:45:20.423Z"
+  },
+  {
+    "id": 13,
+    "code": "ar",
+    "language": "arabic",
+    "createdAt": "2024-04-18T01:45:20.423Z",
+    "updatedAt": "2024-04-18T01:45:20.423Z"
+  },
+  {
+    "id": 14,
+    "code": "ru",
+    "language": "russian",
+    "createdAt": "2024-04-18T01:45:20.423Z",
+    "updatedAt": "2024-04-18T01:45:20.423Z"
+  },
+  {
+    "id": 15,
+    "code": "el",
+    "language": "greek",
+    "createdAt": "2024-04-18T01:45:20.423Z",
+    "updatedAt": "2024-04-18T01:45:20.423Z"
+  },
+  {
+    "id": 16,
+    "code": "cs",
+    "language": "czech",
+    "createdAt": "2024-04-18T01:45:20.423Z",
+    "updatedAt": "2024-04-18T01:45:20.423Z"
+  },
+  {
+    "id": 17,
+    "code": "tr",
+    "language": "turkish",
+    "createdAt": "2024-04-18T01:45:20.423Z",
+    "updatedAt": "2024-04-18T01:45:20.423Z"
+  },
+  {
+    "id": 18,
+    "code": "fi",
+    "language": "finnish",
+    "createdAt": "2024-04-18T01:45:20.423Z",
+    "updatedAt": "2024-04-18T01:45:20.423Z"
+  },
+  {
+    "id": 19,
+    "code": "nb",
+    "language": "norwegian bokmål",
+    "createdAt": "2024-04-18T01:45:20.423Z",
+    "updatedAt": "2024-04-18T01:45:20.423Z"
+  },
+  {
+    "id": 20,
+    "code": "hu",
+    "language": "hungarian",
+    "createdAt": "2024-04-18T01:45:20.423Z",
+    "updatedAt": "2024-04-18T01:45:20.423Z"
+  },
+  {
+    "id": 21,
+    "code": "gl",
+    "language": "galician",
+    "createdAt": "2024-04-18T01:45:20.423Z",
+    "updatedAt": "2024-04-18T01:45:20.423Z"
+  },
+  {
+    "id": 22,
+    "code": "eu",
+    "language": "basque",
+    "createdAt": "2024-04-18T01:45:20.423Z",
+    "updatedAt": "2024-04-18T01:45:20.423Z"
+  },
+  {
+    "id": 23,
+    "code": "de",
+    "language": "german",
+    "createdAt": "2024-04-18T01:45:20.423Z",
+    "updatedAt": "2024-04-18T01:45:20.423Z"
+  },
+  {
+    "id": 24,
+    "code": "da",
+    "language": "danish",
+    "createdAt": "2024-04-18T01:45:20.423Z",
+    "updatedAt": "2024-04-18T01:45:20.423Z"
+  },
+  {
+    "id": 25,
+    "code": "ms",
+    "language": "malay",
+    "createdAt": "2024-04-18T01:45:43.484Z",
+    "updatedAt": "2024-04-18T01:45:43.484Z"
+  },
+  {
+    "id": 26,
+    "code": "zh",
+    "language": "chinese",
+    "createdAt": "2024-04-18T01:45:43.484Z",
+    "updatedAt": "2024-04-18T01:45:43.484Z"
+  },
+  {
+    "id": 27,
+    "code": "th",
+    "language": "thai",
+    "createdAt": "2024-04-18T01:45:43.484Z",
+    "updatedAt": "2024-04-18T01:45:43.484Z"
+  },
+  {
+    "id": 28,
+    "code": "te",
+    "language": "telugu",
+    "createdAt": "2024-04-18T01:45:43.484Z",
+    "updatedAt": "2024-04-18T01:45:43.484Z"
+  },
+  {
+    "id": 29,
+    "code": "ta",
+    "language": "tamil",
+    "createdAt": "2024-04-18T01:45:43.484Z",
+    "updatedAt": "2024-04-18T01:45:43.484Z"
+  },
+  {
+    "id": 30,
+    "code": "he",
+    "language": "hebrew",
+    "createdAt": "2024-04-18T01:45:43.484Z",
+    "updatedAt": "2024-04-18T01:45:43.484Z"
+  },
+  {
+    "id": 31,
+    "code": "uk",
+    "language": "ukrainian",
+    "createdAt": "2024-04-18T01:45:43.484Z",
+    "updatedAt": "2024-04-18T01:45:43.484Z"
+  },
+  {
+    "id": 32,
+    "code": "vi",
+    "language": "vietnamese",
+    "createdAt": "2024-04-18T01:45:43.484Z",
+    "updatedAt": "2024-04-18T01:45:43.484Z"
+  },
+  {
+    "id": 33,
+    "code": "ro",
+    "language": "romanian",
+    "createdAt": "2024-04-18T01:45:43.484Z",
+    "updatedAt": "2024-04-18T01:45:43.484Z"
+  },
+  {
+    "id": 34,
+    "code": "id",
+    "language": "indonesian",
+    "createdAt": "2024-04-18T01:45:43.484Z",
+    "updatedAt": "2024-04-18T01:45:43.484Z"
+  },
+  {
+    "id": 35,
+    "code": "fil",
+    "language": "filipino",
+    "createdAt": "2024-04-18T01:45:43.484Z",
+    "updatedAt": "2024-04-18T01:45:43.484Z"
+  },
+  {
+    "id": 36,
+    "code": "ml",
+    "language": "malayalam",
+    "createdAt": "2024-04-18T23:53:28.565Z",
+    "updatedAt": "2024-04-18T23:53:28.565Z"
+  },
+  {
+    "id": 37,
+    "code": "kn",
+    "language": "kannada",
+    "createdAt": "2024-04-18T23:53:28.565Z",
+    "updatedAt": "2024-04-18T23:53:28.565Z"
+  },
+  {
+    "id": 38,
+    "code": "nn",
+    "language": "norwegian nynorsk",
+    "createdAt": "2024-05-12T16:56:59.467Z",
+    "updatedAt": "2024-05-12T16:56:59.467Z"
+  },
+  {
+    "id": 39,
+    "code": "lv",
+    "language": "latvian",
+    "createdAt": "2024-05-13T06:56:39.896Z",
+    "updatedAt": "2024-05-13T06:56:39.896Z"
+  },
+  {
+    "id": 40,
+    "code": "tl",
+    "language": "tl",
+    "createdAt": "2024-05-13T06:59:22.074Z",
+    "updatedAt": "2024-05-13T06:59:22.074Z"
+  },
+  {
+    "id": 41,
+    "code": "sr",
+    "language": "serbian",
+    "createdAt": "2024-05-13T07:00:07.366Z",
+    "updatedAt": "2024-05-13T07:00:07.366Z"
+  },
+  {
+    "id": 42,
+    "code": "bg",
+    "language": "bulgarian",
+    "createdAt": "2024-05-13T07:00:07.366Z",
+    "updatedAt": "2024-05-13T07:00:07.366Z"
+  },
+  {
+    "id": 43,
+    "code": "is",
+    "language": "icelandic",
+    "createdAt": "2024-05-13T07:00:07.366Z",
+    "updatedAt": "2024-05-13T07:00:07.366Z"
+  },
+  {
+    "id": 44,
+    "code": "sl",
+    "language": "slovenian",
+    "createdAt": "2024-05-13T07:00:07.366Z",
+    "updatedAt": "2024-05-13T07:00:07.366Z"
+  },
+  {
+    "id": 45,
+    "code": "lt",
+    "language": "lithuanian",
+    "createdAt": "2024-05-13T07:00:07.366Z",
+    "updatedAt": "2024-05-13T07:00:07.366Z"
+  },
+  {
+    "id": 46,
+    "code": "hr",
+    "language": "croatian",
+    "createdAt": "2024-05-13T07:00:07.366Z",
+    "updatedAt": "2024-05-13T07:00:07.366Z"
+  },
+  {
+    "id": 47,
+    "code": "et",
+    "language": "estonian",
+    "createdAt": "2024-05-13T07:00:07.366Z",
+    "updatedAt": "2024-05-13T07:00:07.366Z"
+  },
+  {
+    "id": 48,
+    "code": "km",
+    "language": "khmer",
+    "createdAt": "2024-05-13T07:01:18.194Z",
+    "updatedAt": "2024-05-13T07:01:18.194Z"
+  },
+  {
+    "id": 49,
+    "code": "mn",
+    "language": "mongolian",
+    "createdAt": "2024-05-13T07:01:18.194Z",
+    "updatedAt": "2024-05-13T07:01:18.194Z"
+  },
+  {
+    "id": 50,
+    "code": "sk",
+    "language": "slovak",
+    "createdAt": "2024-05-13T07:01:18.194Z",
+    "updatedAt": "2024-05-13T07:01:18.194Z"
+  },
+  {
+    "id": 51,
+    "code": "no",
+    "language": "no-no",
+    "createdAt": "2024-07-14T07:46:12.664Z",
+    "updatedAt": "2024-07-14T07:46:12.664Z"
+  },
+  {
+    "id": 84,
+    "code": "las",
+    "language": "las-419",
+    "createdAt": "2024-07-14T17:22:18.775Z",
+    "updatedAt": "2024-07-14T17:22:18.775Z"
+  },
+  {
+    "id": 91,
+    "code": "mr",
+    "language": "marathi",
+    "createdAt": "2024-07-15T11:14:28.352Z",
+    "updatedAt": "2024-07-15T11:14:28.352Z"
+  },
+  {
+    "id": 104,
+    "code": "jv",
+    "language": "javanese",
+    "createdAt": "2024-07-15T13:17:28.827Z",
+    "updatedAt": "2024-07-15T13:17:28.827Z"
+  },
+  {
+    "id": 362,
+    "code": "mk",
+    "language": "macedonian",
+    "createdAt": "2024-07-18T15:52:35.907Z",
+    "updatedAt": "2024-07-18T15:52:35.907Z"
+  },
+  {
+    "id": 363,
+    "code": "kk",
+    "language": "kazakh",
+    "createdAt": "2024-07-18T16:03:24.092Z",
+    "updatedAt": "2024-07-18T16:03:24.092Z"
+  },
+  {
+    "id": 364,
+    "code": "sq",
+    "language": "albanian",
+    "createdAt": "2024-07-18T16:03:24.092Z",
+    "updatedAt": "2024-07-18T16:03:24.092Z"
+  },
+  {
+    "id": 365,
+    "code": "uz",
+    "language": "uzbek",
+    "createdAt": "2024-07-18T16:03:24.092Z",
+    "updatedAt": "2024-07-18T16:03:24.092Z"
+  },
+  {
+    "id": 366,
+    "code": "bn",
+    "language": "bangla",
+    "createdAt": "2024-07-18T16:08:20.600Z",
+    "updatedAt": "2024-07-18T16:08:20.600Z"
+  },
+  {
+    "id": 367,
+    "code": "ur",
+    "language": "urdu",
+    "createdAt": "2024-07-18T16:08:20.600Z",
+    "updatedAt": "2024-07-18T16:08:20.600Z"
+  }
+]

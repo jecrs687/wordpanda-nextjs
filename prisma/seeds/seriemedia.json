@@ -1,0 +1,182 @@
+[
+  {
+    "id": "amzn1.dv.gti.04b01a14-fe71-71e2-4e13-618b00246c26",
+    "serieId": "amzn1.dv.gti.04b01a14-fe71-71e2-4e13-618b00246c26",
+    "mediaId": "amzn1.dv.gti.8ab0296e-a36d-37dd-79c5-cd3f9597550c",
+    "episode": 1,
+    "season": 6,
+    "createdAt": "2024-05-12T16:55:38.657Z",
+    "updatedAt": "2024-05-12T16:55:38.657Z"
+  },
+  {
+    "id": "amzn1.dv.gti.04b137cc-590d-4726-392d-044070fe5522",
+    "serieId": "amzn1.dv.gti.04b137cc-590d-4726-392d-044070fe5522",
+    "mediaId": "amzn1.dv.gti.8cb137cd-cfa2-791a-7d1c-f51e246b2c96",
+    "episode": 2,
+    "season": 1,
+    "createdAt": "2024-04-19T00:00:56.675Z",
+    "updatedAt": "2024-04-19T00:00:56.675Z"
+  },
+  {
+    "id": "amzn1.dv.gti.19ff13f3-b509-4202-9e5c-1121f383b0d6",
+    "serieId": "amzn1.dv.gti.19ff13f3-b509-4202-9e5c-1121f383b0d6",
+    "mediaId": "amzn1.dv.gti.6ab30dc6-75c7-2fc9-adb3-59fdc6d39fa6",
+    "episode": 1,
+    "season": 8,
+    "createdAt": "2024-05-21T07:41:28.740Z",
+    "updatedAt": "2024-05-21T07:41:28.740Z"
+  },
+  {
+    "id": "amzn1.dv.gti.1a0d302f-2fc3-4db4-8219-d6b277fbceb8",
+    "serieId": "amzn1.dv.gti.1a0d302f-2fc3-4db4-8219-d6b277fbceb8",
+    "mediaId": "amzn1.dv.gti.13144a5d-792f-4593-922c-e9ee8f7ddb24",
+    "episode": 8,
+    "season": 1,
+    "createdAt": "2024-05-13T07:00:29.713Z",
+    "updatedAt": "2024-05-13T07:00:29.713Z"
+  },
+  {
+    "id": "amzn1.dv.gti.1a46a63a-41e7-4aaa-b7e9-49069228b108",
+    "serieId": "amzn1.dv.gti.1a46a63a-41e7-4aaa-b7e9-49069228b108",
+    "mediaId": "amzn1.dv.gti.28c666dd-0848-4b57-94f1-af647c4cd17f",
+    "episode": 5,
+    "season": 1,
+    "createdAt": "2024-06-01T17:34:00.953Z",
+    "updatedAt": "2024-06-01T17:34:00.953Z"
+  },
+  {
+    "id": "amzn1.dv.gti.208fcdee-ab65-419c-9e8e-e1628ffa6373",
+    "serieId": "amzn1.dv.gti.208fcdee-ab65-419c-9e8e-e1628ffa6373",
+    "mediaId": "amzn1.dv.gti.eff7c8db-1ba4-490c-b450-e2695216cfc6",
+    "episode": 2,
+    "season": 1,
+    "createdAt": "2024-04-18T22:58:35.215Z",
+    "updatedAt": "2024-04-18T22:58:35.215Z"
+  },
+  {
+    "id": "amzn1.dv.gti.26088346-a27f-4458-b8cd-d23fbca10a21",
+    "serieId": "amzn1.dv.gti.26088346-a27f-4458-b8cd-d23fbca10a21",
+    "mediaId": "amzn1.dv.gti.d14b8617-0a04-43f0-bf8b-9a53b15622fc",
+    "episode": 1,
+    "season": 1,
+    "createdAt": "2024-05-12T16:56:59.475Z",
+    "updatedAt": "2024-05-12T16:56:59.475Z"
+  },
+  {
+    "id": "amzn1.dv.gti.32bbb23a-a5ad-20a3-8c6a-515c9b8ba7b1",
+    "serieId": "amzn1.dv.gti.32bbb23a-a5ad-20a3-8c6a-515c9b8ba7b1",
+    "mediaId": "amzn1.dv.gti.0198ecb7-7017-4621-8cb9-6e56fa73d7cd",
+    "episode": 3,
+    "season": 2,
+    "createdAt": "2024-04-18T23:54:28.752Z",
+    "updatedAt": "2024-04-18T23:54:28.752Z"
+  },
+  {
+    "id": "amzn1.dv.gti.33250c3f-44f3-483a-a826-6f6b8f08160b",
+    "serieId": "amzn1.dv.gti.33250c3f-44f3-483a-a826-6f6b8f08160b",
+    "mediaId": "amzn1.dv.gti.d5fb445c-6f21-4359-aba9-6ed525a98e4c",
+    "episode": 15,
+    "season": 1,
+    "createdAt": "2024-05-13T06:56:59.420Z",
+    "updatedAt": "2024-05-13T06:56:59.420Z"
+  },
+  {
+    "id": "amzn1.dv.gti.4eb411df-8f9c-373a-4541-11d62b511878",
+    "serieId": "amzn1.dv.gti.4eb411df-8f9c-373a-4541-11d62b511878",
+    "mediaId": "amzn1.dv.gti.14b411e0-ccef-2642-8608-ee471cb2fbd1",
+    "episode": 1,
+    "season": 1,
+    "createdAt": "2024-05-21T07:43:17.392Z",
+    "updatedAt": "2024-05-21T07:43:17.392Z"
+  },
+  {
+    "id": "amzn1.dv.gti.50716087-f3ed-4885-8082-47653c7e73f7",
+    "serieId": "amzn1.dv.gti.50716087-f3ed-4885-8082-47653c7e73f7",
+    "mediaId": "amzn1.dv.gti.d1114c2c-c2ee-4b5c-8de3-c0966e3d008d",
+    "episode": 1,
+    "season": 1,
+    "createdAt": "2024-04-18T11:15:19.378Z",
+    "updatedAt": "2024-04-18T11:15:19.378Z"
+  },
+  {
+    "id": "amzn1.dv.gti.684c67eb-d17d-46a1-a5d4-012497013805",
+    "serieId": "amzn1.dv.gti.684c67eb-d17d-46a1-a5d4-012497013805",
+    "mediaId": "amzn1.dv.gti.dd7fa2b8-bf4d-4c3b-9a53-034e3734d989",
+    "episode": 1,
+    "season": 1,
+    "createdAt": "2024-05-12T17:07:24.296Z",
+    "updatedAt": "2024-05-12T17:07:24.296Z"
+  },
+  {
+    "id": "amzn1.dv.gti.78b2348e-f462-f6d2-038b-0e6a928c1437",
+    "serieId": "amzn1.dv.gti.78b2348e-f462-f6d2-038b-0e6a928c1437",
+    "mediaId": "amzn1.dv.gti.7cb23492-1c4f-6349-0b84-ac064288e062",
+    "episode": 1,
+    "season": 1,
+    "createdAt": "2024-05-21T07:42:49.244Z",
+    "updatedAt": "2024-05-21T07:42:49.244Z"
+  },
+  {
+    "id": "amzn1.dv.gti.7b4f4e9d-dbf6-4bef-a611-f14ffec602ea",
+    "serieId": "amzn1.dv.gti.7b4f4e9d-dbf6-4bef-a611-f14ffec602ea",
+    "mediaId": "amzn1.dv.gti.067864b0-18a9-407f-a784-3ca9adfc85c7",
+    "episode": 2,
+    "season": 1,
+    "createdAt": "2024-04-18T23:53:28.565Z",
+    "updatedAt": "2024-04-18T23:53:28.565Z"
+  },
+  {
+    "id": "amzn1.dv.gti.b15d8b1a-629c-4645-a4e0-8b612e38f8fc",
+    "serieId": "amzn1.dv.gti.b15d8b1a-629c-4645-a4e0-8b612e38f8fc",
+    "mediaId": "amzn1.dv.gti.7a7dac4b-df26-4863-80bb-6903c78acf7f",
+    "episode": 1,
+    "season": 1,
+    "createdAt": "2024-07-13T23:10:10.133Z",
+    "updatedAt": "2024-07-13T23:10:10.133Z"
+  },
+  {
+    "id": "amzn1.dv.gti.c4b8184a-58a7-22fb-d54a-bea999ea8a1e",
+    "serieId": "amzn1.dv.gti.c4b8184a-58a7-22fb-d54a-bea999ea8a1e",
+    "mediaId": "amzn1.dv.gti.28b87caf-c9e4-fc8c-4898-0a76117d20c9",
+    "episode": 1,
+    "season": 1,
+    "createdAt": "2024-05-21T07:41:55.060Z",
+    "updatedAt": "2024-05-21T07:41:55.060Z"
+  },
+  {
+    "id": "amzn1.dv.gti.cec23c65-7cf0-4b2f-a899-c38d55f2337c",
+    "serieId": "amzn1.dv.gti.cec23c65-7cf0-4b2f-a899-c38d55f2337c",
+    "mediaId": "amzn1.dv.gti.a91b807e-d353-474f-9ce7-2724ab010abd",
+    "episode": 2,
+    "season": 1,
+    "createdAt": "2024-07-14T17:00:10.415Z",
+    "updatedAt": "2024-07-14T17:00:10.415Z"
+  },
+  {
+    "id": "amzn1.dv.gti.e2586877-7f8a-402c-b189-447d5ccf2dfd",
+    "serieId": "amzn1.dv.gti.e2586877-7f8a-402c-b189-447d5ccf2dfd",
+    "mediaId": "amzn1.dv.gti.f0953516-33b9-4bfc-8617-fdfb8958cb86",
+    "episode": 1,
+    "season": 1,
+    "createdAt": "2024-05-13T07:00:31.359Z",
+    "updatedAt": "2024-05-13T07:00:31.359Z"
+  },
+  {
+    "id": "amzn1.dv.gti.e661493e-a422-4f9a-9e6c-65ea480c63e0",
+    "serieId": "amzn1.dv.gti.e661493e-a422-4f9a-9e6c-65ea480c63e0",
+    "mediaId": "amzn1.dv.gti.1b73463c-69ca-4b92-b896-32564ed988ae",
+    "episode": 1,
+    "season": 1,
+    "createdAt": "2024-07-14T09:33:27.941Z",
+    "updatedAt": "2024-07-14T09:33:27.941Z"
+  },
+  {
+    "id": "amzn1.dv.gti.ee1c5f9a-dcd7-470f-b830-cab853a409e2",
+    "serieId": "amzn1.dv.gti.ee1c5f9a-dcd7-470f-b830-cab853a409e2",
+    "mediaId": "amzn1.dv.gti.4859016b-9b99-4c45-bc30-c2c129422f25",
+    "episode": 1,
+    "season": 1,
+    "createdAt": "2024-07-13T23:19:56.335Z",
+    "updatedAt": "2024-07-13T23:19:56.335Z"
+  }
+]
