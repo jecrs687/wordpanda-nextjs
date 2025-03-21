@@ -62,6 +62,7 @@ export default function SubtitleProvider() {
                         mediaId: event.responseBody?.catalogMetadata?.catalog?.id,
                         seasonId: event.responseBody?.catalogMetadata?.family?.tvAncestors?.find(x => x.catalog.type === "SEASON")?.catalog?.id,
                         serieId: event.responseBody?.catalogMetadata?.family?.tvAncestors?.find(x => x.catalog.type === "SHOW")?.catalog?.id,
+                        categories: {},
                     }
                 );
                 setProcessed(new Set([...processed, event.timestamp]));

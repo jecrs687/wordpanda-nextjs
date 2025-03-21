@@ -12,7 +12,7 @@ export type MovieIdGetResponse = {
     msg?: string,
 }
 export async function GET(request: NextRequest, ...rest) {
-    const token = await cookies()?.get(TOKEN_KEY)?.value || (await headers()).get('Authorization')
+    const token = (await cookies())?.get(TOKEN_KEY)?.value || (await headers()).get('Authorization')
 
     const response: MovieIdGetResponse = {
         err: null,

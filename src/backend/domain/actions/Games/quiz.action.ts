@@ -8,7 +8,7 @@ import { cookies, headers } from "next/headers";
 import { GamesQuizPostRequest, GamesQuizPostResponse } from "src/app/api/games/quiz/route";
 
 export const quizGameAction = async ({ words }: GamesQuizPostRequest) => {
-    const token = await cookies()?.get(TOKEN_KEY)?.value || (await headers()).get('Authorization')
+    const token = (await cookies())?.get(TOKEN_KEY)?.value || (await headers()).get('Authorization')
     const { decoded: decryptToken } = validateToken(token)
     if (!decryptToken) return { err: 'Token invalid' };
     const user = await prisma.user.findFirst({

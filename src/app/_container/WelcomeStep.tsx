@@ -56,7 +56,7 @@ export default function WelcomeStep({ goToStep, windowWidth, windowHeight }) {
             transition={{ delay: 1, duration: 0.5 }}
             onClick={() => goToStep(1)}
         >
-            Let's Start!
+            {"Let's Start!"}
         </motion.button>
     </motion.div>
     );

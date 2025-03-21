@@ -1,11 +1,11 @@
 "use client";
 
+import Navbar from '@common/NavBar';
 import { ROUTES } from '@constants/ROUTES';
 import { AuthenticationProvider } from '@providers/AuthenticationProvider';
 import { SwrCacheProvider } from '@providers/SwrCacheProvider';
 import { motion } from 'framer-motion';
 import { Suspense, useState } from 'react';
-import Navbar from '../../components/common/NavBar';
 import Loading from '../loading';
 
 export default function PrivateLayout({

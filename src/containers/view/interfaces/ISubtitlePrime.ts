@@ -25,6 +25,7 @@ export interface CatalogMetadata {
 }
 
 export interface CatalogMetadataCatalog {
+    categories: any[];
     entityType: string;
     episodeNumber: number;
     id: string;

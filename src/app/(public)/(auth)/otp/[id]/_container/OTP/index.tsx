@@ -9,7 +9,7 @@ import { setCookie } from '@utils/cookie';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState, useActionState } from 'react';
+import { useActionState, useEffect, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import Loading from 'src/app/loading';
 import { submit } from './action';
@@ -18,7 +18,7 @@ import { resendOtp } from './resend';
 function Submit({ status }) {
     return <Button disabled={status.pending} type='submit'>
         {
-            status.pending ? <LoaderSpinner size='20px' /> : 'Confirmar'
+            status.pending ? <LoaderSpinner size='large' /> : 'Confirmar'
         }
     </Button>
 }
@@ -81,7 +81,7 @@ export default function OtpConfirmation({ id }) {
                 <h5>Enviamos um código de verificação para o seu email</h5>
                 <div className={styles.form}>
 
-                    <ShowIf condition={false} onlyHide>
+                    <ShowIf condition={false} preserveSpace>
                         <input {...inputHandle('otp')} />
                         <input {...inputHandle('id')} />
 

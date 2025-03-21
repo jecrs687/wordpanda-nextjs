@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import BackButton from '@common/BackButton';
 import { CardGame } from '@common/Cards/CardGame';
 import { fetchClient } from '@services/fetchClient';
@@ -7,7 +7,7 @@ import { use } from "react";
 import { MovieIdGetResponse } from 'src/app/api/movie/[id]/route';
 import useSWR from 'swr';
 import styles from './page.module.scss';
-export default async function Page(props) {
+export default function Page(props) {
     const params: {
         id: string;
     } = use(props.params);

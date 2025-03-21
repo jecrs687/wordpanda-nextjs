@@ -484,6 +484,23 @@ body {
     background: linear-gradient(90deg, #6366f1, #a855f7);
     border-radius: 3px;
   }
+
+  /* Custom utilities for 3D card effects */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
 }
 
 /* Font customization */
