@@ -6,10 +6,15 @@ type getPlatformsProps = {
     search?: string
 
 }
+
+const cache = new Map();
 export async function getPlatforms(
     { take, skip, search }: getPlatformsProps = {}
 ) {
     try {
+        if (cache.has('platforms')) {
+            return cache.get('platforms');
+        }
         const platformsFound = await prisma.platform.findMany({
             include: {
                 medias: {
@@ -41,9 +46,13 @@ export async function getPlatforms(
                         },
                     }
                 }
+
             }
         });
-
+        cache.set('platforms', { platforms: platformsFound });
+        setTimeout(() => {
+            cache.delete('platforms');
+        }, 1000 * 60 * 60 * 24);
         return { platforms: platformsFound }
 
     } catch (err) {

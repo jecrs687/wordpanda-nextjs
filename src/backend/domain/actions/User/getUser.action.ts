@@ -4,6 +4,7 @@ import prisma from "@infra/config/database";
 import { validateToken } from "@utils/token";
 import { cookies, headers } from "next/headers";
 
+const cache = new Map();
 export async function getUser() {
     const cookie = await cookies();
     const header = await headers();
@@ -16,6 +17,9 @@ export async function getUser() {
                 msg: "Token invalid",
                 errors: "Token invalid",
             });
+        }
+        if (cache.has(user.id)) {
+            return { user: cache.get(user.id) }
         }
         const userFound = await prisma.user.findFirst({
             where: {
@@ -55,8 +59,13 @@ export async function getUser() {
                     }
                 },
 
-            }
+            },
+
         });
+        cache.set(user.id, userFound);
+        setTimeout(() => {
+            cache.delete(user.id);
+        }, 1000 * 60 * 60 * 24);
         return { user: userFound }
 
     } catch (err) {
