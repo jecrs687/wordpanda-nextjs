@@ -1,7 +1,6 @@
 "use client";
 import { GAMES } from '@constants/GAMES';
 import { useChannels } from '@hooks/useChannels';
-import useWords from '@hooks/useWords';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import styles from './page.module.scss';
@@ -16,7 +15,6 @@ export default function Page() {
     useEffect(() => {
         web.sendList()
     }, [web])
-    const { allWords, language } = useWords()
     return (
         <main className={styles.main}>
             <h1 className={styles.title}>
@@ -44,11 +42,17 @@ export default function Page() {
                                 key={index}
                                 className={styles.game}
                             >
-                                <Icon
-                                    height={50}
-                                    width={50}
-                                    className={styles.game__icon}
-                                />
+                                {Icon ? (
+                                    <Icon
+                                        height={50}
+                                        width={50}
+                                        className={styles.game__icon}
+                                    />
+                                ) : (
+                                    <div className={styles.game__icon}>
+                                        {/* Fallback for missing icon */}
+                                    </div>
+                                )}
 
                                 <div className={
                                     styles.game__content

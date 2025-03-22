@@ -5,7 +5,7 @@ import useLanguage from "@hooks/useLanguage";
 import { capitalizeFirstLetter } from "@utils/capitalizeFirstLetter";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
-import { useCallback, useEffect, useMemo, type JSX } from "react";
+import { useCallback, useEffect, type JSX } from "react";
 import { ActionMeta } from "react-select";
 import { SelectInput } from "./components/SelectInput";
 
@@ -68,15 +68,10 @@ export const SelectLanguage = ({
         if (language == -1 && !notPreload) getLanguage();
     }, [getLanguage, language, select, notPreload]);
 
-    const values = useMemo(
-        () =>
-            languages?.map((item) => ({
-                value: item.id,
-                label: capitalizeFirstLetter(`${item.language} - ${item.code}`),
-            })) || [],
-        []
-    );
-
+    const values = languages?.map((item) => ({
+        value: item.id,
+        label: capitalizeFirstLetter(`${item.language} - ${item.code}`),
+    }))
     const handleChange = (
         params: { value: number; label: string },
         action: ActionMeta<{ value: number; label: string }>

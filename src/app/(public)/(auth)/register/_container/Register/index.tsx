@@ -2,7 +2,7 @@
 import { TOKEN_KEY } from '@constants/CONFIGS';
 import { ROUTES } from '@constants/ROUTES';
 import { setCookie } from '@utils/cookie';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useActionState, useEffect, useState } from 'react';
 import { submit } from './action';
@@ -11,10 +11,17 @@ import { ErrorDialog } from './components/ErrorDialog';
 import { LearningPreferencesForm } from './components/LearningPreferencesForm';
 import { PersonalDetailsForm } from './components/PersonalDetailsForm';
 import { ProfileSetupForm } from './components/ProfileSetupForm';
+import { ProgressTracker } from './components/ProgressTracker';
 import { RegistrationComplete } from './components/RegistrationComplete';
 import { RegistrationHeader } from './components/RegistrationHeader';
 import { RegistrationLayout } from './components/RegistrationLayout';
-import { StepIndicator } from './components/StepIndicator';
+
+// Animation variants for page transitions
+const pageVariants = {
+    initial: { opacity: 0, y: 10 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -10 }
+};
 
 export default function Register() {
     const [state, formAction] = useActionState(submit, {});
@@ -22,7 +29,11 @@ export default function Register() {
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState(new FormData());
     const [showError, setShowError] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const totalSteps = 4;
+
+    // Calculate progress percentage
+    const progressPercentage = (step / totalSteps) * 100;
 
     // Handle form submission for each step
     const handleStepSubmit = (data: FormData, goToNextStep: boolean = true) => {
@@ -42,7 +53,10 @@ export default function Register() {
 
         if (goToNextStep && step < totalSteps) {
             setStep(prev => prev + 1);
+            // Scroll to top when changing steps
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         } else if (step === totalSteps) {
+            setIsSubmitting(true);
             formAction(newFormData);
         }
     };
@@ -51,6 +65,8 @@ export default function Register() {
     const goToPreviousStep = () => {
         if (step > 1) {
             setStep(prev => prev - 1);
+            // Scroll to top when changing steps
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 
@@ -62,6 +78,7 @@ export default function Register() {
 
         if (state.error) {
             setShowError(true);
+            setIsSubmitting(false);
         }
 
         if (state.token) {
@@ -72,6 +89,7 @@ export default function Register() {
 
         // Handle validation errors - return to the appropriate step
         if (state.errors) {
+            setIsSubmitting(false);
             const errorFields = Object.keys(state.errors);
 
             if (errorFields.some(field => ['email', 'password', 'passwordConfirmation'].includes(field))) {
@@ -94,51 +112,72 @@ export default function Register() {
                 message={state.error || "An error occurred during registration"}
             />
 
-            <RegistrationHeader step={step} totalSteps={totalSteps} />
+            <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
+                <div className="mb-6 md:mb-8">
+                    <RegistrationHeader step={step} totalSteps={totalSteps} />
+                </div>
 
-            <StepIndicator currentStep={step} totalSteps={totalSteps} />
-
-            <AnimatePresence mode="wait">
-                {step === 1 && (
-                    <AccountDetailsForm
-                        onSubmit={handleStepSubmit}
-                        errors={state.errors}
-                        initialValues={formData}
+                <div className="mb-6">
+                    <ProgressTracker
+                        currentStep={step}
+                        totalSteps={totalSteps}
+                        percentage={progressPercentage}
                     />
-                )}
+                </div>
 
-                {step === 2 && (
-                    <PersonalDetailsForm
-                        onSubmit={handleStepSubmit}
-                        onBack={goToPreviousStep}
-                        errors={state.errors}
-                        initialValues={formData}
-                    />
-                )}
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={`step-${step}`}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
+                        variants={pageVariants}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="w-full"
+                    >
+                        {step === 1 && (
+                            <AccountDetailsForm
+                                onSubmit={handleStepSubmit}
+                                errors={state.errors}
+                                initialValues={formData}
+                            />
+                        )}
 
-                {step === 3 && (
-                    <ProfileSetupForm
-                        onSubmit={handleStepSubmit}
-                        onBack={goToPreviousStep}
-                        errors={state.errors}
-                        initialValues={formData}
-                    />
-                )}
+                        {step === 2 && (
+                            <PersonalDetailsForm
+                                onSubmit={handleStepSubmit}
+                                onBack={goToPreviousStep}
+                                errors={state.errors}
+                                initialValues={formData}
+                            />
+                        )}
 
-                {step === 4 && (
-                    <LearningPreferencesForm
-                        onSubmit={handleStepSubmit}
-                        onBack={goToPreviousStep}
-                        errors={state.errors}
-                        initialValues={formData}
-                        formAction={formAction}
-                    />
-                )}
+                        {step === 3 && (
+                            <ProfileSetupForm
+                                onSubmit={handleStepSubmit}
+                                onBack={goToPreviousStep}
+                                errors={state.errors}
+                                initialValues={formData}
+                            />
+                        )}
 
-                {step === 5 && (
-                    <RegistrationComplete />
-                )}
-            </AnimatePresence>
+                        {step === 4 && (
+                            <LearningPreferencesForm
+                                onSubmit={handleStepSubmit}
+                                onBack={goToPreviousStep}
+                                errors={state.errors}
+                                initialValues={formData}
+                                formAction={formAction}
+                                isSubmitting={isSubmitting}
+                            />
+                        )}
+
+                        {step === 5 && (
+                            <RegistrationComplete />
+                        )}
+                    </motion.div>
+                </AnimatePresence>
+            </div>
         </RegistrationLayout>
     );
 }

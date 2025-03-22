@@ -44,7 +44,17 @@ export async function submit(currentState, form: FormData) {
     const { passwordConfirmation, ...rest } = forms;
     const languageId = +(await cookies()).get('language')?.value || +(await headers()).get('language') || 59;
 
-    const response = await createUser({ ...rest, languageId })
+    const response = await createUser({
+        ...rest, languageId,
+        dailyGoal: 0,
+        preferredLearningTime: "",
+        learningStyle: "",
+        difficultyPreference: 0,
+        streak: 0,
+        longestStreak: 0,
+        totalPoints: 0,
+        level: 0
+    })
     if (response?.token)
         (await cookies()).set(TOKEN_KEY, response.token)
     return response;

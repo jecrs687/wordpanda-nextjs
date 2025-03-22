@@ -64,7 +64,15 @@ export async function migrateDatabase() {
         password: "Demo123!",
         phone: "1234567890",
         username: "demo",
-        languageId: 1
+        languageId: 1,
+        learningStyle: "",
+        difficultyPreference: 0,
+        preferredLearningTime: "",
+        dailyGoal: 0,
+        streak: 0,
+        longestStreak: 0,
+        totalPoints: 0,
+        level: 0
     })
 
     const wordFactory = new WordFactory();

@@ -1,86 +1,41 @@
 "use client";
-import { useMediaQuery } from '@hooks/useMediaQuery';
-import { motion, useReducedMotion } from 'framer-motion';
-import Image from 'next/image';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode } from 'react';
 
-type RegistrationLayoutProps = {
+interface RegistrationLayoutProps {
     children: ReactNode;
-};
+}
 
-export function RegistrationLayout({ children }: RegistrationLayoutProps) {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const prefersReducedMotion = useReducedMotion();
-    const isMobile = useMediaQuery('(max-width: 768px)');
-
-    // Track mouse movement for subtle parallax effect (only on desktop)
-    useEffect(() => {
-        if (prefersReducedMotion || isMobile) return;
-
-        const handleMouseMove = (e: MouseEvent) => {
-            setMousePosition({
-                x: e.clientX / window.innerWidth,
-                y: e.clientY / window.innerHeight,
-            });
-        };
-
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-        };
-    }, [prefersReducedMotion, isMobile]);
-
+export const RegistrationLayout = ({ children }: RegistrationLayoutProps) => {
     return (
-        <div className="min-h-screen w-full flex items-center justify-center p-3 sm:p-4 md:p-6 bg-slate-50 dark:bg-slate-900">
-            {/* Simple, subtle background pattern */}
-            <div className="absolute inset-0 pointer-events-none z-0 opacity-50">
-                <div className="absolute inset-0 bg-grid" />
-            </div>
-
-            {/* Card container with clean, high-contrast design */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-xl z-10 bg-white dark:bg-gray-800 rounded-xl overflow-hidden"
-                style={{
-                    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-                }}
-            >
-                <div className="relative w-full h-full">
-                    {/* Simple border accent */}
-                    <div className="absolute inset-x-0 top-0 h-1 bg-emerald-500" />
-
-                    <div className="relative flex flex-col">
-                        {/* Logo area with high contrast background for black logo */}
-                        <div className="flex justify-center pt-8 pb-4 bg-white dark:bg-gray-800">
-                            <div className="relative flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-white dark:bg-white rounded-full">
-                                <Image
-                                    src="/assets/logo.png"
-                                    width={isMobile ? 60 : 75}
-                                    height={isMobile ? 60 : 75}
-                                    alt="WordPanda Logo"
-                                    className="relative z-10"
-                                    priority
-                                />
-                            </div>
+        <div className="min-h-screen w-full bg-gradient-to-br from-zinc-50 to-sky-50 dark:from-zinc-950 dark:to-blue-950">
+            <div className="container mx-auto py-6 md:py-12 px-4 sm:px-6">
+                <div className="flex flex-col items-center">
+                    {/* Logo */}
+                    <div className="mb-8 md:mb-12">
+                        <div className="flex items-center gap-3">
+                            <span className="text-4xl">🐼</span>
+                            <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-emerald-500 to-sky-500 bg-clip-text text-transparent">
+                                WordPanda
+                            </h1>
                         </div>
+                    </div>
 
-                        {/* Content area with clean styling */}
-                        <div className="flex-1 p-6 md:p-8">
-                            {children}
+                    {/* Main content */}
+                    <div className="w-full max-w-4xl bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-2xl shadow-xl p-5 md:p-8 border border-zinc-200 dark:border-zinc-800">
+                        {children}
+                    </div>
+
+                    {/* Footer */}
+                    <div className="mt-8 text-sm text-center text-zinc-500 dark:text-zinc-400">
+                        <p>© {new Date().getFullYear()} WordPanda. All rights reserved.</p>
+                        <div className="mt-2 flex justify-center gap-4">
+                            <a href="#" className="hover:text-emerald-500 transition-colors">Privacy Policy</a>
+                            <a href="#" className="hover:text-emerald-500 transition-colors">Terms of Service</a>
+                            <a href="#" className="hover:text-emerald-500 transition-colors">Help Center</a>
                         </div>
                     </div>
                 </div>
-            </motion.div >
-
-            {/* Accessibility skip link */}
-            <a
-                href="#main-content"
-                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-white dark:bg-gray-800 px-4 py-2 z-50 text-emerald-600 dark:text-emerald-400 rounded-md shadow-md"
-            >
-                Skip to main content
-            </a>
-        </div >
+            </div>
+        </div>
     );
-}
+};

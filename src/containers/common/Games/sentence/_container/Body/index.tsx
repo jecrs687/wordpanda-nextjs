@@ -90,8 +90,8 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
         let example = '';
 
         // Try to get an example from translations
-        if (currentWord.translations && currentWord.translations.length > 0 && currentWord.translations[0].example) {
-            example = (currentWord as any).translations[0].example;
+        if (currentWord.translations && currentWord.translations.length > 0 && currentWord.translations[0].meaning) {
+            example = (currentWord as any).translations[0].meaning;
         } else {
             // If no example, create a simple sentence with the word
             example = `This is an example sentence using the word "${currentWord.word}".`;

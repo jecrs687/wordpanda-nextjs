@@ -153,7 +153,7 @@ export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang
                     const translation = baseWord.translations[0].translations;
                     cardPairs.push({
                         id: `card-${i}-b-${baseWord.id}`,
-                        word: translation,
+                        word: translation[0]?.word || `${baseWord.word}*`,
                         isFlipped: false,
                         isMatched: false,
                         pairId: i

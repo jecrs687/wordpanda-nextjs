@@ -10,7 +10,7 @@ export default function Page() {
 
     return (
         <MemoryGame
-            words={words} lang={language} mediaId={mediaId}
+            lang={language} mediaId={mediaId}
         />
 
     )

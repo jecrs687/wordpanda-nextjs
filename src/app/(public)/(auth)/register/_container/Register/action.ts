@@ -84,7 +84,17 @@ export async function submit(currentState, form: FormData) {
     }
     const { passwordConfirmation, ...rest } = forms;
     try {
-        const response = await createUser(rest)
+        const response = await createUser({
+            ...rest,
+            dailyGoal: 0,
+            preferredLearningTime: "",
+            learningStyle: "",
+            difficultyPreference: 0,
+            streak: 0,
+            longestStreak: 0,
+            totalPoints: 0,
+            level: 0
+        })
         if (response.errors) {
             return { success: false, errors: response.errors };
         }

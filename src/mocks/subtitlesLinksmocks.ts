@@ -6,6 +6,7 @@ export const SUBTITLES_MOCK: ISubtitlePrime[] = [
         "responseBody": {
             "catalogMetadata": {
                 "catalog": {
+                    "categories": [],
                     "entityType": "TV Show",
                     "episodeNumber": 2,
                     "id": "amzn1.dv.gti.eff7c8db-1ba4-490c-b450-e2695216cfc6",

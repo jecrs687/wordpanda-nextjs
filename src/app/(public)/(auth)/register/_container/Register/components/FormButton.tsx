@@ -13,6 +13,7 @@ type FormButtonProps = {
     icon?: ReactNode;
     size?: 'sm' | 'md' | 'lg';
     ariaLabel?: string;
+    className?: string;
 };
 
 export function FormButton({
@@ -26,6 +27,7 @@ export function FormButton({
     icon,
     size = 'md',
     ariaLabel,
+    className,
 }: FormButtonProps) {
     // Simplified, cleaner variant styles with solid colors
     const variantStyles = {
@@ -76,6 +78,7 @@ export function FormButton({
                 ${isDisabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}
                 ${fullWidth ? 'w-full' : ''}
                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500
+                ${className || ''}
             `}
             aria-label={ariaLabel || (typeof children === 'string' ? children : undefined)}
             aria-busy={isLoading ? "true" : "false"}

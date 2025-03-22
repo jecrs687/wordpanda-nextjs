@@ -1,90 +1,70 @@
 import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
 
-type PreferenceOptionProps = {
-    children: ReactNode;
+interface PreferenceOptionProps {
+    icon: string;
+    label: string;
+    description: string;
     selected: boolean;
     onClick: () => void;
-    description?: string;
-    icon?: ReactNode;
-};
+}
 
-export function PreferenceOption({
-    children,
+export const PreferenceOption = ({
+    icon,
+    label,
+    description,
     selected,
     onClick,
-    description,
-    icon
-}: PreferenceOptionProps) {
+}: PreferenceOptionProps) => {
     return (
-        <motion.div
-            role="radio"
-            aria-checked={selected}
-            tabIndex={0}
+        <motion.button
+            type="button"
             onClick={onClick}
-            onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    onClick();
-                }
-            }}
+            whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className={`
-                relative cursor-pointer rounded-lg border-2 p-3 sm:p-4 text-center transition-all duration-200
+                relative flex flex-col items-start p-4 rounded-lg transition-all duration-200 text-left h-full w-full
                 ${selected
-                    ? 'border-emerald-500 bg-emerald-50 dark:border-emerald-400 dark:bg-emerald-900/20'
-                    : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'}
-                focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2
+                    ? 'bg-black/5 border-2 border-black dark:bg-white/10 dark:border-white shadow-sm'
+                    : 'bg-zinc-50 border-2 border-transparent hover:border-zinc-200 dark:bg-zinc-800/60 dark:hover:border-zinc-700'
+                }
             `}
         >
-            {/* Content */}
-            <div className="flex flex-col items-center">
-                {/* Icon if provided */}
-                {icon && (
-                    <div className={`text-lg mb-2 ${selected
-                            ? 'text-emerald-600 dark:text-emerald-400'
-                            : 'text-gray-500 dark:text-gray-400'
-                        }`}>
-                        {icon}
-                    </div>
-                )}
+            <span className="text-2xl mb-2">{icon}</span>
+            <span className={`
+                font-bold text-base md:text-lg mb-1
+                ${selected
+                    ? 'text-black dark:text-white'
+                    : 'text-zinc-800 dark:text-white'
+                }
+            `}>
+                {label}
+            </span>
+            <span className="text-xs text-zinc-500 dark:text-zinc-400 line-clamp-2">
+                {description}
+            </span>
 
-                <div className={`font-medium ${selected
-                        ? 'text-emerald-700 dark:text-emerald-300'
-                        : 'text-gray-800 dark:text-gray-200'
-                    }`}>
-                    {children}
-                </div>
-
-                {/* Optional description */}
-                {description && (
-                    <div className={`text-xs mt-1 ${selected
-                            ? 'text-emerald-600 dark:text-emerald-400'
-                            : 'text-gray-500 dark:text-gray-400'
-                        }`}>
-                        {description}
-                    </div>
-                )}
-            </div>
-
-            {/* Selected indicator - simpler and clearer */}
             {selected && (
-                <div className="absolute top-0 right-0 -mt-2 -mr-2 w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center shadow-sm">
+                <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="absolute top-2 right-2 bg-black dark:bg-white rounded-full p-1"
+                >
                     <svg
-                        className="w-3 h-3 text-white"
-                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
                         viewBox="0 0 24 24"
+                        fill="none"
                         stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="text-white dark:text-black"
                     >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2.5}
-                            d="M5 13l4 4L19 7"
-                        />
+                        <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
-                </div>
+                </motion.div>
             )}
-        </motion.div>
+        </motion.button>
     );
-}
+};
