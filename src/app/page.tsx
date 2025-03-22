@@ -46,9 +46,7 @@ export default function Page() {
     { id: 'login-register', Component: LoginRegisterStep },
   ];
 
-  useEffect(() => {
-    if (theme == "system") setTheme('dark');
-  }, [setTheme, theme]);
+
 
   // Check authentication
   useEffect(() => {
