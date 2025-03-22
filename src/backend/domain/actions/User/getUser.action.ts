@@ -1,10 +1,11 @@
 "use server";
+import { cacheClient } from "@/src/backend/infra/cache/redis.cache";
 import { TOKEN_KEY } from "@constants/CONFIGS";
 import prisma from "@infra/config/database";
 import { validateToken } from "@utils/token";
 import { cookies, headers } from "next/headers";
 
-const cache = new Map();
+
 export async function getUserInformation() {
     const cookie = await cookies();
     const header = await headers();
@@ -19,9 +20,8 @@ export async function getUserInformation() {
             });
         }
         const cacheKey = `getUserInformation:${user.id}`;
-        if (cache.has(cacheKey)) {
-            return { user: cache.get(cacheKey) }
-        }
+        const cache = await cacheClient.get(cacheKey)
+        if (cache) return { user: JSON.parse(cache) }
         const userFound = await prisma.user.findFirst({
             where: {
                 id: user.id
@@ -63,10 +63,8 @@ export async function getUserInformation() {
             },
 
         });
-        cache.set(cacheKey, userFound);
-        setTimeout(() => {
-            cache.delete(cacheKey);
-        }, 1000 * 60 * 60 * 24);
+        cacheClient.set(cacheKey, JSON.stringify(userFound), { EX: 1000 });
+
         return { user: userFound }
 
     } catch (err) {
@@ -94,18 +92,14 @@ export async function getUser() {
             });
         }
         const cacheKey = `getUser:${user.id}`;
-        if (cache.has(cacheKey)) {
-            return { user: cache.get(user.id) }
-        }
+        const cache = await cacheClient.get(cacheKey)
+        if (cache) return { user: JSON.parse(cache) }
         const userFound = await prisma.user.findFirst({
             where: {
                 id: user.id
             },
         });
-        cache.set(cacheKey, userFound);
-        setTimeout(() => {
-            cache.delete(cacheKey);
-        }, 1000 * 60 * 60 * 24);
+        cacheClient.set(cacheKey, JSON.stringify(userFound), { EX: 1000 });
         return { user: userFound }
 
     } catch (err) {

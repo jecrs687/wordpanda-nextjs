@@ -106,6 +106,8 @@ model User {
   friends         Friendship[]      @relation("UserFriends")
   friendsOf       Friendship[]      @relation("FriendOf")
   notes           UserNote[]
+
+  OTP OTP[]
 }
 
 model UserLanguage {
@@ -594,6 +596,18 @@ model GameRound {
   timeTaken     Int?        @map(name: "time_taken") // Milliseconds to answer
 
   createdAt DateTime @default(now()) @map(name: "created_at")
+}
+
+model OTP {
+  id        String   @id @default(cuid())
+  userId    String   @map(name: "user_id")
+  user      User     @relation(fields: [userId], references: [id])
+  code      String
+  type      String
+  usedAt    DateTime? @map(name: "used_at")
+  expiresAt DateTime @map(name: "expires_at")
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
 }
 
 enum Role {

@@ -6,6 +6,7 @@
     "dev": "next dev ",
     "dev:normal": "next dev",
     "build": "next build",
+    "dev:reset": "rm -rf .next node_modules; clear; pnpm install; clear; npx prisma generate; clear; next dev",
     "migrate": "NODE_ENV=development npx tsx ./src/backend/infra/database/migrations",
     "start": "next start",
     "lint": "next lint",

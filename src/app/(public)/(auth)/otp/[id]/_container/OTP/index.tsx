@@ -1,19 +1,18 @@
 "use client";
+import { otpSubmit, resendOtp } from '@actions/Word/otpValidations.action';
 import { TOKEN_KEY } from '@constants/CONFIGS';
 import { ROUTES } from '@constants/ROUTES';
 import { setCookie } from '@utils/cookie';
 import { useRouter } from 'next/navigation';
 import { startTransition, useActionState, useEffect, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
-import { submit } from './action';
 import OtpActions from './components/OtpActions';
 import OtpFooter from './components/OtpFooter';
 import OtpHeader from './components/OtpHeader';
 import OtpInputSection from './components/OtpInputSection';
-import { resendOtp } from './resend';
 
 export default function OtpConfirmation({ id }) {
-    const [state, formAction] = useActionState(submit, {});
+    const [state, formAction] = useActionState(otpSubmit, {});
     const status = useFormStatus();
     const [time, setTime] = useState(0);
     const router = useRouter();
@@ -22,12 +21,12 @@ export default function OtpConfirmation({ id }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const startCooldownTimer = () => {
-        setTime(60);
+        setTime(1);
         const interval = setInterval(() => setTime(prev => prev - 1), 1000);
         setTimeout(() => {
             clearInterval(interval);
             setTime(0);
-        }, 60000);
+        }, 1000);
     };
 
     useEffect(() => {
@@ -54,11 +53,8 @@ export default function OtpConfirmation({ id }) {
     }, [formAction, values]);
 
     const handleResendOtp = () => {
-        // For server actions like resendOtp, also use startTransition
-        startTransition(() => {
-            resendOtp({ id });
-            startCooldownTimer();
-        });
+        resendOtp({ id });
+        startCooldownTimer();
     };
 
     return (

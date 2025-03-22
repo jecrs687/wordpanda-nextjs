@@ -213,19 +213,7 @@ const Dashboard = ({
                                             Aprendendo
                                         </h2>
                                     </div>
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className={`flex items-center gap-2 py-1.5 px-3 rounded-lg text-sm font-medium
-                                            ${isDark
-                                                ? 'bg-gray-800 hover:bg-gray-700 text-emerald-400'
-                                                : 'bg-gray-100 hover:bg-gray-200 text-emerald-600'}`}
-                                    >
-                                        Ver todos
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                        </svg>
-                                    </motion.button>
+
                                 </div>
 
                                 <motion.div
@@ -276,19 +264,7 @@ const Dashboard = ({
                                             Assistidos
                                         </h2>
                                     </div>
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className={`flex items-center gap-2 py-1.5 px-3 rounded-lg text-sm font-medium
-                                            ${isDark
-                                                ? 'bg-gray-800 hover:bg-gray-700 text-emerald-400'
-                                                : 'bg-gray-100 hover:bg-gray-200 text-emerald-600'}`}
-                                    >
-                                        Ver todos
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                        </svg>
-                                    </motion.button>
+
                                 </div>
 
                                 <div className="relative">
@@ -337,19 +313,7 @@ const Dashboard = ({
                                                 {platform.name}
                                             </h2>
                                         </div>
-                                        <motion.button
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            className={`flex items-center gap-2 py-1.5 px-3 rounded-lg text-sm font-medium
-                                                ${isDark
-                                                    ? 'bg-gray-800 hover:bg-gray-700 text-emerald-400'
-                                                    : 'bg-gray-100 hover:bg-gray-200 text-emerald-600'}`}
-                                        >
-                                            Ver todos
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                            </svg>
-                                        </motion.button>
+
                                     </div>
 
                                     <div className="relative">
@@ -391,19 +355,7 @@ const Dashboard = ({
                                             Mais vistos
                                         </h2>
                                     </div>
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className={`flex items-center gap-2 py-1.5 px-3 rounded-lg text-sm font-medium
-                                            ${isDark
-                                                ? 'bg-gray-800 hover:bg-gray-700 text-emerald-400'
-                                                : 'bg-gray-100 hover:bg-gray-200 text-emerald-600'}`}
-                                    >
-                                        Ver todos
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                        </svg>
-                                    </motion.button>
+
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
@@ -438,19 +390,7 @@ const Dashboard = ({
                                             Adicionados recentemente
                                         </h2>
                                     </div>
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className={`flex items-center gap-2 py-1.5 px-3 rounded-lg text-sm font-medium
-                                            ${isDark
-                                                ? 'bg-gray-800 hover:bg-gray-700 text-emerald-400'
-                                                : 'bg-gray-100 hover:bg-gray-200 text-emerald-600'}`}
-                                    >
-                                        Ver todos
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                        </svg>
-                                    </motion.button>
+
                                 </div>
 
                                 <div className="relative">
@@ -500,19 +440,7 @@ const Dashboard = ({
                                             {category}
                                         </h2>
                                     </div>
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className={`flex items-center gap-2 py-1.5 px-3 rounded-lg text-sm font-medium
-                                            ${isDark
-                                                ? 'bg-gray-800 hover:bg-gray-700 text-emerald-400'
-                                                : 'bg-gray-100 hover:bg-gray-200 text-emerald-600'}`}
-                                    >
-                                        Ver todos
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                        </svg>
-                                    </motion.button>
+
                                 </div>
 
                                 <div className="relative">

@@ -1,19 +1,18 @@
-import { kv } from "@vercel/kv";
-const OTPs = kv
+"use server";
+
+import { cacheClient } from "./redis.cache";
 
 
-export const saveOtp = async (email: string, otp: string) => {
-    await OTPs.set(email, otp,{
-        ex:60*60*1000
-    });
+export const saveOtp = async (id: string, otp: string) => {
+    cacheClient.set(`otp-${id}`, otp, { EX: 60 });
 };
 
-export const getOtp = async (email: string) => {
-    return await OTPs.get(email);
+export const getOtp = async (id: string) => {
+    return cacheClient.get(`otp-${id}`);
 };
 
-export const deleteOtp = (email: string) => {
-    OTPs.del(email);
+export const deleteOtp = async (id: string) => {
+    cacheClient.del(`otp-${id}`);
 };
 
 

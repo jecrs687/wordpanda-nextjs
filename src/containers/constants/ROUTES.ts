@@ -38,7 +38,7 @@ export const ROUTES = {
     GAME_CHAT: () => `/games/chat`,
     GAME_HANGMAN: () => `/games/hangman`,
     GAME_MEMORY: () => `/games/memory`,
-    GAME_LIST: () => `/games/list`,
+    GAME_LIST: (mediaId, language) => `/games?mediaId=${mediaId}&language=${language}`,
     GAME_DEFINITIONMATCH: () => `/games/definitionmatch`,
     GAME_FLASHCARDS: () => `/games/flashcards`,
     GAME_SPELLINGBEE: () => `/games/spellingbee`,

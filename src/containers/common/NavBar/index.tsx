@@ -149,20 +149,20 @@ const Navbar = ({ onSearch, transparent = false }: NavbarProps) => {
                     >
                         <nav className="flex flex-col gap-4">
                             <MobileNavLink
-                                href="/dashboard"
-                                isActive={pathname === '/dashboard'}
+                                href={ROUTES.DASHBOARD()}
+                                isActive={pathname === ROUTES.DASHBOARD()}
                                 onClick={() => setMobileMenuOpen(false)}
                             >
                                 Dashboard
                             </MobileNavLink>
                             <MobileNavLink
-                                href="/languages"
+                                href={ROUTES.LANGUAGES()}
                                 isActive={pathname.startsWith('/languages')}
                                 onClick={() => setMobileMenuOpen(false)}
                             >
                                 Idiomas
                             </MobileNavLink>
-                            <MobileNavLink
+                            {/* <MobileNavLink
                                 href="/explore"
                                 isActive={pathname.startsWith('/explore')}
                                 onClick={() => setMobileMenuOpen(false)}
@@ -175,7 +175,7 @@ const Navbar = ({ onSearch, transparent = false }: NavbarProps) => {
                                 onClick={() => setMobileMenuOpen(false)}
                             >
                                 Aprender
-                            </MobileNavLink>
+                            </MobileNavLink> */}
                         </nav>
 
                         <div className="mt-4 space-y-3">
@@ -194,6 +194,7 @@ const Navbar = ({ onSearch, transparent = false }: NavbarProps) => {
                     ${isDark
                                             ? 'bg-gray-800 hover:bg-gray-700 text-gray-200'
                                             : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}`}
+                                    onClick={() => router.push(ROUTES.PROFILE())}
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -201,7 +202,7 @@ const Navbar = ({ onSearch, transparent = false }: NavbarProps) => {
                                     <span>Perfil</span>
                                 </motion.button>
 
-                                <motion.button
+                                {/* <motion.button
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     className={`flex items-center gap-2 py-2 px-4 rounded-xl font-medium 
@@ -213,7 +214,7 @@ const Navbar = ({ onSearch, transparent = false }: NavbarProps) => {
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                     </svg>
                                     <span>Novo Estudo</span>
-                                </motion.button>
+                                </motion.button> */}
 
                                 <button
                                     onClick={() => setTheme(isDark ? 'light' : 'dark')}
