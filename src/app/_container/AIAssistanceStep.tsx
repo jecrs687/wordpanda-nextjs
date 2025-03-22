@@ -1,183 +1,154 @@
 import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { useState } from 'react';
+import React from 'react';
 
-export default function AIAssistanceStep({ goToStep, windowWidth, windowHeight }) {
-    const [showResponse, setShowResponse] = useState(false);
+interface AIAssistanceStepProps {
+    goToStep: (step: number) => void;
+    currentStep: number;
+    totalSteps: number;
+}
 
-    // Mock chat messages
+const AIAssistanceStep: React.FC<AIAssistanceStepProps> = ({ goToStep, currentStep }) => {
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.15,
+                delayChildren: 0.2,
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: { y: 0, opacity: 1 }
+    };
+
+    // AI chat conversation simulation
     const chatMessages = [
-        { text: "How do you say 'I love learning' in Spanish?", user: true },
-        { text: "Me encanta aprender", user: false },
-        { text: "Can you give me more context?", user: true },
+        { id: 1, text: "How do you say 'hello' in Spanish?", isUser: true },
+        { id: 2, text: "In Spanish, 'hello' is 'hola'", isUser: false },
+        { id: 3, text: "Can you use it in a sentence?", isUser: true }
     ];
 
-    const responseMessage = "In Spanish, 'I love learning' translates to 'Me encanta aprender'. You could also say 'Me encanta estudiar' (I love studying) or 'Me encanta aprender idiomas' (I love learning languages).";
+    // Pulse animation for AI brain
+    const pulseVariants = {
+        animate: {
+            scale: [1, 1.1, 1],
+            opacity: [0.7, 1, 0.7],
+            transition: {
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+            }
+        }
+    };
 
     return (
         <motion.div
-            className="flex flex-col items-center justify-center h-full w-full px-4 relative overflow-hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="text-center md:text-left"
         >
-            {/* Background elements */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-100 to-purple-100 z-0"></div>
             <motion.div
-                className="absolute top-0 right-0 w-72 h-72 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 opacity-20 blur-3xl"
-                animate={{
-                    x: [10, -10, 10],
-                    y: [10, -10, 10],
-                }}
-                transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    repeatType: "reverse"
-                }}
-            />
-            <motion.div
-                className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 opacity-20 blur-3xl"
-                animate={{
-                    x: [-10, 10, -10],
-                    y: [-10, 10, -10],
-                }}
-                transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    repeatType: "reverse"
-                }}
-            />
-
-            {/* AI Assistant mockup */}
-            <motion.div
-                className="relative z-10 w-full max-w-md bg-white rounded-3xl shadow-xl overflow-hidden"
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.7 }}
+                variants={itemVariants}
+                className="mb-8 mx-auto max-w-md"
             >
-                {/* Chat header */}
-                <div className="bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-3 flex items-center">
-                    <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-white mr-3">
-                        <Image
-                            src="/assets/panda-ai.png"
-                            alt="AI Panda"
-                            width={32}
-                            height={32}
-                            className="object-cover"
-                        />
-                    </div>
-                    <h3 className="text-white font-medium">WordPanda Assistant</h3>
-                    <div className="ml-auto flex space-x-2">
-                        <div className="w-2 h-2 rounded-full bg-green-400"></div>
-                        <p className="text-green-100 text-xs">Online</p>
-                    </div>
-                </div>
-
-                {/* Chat messages */}
-                <div className="p-4 h-60 overflow-y-auto bg-gray-50">
-                    {chatMessages.map((message, index) => (
-                        <motion.div
-                            key={index}
-                            className={`flex ${message.user ? 'justify-end' : 'justify-start'} mb-3`}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.3 + 0.5, duration: 0.5 }}
-                        >
-                            <div
-                                className={`max-w-[80%] px-4 py-2 rounded-2xl ${message.user
-                                        ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white'
-                                        : 'bg-white border border-gray-200 text-gray-700'
-                                    }`}
-                            >
-                                {message.text}
-                            </div>
-                        </motion.div>
-                    ))}
-
-                    {/* Typing indicator and AI response */}
-                    <motion.div
-                        className="flex justify-start mb-3"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 2 }}
-                    >
-                        {!showResponse ? (
+                <div className="relative bg-white/10 dark:bg-black/20 backdrop-blur-md rounded-2xl p-4 border border-zinc-200/30 dark:border-zinc-700/30 shadow-lg">
+                    {/* AI chat simulation */}
+                    <div className="flex items-center mb-4 justify-center md:justify-start">
+                        <div className="relative mr-3">
                             <motion.div
-                                className="bg-white border border-gray-200 px-4 py-3 rounded-2xl"
-                                initial={{ opacity: 1 }}
-                                animate={{ opacity: [1, 0.5, 1] }}
-                                transition={{ repeat: Infinity, duration: 1 }}
-                                onAnimationComplete={() => {
-                                    setTimeout(() => setShowResponse(true), 1500);
-                                }}
+                                className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-indigo-600 flex items-center justify-center"
+                                variants={pulseVariants}
+                                animate="animate"
                             >
-                                <div className="flex space-x-1">
-                                    <div className="w-2 h-2 rounded-full bg-gray-400"></div>
-                                    <div className="w-2 h-2 rounded-full bg-gray-400"></div>
-                                    <div className="w-2 h-2 rounded-full bg-gray-400"></div>
-                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2" />
+                                    <path d="M12 12c-1-2.5 0-5.5 4-7" />
+                                    <path d="M12 12c1-2.5 0-5.5-4-7" />
+                                    <path d="M12 12c-2.5-1-5.5 0-7 4" />
+                                    <path d="M12 12c2.5 1 5.5 0 7-4" />
+                                </svg>
                             </motion.div>
-                        ) : (
+                            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-400 rounded-full border-2 border-white dark:border-gray-900"></div>
+                        </div>
+                        <div>
+                            <h3 className="font-semibold text-black dark:text-white">PandaAI Assistant</h3>
+                            <p className="text-xs text-emerald-600 dark:text-emerald-400">Online • Ready to help</p>
+                        </div>
+                    </div>
+
+                    {/* Chat messages */}
+                    <div className="space-y-3 mb-4">
+                        {chatMessages.map((message) => (
                             <motion.div
-                                className="bg-white border border-gray-200 px-4 py-2 rounded-2xl text-gray-700"
+                                key={message.id}
+                                className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5 }}
+                                transition={{ delay: message.id * 0.5 }}
                             >
-                                {responseMessage}
+                                <div
+                                    className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm ${message.isUser
+                                            ? 'bg-indigo-500 text-white rounded-tr-none'
+                                            : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 rounded-tl-none'
+                                        }`}
+                                >
+                                    {message.text}
+                                </div>
                             </motion.div>
-                        )}
+                        ))}
+                    </div>
+
+                    {/* Typing indicator */}
+                    <motion.div
+                        className="flex items-center space-x-1 text-zinc-500 dark:text-zinc-400 text-sm ml-2"
+                        animate={{ opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                    >
+                        <div className="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                        <div className="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                        <div className="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                        <span className="ml-1">AI assistant is typing...</span>
                     </motion.div>
                 </div>
-
-                {/* Chat input */}
-                <div className="p-3 bg-white border-t flex items-center">
-                    <div className="flex-1 bg-gray-100 rounded-full px-4 py-2 text-sm text-gray-400">
-                        Ask anything about languages...
-                    </div>
-                    <button className="ml-2 w-8 h-8 flex items-center justify-center rounded-full bg-indigo-600 text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                        </svg>
-                    </button>
-                </div>
             </motion.div>
+
+            <motion.h2
+                variants={itemVariants}
+                className="text-3xl md:text-4xl font-bold mb-4 text-black dark:text-white"
+            >
+                AI-Powered <span className="text-cyan-500 dark:text-cyan-400">Learning</span>
+            </motion.h2>
+
+            <motion.p
+                variants={itemVariants}
+                className="text-base md:text-lg text-zinc-700 dark:text-zinc-300 mb-6 max-w-md mx-auto md:mx-0"
+            >
+                Our intelligent AI assistant guides your learning journey, providing personalized help, answering questions, and adapting to your unique learning style.
+            </motion.p>
 
             <motion.div
-                className="text-center mt-6 px-5 py-4 bg-white/90 backdrop-blur-md rounded-2xl shadow-lg max-w-md z-10"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1, duration: 0.6 }}
+                variants={itemVariants}
+                className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start"
             >
-                <motion.h2
-                    className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.3 }}
+                <motion.button
+                    whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(6, 182, 212, 0.3)" }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => goToStep(currentStep + 1)}
+                    className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-medium rounded-full 
+                             shadow-lg inline-flex items-center justify-center space-x-2"
                 >
-                    AI-Powered Language Assistant
-                </motion.h2>
-                <motion.p
-                    className="mt-2 text-gray-700"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.5 }}
-                >
-                    Get instant translations, practice conversations, and receive personalized feedback anytime!
-                </motion.p>
+                    <span>See What's Next</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </motion.button>
             </motion.div>
-
-            <motion.button
-                className="mt-6 px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full shadow-lg font-medium text-lg"
-                whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(79, 70, 229, 0.5)" }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.7 }}
-                onClick={() => goToStep(4)}
-            >
-                Amazing!
-            </motion.button>
         </motion.div>
     );
-}
+};
+
+export default AIAssistanceStep;

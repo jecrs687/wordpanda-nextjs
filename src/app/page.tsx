@@ -2,59 +2,87 @@
 import { TOKEN_KEY } from '@constants/CONFIGS';
 import { ROUTES } from '@constants/ROUTES';
 import useQueryParams from '@hooks/useQueryParams';
-import useWindowSize from '@hooks/useWindowSize';
 import { getCookie } from '@utils/cookie';
-import { AnimatePresence, motion } from 'framer-motion';
-import Image from 'next/image';
+import { AnimatePresence } from 'framer-motion';
+import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+
+import { StoryBackground } from './_components/landing/StoryBackground';
+import { StoryContainer } from './_components/landing/StoryContainer';
+import { StoryContent } from './_components/landing/StoryContent';
+import { StoryHeader } from './_components/landing/StoryHeader';
+import { StoryNavigation } from './_components/landing/StoryNavigation';
+import { StoryProgress } from './_components/landing/StoryProgress';
+import Loading from './loading';
+
+// Step components
 import AIAssistanceStep from './_container/AIAssistanceStep';
 import LanguageLearningStep from './_container/LanguageLearningStep';
 import LoginRegisterStep from './_container/LoginRegisterStep';
 import NewAmazingStep from './_container/NewAmazingStep';
 import PandaEatingStep from './_container/PandaEatingStep';
 import WelcomeStep from './_container/WelcomeStep';
-import Loading from './loading';
 
 export default function Page() {
   const [step, setStep] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDragging, setIsDragging] = useState(false);
+  const [touchStart, setTouchStart] = useState(0);
   const router = useRouter();
   const { queryParams } = useQueryParams();
-  const { windowWidth, windowHeight } = useWindowSize();
+  const { theme } = useTheme();
   const totalSteps = 6;
   const [progressStatus, setProgressStatus] = useState(Array(totalSteps).fill(0));
+  const isDarkMode = theme === 'dark';
+  const statusBarHeight = +queryParams?.statusBarHeight || 0;
 
-  const storyDuration = 8000; // 8 seconds per step
-  const autoAdvance = step !== totalSteps - 1;
+  const steps = [
+    { id: 'welcome', Component: WelcomeStep },
+    { id: 'panda-eating', Component: PandaEatingStep },
+    { id: 'language-learning', Component: LanguageLearningStep },
+    { id: 'ai-assistance', Component: AIAssistanceStep },
+    { id: 'new-amazing', Component: NewAmazingStep },
+    { id: 'login-register', Component: LoginRegisterStep },
+  ];
 
+  // Check authentication
   useEffect(() => {
     const token = getCookie(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY);
     if (token) router.push(ROUTES.DASHBOARD());
     else setIsLoading(false);
   }, [router]);
 
+  // Handle auto progression
   useEffect(() => {
-    if (isLoading || !autoAdvance) return;
+    if (isLoading || step === totalSteps - 1) return;
+
     let startTime = Date.now();
     let animationFrame;
+    const storyDuration = 8000; // 8 seconds per step
 
     const updateProgress = () => {
       const elapsed = Date.now() - startTime;
       const progress = Math.min(elapsed / storyDuration, 1);
+
       setProgressStatus((prev) => {
         const newStatus = [...prev];
         newStatus[step] = progress;
         return newStatus;
       });
-      if (progress < 1) animationFrame = requestAnimationFrame(updateProgress);
-      else if (step < totalSteps - 1) goToStep(step + 1);
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(updateProgress);
+      } else if (step < totalSteps - 1) {
+        goToStep(step + 1);
+      }
     };
 
     animationFrame = requestAnimationFrame(updateProgress);
     return () => cancelAnimationFrame(animationFrame);
-  }, [step, isLoading, autoAdvance]);
+  }, [step, isLoading]);
 
+  // Navigation
   const goToStep = (newStep) => {
     if (newStep >= 0 && newStep < totalSteps) {
       setStep(newStep);
@@ -68,84 +96,83 @@ export default function Page() {
     }
   };
 
-  const handleTap = (direction) => {
-    if (direction === 'left' && step > 0) goToStep(step - 1);
-    else if (direction === 'right' && step < totalSteps - 1) goToStep(step + 1);
+  // Touch/swipe handlers
+  const handleTouchStart = (e) => {
+    setTouchStart(e.touches[0].clientX);
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    const touchEnd = e.touches[0].clientX;
+    const diff = touchStart - touchEnd;
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0 && step < totalSteps - 1) {
+        goToStep(step + 1);
+      } else if (diff < 0 && step > 0) {
+        goToStep(step - 1);
+      }
+      setIsDragging(false);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
+
+  // Click navigation
+  const handleTapNavigation = (e) => {
+    const { clientX, currentTarget } = e;
+    const { left, width } = currentTarget.getBoundingClientRect();
+    const position = (clientX - left) / width;
+
+    if (position < 0.3 && step > 0) {
+      goToStep(step - 1);
+    } else if (position > 0.7 && step < totalSteps - 1) {
+      goToStep(step + 1);
+    }
   };
 
   if (isLoading) return <Loading />;
 
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 animate-gradient-bg">
-      {/* Progress Bar */}
-      <div
-        className="absolute top-0 left-0 right-0 z-50 flex gap-2 p-4"
-        style={{ paddingTop: `${Math.max(4 + (+queryParams?.statusBarHeight || 0) * 2, 16)}px` }}
-      >
-        {Array(totalSteps).fill(0).map((_, i) => (
-          <motion.div
-            key={i}
-            className="h-1 flex-1 bg-gray-200 rounded-full cursor-pointer overflow-hidden"
-            onClick={() => goToStep(i)}
-            whileHover={{ scale: 1.1 }}
-          >
-            <motion.div
-              className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
-              initial={{ width: 0 }}
-              animate={{ width: `${progressStatus[i] * 100}%` }}
-              transition={{ ease: 'linear' }}
-            />
-          </motion.div>
-        ))}
-      </div>
+    <StoryContainer
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onClick={handleTapNavigation}
+    >
+      <StoryBackground isDarkMode={isDarkMode} />
 
-      {/* Logo Header */}
-      <motion.div
-        className="absolute top-0 left-0 right-0 flex justify-center pt-8 z-40"
-        style={{ paddingTop: `${Math.max(8 + (+queryParams?.statusBarHeight || 0) * 2, 32)}px` }}
-        animate={{ scale: [1, 1.05, 1] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <Image src="/assets/logo.png" alt="WordPanda" width={200} height={56} className="h-14 w-auto" />
-      </motion.div>
+      <StoryProgress
+        totalSteps={totalSteps}
+        currentStep={step}
+        progressStatus={progressStatus}
+        goToStep={goToStep}
+        statusBarHeight={statusBarHeight}
+      />
 
-      {/* Navigation Arrows */}
-      <div className="absolute inset-0 z-30 flex justify-between items-center px-4 py-20">
-        {step > 0 && (
-          <motion.div
-            className="p-2 rounded-full bg-white/50 cursor-pointer"
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => handleTap('left')}
-          >
-            <svg className="w-8 h-8 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </motion.div>
-        )}
-        {step < totalSteps - 1 && (
-          <motion.div
-            className="p-2 rounded-full bg-white/50 cursor-pointer"
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => handleTap('right')}
-          >
-            <svg className="w-8 h-8 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </motion.div>
-        )}
-      </div>
+      <StoryHeader
+        statusBarHeight={statusBarHeight}
+        isDarkMode={isDarkMode}
+      />
 
-      {/* Step Content */}
+      <StoryNavigation
+        handleNext={() => step < totalSteps - 1 && goToStep(step + 1)}
+        handlePrev={() => step > 0 && goToStep(step - 1)}
+      />
+
       <AnimatePresence mode="wait">
-        {step === 0 && <WelcomeStep key="welcome" goToStep={goToStep} windowWidth={windowWidth} windowHeight={windowHeight} />}
-        {step === 1 && <PandaEatingStep key="panda-eating" goToStep={goToStep} windowWidth={windowWidth} windowHeight={windowHeight} />}
-        {step === 2 && <LanguageLearningStep key="language-learning" goToStep={goToStep} windowWidth={windowWidth} windowHeight={windowHeight} />}
-        {step === 3 && <AIAssistanceStep key="ai-assistance" goToStep={goToStep} windowWidth={windowWidth} windowHeight={windowHeight} />}
-        {step === 4 && <NewAmazingStep key="new-amazing" goToStep={goToStep} windowWidth={windowWidth} windowHeight={windowHeight} />}
-        {step === 5 && <LoginRegisterStep key="login-register" router={router} windowWidth={windowWidth} windowHeight={windowHeight} />}
+        <StoryContent
+          key={step}
+          step={step}
+          Component={steps[step].Component}
+          goToStep={goToStep}
+          router={router}
+          totalSteps={totalSteps}
+        />
       </AnimatePresence>
-    </div>
+    </StoryContainer>
   );
 }

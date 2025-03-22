@@ -1,63 +1,79 @@
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import React from 'react';
 
-export default function WelcomeStep({ goToStep, windowWidth, windowHeight }) {
-    return (<motion.div
-        className="flex flex-col items-center justify-center h-full w-full px-6"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-    >
-        <motion.div
-            className="relative w-full max-w-md aspect-square"
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, type: "spring" }}
-        >
-            <Image
-                src="/assets/welcome-panda.png"
-                alt="Welcome to WordPanda"
-                fill
-                className="object-contain"
-                priority
-            />
-        </motion.div>
-
-        <motion.div
-            className="text-center mt-8 px-4 py-6 bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl"
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-        >
-            <motion.h1
-                className="text-4xl md:text-5xl font-black bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent"
-                initial={{ scale: 0.9 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-            >
-                Welcome to WordPanda!
-            </motion.h1>
-            <motion.p
-                className="mt-4 text-gray-700 text-xl leading-relaxed"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
-            >
-                Ready to revolutionize your language learning journey?
-            </motion.p>
-        </motion.div>
-
-        <motion.button
-            className="mt-8 px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-500 text-white text-lg font-medium rounded-full shadow-lg hover:shadow-xl"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 1, duration: 0.5 }}
-            onClick={() => goToStep(1)}
-        >
-            {"Let's Start!"}
-        </motion.button>
-    </motion.div>
-    );
+interface WelcomeStepProps {
+    goToStep: (step: number) => void;
+    currentStep: number;
 }
+
+const WelcomeStep: React.FC<WelcomeStepProps> = ({ goToStep, currentStep }) => {
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.3,
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: { y: 0, opacity: 1 }
+    };
+
+    return (
+        <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="text-center"
+        >
+            <motion.div
+                variants={itemVariants}
+                className="mb-6 flex justify-center"
+            >
+                <div className="relative w-20 h-20">
+                    {/* Panda icon - stylized */}
+                    <div className="absolute inset-0 bg-black dark:bg-white rounded-full flex items-center justify-center">
+                        <span className="text-4xl text-white dark:text-black">🐼</span>
+                    </div>
+                    <div className="absolute -top-2 -left-1 w-5 h-5 bg-black dark:bg-white rounded-full"></div>
+                    <div className="absolute -top-2 -right-1 w-5 h-5 bg-black dark:bg-white rounded-full"></div>
+                </div>
+            </motion.div>
+
+            <motion.h1
+                variants={itemVariants}
+                className="text-4xl font-extrabold mb-4 text-black dark:text-white"
+            >
+                Welcome to <span className="text-emerald-500 dark:text-emerald-400">WordPanda</span>
+            </motion.h1>
+
+            <motion.p
+                variants={itemVariants}
+                className="text-lg text-zinc-700 dark:text-zinc-300 mb-8 max-w-md mx-auto"
+            >
+                Your journey to language mastery starts here. Fun, interactive, and personalized learning awaits you.
+            </motion.p>
+
+            <motion.div
+                variants={itemVariants}
+                className="space-y-4"
+            >
+                <motion.div
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => goToStep(currentStep + 1)}
+                    className="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded-full 
+                   shadow-lg hover:shadow-emerald-500/20 cursor-pointer inline-block"
+                >
+                    Begin Your Journey
+                </motion.div>
+            </motion.div>
+        </motion.div>
+    );
+};
+
+export default WelcomeStep;

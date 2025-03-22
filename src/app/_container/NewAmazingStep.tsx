@@ -1,159 +1,153 @@
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import React from 'react';
 
-export default function NewAmazingStep({ goToStep, windowWidth, windowHeight }) {
+interface NewAmazingStepProps {
+    goToStep: (step: number) => void;
+    currentStep: number;
+    totalSteps: number;
+}
+
+const NewAmazingStep: React.FC<NewAmazingStepProps> = ({ goToStep, currentStep }) => {
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.15,
+                delayChildren: 0.2,
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: { y: 0, opacity: 1 }
+    };
+
+    // Feature cards
     const features = [
         {
-            icon: "🔥",
-            text: "Daily Streaks"
+            id: 1,
+            title: 'Interactive Games',
+            description: 'Fun games that make learning effortless',
+            icon: (
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M17 5H7a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h10a4 4 0 0 0 4-4V9a4 4 0 0 0-4-4Z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M5 12h.01M19 12h.01"></path>
+                </svg>
+            ),
+            color: 'from-rose-500 to-amber-500'
         },
         {
-            icon: "🏆",
-            text: "Leaderboards"
+            id: 2,
+            title: 'Progress Tracking',
+            description: 'Monitor your improvement over time',
+            icon: (
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 3v18h18"></path>
+                    <path d="m19 9-5 5-4-4-3 3"></path>
+                </svg>
+            ),
+            color: 'from-emerald-500 to-teal-500'
         },
         {
-            icon: "🎮",
-            text: "Language Games"
-        },
-        {
-            icon: "🎯",
-            text: "Goal Setting"
+            id: 3,
+            title: 'Social Learning',
+            description: 'Connect with friends and learn together',
+            icon: (
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+            ),
+            color: 'from-blue-500 to-violet-500'
         }
     ];
 
+    // Card variants
+    const cardVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: (i: number) => ({
+            y: 0,
+            opacity: 1,
+            transition: {
+                delay: 0.3 + (i * 0.2),
+                duration: 0.5,
+                ease: "easeOut"
+            }
+        }),
+        hover: {
+            y: -5,
+            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+        }
+    };
+
     return (
         <motion.div
-            className="flex flex-col items-center justify-center h-full w-full px-5 relative"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="text-center"
         >
-            {/* Animated background */}
-            <div className="absolute inset-0 overflow-hidden">
-                <motion.div
-                    className="absolute top-1/4 -left-20 w-60 h-60 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 opacity-20 blur-3xl"
-                    animate={{
-                        x: [0, 40, 0],
-                        y: [0, -20, 0],
-                    }}
-                    transition={{
-                        repeat: Infinity,
-                        duration: 8,
-                        repeatType: "reverse"
-                    }}
-                />
-                <motion.div
-                    className="absolute bottom-1/4 -right-20 w-80 h-80 rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 opacity-20 blur-3xl"
-                    animate={{
-                        x: [0, -30, 0],
-                        y: [0, 30, 0],
-                    }}
-                    transition={{
-                        repeat: Infinity,
-                        duration: 10,
-                        repeatType: "reverse"
-                    }}
-                />
-            </div>
-
-            {/* Title with staggered animation */}
-            <motion.div
-                className="text-center mb-6 z-10"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
+            <motion.h2
+                variants={itemVariants}
+                className="text-3xl md:text-4xl font-bold mb-3 text-black dark:text-white"
             >
-                <motion.h1
-                    className="text-4xl md:text-5xl font-black"
-                    initial={{ scale: 0.9 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.3, duration: 0.5 }}
-                >
-                    <motion.span className="bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                        Gamify
-                    </motion.span>
-                    <motion.span className="ml-2 text-gray-800">
-                        Your Learning
-                    </motion.span>
-                </motion.h1>
-            </motion.div>
+                <span className="text-rose-500 dark:text-rose-400">Amazing</span> Features
+            </motion.h2>
 
-            {/* 3D phone mockup */}
-            <motion.div
-                className="relative w-60 h-80 md:w-72 md:h-96 mb-6"
-                initial={{ opacity: 0, rotateY: 25 }}
-                animate={{ opacity: 1, rotateY: 0 }}
-                transition={{ duration: 1, delay: 0.5, type: "spring" }}
-                style={{ perspective: "1000px" }}
+            <motion.p
+                variants={itemVariants}
+                className="text-base md:text-lg text-zinc-700 dark:text-zinc-300 mb-8 max-w-md mx-auto"
             >
-                <div className="relative w-full h-full rounded-[2.5rem] border-8 border-gray-800 overflow-hidden shadow-xl"
-                    style={{ transformStyle: "preserve-3d" }}>
-                    <div className="absolute inset-0 bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500">
-                        <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
-                            <Image
-                                src="/assets/panda-app.png"
-                                alt="WordPanda App"
-                                width={180}
-                                height={180}
-                                className="mb-4"
-                            />
+                Discover all the innovative tools and features we've created to make your language learning journey exceptional.
+            </motion.p>
 
-                            <div className="bg-white/90 backdrop-blur-sm p-4 rounded-xl w-full">
-                                <h3 className="font-bold text-lg text-gray-800 mb-2">WordPanda Pro</h3>
-                                <div className="flex justify-between items-center">
-                                    <div className="text-sm text-gray-600">Daily Goal</div>
-                                    <div className="text-sm font-medium text-indigo-600">8/10 words</div>
-                                </div>
-                                <div className="mt-1 h-2 w-full bg-gray-200 rounded-full overflow-hidden">
-                                    <motion.div
-                                        className="h-full bg-gradient-to-r from-indigo-500 to-purple-500"
-                                        initial={{ width: "0%" }}
-                                        animate={{ width: "80%" }}
-                                        transition={{ delay: 1.2, duration: 0.8 }}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Notch */}
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-5 bg-gray-800 rounded-b-lg z-20"></div>
-            </motion.div>
-
-            {/* Features grid */}
             <motion.div
-                className="grid grid-cols-2 gap-3 max-w-xs z-10"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.6 }}
+                variants={itemVariants}
+                className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8"
             >
-                {features.map((feature, index) => (
+                {features.map((feature, i) => (
                     <motion.div
-                        key={index}
-                        className="bg-white/80 backdrop-blur-sm p-3 rounded-xl shadow-lg text-center"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1 + index * 0.15, duration: 0.5 }}
-                        whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.9)" }}
+                        key={feature.id}
+                        custom={i}
+                        variants={cardVariants}
+                        initial="hidden"
+                        animate="visible"
+                        whileHover="hover"
+                        className="bg-white/10 dark:bg-black/10 backdrop-blur-md rounded-xl p-5 border border-zinc-200/30 dark:border-zinc-700/30 shadow-md"
                     >
-                        <div className="text-2xl mb-1">{feature.icon}</div>
-                        <div className="font-medium text-gray-800">{feature.text}</div>
+                        <div className={`w-12 h-12 mb-4 rounded-full bg-gradient-to-r ${feature.color} mx-auto flex items-center justify-center text-white`}>
+                            {feature.icon}
+                        </div>
+                        <h3 className="text-lg font-semibold mb-2 text-black dark:text-white">{feature.title}</h3>
+                        <p className="text-zinc-600 dark:text-zinc-400 text-sm">{feature.description}</p>
                     </motion.div>
                 ))}
             </motion.div>
 
-            <motion.button
-                className="mt-6 px-8 py-3.5 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-full shadow-lg font-medium text-lg"
-                whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(219, 39, 119, 0.5)" }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5 }}
-                onClick={() => goToStep(5)}
+            <motion.div
+                variants={itemVariants}
+                className="flex flex-col sm:flex-row gap-3 justify-center"
             >
-                {"Let's Get Started!"}
-            </motion.button>
+                <motion.button
+                    whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(244, 63, 94, 0.3)" }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => goToStep(currentStep + 1)}
+                    className="px-6 py-3 bg-gradient-to-r from-rose-500 to-rose-600 text-white font-medium rounded-full 
+                             shadow-lg inline-flex items-center justify-center space-x-2"
+                >
+                    <span>Get Started Now</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </motion.button>
+            </motion.div>
         </motion.div>
     );
-}
+};
+
+export default NewAmazingStep;

@@ -1,158 +1,167 @@
 import { ROUTES } from '@constants/ROUTES';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import React, { useState } from 'react';
 
-export default function LoginRegisterStep({ router, windowWidth, windowHeight }) {
-    // Animation variants
+interface LoginRegisterStepProps {
+    goToStep: (step: number) => void;
+    currentStep: number;
+    totalSteps: number;
+    router: any;
+}
+
+const LoginRegisterStep: React.FC<LoginRegisterStepProps> = ({ goToStep, currentStep, router }) => {
+    const [hoveredButton, setHoveredButton] = useState<string | null>(null);
+
     const containerVariants = {
         hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
-        exit: { opacity: 0 }
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.15,
+                delayChildren: 0.2,
+            }
+        }
     };
 
     const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0 }
+        hidden: { y: 20, opacity: 0 },
+        visible: { y: 0, opacity: 1 }
     };
 
-    // Navigate to pages
-    const handleRegister = () => router.push(ROUTES.REGISTER());
-    const handleLogin = () => router.push(ROUTES.LOGIN());
+    // Bamboo animation for decoration
+    const bambooVariants = {
+        animate: {
+            height: [60, 70, 60],
+            transition: {
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+            }
+        }
+    };
 
     return (
         <motion.div
-            className="flex flex-col items-center justify-center h-full w-full px-4 relative overflow-hidden"
+            variants={containerVariants}
             initial="hidden"
             animate="visible"
-            exit="exit"
-            variants={containerVariants}
+            className="text-center"
         >
-
-            {/* Dynamic background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-violet-100 via-pink-100 to-yellow-100 z-1" />
-
-            {/* Language bubbles */}
-            {['🇺🇸', '🇪🇸', '🇫🇷', '🇩🇪', '🇮🇹', '🇯🇵', '🇰🇷', '🇨🇳'].map((flag, index) => (
-                <motion.div
-                    key={index}
-                    className="absolute text-2xl"
-                    style={{
-                        left: `${Math.random() * 90 + 5}%`,
-                        top: `${Math.random() * 90 + 5}%`,
-                    }}
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{
-                        scale: [0, 1.2, 1],
-                        opacity: 1,
-                    }}
-                    transition={{
-                        delay: index * 0.2 + 0.5,
-                        duration: 0.6,
-                    }}
-                >
-                    {flag}
-                </motion.div>
-            ))}
-
-            {/* Animated background elements */}
-            <div className="absolute inset-0 overflow-hidden">
-                {[...Array(5)].map((_, i) => (
-                    <motion.div
-                        key={i}
-                        className="absolute rounded-full bg-gradient-to-br from-purple-300/20 to-pink-300/20 backdrop-blur-xl"
-                        style={{
-                            width: Math.random() * 200 + 100,
-                            height: Math.random() * 200 + 100,
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                        }}
-                        animate={{
-                            x: [0, Math.random() * 40 - 20],
-                            y: [0, Math.random() * 40 - 20],
-                        }}
-                        transition={{
-                            repeat: Infinity,
-                            repeatType: "reverse",
-                            duration: Math.random() * 5 + 5,
-                        }}
-                    />
-                ))}
-            </div>
-
-            {/* Content container */}
             <motion.div
-                className="relative z-15 max-w-md bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden"
                 variants={itemVariants}
+                className="mb-8 relative flex justify-center"
             >
-                {/* Header with panda image */}
-                <div className="relative">
-                    <div className="h-32 bg-gradient-to-r from-purple-600 to-pink-500"></div>
-                    <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-16">
-                        <div className="w-32 h-32 rounded-full bg-white p-2 shadow-lg">
-                            <Image
-                                src="/assets/panda-logo.png"
-                                alt="WordPanda"
-                                width={128}
-                                height={128}
-                                className="rounded-full object-cover"
-                            />
+                {/* Decorative panda face icon */}
+                <div className="relative w-20 h-20 mb-4 mx-auto">
+                    {/* Panda face */}
+                    <div className="absolute inset-0 bg-black dark:bg-white rounded-full flex items-center justify-center">
+                        <div className="relative w-16 h-11">
+                            {/* Eyes */}
+                            <div className="absolute top-0 left-1 w-5 h-5 bg-white dark:bg-black rounded-full"></div>
+                            <div className="absolute top-0 right-1 w-5 h-5 bg-white dark:bg-black rounded-full"></div>
+
+                            {/* Eye pupils */}
+                            <div className="absolute top-2 left-3 w-1.5 h-1.5 bg-black dark:bg-white rounded-full"></div>
+                            <div className="absolute top-2 right-3 w-1.5 h-1.5 bg-black dark:bg-white rounded-full"></div>
+
+                            {/* Nose */}
+                            <div className="absolute top-6 left-1/2 transform -translate-x-1/2 w-3 h-2 bg-zinc-800 dark:bg-zinc-300 rounded-full"></div>
                         </div>
                     </div>
+                    {/* Ears */}
+                    <div className="absolute -top-3 -left-1 w-7 h-7 bg-black dark:bg-white rounded-full"></div>
+                    <div className="absolute -top-3 -right-1 w-7 h-7 bg-black dark:bg-white rounded-full"></div>
                 </div>
 
-                {/* Content */}
-                <div className="px-8 pt-20 pb-8 text-center">
-                    <motion.h2
-                        className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent mb-3"
-                        variants={itemVariants}
-                    >
-                        Junte-se à comunidade!
-                    </motion.h2>
-
-                    <motion.p
-                        className="text-gray-600 mb-8"
-                        variants={itemVariants}
-                    >
-                        Crie uma conta ou faça login para começar sua jornada de aprendizado de idiomas.
-                    </motion.p>
-
-                    <div className="flex flex-col space-y-4">
-                        <motion.button
-                            className="py-3 px-6 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-medium rounded-xl shadow-lg cursor-pointer"
-                            onClick={handleRegister}
-                            whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(168, 85, 247, 0.4)" }}
-                            whileTap={{ scale: 0.98 }}
-                            variants={itemVariants}
-                        >
-                            Criar uma conta
-                        </motion.button>
-
-                        <motion.button
-                            className="py-3 px-6 bg-white border-2 border-purple-500 text-purple-600 font-medium rounded-xl shadow-md cursor-pointer"
-                            onClick={handleLogin}
-                            whileHover={{ scale: 1.05, boxShadow: "0 5px 15px -5px rgba(168, 85, 247, 0.2)" }}
-                            whileTap={{ scale: 0.98 }}
-                            variants={itemVariants}
-                        >
-                            Já tenho uma conta
-                        </motion.button>
-                    </div>
+                {/* Decorative bamboo elements */}
+                <div className="absolute -left-8 bottom-0 w-2 bg-emerald-600 dark:bg-emerald-500 rounded-full opacity-50">
+                    <motion.div variants={bambooVariants} animate="animate" style={{ height: '60px' }}></motion.div>
+                </div>
+                <div className="absolute -right-8 bottom-0 w-2 bg-emerald-600 dark:bg-emerald-500 rounded-full opacity-50">
+                    <motion.div variants={bambooVariants} animate="animate" style={{ height: '60px', animationDelay: '1.5s' }}></motion.div>
                 </div>
             </motion.div>
 
-            {/* Animated elements */}
-            <div className="absolute bottom-6 left-0 right-0 z-10 flex justify-center">
-                <motion.p
-                    className="text-sm text-gray-600 bg-white/70 backdrop-blur-sm px-4 py-2 rounded-full"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.2 }}
+            <motion.h2
+                variants={itemVariants}
+                className="text-3xl md:text-4xl font-bold mb-4 text-black dark:text-white"
+            >
+                Ready to <span className="text-emerald-500 dark:text-emerald-400">Start</span>?
+            </motion.h2>
+
+            <motion.p
+                variants={itemVariants}
+                className="text-base md:text-lg text-zinc-700 dark:text-zinc-300 mb-8 max-w-md mx-auto"
+            >
+                Create an account or sign in to begin your language learning adventure with WordPanda!
+            </motion.p>
+
+            <motion.div
+                variants={itemVariants}
+                className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            >
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    onMouseEnter={() => setHoveredButton('register')}
+                    onMouseLeave={() => setHoveredButton(null)}
+                    onClick={() => router.push(ROUTES.REGISTER())}
+                    className="relative px-8 py-3.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-medium rounded-full 
+                             shadow-lg inline-flex items-center justify-center space-x-2 w-full sm:w-auto min-w-[180px]"
                 >
-                    Comece grátis e aprenda idiomas de forma divertida!
-                </motion.p>
-            </div>
+                    <span>Sign Up</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
 
+                    {/* Decorative highlight effect */}
+                    {hoveredButton === 'register' && (
+                        <motion.div
+                            className="absolute inset-0 rounded-full bg-white opacity-20"
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ scale: 1.2, opacity: 0 }}
+                            transition={{ duration: 0.8, repeat: Infinity }}
+                        />
+                    )}
+                </motion.button>
 
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    onMouseEnter={() => setHoveredButton('login')}
+                    onMouseLeave={() => setHoveredButton(null)}
+                    onClick={() => router.push(ROUTES.LOGIN())}
+                    className="relative px-8 py-3.5 border-2 border-zinc-200 dark:border-zinc-700 bg-white/10 dark:bg-black/10 backdrop-blur-sm 
+                             text-black dark:text-white font-medium rounded-full inline-flex items-center justify-center space-x-2 w-full sm:w-auto min-w-[180px]"
+                >
+                    <span>Log In</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                        <polyline points="10 17 15 12 10 7"></polyline>
+                        <line x1="15" y1="12" x2="3" y2="12"></line>
+                    </svg>
+
+                    {/* Decorative highlight effect */}
+                    {hoveredButton === 'login' && (
+                        <motion.div
+                            className="absolute inset-0 rounded-full bg-zinc-400 dark:bg-zinc-300 opacity-10"
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ scale: 1.2, opacity: 0 }}
+                            transition={{ duration: 0.8, repeat: Infinity }}
+                        />
+                    )}
+                </motion.button>
+            </motion.div>
+
+            <motion.div
+                variants={itemVariants}
+                className="mt-8 text-sm text-zinc-600 dark:text-zinc-400"
+            >
+                <p>By signing up, you agree to our Terms of Service and Privacy Policy</p>
+            </motion.div>
         </motion.div>
     );
-}
+};
+
+export default LoginRegisterStep;
