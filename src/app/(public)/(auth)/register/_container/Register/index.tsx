@@ -1,220 +1,145 @@
 "use client";
-import Input from '@common/Input';
-import { SelectLanguage } from '@common/SelectLanguage';
-import { ShowIf } from '@common/ShowIf/ShowIf';
 import { TOKEN_KEY } from '@constants/CONFIGS';
 import { ROUTES } from '@constants/ROUTES';
-import Button from '@core/Button';
-import LoaderSpinner from '@core/LoaderSpinner';
-import { Dialog } from '@mui/material';
 import { setCookie } from '@utils/cookie';
-import Image from 'next/image';
-import Link from 'next/link';
+import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { useActionState, useEffect, useMemo, useRef, useState } from 'react';
-import { useFormStatus } from 'react-dom';
-import Loading from 'src/app/loading';
+import { useActionState, useEffect, useState } from 'react';
 import { submit } from './action';
-import styles from './index.module.scss';
-function Submit() {
-    const status = useFormStatus();
-    return <Button disabled={status.pending} type='submit'>
-        {
-            status.pending ? <LoaderSpinner size='large' /> : 'Cadastrar'
-        }
-    </Button>
-}
+import { AccountDetailsForm } from './components/AccountDetailsForm';
+import { ErrorDialog } from './components/ErrorDialog';
+import { LearningPreferencesForm } from './components/LearningPreferencesForm';
+import { PersonalDetailsForm } from './components/PersonalDetailsForm';
+import { ProfileSetupForm } from './components/ProfileSetupForm';
+import { RegistrationComplete } from './components/RegistrationComplete';
+import { RegistrationHeader } from './components/RegistrationHeader';
+import { RegistrationLayout } from './components/RegistrationLayout';
+import { StepIndicator } from './components/StepIndicator';
 
 export default function Register() {
-    const [state, formAction] = useActionState(submit, {})
-    const route = useRouter()
-    const ref = useRef(undefined);
-    const [steps, setSteps] = useState(1)
-    const [values, setValues] = useState({})
-    const [modalError, setModalError] = useState(false)
-    const [alreadyNavigate, setAlreadyNavigate] = useState(1)
-    const stepsErrors = useMemo(() => [
-        ['email', 'password', 'passwordConfirmation'],
-        ['firstName', 'lastName'],
-        ['phone', 'username', 'language']
-    ], [])
-    const errorsByStep = Object
-        .entries(stepsErrors)
-        .reduce((acc, [key, value]) => {
-            value.forEach(v => {
-                acc[v] = +key
-            })
-            return acc;
-        }, {})
+    const [state, formAction] = useActionState(submit, {});
+    const router = useRouter();
+    const [step, setStep] = useState(1);
+    const [formData, setFormData] = useState(new FormData());
+    const [showError, setShowError] = useState(false);
+    const totalSteps = 4;
+
+    // Handle form submission for each step
+    const handleStepSubmit = (data: FormData, goToNextStep: boolean = true) => {
+        const newFormData = new FormData();
+
+        // Preserve existing data
+        for (const [key, value] of formData.entries()) {
+            newFormData.append(key, value);
+        }
+
+        // Add new data from the current step
+        for (const [key, value] of data.entries()) {
+            newFormData.append(key, value);
+        }
+
+        setFormData(newFormData);
+
+        if (goToNextStep && step < totalSteps) {
+            setStep(prev => prev + 1);
+        } else if (step === totalSteps) {
+            formAction(newFormData);
+        }
+    };
+
+    // Navigation between steps
+    const goToPreviousStep = () => {
+        if (step > 1) {
+            setStep(prev => prev - 1);
+        }
+    };
+
+    // Handle submission responses
     useEffect(() => {
         if (state.success) {
-            route.push(ROUTES.OTP(state.user.id))
+            router.push(ROUTES.OTP(state.user.id));
         }
+
         if (state.error) {
-            setModalError(true)
+            setShowError(true);
         }
+
         if (state.token) {
-            localStorage.setItem(TOKEN_KEY, state.token)
-            setCookie(TOKEN_KEY, state.token)
-            route.push(ROUTES.DASHBOARD())
+            localStorage.setItem(TOKEN_KEY, state.token);
+            setCookie(TOKEN_KEY, state.token);
+            router.push(ROUTES.DASHBOARD());
         }
+
+        // Handle validation errors - return to the appropriate step
         if (state.errors) {
-            for (const key in stepsErrors) {
-                if (stepsErrors[key].some(key => state.errors[key])) {
-                    setSteps(Number(key) + 1)
-                    break;
-                }
+            const errorFields = Object.keys(state.errors);
+
+            if (errorFields.some(field => ['email', 'password', 'passwordConfirmation'].includes(field))) {
+                setStep(1);
+            } else if (errorFields.some(field => ['firstName', 'lastName'].includes(field))) {
+                setStep(2);
+            } else if (errorFields.some(field => ['phone', 'username', 'languageId'].includes(field))) {
+                setStep(3);
+            } else if (errorFields.some(field => ['dailyGoal', 'preferredLearningTime', 'learningStyle', 'difficultyPreference'].includes(field))) {
+                setStep(4);
             }
         }
-    }, [state, route, stepsErrors])
-    useEffect(() => {
-        state.errors = {}
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [values])
-    const inputHandle = (name) => {
-        const findError = errorsByStep[name]
-        return {
-            error: findError < alreadyNavigate ? state.errors?.[name] : '',
-            name,
-            value: values[name],
-            onChange: (e) => setValues({ ...values, [name]: e.target.value })
-        }
-    }
-    return (<>
+    }, [state, router]);
 
-        <main className={styles.main}>
+    return (
+        <RegistrationLayout>
+            <ErrorDialog
+                open={showError}
+                onClose={() => setShowError(false)}
+                message={state.error || "An error occurred during registration"}
+            />
 
-            <Dialog
-                open={modalError}
-                onClose={() => { setModalError(false) }}
+            <RegistrationHeader step={step} totalSteps={totalSteps} />
 
-            >
+            <StepIndicator currentStep={step} totalSteps={totalSteps} />
 
-                <div>
-                    {state.error}
-                </div>
-                <Button onClick={() => setModalError(false)}>
-                    Ok
-                </Button>
-            </Dialog>
-            <form action={formAction} ref={ref}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-                    <Image
-                        src={"/assets/logo.png"}
-                        width={150}
-                        height={150}
-                        alt='logo'
-                        className={styles.image}
+            <AnimatePresence mode="wait">
+                {step === 1 && (
+                    <AccountDetailsForm
+                        onSubmit={handleStepSubmit}
+                        errors={state.errors}
+                        initialValues={formData}
                     />
-                </div>
-                <div className={styles.form}>
-                    <ShowIf condition={steps === 1} preserveSpace>
-                        <Input
-                            placeholder='Email'
-                            title='Email'
-                            type='text'
-                            {...inputHandle('email')}
-                        />
-                        <Input
-                            placeholder='Senha'
-                            title='Senha'
-                            type='password'
-                            {...inputHandle('password')}
-                        />
-                        <Input
-                            placeholder='Confirmação de senha'
-                            title='Confirmação de senha'
-                            type='password'
-                            {...inputHandle('passwordConfirmation')}
-                        />
-                    </ShowIf>
-                    <ShowIf condition={steps === 2} preserveSpace>
-                        <Input
-                            placeholder='Primeiro nome'
-                            title='Primeiro nome'
-                            type='text'
-                            {...inputHandle('firstName')}
-                        />
-                        <Input
-                            placeholder='Ultimo nome'
-                            title='Ultimo nome'
-                            type='text'
-                            {...inputHandle('lastName')}
-                        />
-                    </ShowIf>
-                    <ShowIf condition={steps === 3} preserveSpace>
-                        <Input
-                            placeholder='Telefone'
-                            title='Telefone'
-                            type='phone'
-                            {...inputHandle('phone')}
-                        />
+                )}
 
-                        <Input
-                            placeholder='username'
-                            title='username'
-                            type='text'
-                            {...inputHandle('username')}
-                        />
-                        <div style={{ zIndex: 12412 }}>
-                            <SelectLanguage
-                                name='languageId'
-                                title='Sua lingua nativa'
-                                error={state.errors?.languageId}
-                                dropdownPosition='top'
-                                notPreload={true}
-                            />
-                        </div>
-                    </ShowIf>
-                    <ShowIf condition={steps === 4} >
-                        <Loading />
-                    </ShowIf>
+                {step === 2 && (
+                    <PersonalDetailsForm
+                        onSubmit={handleStepSubmit}
+                        onBack={goToPreviousStep}
+                        errors={state.errors}
+                        initialValues={formData}
+                    />
+                )}
 
-                </div>
-                <div className={styles.buttons}>
-                    <ShowIf condition={steps > 1} preserveSpace>
-                        <Button
-                            onClick={() => setSteps(steps - 1)}
+                {step === 3 && (
+                    <ProfileSetupForm
+                        onSubmit={handleStepSubmit}
+                        onBack={goToPreviousStep}
+                        errors={state.errors}
+                        initialValues={formData}
+                    />
+                )}
 
-                            type='button'
-                        >
-                            Anterior
-                        </Button>
-                    </ShowIf>
-                    <ShowIf condition={steps > 2} preserveSpace>
-                        <Submit />
-                    </ShowIf>
-                    <ShowIf condition={steps < 3} preserveSpace>
-                        <Button
-                            type="submit"
-                            onClick={() => {
-                                setSteps(steps + 1);
-                                if (steps !== 1) setAlreadyNavigate(x => x + 1)
-                            }
-                            }
-                        >
-                            Próximo
-                        </Button>
-                    </ShowIf>
-                </div>
-                <ShowIf condition={steps > 1} preserveSpace>
-                    <div className={styles.progress}>
-                        <div className={styles.progress__bar}
-                            style={{
-                                width: `${(steps - 1) * 33.33}%`
-                            }}
-                        />
-                    </div>
-                </ShowIf>
+                {step === 4 && (
+                    <LearningPreferencesForm
+                        onSubmit={handleStepSubmit}
+                        onBack={goToPreviousStep}
+                        errors={state.errors}
+                        initialValues={formData}
+                        formAction={formAction}
+                    />
+                )}
 
-                <Link href={ROUTES.LOGIN()}
-                    className={styles.link}>
-                    Tem uma conta? Faça login
-                </Link>
-            </form>
-
-        </main></>
-
-    )
+                {step === 5 && (
+                    <RegistrationComplete />
+                )}
+            </AnimatePresence>
+        </RegistrationLayout>
+    );
 }
 

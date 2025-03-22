@@ -5,7 +5,7 @@ import { validateToken } from "@utils/token";
 import { cookies, headers } from "next/headers";
 
 const cache = new Map();
-export async function getUser() {
+export async function getUserInformation() {
     const cookie = await cookies();
     const header = await headers();
     try {
@@ -18,8 +18,9 @@ export async function getUser() {
                 errors: "Token invalid",
             });
         }
-        if (cache.has(user.id)) {
-            return { user: cache.get(user.id) }
+        const cacheKey = `getUserInformation:${user.id}`;
+        if (cache.has(cacheKey)) {
+            return { user: cache.get(cacheKey) }
         }
         const userFound = await prisma.user.findFirst({
             where: {
@@ -62,9 +63,48 @@ export async function getUser() {
             },
 
         });
-        cache.set(user.id, userFound);
+        cache.set(cacheKey, userFound);
         setTimeout(() => {
-            cache.delete(user.id);
+            cache.delete(cacheKey);
+        }, 1000 * 60 * 60 * 24);
+        return { user: userFound }
+
+    } catch (err) {
+        console.log({
+            msg: "Error in getUser",
+            errors: err,
+        })
+        return ({
+            errors: err,
+        });
+    }
+}
+
+export async function getUser() {
+    const cookie = await cookies();
+    const header = await headers();
+    try {
+        const token = cookie.get(TOKEN_KEY)?.value || header.get('Authorization');
+
+        const { decoded: user } = validateToken(token);
+        if (user == undefined) {
+            return ({
+                msg: "Token invalid",
+                errors: "Token invalid",
+            });
+        }
+        const cacheKey = `getUser:${user.id}`;
+        if (cache.has(cacheKey)) {
+            return { user: cache.get(user.id) }
+        }
+        const userFound = await prisma.user.findFirst({
+            where: {
+                id: user.id
+            },
+        });
+        cache.set(cacheKey, userFound);
+        setTimeout(() => {
+            cache.delete(cacheKey);
         }, 1000 * 60 * 60 * 24);
         return { user: userFound }
 

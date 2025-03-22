@@ -501,17 +501,50 @@ body {
   .rotate-y-180 {
     transform: rotateY(180deg);
   }
+
+  /* Add floating particle effect */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+
+  /* Add glow effect for buttons */
+  .glow-effect {
+    position: relative;
+    z-index: 1;
+  }
+
+  .glow-effect:after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0;
+    border-radius: inherit;
+    transition: opacity 0.3s ease;
+    box-shadow: 0 0 20px 5px rgba(16, 185, 129, 0.5);
+  }
+
+  .glow-effect:hover:after {
+    opacity: 1;
+  }
 }
 
-/* Font customization */
-@font-face {
-  font-family: "Stand-Alone";
-  src: url("/fonts/Stand-Alone.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+/* Add to your existing globals.css */
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-.font-stand-alone {
-  font-family: "Stand-Alone", sans-serif;
+.text-shadow-sm {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }

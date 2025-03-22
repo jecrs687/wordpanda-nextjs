@@ -1,5 +1,5 @@
 "use client";
-import { getUser } from '@actions/User/getUser.action';
+import { getUser, getUserInformation } from '@actions/User/getUser.action';
 import { getPlatforms } from '@backend/domain/actions/Platform/getPlatform.action';
 import CardMovieBig from '@common/Cards/CardMovieBig';
 import CardMovieSmall from '@common/Cards/CardMovieSmall';
@@ -29,13 +29,13 @@ const Dashboard = ({
     const { search, setSearch } = useSearch();
     const [languages, setLanguages] = useState(langProp);
     const [medias, setMedias] = useState(mediasProp);
-    const [plat, setPlat] = useState(platProp);
+    const [plat, setPlat] = useState<Platform>(platProp);
     const [loading, setLoading] = useState(false);
     const { theme, setTheme } = useTheme();
     const isDark = theme === 'dark';
 
     const updateValues = useCallback(async () => {
-        const [{ user }, { platforms }] = await Promise.all([getUser(), getPlatforms({
+        const [{ user }, { platforms }] = await Promise.all([getUserInformation(), getPlatforms({
             search
         })])
         const { userLanguages: languages, mediaUser: medias } = user
@@ -484,7 +484,7 @@ const Dashboard = ({
                         </ShowIf>
 
                         {/* Categories with enhanced styling */}
-                        {Object.entries(orderByCategory).map(([category, medias], index) => (
+                        {Object.entries(orderByCategory).map(([category, medias]: any, index) => (
                             <motion.div
                                 key={index}
                                 variants={itemVariants}
