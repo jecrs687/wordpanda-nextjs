@@ -9,7 +9,7 @@ export default async function Page() {
   const { errors, user } = await getUserWithWords();
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen bg-gradient-to-br from-white to-zinc-100 dark:from-gray-950 dark:to-gray-900">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <Suspense fallback={<LoadingProfile />}>
           <UserProfile user={user} />
