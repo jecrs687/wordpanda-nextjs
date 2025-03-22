@@ -18,7 +18,8 @@ export type GamesFlashcardPostResponse = {
 }
 export async function POST(request: Request) {
     const body: GamesFlashcardPostRequest = await request.json();
-    return flashGameAction(body)
+    const response = await flashGameAction(body)
+    return Response.json(response)
 }
 
 export async function GET() {
