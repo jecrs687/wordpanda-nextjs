@@ -10,10 +10,10 @@ interface DifficultyLevelStepProps {
 }
 
 const difficultyOptions = [
-    { id: 'beginner', label: 'Beginner', icon: '🌱', description: 'Start with the basics' },
-    { id: 'intermediate', label: 'Intermediate', icon: '🌿', description: 'Some knowledge but need practice' },
-    { id: 'advanced', label: 'Advanced', icon: '🌳', description: 'Solid foundation looking to improve' },
-    { id: 'expert', label: 'Expert', icon: '🌲', description: 'Looking for challenging content' },
+    { id: '1', label: 'Beginner', icon: '🌱', description: 'Start with the basics' },
+    { id: '2', label: 'Intermediate', icon: '🌿', description: 'Some knowledge but need practice' },
+    { id: '3', label: 'Advanced', icon: '🌳', description: 'Solid foundation looking to improve' },
+    { id: '4', label: 'Expert', icon: '🌲', description: 'Looking for challenging content' },
 ];
 
 export const DifficultyLevelStep = ({ selectedLevel, onSelectLevel, error }: DifficultyLevelStepProps) => {

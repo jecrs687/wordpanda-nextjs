@@ -46,7 +46,7 @@ export default function Register() {
 
         // Add new data from the current step
         for (const [key, value] of data.entries()) {
-            newFormData.append(key, value);
+            newFormData.set(key, value);
         }
 
         setFormData(newFormData);

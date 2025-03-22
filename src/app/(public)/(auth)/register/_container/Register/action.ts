@@ -18,8 +18,15 @@ const schema = z.object({
     //     })
     ,
     firstName: z.string().min(2, "O primeiro nome deve conter no mínimo 2 caracteres").max(100, "O primeiro nome deve conter no máximo 100 caracteres"),
-    lastName: z.string().min(2, "O último nome deve conter no mínimo 2 caracteres").max(100, "O último nome deve conter no máximo 100 caracteres"),
-    passwordConfirmation: z.string().min(6, "A confirmação de senha deve conter no mínimo 6 caracteres").max(100, "A confirmação de senha deve conter no máximo 100 caracteres"),
+    lastName: z
+        .string()
+        .min(2, "O último nome deve conter no mínimo 2 caracteres")
+        .max(100, "O último nome deve conter no máximo 100 caracteres"),
+    passwordConfirmation: z
+        .string()
+        .min(6, "A confirmação de senha deve conter no mínimo 6 caracteres")
+        .max(100, "A confirmação de senha deve conter no máximo 100 caracteres"),
+
     phone: z.string().min(6, "O telefone deve conter no mínimo 6 caracteres").max(100, "O telefone deve conter no máximo 100 caracteres"),
     username: z.string().min(4, "O username deve conter no mínimo 4 caracteres").max(100, "O username deve conter no máximo 100 caracteres"),
     languageId: z.number().int().min(1, "O idioma deve ser válido").max(100, "O idioma deve ser válido")
@@ -32,7 +39,6 @@ const schema = z.object({
         })
     }
 });
-
 export async function submit(currentState, form: FormData) {
 
     const forms = {
@@ -43,6 +49,10 @@ export async function submit(currentState, form: FormData) {
         phone: form.get('phone').toString(),
         passwordConfirmation: form.get('passwordConfirmation').toString(),
         username: form.get('username').toString().toLowerCase(),
+        learningStyle: form.get('learningStyle').toString(),
+        difficultyPreference: form.get('difficultyPreference'),
+        preferredLearningTime: form.get('preferredLearningTime').toString(),
+        dailyGoal: +form.get('dailyGoal'),
         languageId: +form.get('languageId')
     }
     const validate = schema.safeParse(forms) as typeof forms & { error: z.ZodError, success: boolean }
@@ -86,10 +96,10 @@ export async function submit(currentState, form: FormData) {
     try {
         const response = await createUser({
             ...rest,
-            dailyGoal: 0,
-            preferredLearningTime: "",
-            learningStyle: "",
-            difficultyPreference: 0,
+            dailyGoal: forms.dailyGoal || 0,
+            preferredLearningTime: forms.preferredLearningTime || "",
+            learningStyle: forms.learningStyle || "",
+            difficultyPreference: +forms.difficultyPreference || 1,
             streak: 0,
             longestStreak: 0,
             totalPoints: 0,

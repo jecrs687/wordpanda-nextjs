@@ -67,7 +67,7 @@ export function AccountDetailsForm({
                     error={errors.email}
                     required
                     autoComplete="email"
-                    defaultValue={initialValues?.get('email') as string}
+                    defaultValue={errors.email ? "" : initialValues?.get('email') as string}
                 />
             </motion.div>
 
@@ -93,7 +93,7 @@ export function AccountDetailsForm({
                     error={errors.passwordConfirmation}
                     required
                     autoComplete="new-password"
-                    defaultValue={initialValues?.get('passwordConfirmation') as string}
+                    defaultValue={errors.passwordConfirmation ? "" : initialValues?.get('passwordConfirmation') as string}
                 />
             </motion.div>
 

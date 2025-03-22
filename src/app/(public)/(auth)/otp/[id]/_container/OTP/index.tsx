@@ -1,121 +1,94 @@
 "use client";
-import OtpInput from '@common/OTP';
-import { ShowIf } from '@common/ShowIf/ShowIf';
 import { TOKEN_KEY } from '@constants/CONFIGS';
 import { ROUTES } from '@constants/ROUTES';
-import Button from '@core/Button';
-import LoaderSpinner from '@core/LoaderSpinner';
 import { setCookie } from '@utils/cookie';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useActionState, useEffect, useRef, useState } from 'react';
+import { startTransition, useActionState, useEffect, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
-import Loading from 'src/app/loading';
 import { submit } from './action';
-import styles from './index.module.scss';
+import OtpActions from './components/OtpActions';
+import OtpFooter from './components/OtpFooter';
+import OtpHeader from './components/OtpHeader';
+import OtpInputSection from './components/OtpInputSection';
 import { resendOtp } from './resend';
-function Submit({ status }) {
-    return <Button disabled={status.pending} type='submit'>
-        {
-            status.pending ? <LoaderSpinner size='large' /> : 'Confirmar'
-        }
-    </Button>
-}
 
 export default function OtpConfirmation({ id }) {
-    const [state, formAction] = useActionState(submit, {})
+    const [state, formAction] = useActionState(submit, {});
     const status = useFormStatus();
-    const [time, setTime] = useState(0)
-    const route = useRouter()
-    const [values, setValues] = useState<{ id: string, otp?: string }>({ id })
-    const ref = useRef(null)
-    const regress = () => {
-        setTime(60)
-        const inverval = setInterval(() => setTime(x => x - 1), 1000);
+    const [time, setTime] = useState(0);
+    const router = useRouter();
+    const [values, setValues] = useState<{ id: string, otp?: string }>({ id });
+    const formRef = useRef(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const startCooldownTimer = () => {
+        setTime(60);
+        const interval = setInterval(() => setTime(prev => prev - 1), 1000);
         setTimeout(() => {
-            clearInterval(inverval)
-            setTime(0)
-        }, 60000)
-    }
+            clearInterval(interval);
+            setTime(0);
+        }, 60000);
+    };
+
     useEffect(() => {
         if (state.token) {
-            localStorage.setItem(TOKEN_KEY, state.token)
-            setCookie(TOKEN_KEY, state.token)
-            route.push(ROUTES.DASHBOARD())
-
+            localStorage.setItem(TOKEN_KEY, state.token);
+            setCookie(TOKEN_KEY, state.token);
+            router.push(ROUTES.DASHBOARD());
         }
-
-    }, [state, route])
+    }, [state, router]);
 
     useEffect(() => {
         if (values?.otp?.length === 4) {
-            const form = new FormData()
-            form.set('otp', values.otp)
-            form.set('id', values.id)
-            formAction(form)
-        }
-    }, [formAction, values])
+            setIsSubmitting(true);
 
-    const inputHandle = (name) => {
-        return {
-            error: state.errors?.[name],
-            name,
-            value: values[name],
-            onChange: (e) => setValues({ ...values, [name]: e.target.value })
+            // Use startTransition to wrap the formAction call
+            startTransition(() => {
+                const form = new FormData();
+                form.set('otp', values.otp);
+                form.set('id', values.id);
+                const result = formAction(form);
+                Promise.resolve(result).finally(() => setIsSubmitting(false));
+            });
         }
-    }
+    }, [formAction, values]);
+
+    const handleResendOtp = () => {
+        // For server actions like resendOtp, also use startTransition
+        startTransition(() => {
+            resendOtp({ id });
+            startCooldownTimer();
+        });
+    };
+
     return (
-        <main className={styles.main}>
-            <form action={formAction} ref={ref}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-                    <Image
-                        src={"/assets/logo.png"}
-                        width={200}
-                        height={200}
-                        alt='logo'
-                        className={styles.image}
+        <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-4">
+            <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden transform transition-all">
+                <form
+                    action={formAction}
+                    ref={formRef}
+                    className="flex flex-col p-6 md:p-8 space-y-6"
+                >
+                    <input type="hidden" name="id" value={values.id} />
+                    {values.otp && <input type="hidden" name="otp" value={values.otp} />}
+
+                    <OtpHeader />
+
+                    <OtpInputSection
+                        error={state.errors?.otp}
+                        onOtpSubmit={(otp) => setValues(prev => ({ ...prev, otp }))}
+                        isLoading={isSubmitting || status.pending}
                     />
-                </div>
-                <h3>Verificação</h3>
-                <h5>Enviamos um código de verificação para o seu email</h5>
-                <div className={styles.form}>
 
-                    <ShowIf condition={false} preserveSpace>
-                        <input {...inputHandle('otp')} />
-                        <input {...inputHandle('id')} />
+                    <OtpActions
+                        isSubmitting={isSubmitting || status.pending}
+                        cooldownTime={time}
+                        onResendOtp={handleResendOtp}
+                    />
 
-                    </ShowIf>
-                    <OtpInput onOtpSubmit={(otp) => setValues(x => ({ ...x, otp }))} />
-                    {state.errors?.otp && <p className={styles.error}>{state.errors?.otp}</p>}
-                    <ShowIf condition={status.pending} >
-                        <Loading />
-                    </ShowIf>
-
-                </div>
-                <div className={styles.buttons}>
-                    <Submit status={status} />
-                    <Button
-                        disabled={time !== 0}
-                        type='button'
-                        onClick={() => {
-                            resendOtp({ id })
-                            regress()
-                        }
-                        }>
-                        {
-                            time === 0 ? 'Reenviar código' : `Reenviar código em ${time}`
-                        }
-                    </Button>
-                </div>
-
-
-                <Link href={ROUTES.LOGIN()}
-                    className={styles.link}>
-                    Tem uma conta? Faça login
-                </Link>
-            </form>
-
+                    <OtpFooter />
+                </form>
+            </div>
         </main>
-    )
+    );
 }

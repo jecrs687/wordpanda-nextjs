@@ -112,8 +112,8 @@ export function FormInput({
                 {/* Character counter for fields with maxLength */}
                 {maxLength && (
                     <div className={`absolute right-3 bottom-1 text-xs ${localValue.length > maxLength * 0.8
-                            ? 'text-amber-500 dark:text-amber-400'
-                            : 'text-gray-400 dark:text-gray-500'
+                        ? 'text-amber-500 dark:text-amber-400'
+                        : 'text-gray-400 dark:text-gray-500'
                         }`}>
                         {localValue.length}/{maxLength}
                     </div>
@@ -122,7 +122,7 @@ export function FormInput({
 
             {/* Error or hint message with improved visibility */}
             <div className="min-h-[20px]">
-                {error && touched ? (
+                {error ? (
                     <p
                         id={`${name}-error`}
                         className="mt-1.5 text-sm text-red-500 flex items-center"
