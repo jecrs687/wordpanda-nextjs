@@ -9,12 +9,13 @@
     "migrate": "NODE_ENV=development npx tsx ./src/backend/infra/database/migrations",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "seed:generate": "npx tsx ./src/utils/prisma.seed.ts",
     "heroku-cleanup": "rm -rf .next/cache && find node_modules/@next -depth -maxdepth 1 -type d -name 'swc*' -exec rm -rf {} \\; -prune #Remove cache and SWC binaries to reduce heroku slug size",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
-  "prisma":{
+  "prisma": {
     "seed": "npx tsx ./prisma/seed.ts"
   },
   "dependencies": {
