@@ -31,7 +31,7 @@ export default function Page() {
   const [touchStart, setTouchStart] = useState(0);
   const router = useRouter();
   const { queryParams } = useQueryParams();
-  const { theme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const totalSteps = 6;
   const [progressStatus, setProgressStatus] = useState(Array(totalSteps).fill(0));
   const isDarkMode = theme === 'dark';
@@ -45,6 +45,10 @@ export default function Page() {
     { id: 'new-amazing', Component: NewAmazingStep },
     { id: 'login-register', Component: LoginRegisterStep },
   ];
+
+  useEffect(() => {
+    if (theme == "system") setTheme('dark');
+  }, [setTheme, theme]);
 
   // Check authentication
   useEffect(() => {
