@@ -3,27 +3,16 @@
 import { getWords } from '@/src/backend/domain/actions/Word/getWords.action';
 import { memoryGameAction } from '@backend/domain/actions/Games/memory.action';
 import { AnimatePresence, motion } from 'framer-motion';
+import { BrainCircuit } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { Inter, Poppins } from 'next/font/google';
 import { useEffect, useState } from 'react';
+import GameContainer from '../_components/GameContainer';
+import GameHeader from '../_components/GameHeader';
+import LoadingSpinner from '../_components/LoadingSpinner';
 import GameControls from './components/GameControls';
-import GameHeader from './components/GameHeader';
 import GameOverModal from './components/GameOverModal';
 import MemoryCard from './components/MemoryCard';
 import ScorePanel from './components/ScorePanel';
-
-
-// Font setup
-const poppins = Poppins({
-    weight: ['500', '600', '700'],
-    subsets: ['latin'],
-    display: 'swap',
-});
-
-const inter = Inter({
-    subsets: ['latin'],
-    display: 'swap',
-});
 
 interface MemoryGameProps {
     lang: string;
@@ -310,78 +299,78 @@ export default function MemoryGame({ lang, mediaId }: MemoryGameProps) {
     };
 
     if (!mounted) {
-        return null;
+        return <LoadingSpinner />;
     }
 
     // Show loading state
     if (loading) {
-        return (
-            <div className="min-h-screen w-full bg-gradient-to-br from-white via-zinc-50 to-sky-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 p-4 md:p-6 lg:p-8 flex items-center justify-center">
-                <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                    className="w-12 h-12 border-4 border-emerald-500 dark:border-emerald-400 border-t-transparent rounded-full"
-                />
-            </div>
-        );
+        return <LoadingSpinner />;
     }
 
     // Show error state
     if (error || words.length === 0) {
         return (
-            <div className="min-h-screen w-full bg-gradient-to-br from-white via-zinc-50 to-sky-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 p-4 md:p-6 lg:p-8">
-                <div className="max-w-md mx-auto text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-amber-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                    <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">No Words Available</h2>
-                    <p className="text-gray-600 dark:text-gray-300 mb-4">
-                        {error || "There aren't enough words available to play the memory game. Please try with a different language or add more words."}
-                    </p>
-                    <button
-                        onClick={() => window.history.back()}
-                        className="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors"
-                    >
-                        Go Back
-                    </button>
+            <GameContainer>
+                <GameHeader
+                    title="Memory Game"
+                    description="Match the word with its translation"
+                    icon={<BrainCircuit className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />}
+                />
+                <div className="p-6 flex justify-center">
+                    <div className="max-w-md text-center bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg rounded-xl shadow-lg border border-gray-200/50 dark:border-gray-700/50 p-6">
+                        <div className="p-3 rounded-full bg-amber-100 dark:bg-amber-900/30 inline-flex mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                        </div>
+                        <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">No Words Available</h2>
+                        <p className="text-gray-600 dark:text-gray-300 mb-4">
+                            {error || "There aren't enough words available to play the memory game. Please try with a different language or add more words."}
+                        </p>
+                        <button
+                            onClick={() => window.history.back()}
+                            className="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors"
+                        >
+                            Go Back
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </GameContainer>
         );
     }
 
     return (
-        <div className="min-h-screen w-full bg-gradient-to-br from-white via-zinc-50 to-sky-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 p-4 md:p-6 lg:p-8">
-            {/* Decorative background elements */}
-            <div className="fixed top-20 right-20 w-64 h-64 bg-emerald-400/10 dark:bg-emerald-900/10 rounded-full blur-3xl -z-10" />
-            <div className="fixed bottom-40 left-1/4 w-96 h-96 bg-indigo-400/10 dark:bg-indigo-800/10 rounded-full blur-3xl -z-10" />
-
-            <div className="max-w-7xl mx-auto">
-                {/* Game header with title and info */}
-                <GameHeader
-                    title="Memory Game"
-                    description="Match the word with its translation"
-                    score={score}
-                    moves={moves}
-                    gameTime={gameTime}
-                    poppins={poppins}
-                    inter={inter}
-                />
-
-                {/* Game board */}
+        <GameContainer>
+            <GameHeader
+                title="Memory Game"
+                description="Match the word with its translation"
+                icon={<BrainCircuit className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />}
+            />
+            <div className="p-4 lg:p-6">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
-                    className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden border border-gray-200/50 dark:border-gray-700/50 p-4 md:p-6"
+                    className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-lg overflow-hidden border border-gray-200/50 dark:border-gray-700/50 p-4 md:p-6"
                 >
                     {!gameStarted && !gameOver && (
-                        <div className="flex flex-col items-center justify-center">
+                        <div className="flex flex-col items-center justify-center py-8">
+                            <motion.div
+                                className="p-4 bg-emerald-100 dark:bg-emerald-900/30 rounded-full mb-6"
+                                whileHover={{ scale: 1.05 }}
+                            >
+                                <BrainCircuit className="h-10 w-10 text-emerald-500 dark:text-emerald-400" />
+                            </motion.div>
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Memory Challenge</h2>
+                            <p className="text-gray-600 dark:text-gray-300 max-w-md text-center mb-8">
+                                Test your memory by matching words with their translations. Find all pairs as quickly as possible!
+                            </p>
                             <motion.button
                                 initial={{ scale: 1 }}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={() => setGameStarted(true)}
-                                className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-emerald-500/20 transition-all duration-300"
+                                className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-emerald-500/20 transition-all duration-300"
                             >
                                 Start Game
                             </motion.button>
@@ -427,9 +416,14 @@ export default function MemoryGame({ lang, mediaId }: MemoryGameProps) {
                                 timeElapsed={gameTime}
                                 matchedPairs={matchedCards.length / 2}
                                 totalPairs={gameCards.length / 2}
-                                isDark={isDark}
-                                inter={inter}
-                            />
+                                isDark={isDark} inter={{
+                                    className: '',
+                                    style: {
+                                        fontFamily: '',
+                                        fontWeight: 0,
+                                        fontStyle: ''
+                                    }
+                                }} />
                         </>
                     )}
 
@@ -439,21 +433,34 @@ export default function MemoryGame({ lang, mediaId }: MemoryGameProps) {
                         loading={processingAction}
                     />
                 </motion.div>
-
-                {/* Game over modal */}
-                <AnimatePresence>
-                    {gameOver && (
-                        <GameOverModal
-                            score={score}
-                            moves={moves}
-                            timeElapsed={gameTime}
-                            onRestart={restartGame}
-                            poppins={poppins}
-                            inter={inter}
-                        />
-                    )}
-                </AnimatePresence>
             </div>
-        </div>
+
+            {/* Game over modal */}
+            <AnimatePresence>
+                {gameOver && (
+                    <GameOverModal
+                        score={score}
+                        moves={moves}
+                        timeElapsed={gameTime}
+                        onRestart={restartGame}
+                        poppins={{
+                            className: '',
+                            style: {
+                                fontFamily: '',
+                                fontWeight: 0,
+                                fontStyle: ''
+                            }
+                        }}
+                        inter={{
+                            className: '',
+                            style: {
+                                fontFamily: '',
+                                fontWeight: 0,
+                                fontStyle: ''
+                            }
+                        }} />
+                )}
+            </AnimatePresence>
+        </GameContainer>
     );
 }
