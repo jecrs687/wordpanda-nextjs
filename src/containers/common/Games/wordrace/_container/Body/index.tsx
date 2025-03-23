@@ -1,23 +1,24 @@
 'use client';
+
 import { memoryGameAction } from '@backend/domain/actions/Games/memory.action';
 import { getWords } from '@backend/domain/actions/Word/getWords.action';
-import LoaderSpinner from '@core/LoaderSpinner';
-import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+import { CheckCircle, Gauge, Heart, Play, RefreshCw } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { WordWithTranslationsAndUserWords } from 'src/app/api/words/route';
+import Badge from '../../../_components/Badge';
+import ConfettiEffect from '../../../_components/ConfettiEffect';
+import GameButton from '../../../_components/GameButton';
+import { LoadingGames } from '../../../_container/Loading';
+import FallingWord from '../../_components/FallingWord';
 
 type GameWord = {
     id: string;
     word: string;
     meaning: string;
-    status: 'waiting' | 'active' | 'completed' | 'failed';
+    status: 'waiting' | 'active' | 'correct' | 'failed';
     position: number;
 };
-
-const TOTAL_TIME = 60; // Game duration in seconds
-const WORD_SPEED_INITIAL = 3; // Lower is faster
-const MAX_ACTIVE_WORDS = 5;
 
 export const Body = ({
     words,
@@ -28,105 +29,98 @@ export const Body = ({
     lang: string,
     mediaId?: string
 }) => {
+    // Game state
     const [allWords, setAllWords] = useState<WordWithTranslationsAndUserWords[]>([]);
     const [gameWords, setGameWords] = useState<GameWord[]>([]);
-    const [userInput, setUserInput] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
+    const [currentInput, setCurrentInput] = useState('');
     const [score, setScore] = useState(0);
     const [level, setLevel] = useState(1);
-    const [timeLeft, setTimeLeft] = useState(TOTAL_TIME);
-    const [gameStatus, setGameStatus] = useState<'ready' | 'playing' | 'finished'>('ready');
+    const [lives, setLives] = useState(3);
+    const [timeLeft, setTimeLeft] = useState(60);
+    const [gameState, setGameState] = useState<'ready' | 'playing' | 'paused' | 'gameOver'>('ready');
     const [wordsTyped, setWordsTyped] = useState(0);
     const [accuracy, setAccuracy] = useState(100);
     const [typingAttempts, setTypingAttempts] = useState(0);
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [wordSpeed, setWordSpeed] = useState(WORD_SPEED_INITIAL);
+    const [wordSpeed, setWordSpeed] = useState(1); // 1 = slow, 2 = medium, 3 = fast
+    const [fetchIndex, setFetchIndex] = useState(0);
+    const [showConfetti, setShowConfetti] = useState(false);
 
+    // Refs
     const inputRef = useRef<HTMLInputElement>(null);
-    const timerRef = useRef<NodeJS.Timeout | null>(null);
-    const wordSpawnRef = useRef<NodeJS.Timeout | null>(null);
     const gameLoopRef = useRef<NodeJS.Timeout | null>(null);
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
 
     // Fetch words
     const fetchWords = useCallback(async () => {
-        setIsLoading(true);
         try {
             const response = await getWords({
                 language: lang,
-                ...(mediaId ? { mediaId } : { words: words.slice(currentIndex, currentIndex + 50).map(x => x.word) }),
-                limit: 50
+                ...(mediaId
+                    ? { mediaId }
+                    : { words: words.slice(fetchIndex, fetchIndex + 30).map(x => x.word) }),
+                limit: 30
             });
 
             if (response?.data?.words) {
                 const filteredWords = response.data.words.filter(word =>
-                    word.translations &&
-                    word.translations.length > 0 &&
+                    word.translations?.length > 0 &&
                     word.translations[0].meaning &&
-                    word.word.length >= 3
+                    word.word.length >= 3 &&
+                    word.word.length <= 12 // Only use words with reasonable length
                 );
 
                 setAllWords(prev => [...prev, ...filteredWords]);
-                setCurrentIndex(prev => prev + 50);
+                setFetchIndex(prev => prev + 30);
             }
         } catch (error) {
             console.error("Error fetching words:", error);
-        } finally {
-            setIsLoading(false);
         }
-    }, [mediaId, words, currentIndex, lang]);
+    }, [mediaId, words, fetchIndex, lang]);
 
-    // Initialize game
+    // Initialize
     useEffect(() => {
         if (allWords.length === 0) {
             fetchWords();
         }
     }, [allWords.length, fetchWords]);
 
-    // Spawn new words periodically during gameplay
+    // Game loop - handle falling words
     useEffect(() => {
-        if (gameStatus === 'playing') {
-            const activeWords = gameWords.filter(w => w.status === 'active' || w.status === 'waiting');
+        if (gameState === 'playing') {
+            // Generate a new word occasionally
+            const wordGenerationInterval = setInterval(() => {
+                if (gameWords.filter(w => w.status === 'active' || w.status === 'waiting').length < 5) {
+                    // Add a new word if we have fewer than 5 active words
+                    if (allWords.length > 0) {
+                        const randomIndex = Math.floor(Math.random() * allWords.length);
+                        const newWord = allWords[randomIndex];
 
-            if (activeWords.length < MAX_ACTIVE_WORDS && allWords.length > 0) {
-                // Add a new word to the game
-                const newWord = allWords[0];
-                const gameWord: GameWord = {
-                    id: newWord.id,
-                    word: newWord.word.toLowerCase(),
-                    meaning: newWord.translations?.[0]?.meaning || '',
-                    status: 'waiting',
-                    position: 0
-                };
+                        setGameWords(prev => [
+                            ...prev,
+                            {
+                                id: newWord.id,
+                                word: newWord.word.toLowerCase(),
+                                meaning: newWord.translations?.[0]?.meaning || 'No meaning',
+                                status: 'waiting',
+                                position: 0
+                            }
+                        ]);
 
-                setGameWords(prev => [...prev, gameWord]);
-                setAllWords(prev => prev.slice(1));
-
-                // If running low on words, fetch more
-                if (allWords.length < 10) {
-                    fetchWords();
+                        // Remove used word
+                        setAllWords(prev => prev.filter((_, idx) => idx !== randomIndex));
+                    } else {
+                        // If we're running low on words, fetch more
+                        fetchWords();
+                    }
                 }
-            }
+            }, 3000 / level); // Faster word generation at higher levels
 
-            // Set up word spawn timer
-            wordSpawnRef.current = setTimeout(() => {
-                // The next spawn interval is faster as level increases
-                const spawnInterval = Math.max(1000, 2000 - (level * 200));
-                if (wordSpawnRef.current) clearTimeout(wordSpawnRef.current);
-                wordSpawnRef.current = setTimeout(() => { }, spawnInterval);
-            }, 2000);
-
-            return () => {
-                if (wordSpawnRef.current) clearTimeout(wordSpawnRef.current);
-            };
-        }
-    }, [gameWords, gameStatus, allWords, level, fetchWords]);
-
-    // Game loop - move words down the screen
-    useEffect(() => {
-        if (gameStatus === 'playing') {
+            // Move words down
             gameLoopRef.current = setInterval(() => {
                 setGameWords(prev => {
-                    // Move active words down
+                    // If no words left to process, return unchanged
+                    if (prev.length === 0) return prev;
+
                     return prev.map(word => {
                         if (word.status === 'waiting') {
                             // Activate waiting words
@@ -139,6 +133,8 @@ export const Body = ({
 
                             // Mark as failed if word reaches bottom
                             if (newPosition >= 10) {
+                                // Lose a life when a word reaches the bottom
+                                setLives(l => Math.max(0, l - 1));
                                 return { ...word, status: 'failed' };
                             }
 
@@ -148,21 +144,21 @@ export const Body = ({
                         return word;
                     });
                 });
-            }, wordSpeed * 500); // Controls word falling speed
+            }, 500 / wordSpeed); // Controls word falling speed
 
             return () => {
+                clearInterval(wordGenerationInterval);
                 if (gameLoopRef.current) clearInterval(gameLoopRef.current);
             };
         }
-    }, [gameStatus, wordSpeed]);
+    }, [gameState, level, wordSpeed, allWords, fetchWords, gameWords]);
 
     // Game timer
     useEffect(() => {
-        if (gameStatus === 'playing') {
+        if (gameState === 'playing') {
             timerRef.current = setInterval(() => {
                 setTimeLeft(prev => {
                     if (prev <= 1) {
-                        clearInterval(timerRef.current!);
                         endGame();
                         return 0;
                     }
@@ -174,26 +170,50 @@ export const Body = ({
                 if (timerRef.current) clearInterval(timerRef.current);
             };
         }
-    }, [gameStatus]);
+    }, [gameState]);
+
+    // Life counter - end game when lives run out
+    useEffect(() => {
+        if (lives <= 0 && gameState === 'playing') {
+            endGame();
+        }
+    }, [lives, gameState]);
 
     // Focus input when game starts
     useEffect(() => {
-        if (gameStatus === 'playing' && inputRef.current) {
+        if (gameState === 'playing' && inputRef.current) {
             inputRef.current.focus();
         }
-    }, [gameStatus]);
+    }, [gameState]);
+
+    // Check for level up based on score
+    useEffect(() => {
+        if (gameState === 'playing') {
+            // Level up every 100 points
+            const newLevel = Math.floor(score / 100) + 1;
+            if (newLevel > level && newLevel <= 3) {
+                setLevel(newLevel);
+                setWordSpeed(newLevel);
+                // Give bonus time for leveling up
+                setTimeLeft(prev => prev + 15);
+            }
+        }
+    }, [score, level, gameState]);
 
     // Start game
     const startGame = () => {
-        setGameStatus('playing');
-        setTimeLeft(TOTAL_TIME);
+        // Reset game state
+        setGameWords([]);
+        setCurrentInput('');
         setScore(0);
         setLevel(1);
+        setLives(3);
+        setTimeLeft(60);
         setWordsTyped(0);
         setAccuracy(100);
         setTypingAttempts(0);
-        setGameWords([]);
-        setWordSpeed(WORD_SPEED_INITIAL);
+        setWordSpeed(1);
+        setGameState('playing');
 
         // Focus input
         if (inputRef.current) {
@@ -203,43 +223,31 @@ export const Body = ({
 
     // End game
     const endGame = () => {
-        setGameStatus('finished');
+        setGameState('gameOver');
 
         // Clear timers
         if (timerRef.current) clearInterval(timerRef.current);
-        if (wordSpawnRef.current) clearTimeout(wordSpawnRef.current);
         if (gameLoopRef.current) clearInterval(gameLoopRef.current);
     };
 
-    // Handle user input
+    // Handle input change
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value.toLowerCase();
-        setUserInput(value);
+        setCurrentInput(value);
 
-        // Track typing attempts
-        if (value.length > 0) {
-            setTypingAttempts(prev => prev + 1);
-        }
+        // Count typing attempts for accuracy calculation
+        setTypingAttempts(prev => prev + 1);
 
         // Check if input matches any active word
         const matchedWordIndex = gameWords.findIndex(
-            word => word.status === 'active' && word.word.toLowerCase() === value.toLowerCase()
+            word => word.status === 'active' && word.word.toLowerCase() === value
         );
 
         if (matchedWordIndex !== -1) {
+            // Word matched!
             const matchedWord = gameWords[matchedWordIndex];
 
-            // Update score based on word length and level
-            const wordScore = matchedWord.word.length * level;
-            setScore(prev => prev + wordScore);
-
-            // Track words typed
-            setWordsTyped(prev => prev + 1);
-
-            // Update accuracy
-            setAccuracy(Math.round((wordsTyped + 1) / (typingAttempts + 1) * 100));
-
-            // Record word success
+            // Record success
             try {
                 memoryGameAction({
                     wordId: matchedWord.id,
@@ -247,253 +255,241 @@ export const Body = ({
                     mediaId
                 });
             } catch (error) {
-                console.error("Error recording word:", error);
+                console.error("Error recording word success:", error);
             }
 
-            // Mark word as completed
+            // Calculate points based on position (higher = more points)
+            const positionBonus = (10 - matchedWord.position) * 2;
+            const levelBonus = level * 5;
+            const points = 10 + positionBonus + levelBonus;
+
+            // Update game state
+            setScore(prev => prev + points);
+            setWordsTyped(prev => prev + 1);
+            setCurrentInput('');
+
+            // Show confetti for correct word
+            setShowConfetti(true);
+            setTimeout(() => setShowConfetti(false), 1000);
+
+            // Mark word as correct
             setGameWords(prev =>
                 prev.map((word, idx) =>
                     idx === matchedWordIndex
-                        ? { ...word, status: 'completed' }
+                        ? { ...word, status: 'correct' }
                         : word
                 )
             );
 
-            // Clear input
-            setUserInput('');
+            // After a delay, remove the word
+            setTimeout(() => {
+                setGameWords(prev => prev.filter((_, idx) => idx !== matchedWordIndex));
+            }, 500);
 
-            // Check if level up is needed
-            if ((wordsTyped + 1) % 10 === 0) {
-                setLevel(prev => Math.min(prev + 1, 5));
-                setWordSpeed(prev => Math.max(prev - 0.3, 1)); // Speed up the game
-            }
+            // Update accuracy
+            const correctChars = matchedWord.word.length;
+            const totalAttempts = typingAttempts + 1; // Include this successful attempt
+            const newAccuracy = Math.min(100, Math.round((correctChars / totalAttempts) * 100));
+            setAccuracy(newAccuracy);
         }
     };
 
-    // Clean up completed/failed words
-    useEffect(() => {
-        if (gameStatus === 'playing') {
-            const completedWords = gameWords.filter(w => w.status === 'completed');
-            const failedWords = gameWords.filter(w => w.status === 'failed');
-
-            if (completedWords.length > 0 || failedWords.length > 0) {
-                setTimeout(() => {
-                    setGameWords(prev =>
-                        prev.filter(word =>
-                            word.status !== 'completed' && word.status !== 'failed'
-                        )
-                    );
-                }, 500);
-            }
-        }
-    }, [gameWords, gameStatus]);
+    // Format time as mm:ss
+    const formatTime = (seconds: number) => {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    };
 
     // Loading state
-    if (isLoading && allWords.length === 0) {
-        return (
-            <div className="h-full w-full flex items-center justify-center">
-                <div className="flex flex-col items-center">
-                    <LoaderSpinner size="large" />
-                    <p className="mt-4 text-zinc-300 dark:text-zinc-400">
-                        Loading word race game...
-                    </p>
-                </div>
-            </div>
-        );
+    if (allWords.length === 0) {
+        return <LoadingGames />;
     }
 
-    // Game start screen
-    if (gameStatus === 'ready') {
+    // Render game UI
+    if (gameState === 'ready') {
         return (
-            <div className="relative h-full w-full flex items-center justify-center p-6">
-                <div className="absolute top-20 left-10 w-64 h-64 bg-emerald-400/10 rounded-full blur-3xl -z-10 animate-pulse" />
-                <div className="absolute bottom-40 right-10 w-96 h-96 bg-indigo-400/10 rounded-full blur-3xl -z-10 animate-pulse" style={{ animationDuration: '8s' }} />
-
+            <div className="w-full max-w-3xl mx-auto">
                 <motion.div
-                    className="max-w-lg w-full bg-gray-900/60 backdrop-blur-lg border border-gray-700/50 rounded-2xl p-8 shadow-xl"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
+                    className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-xl p-6 shadow-lg"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <h2 className="text-3xl font-bold text-white text-center mb-6">Word Race</h2>
+                    <div className="text-center mb-8">
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Word Race</h2>
+                        <p className="text-gray-600 dark:text-gray-300">
+                            Type the falling words before they reach the bottom. You have 3 lives and 60 seconds!
+                        </p>
+                    </div>
 
-                    <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 mb-8">
-                        <h3 className="text-xl text-white font-medium mb-4">How to Play:</h3>
-                        <ul className="text-zinc-300 space-y-2">
-                            <li className="flex items-start">
-                                <span className="mr-2">•</span>
-                                <span>Words will appear and fall down the screen</span>
-                            </li>
-                            <li className="flex items-start">
-                                <span className="mr-2">•</span>
-                                <span>Type each word before it reaches the bottom</span>
-                            </li>
-                            <li className="flex items-start">
-                                <span className="mr-2">•</span>
-                                <span>Score more points by typing faster and correctly</span>
-                            </li>
-                            <li className="flex items-start">
-                                <span className="mr-2">•</span>
-                                <span>The game gets faster as your level increases</span>
-                            </li>
+                    <div className="bg-gray-100/80 dark:bg-gray-700/80 rounded-xl p-4 mb-6">
+                        <h3 className="font-medium text-gray-900 dark:text-white mb-2">How to Play:</h3>
+                        <ul className="text-gray-600 dark:text-gray-300 space-y-1 text-sm">
+                            <li>• Words will fall from the top of the screen</li>
+                            <li>• Type each word correctly to clear it</li>
+                            <li>• If a word reaches the bottom, you lose a life</li>
+                            <li>• The game gets faster as you level up</li>
+                            <li>• Score as many points as you can before time runs out!</li>
                         </ul>
                     </div>
 
                     <div className="flex justify-center">
-                        <motion.button
-                            className="px-8 py-3 bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-lg rounded-lg shadow-lg"
+                        <GameButton
                             onClick={startGame}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                            variant="primary"
+                            size="lg"
+                            icon={<Play className="h-5 w-5" />}
                         >
                             Start Game
-                        </motion.button>
+                        </GameButton>
                     </div>
                 </motion.div>
             </div>
         );
     }
 
-    // Game finished screen
-    if (gameStatus === 'finished') {
+    if (gameState === 'gameOver') {
         return (
-            <div className="relative h-full w-full flex items-center justify-center p-6">
-                <div className="absolute top-20 left-10 w-64 h-64 bg-emerald-400/10 rounded-full blur-3xl -z-10 animate-pulse" />
-                <div className="absolute bottom-40 right-10 w-96 h-96 bg-indigo-400/10 rounded-full blur-3xl -z-10 animate-pulse" style={{ animationDuration: '8s' }} />
-
+            <div className="w-full max-w-3xl mx-auto">
                 <motion.div
-                    className="max-w-lg w-full bg-gray-900/60 backdrop-blur-lg border border-gray-700/50 rounded-2xl p-8 shadow-xl"
+                    className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-xl p-6 shadow-lg"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <h2 className="text-3xl font-bold text-white text-center mb-6">Game Over!</h2>
-
-                    <div className="grid grid-cols-2 gap-4 mb-8">
-                        <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 flex flex-col items-center">
-                            <p className="text-zinc-400 text-sm mb-1">Score</p>
-                            <p className="text-emerald-400 text-2xl font-bold">{score}</p>
-                        </div>
-
-                        <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 flex flex-col items-center">
-                            <p className="text-zinc-400 text-sm mb-1">Level</p>
-                            <p className="text-indigo-400 text-2xl font-bold">{level}</p>
-                        </div>
-
-                        <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 flex flex-col items-center">
-                            <p className="text-zinc-400 text-sm mb-1">Words Typed</p>
-                            <p className="text-amber-400 text-2xl font-bold">{wordsTyped}</p>
-                        </div>
-
-                        <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 flex flex-col items-center">
-                            <p className="text-zinc-400 text-sm mb-1">Accuracy</p>
-                            <p className="text-cyan-400 text-2xl font-bold">{accuracy}%</p>
+                    <div className="flex justify-center mb-6">
+                        <div className="bg-emerald-100 dark:bg-emerald-900/30 p-3 rounded-full">
+                            <CheckCircle className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
                         </div>
                     </div>
 
-                    <div className="flex justify-center">
-                        <motion.button
-                            className="px-8 py-3 bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-lg rounded-lg shadow-lg"
-                            onClick={startGame}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            Play Again
-                        </motion.button>
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white text-center mb-2">
+                        Game Over!
+                    </h2>
+
+                    <p className="text-gray-600 dark:text-gray-300 text-center mb-6">
+                        {lives <= 0
+                            ? 'You ran out of lives!'
+                            : 'Time\'s up! Great effort!'}
+                    </p>
+
+                    <div className="grid grid-cols-2 gap-4 mb-6">
+                        <div className="bg-gray-100/80 dark:bg-gray-800/80 p-4 rounded-lg text-center">
+                            <p className="text-sm text-gray-500 dark:text-gray-400">Final Score</p>
+                            <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">{score}</p>
+                        </div>
+
+                        <div className="bg-gray-100/80 dark:bg-gray-800/80 p-4 rounded-lg text-center">
+                            <p className="text-sm text-gray-500 dark:text-gray-400">Words Typed</p>
+                            <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{wordsTyped}</p>
+                        </div>
+
+                        <div className="bg-gray-100/80 dark:bg-gray-800/80 p-4 rounded-lg text-center">
+                            <p className="text-sm text-gray-500 dark:text-gray-400">Accuracy</p>
+                            <p className="text-2xl font-bold text-amber-600 dark:text-amber-400">{accuracy}%</p>
+                        </div>
+
+                        <div className="bg-gray-100/80 dark:bg-gray-800/80 p-4 rounded-lg text-center">
+                            <p className="text-sm text-gray-500 dark:text-gray-400">Level Reached</p>
+                            <p className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">{level}</p>
+                        </div>
                     </div>
+
+                    <GameButton
+                        onClick={startGame}
+                        variant="primary"
+                        size="lg"
+                        fullWidth
+                        icon={<RefreshCw className="h-5 w-5" />}
+                    >
+                        Play Again
+                    </GameButton>
                 </motion.div>
             </div>
         );
     }
 
-    // Active gameplay screen
     return (
-        <div className="relative h-full w-full flex flex-col p-6">
-            {/* Background decorations */}
-            <div className="absolute top-20 left-10 w-64 h-64 bg-emerald-400/10 rounded-full blur-3xl -z-10 animate-pulse" />
-            <div className="absolute bottom-40 right-10 w-96 h-96 bg-indigo-400/10 rounded-full blur-3xl -z-10 animate-pulse" style={{ animationDuration: '8s' }} />
+        <div className="w-full max-w-3xl mx-auto">
+            {/* Confetti effect for correct answers */}
+            <ConfettiEffect active={showConfetti} pieces={30} />
 
-            {/* Game HUD */}
-            <div className="flex justify-between items-center mb-4">
-                <div className="flex items-center gap-3">
-                    <div className="bg-gray-800/70 backdrop-blur-sm rounded-full px-4 py-2">
-                        <span className="text-emerald-400 font-medium">Score: {score}</span>
-                    </div>
-
-                    <div className="bg-gray-800/70 backdrop-blur-sm rounded-full px-4 py-2">
-                        <span className="text-indigo-400 font-medium">Level: {level}</span>
-                    </div>
+            {/* Game header stats */}
+            <div className="flex flex-wrap justify-between items-center gap-4 mb-4">
+                <div className="flex flex-wrap gap-2">
+                    <Badge variant="success" size="md">Score: {score}</Badge>
+                    <Badge variant="primary" size="md">Level: {level}</Badge>
                 </div>
 
-                <div className="bg-gray-800/70 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                    </svg>
-                    <span className={clsx(
-                        "font-medium",
-                        timeLeft < 10 ? "text-rose-400" : "text-white"
-                    )}>
-                        {timeLeft}s
-                    </span>
+                <div className="flex flex-wrap gap-2">
+                    <div className="flex">
+                        {[...Array(3)].map((_, idx) => (
+                            <Heart
+                                key={idx}
+                                className={`h-5 w-5 ${idx < lives ? 'text-rose-500 fill-rose-500' : 'text-gray-300 dark:text-gray-600'}`}
+                            />
+                        ))}
+                    </div>
+
+                    <Badge
+                        variant={timeLeft < 15 ? "danger" : "info"}
+                        size="md"
+                        pulse={timeLeft < 15}
+                    >
+                        {formatTime(timeLeft)}
+                    </Badge>
                 </div>
             </div>
 
             {/* Game area */}
-            <div className="flex-1 bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-xl overflow-hidden relative">
+            <div className="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-xl h-[400px] overflow-hidden">
+                {/* Grid lines for visual reference */}
+                <div className="absolute inset-0 grid grid-rows-10 pointer-events-none">
+                    {[...Array(10)].map((_, idx) => (
+                        <div
+                            key={idx}
+                            className="border-b border-dashed border-gray-200 dark:border-gray-700/50"
+                        />
+                    ))}
+                </div>
+
+                {/* Game gauge */}
+                <div className="absolute top-2 right-2">
+                    <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 bg-gray-100/80 dark:bg-gray-700/80 px-2 py-1 rounded-full">
+                        <Gauge className="h-3.5 w-3.5 text-indigo-500 dark:text-indigo-400" />
+                        <span>Speed: {wordSpeed}x</span>
+                    </div>
+                </div>
+
                 {/* Falling words */}
-                <div className="absolute inset-0">
+                <div className="relative h-full">
                     <AnimatePresence>
-                        {gameWords.map((word, idx) => (
+                        {gameWords.map((word) => (
                             word.status === 'active' && (
-                                <motion.div
-                                    key={`${word.id}-${idx}`}
-                                    className="absolute left-0 flex w-full justify-center"
-                                    initial={{ y: -50, opacity: 0 }}
-                                    animate={{
-                                        y: word.position * 50,
-                                        opacity: 1
-                                    }}
-                                    exit={{
-                                        scale: word.status === 'completed' as GameWord['status'] ? 1.5 : 1,
-                                        opacity: 0,
-                                        transition: { duration: 0.3 }
-                                    }}
-                                    style={{
-                                        left: `${(idx % 5) * 20 + 5}%`
-                                    }}
-                                >
-                                    <div className={clsx(
-                                        "px-4 py-2 rounded-lg text-white font-medium",
-                                        word.status === 'completed' as GameWord['status']
-                                            ? "bg-emerald-500/80"
-                                            : word.position >= 8
-                                                ? "bg-rose-500/80"
-                                                : "bg-indigo-600/80"
-                                    )}>
-                                        {word.word}
-                                    </div>
-                                </motion.div>
+                                <FallingWord
+                                    key={word.id}
+                                    word={word.word}
+                                    position={word.position}
+                                    isCorrect={false} // Adjusted to avoid type mismatch
+                                />
                             )
                         ))}
                     </AnimatePresence>
                 </div>
-
-                {/* Bottom area */}
-                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-900/80 to-transparent" />
             </div>
 
-            {/* Input area */}
+            {/* Input field */}
             <div className="mt-4">
                 <input
                     ref={inputRef}
                     type="text"
-                    value={userInput}
+                    value={currentInput}
                     onChange={handleInputChange}
-                    placeholder="Type the falling words here..."
-                    className="w-full px-4 py-3 rounded-lg bg-gray-800/60 border-2 border-gray-700/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-400/50 focus:border-indigo-400/50 transition-all"
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-400 text-center font-medium text-lg"
+                    placeholder="Type the words here..."
                     autoComplete="off"
                     autoCapitalize="off"
-                    autoCorrect="off"
                     spellCheck="false"
                 />
             </div>

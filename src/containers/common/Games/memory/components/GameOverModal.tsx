@@ -1,141 +1,142 @@
-import { motion } from 'framer-motion';
-import { NextFont } from 'next/dist/compiled/@next/font';
-import { Inter } from 'next/font/google';
+'use client';
 
-interface GameOverModalProps {
+import { motion } from 'framer-motion';
+import { Award, Clock, RefreshCw, RotateCcw } from 'lucide-react';
+import { NextFont } from 'next/dist/compiled/@next/font';
+import GameButton from '../../_components/GameButton';
+
+type GameOverModalProps = {
     score: number;
     moves: number;
     timeElapsed: number;
     onRestart: () => void;
     poppins: NextFont;
-    inter: ReturnType<typeof Inter>;
-}
+    inter: NextFont;
+};
 
-export default function GameOverModal({
+const GameOverModal = ({
     score,
     moves,
     timeElapsed,
     onRestart,
     poppins,
     inter
-}: GameOverModalProps) {
-    // Format time as MM:SS
-    const formatTime = (seconds: number): string => {
+}: GameOverModalProps) => {
+    // Format time as mm:ss
+    const formatTime = (seconds: number) => {
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
-        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
     };
-
-    // Calculate star rating based on moves and time
-    const getStarRating = (): number => {
-        // This is a simple algorithm - could be refined based on game testing
-        const avgMovesPerPair = moves / 6; // Assuming 6 pairs
-        const timePerPair = timeElapsed / 6;
-
-        if (avgMovesPerPair <= 2 && timePerPair < 10) return 3;
-        if (avgMovesPerPair <= 3 && timePerPair < 20) return 2;
-        return 1;
-    };
-
-    const starRating = getStarRating();
 
     return (
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 dark:bg-black/50 backdrop-blur-sm"
         >
             <motion.div
-                initial={{ scale: 0.8, y: 30, opacity: 0 }}
-                animate={{ scale: 1, y: 0, opacity: 1 }}
-                exit={{ scale: 0.8, y: 30, opacity: 0 }}
-                transition={{ type: "spring", duration: 0.5 }}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md overflow-hidden border border-gray-200/50 dark:border-gray-700/50"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-md rounded-xl p-6 md:p-8 max-w-md w-full border border-gray-200/50 dark:border-gray-700/50 shadow-xl"
             >
-                <div className="bg-gradient-to-r from-emerald-500 to-cyan-500 py-6 px-8 text-white">
-                    <h3 className={`${poppins.className} text-2xl font-bold text-center`}>
-                        Parabéns!
-                    </h3>
-                    <p className="text-center text-white/90 mt-1">
-                        Você completou o jogo da memória!
+                <div className="text-center mb-6">
+                    <div className="flex justify-center mb-4">
+                        <motion.div
+                            className="relative"
+                            animate={{ rotate: [0, 10, -10, 0] }}
+                            transition={{ duration: 1, repeat: 2 }}
+                        >
+                            <Award className="h-16 w-16 text-amber-500 dark:text-amber-400" />
+                            <motion.span
+                                className="absolute inset-0 rounded-full bg-amber-400/20"
+                                animate={{ scale: [1, 1.5, 1] }}
+                                transition={{ duration: 2, repeat: Infinity }}
+                            />
+                        </motion.div>
+                    </div>
+                    <h2 className={`text-3xl font-bold text-gray-900 dark:text-white mb-2 ${poppins.className}`}>
+                        Congratulations!
+                    </h2>
+                    <p className={`text-gray-600 dark:text-gray-300 ${inter.className}`}>
+                        You've completed the memory game. Here are your stats:
                     </p>
                 </div>
 
-                <div className="p-6">
-                    {/* Stars rating */}
-                    <div className="flex justify-center mb-6">
-                        {[1, 2, 3].map((star) => (
-                            <motion.div
-                                key={star}
-                                initial={{ scale: 0, rotate: -180 }}
-                                animate={{
-                                    scale: 1,
-                                    rotate: 0,
-                                    opacity: star <= starRating ? 1 : 0.3
-                                }}
-                                transition={{
-                                    delay: 0.3 + (star * 0.2),
-                                    type: "spring",
-                                    stiffness: 300,
-                                    damping: 15
-                                }}
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                    className={`w-12 h-12 mx-1 ${star <= starRating ? 'text-amber-400' : 'text-gray-300 dark:text-gray-600'
-                                        }`}
-                                >
-                                    <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
-                                </svg>
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    {/* Game stats */}
-                    <div className="grid grid-cols-3 gap-4 mb-6">
-                        <div className="text-center">
-                            <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Pontuação</div>
-                            <div className="text-xl font-bold text-emerald-600 dark:text-emerald-400">{score}</div>
-                        </div>
-                        <div className="text-center">
-                            <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Jogadas</div>
-                            <div className="text-xl font-bold text-indigo-600 dark:text-indigo-400">{moves}</div>
-                        </div>
-                        <div className="text-center">
-                            <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Tempo</div>
-                            <div className="text-xl font-bold text-cyan-600 dark:text-cyan-400">{formatTime(timeElapsed)}</div>
-                        </div>
-                    </div>
-
-                    {/* Feedback message */}
-                    <div className="text-center mb-6">
-                        <p className={`${inter.className} text-gray-600 dark:text-gray-300`}>
-                            {starRating === 3 ? (
-                                "Excelente! Você dominou o jogo da memória!"
-                            ) : starRating === 2 ? (
-                                "Muito bom! Pratique mais para melhorar sua pontuação!"
-                            ) : (
-                                "Bom trabalho! Continue praticando para aumentar sua memória!"
-                            )}
-                        </p>
-                    </div>
-
-                    {/* Action buttons */}
-                    <div className="flex gap-4">
-                        <motion.button
-                            whileHover={{ scale: 1.03 }}
-                            whileTap={{ scale: 0.97 }}
-                            onClick={onRestart}
-                            className="flex-1 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-semibold shadow-lg hover:shadow-emerald-500/20 transition-all duration-300"
+                <div className="grid grid-cols-2 gap-4 mb-8">
+                    <div className="bg-gray-100/80 dark:bg-gray-800/80 rounded-xl p-4 text-center">
+                        <motion.div
+                            initial={{ scale: 0.5, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ delay: 0.1 }}
                         >
-                            Jogar Novamente
-                        </motion.button>
+                            <Award className="h-5 w-5 text-emerald-500 dark:text-emerald-400 mx-auto mb-1" />
+                            <p className={`text-sm text-gray-500 dark:text-gray-400 ${inter.className}`}>Score</p>
+                            <p className={`text-2xl font-bold text-emerald-600 dark:text-emerald-400 ${poppins.className}`}>
+                                {score}
+                            </p>
+                        </motion.div>
+                    </div>
+
+                    <div className="bg-gray-100/80 dark:bg-gray-800/80 rounded-xl p-4 text-center">
+                        <motion.div
+                            initial={{ scale: 0.5, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ delay: 0.2 }}
+                        >
+                            <Clock className="h-5 w-5 text-blue-500 dark:text-blue-400 mx-auto mb-1" />
+                            <p className={`text-sm text-gray-500 dark:text-gray-400 ${inter.className}`}>Time</p>
+                            <p className={`text-2xl font-bold text-blue-600 dark:text-blue-400 ${poppins.className}`}>
+                                {formatTime(timeElapsed)}
+                            </p>
+                        </motion.div>
+                    </div>
+
+                    <div className="bg-gray-100/80 dark:bg-gray-800/80 rounded-xl p-4 text-center">
+                        <motion.div
+                            initial={{ scale: 0.5, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ delay: 0.3 }}
+                        >
+                            <RotateCcw className="h-5 w-5 text-indigo-500 dark:text-indigo-400 mx-auto mb-1" />
+                            <p className={`text-sm text-gray-500 dark:text-gray-400 ${inter.className}`}>Moves</p>
+                            <p className={`text-2xl font-bold text-indigo-600 dark:text-indigo-400 ${poppins.className}`}>
+                                {moves}
+                            </p>
+                        </motion.div>
+                    </div>
+
+                    <div className="bg-gray-100/80 dark:bg-gray-800/80 rounded-xl p-4 text-center">
+                        <motion.div
+                            initial={{ scale: 0.5, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ delay: 0.4 }}
+                        >
+                            <div className="h-5 w-5 text-amber-500 dark:text-amber-400 mx-auto mb-1 flex items-center justify-center">
+                                <span className="text-lg font-bold">🧠</span>
+                            </div>
+                            <p className={`text-sm text-gray-500 dark:text-gray-400 ${inter.className}`}>Efficiency</p>
+                            <p className={`text-2xl font-bold text-amber-600 dark:text-amber-400 ${poppins.className}`}>
+                                {moves > 0 ? Math.round((score / moves) * 10) / 10 : 0}
+                            </p>
+                        </motion.div>
                     </div>
                 </div>
+
+                <GameButton
+                    onClick={onRestart}
+                    variant="primary"
+                    size="lg"
+                    fullWidth
+                    icon={<RefreshCw className="h-5 w-5" />}
+                >
+                    Play Again
+                </GameButton>
             </motion.div>
         </motion.div>
     );
-}
+};
+
+export default GameOverModal;

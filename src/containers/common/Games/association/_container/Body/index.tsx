@@ -1,475 +1,385 @@
 'use client';
 
-import { Progress } from '@/components/ui/progress';
 import { memoryGameAction } from '@backend/domain/actions/Games/memory.action';
-import { getWords } from '@backend/domain/actions/Word/getWords.action';
-import { ROUTES } from '@constants/ROUTES';
-import Button from '@core/Button';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Award, BrainCircuit, Loader2, Network, RefreshCw, Sparkles } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import Link from 'next/link';
+import { CheckCircle, Clock, RefreshCw, Share2, Zap } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
-import { WordWithTranslationsAndUserWords } from 'src/app/api/words/route';
+import GameButton from '../../../_components/GameButton';
+import { LoadingGames } from '../../../_container/Loading';
+import WordAssociationCard from '../../_components/WordAssociationCard';
 
-// Word associations: words that are commonly related to each other
-const WORD_ASSOCIATIONS: Record<string, Record<string, string[]>> = {
-    'en': {
-        'hot': ['cold', 'warm', 'fire', 'sun', 'summer'],
-        'day': ['night', 'morning', 'sun', 'light', 'time'],
-        'water': ['drink', 'sea', 'ocean', 'river', 'liquid'],
-        'food': ['eat', 'hungry', 'meal', 'restaurant', 'kitchen'],
-        'happy': ['sad', 'joy', 'smile', 'laugh', 'emotion'],
-        'big': ['small', 'large', 'huge', 'size', 'giant'],
-        'fast': ['slow', 'quick', 'speed', 'race', 'car'],
-        'good': ['bad', 'nice', 'excellent', 'quality', 'positive'],
-        'old': ['new', 'young', 'ancient', 'age', 'elderly'],
-        'work': ['job', 'office', 'business', 'career', 'money'],
-        'house': ['home', 'building', 'family', 'roof', 'room'],
-        'book': ['read', 'write', 'page', 'library', 'story'],
-        'car': ['drive', 'road', 'vehicle', 'travel', 'wheel'],
-        'time': ['clock', 'hour', 'minute', 'day', 'year'],
-        'money': ['bank', 'rich', 'wealth', 'cash', 'coin']
-    },
-    'es': {
-        'caliente': ['frío', 'calor', 'fuego', 'sol', 'verano'],
-        'día': ['noche', 'mañana', 'sol', 'luz', 'tiempo'],
-        'agua': ['beber', 'mar', 'océano', 'río', 'líquido'],
-        'comida': ['comer', 'hambre', 'plato', 'restaurante', 'cocina'],
-        'feliz': ['triste', 'alegría', 'sonrisa', 'reír', 'emoción'],
-        'grande': ['pequeño', 'enorme', 'tamaño', 'gigante', 'amplio'],
-        'rápido': ['lento', 'veloz', 'velocidad', 'carrera', 'coche'],
-        'bueno': ['malo', 'agradable', 'excelente', 'calidad', 'positivo']
-    },
-    'fr': {
-        'chaud': ['froid', 'chaleur', 'feu', 'soleil', 'été'],
-        'jour': ['nuit', 'matin', 'soleil', 'lumière', 'temps'],
-        'eau': ['boire', 'mer', 'océan', 'rivière', 'liquide'],
-        'nourriture': ['manger', 'faim', 'repas', 'restaurant', 'cuisine'],
-        'heureux': ['triste', 'joie', 'sourire', 'rire', 'émotion']
+type WordType = {
+    id: string;
+    word: string;
+    definition: string;
+    selected: boolean;
+    matched: boolean;
+};
+
+// Animation variants
+const cardGridVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.05
+        }
     }
 };
 
-interface WordCard {
-    id: string;
-    word: string;
-    isFlipped: boolean;
-    isMatched: boolean;
-    pairId: number;
-}
+const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { type: "spring", stiffness: 300, damping: 25 }
+    }
+};
 
-export const Body = ({ words, lang, mediaId }: { words: { word: string }[], lang: string, mediaId?: string }) => {
-    const { theme } = useTheme();
-    const [allWords, setAllWords] = useState<WordWithTranslationsAndUserWords[]>([]);
-    const [wordCards, setWordCards] = useState<WordCard[]>([]);
-    const [flippedCards, setFlippedCards] = useState<string[]>([]);
-    const [matchedPairs, setMatchedPairs] = useState<number[]>([]);
+export function Body({ words, lang, mediaId }: {
+    words: { word: string; id?: string }[],
+    lang: string,
+    mediaId?: string
+}) {
+    const [gameWords, setGameWords] = useState<WordType[]>([]);
+    const [selectedWords, setSelectedWords] = useState<WordType[]>([]);
     const [score, setScore] = useState(0);
-    const [moves, setMoves] = useState(0);
-    const [level, setLevel] = useState(1);
-    const [isGameCompleted, setIsGameCompleted] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+    const [timeLeft, setTimeLeft] = useState(120);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [gameOver, setGameOver] = useState(false);
+    const [matchesFound, setMatchesFound] = useState(0);
+    const [isGameLoading, setIsGameLoading] = useState(false);
+    const [maxScore, setMaxScore] = useState(0);
+    const [currentStreak, setCurrentStreak] = useState(0);
 
-    // Initialize game with words from the API
-    const updateWords = useCallback(async () => {
-        setIsLoading(true);
-        try {
-            const response = await getWords({
-                language: lang,
-                mediaId,
-                limit: 50
-            });
-            setAllWords(response.data.words);
-        } catch (error) {
-            console.error("Failed to fetch words:", error);
-        } finally {
-            setIsLoading(false);
-        }
-    }, [lang, mediaId]);
+    // Prepare game with words
+    const prepareGame = useCallback(() => {
+        if (words.length < 6) return;
 
+        setIsGameLoading(true);
+
+        // Take a subset of words for the game
+        const gameWordsCount = Math.min(12, words.length);
+        const shuffledWords = [...words]
+            .sort(() => Math.random() - 0.5)
+            .slice(0, gameWordsCount)
+            .map(word => ({
+                id: word.id || Math.random().toString(36).substring(2),
+                word: word.word,
+                definition: 'Association match',
+                selected: false,
+                matched: false
+            }));
+
+        setGameWords(shuffledWords);
+        setSelectedWords([]);
+        setScore(0);
+        setTimeLeft(120);
+        setIsPlaying(true);
+        setGameOver(false);
+        setMatchesFound(0);
+        setCurrentStreak(0);
+
+        // Calculate max possible score
+        setMaxScore(gameWordsCount * 10);
+
+        setTimeout(() => {
+            setIsGameLoading(false);
+        }, 500);
+    }, [words]);
+
+    // Initialize game
     useEffect(() => {
-        updateWords();
-    }, [updateWords]);
+        if (words.length > 0 && !isPlaying && !gameOver) {
+            prepareGame();
+        }
+    }, [words, isPlaying, gameOver, prepareGame]);
 
-    // Set up the game when words are loaded
+    // Game timer
     useEffect(() => {
-        if (allWords.length > 0) {
-            setupCards(level);
-        }
-    }, [allWords, level]);
+        let timer: NodeJS.Timeout;
 
-    const setupCards = (currentLevel: number) => {
-        // Number of pairs increases with level
-        const numPairs = Math.min(6 + currentLevel, 10);
-
-        // Generate card pairs for the game
-        const cardPairs: WordCard[] = [];
-        const usedWordIds = new Set<string>();
-        const langAssociations = WORD_ASSOCIATIONS[lang as keyof typeof WORD_ASSOCIATIONS] || WORD_ASSOCIATIONS['en'];
-
-        const filteredWords = allWords.filter(word =>
-            langAssociations[word.word.toLowerCase()] !== undefined
-        );
-
-        // If we don't have enough words with associations, use random words
-        const wordsToUse = filteredWords.length >= numPairs ? filteredWords : allWords;
-
-        for (let i = 0; i < numPairs && i < wordsToUse.length; i++) {
-            let baseWord: WordWithTranslationsAndUserWords | undefined;
-
-            // Find a word we haven't used yet
-            do {
-                const randomIndex = Math.floor(Math.random() * wordsToUse.length);
-                baseWord = wordsToUse[randomIndex];
-            } while (baseWord && usedWordIds.has(baseWord.id));
-
-            if (!baseWord) break;
-            usedWordIds.add(baseWord.id);
-
-            // Create first card with the base word
-            cardPairs.push({
-                id: `card-${i}-a-${baseWord.id}`,
-                word: baseWord.word,
-                isFlipped: false,
-                isMatched: false,
-                pairId: i
-            });
-
-            // Find or create a related word for the matching card
-            const relatedWords = langAssociations[baseWord.word.toLowerCase()];
-            if (relatedWords && relatedWords.length > 0) {
-                // Use a related word from our predefined associations
-                const randomRelatedWord = relatedWords[Math.floor(Math.random() * relatedWords.length)];
-                cardPairs.push({
-                    id: `card-${i}-b-${baseWord.id}`,
-                    word: randomRelatedWord,
-                    isFlipped: false,
-                    isMatched: false,
-                    pairId: i
-                });
-            } else {
-                // If no associations exist, use a word's translation if available
-                if (baseWord.translations && baseWord.translations.length > 0) {
-                    const translation = baseWord.translations[0].translations;
-                    cardPairs.push({
-                        id: `card-${i}-b-${baseWord.id}`,
-                        word: translation[0]?.word || `${baseWord.word}*`,
-                        isFlipped: false,
-                        isMatched: false,
-                        pairId: i
-                    });
-                } else {
-                    // Fallback: create a simple variation
-                    cardPairs.push({
-                        id: `card-${i}-b-${baseWord.id}`,
-                        word: `${baseWord.word}*`,
-                        isFlipped: false,
-                        isMatched: false,
-                        pairId: i
-                    });
-                }
-            }
-        }
-
-        // Shuffle the cards
-        const shuffledCards = [...cardPairs].sort(() => Math.random() - 0.5);
-        setWordCards(shuffledCards);
-        setFlippedCards([]);
-        setMatchedPairs([]);
-        setMoves(0);
-    };
-
-    const handleCardClick = (cardId: string) => {
-        // Ignore click if card is already flipped or matched
-        const card = wordCards.find(card => card.id === cardId);
-        if (!card || card.isFlipped || card.isMatched || flippedCards.length >= 2) return;
-
-        // Flip the card
-        setWordCards(prevCards =>
-            prevCards.map(c => c.id === cardId ? { ...c, isFlipped: true } : c)
-        );
-
-        // Add to flipped cards
-        const newFlippedCards = [...flippedCards, cardId];
-        setFlippedCards(newFlippedCards);
-
-        // If we have 2 flipped cards, check for a match
-        if (newFlippedCards.length === 2) {
-            setMoves(prev => prev + 1);
-
-            const [firstCardId, secondCardId] = newFlippedCards;
-            const firstCard = wordCards.find(card => card.id === firstCardId);
-            const secondCard = wordCards.find(card => card.id === secondCardId);
-
-            if (firstCard && secondCard && firstCard.pairId === secondCard.pairId) {
-                // It's a match!
-                setMatchedPairs(prev => [...prev, firstCard.pairId]);
-                setScore(prev => prev + 10);
-
-                // Record successful pairing in memory
-                const originalWord = allWords.find(w => firstCard.word.toLowerCase() === w.word.toLowerCase());
-                if (originalWord) {
-                    memoryGameAction({
-                        wordId: originalWord.id,
-                        hard: false,
-                        mediaId
-                    });
-                }
-
-                // Clear flipped cards for next turn
-                setTimeout(() => {
-                    setFlippedCards([]);
-
-                    // Check if game is complete
-                    if (matchedPairs.length + 1 === wordCards.length / 2) {
-                        if (level < 3) {
-                            // Move to next level
-                            setLevel(prev => prev + 1);
-                        } else {
-                            // Game completed
-                            setIsGameCompleted(true);
-                        }
+        if (isPlaying && !gameOver) {
+            timer = setInterval(() => {
+                setTimeLeft(prev => {
+                    if (prev <= 1) {
+                        clearInterval(timer);
+                        setIsPlaying(false);
+                        setGameOver(true);
+                        return 0;
                     }
-                }, 1000);
-            } else {
-                // Not a match, flip cards back after a delay
-                setTimeout(() => {
-                    setWordCards(prevCards =>
-                        prevCards.map(c =>
-                            newFlippedCards.includes(c.id) ? { ...c, isFlipped: false } : c
+                    return prev - 1;
+                });
+            }, 1000);
+        }
+
+        return () => clearInterval(timer);
+    }, [isPlaying, gameOver]);
+
+    // Handle word selection
+    const handleWordSelect = async (wordId: string) => {
+        if (!isPlaying || gameOver) return;
+
+        // Check if word is already selected or matched
+        const selectedWord = gameWords.find(word => word.id === wordId);
+        if (!selectedWord || selectedWord.matched || selectedWord.selected) return;
+
+        // Update selected state
+        setGameWords(prev =>
+            prev.map(word =>
+                word.id === wordId ? { ...word, selected: true } : word
+            )
+        );
+
+        // Add to selected words
+        const newSelectedWord = { ...selectedWord, selected: true };
+        setSelectedWords(prev => [...prev, newSelectedWord]);
+
+        // Check if we have a pair (2 selected words)
+        if (selectedWords.length === 1) {
+            // Check if words are related (for the game, we'll just check if they're different words)
+            const isMatch = selectedWords[0].id !== newSelectedWord.id;
+
+            if (isMatch) {
+                // Found a match!
+                setTimeout(async () => {
+                    // Update matched status
+                    setGameWords(prev =>
+                        prev.map(word =>
+                            word.selected ? { ...word, matched: true, selected: false } : word
                         )
                     );
-                    setFlippedCards([]);
 
-                    // Record failed pairing in memory
-                    if (firstCard) {
-                        const originalWord = allWords.find(w => firstCard.word.toLowerCase() === w.word.toLowerCase());
-                        if (originalWord) {
-                            memoryGameAction({
-                                wordId: originalWord.id,
-                                hard: true,
+                    // Clear selected words
+                    setSelectedWords([]);
+
+                    // Update current streak
+                    setCurrentStreak(prev => prev + 1);
+
+                    // Calculate bonus points based on streak
+                    const streakBonus = Math.min(currentStreak * 2, 10); // Cap bonus at 10 points
+
+                    // Update score with streak bonus
+                    setScore(prev => prev + 10 + streakBonus);
+
+                    // Update matches found
+                    setMatchesFound(prev => prev + 1);
+
+                    // Check if all matches found
+                    if (matchesFound + 1 >= gameWords.length / 2) {
+                        setIsPlaying(false);
+                        setGameOver(true);
+                    }
+
+                    // Record success
+                    try {
+                        if (mediaId) {
+                            await memoryGameAction({
+                                wordId: selectedWords[0].id,
+                                hard: false,
+                                mediaId
+                            });
+
+                            await memoryGameAction({
+                                wordId: newSelectedWord.id,
+                                hard: false,
                                 mediaId
                             });
                         }
+                    } catch (error) {
+                        console.error('Error recording word success:', error);
                     }
-                }, 1500);
+                }, 800);
+            } else {
+                // No match - reset streak
+                setCurrentStreak(0);
+
+                // No match
+                setTimeout(() => {
+                    // Reset selected status
+                    setGameWords(prev =>
+                        prev.map(word =>
+                            word.selected && !word.matched ? { ...word, selected: false } : word
+                        )
+                    );
+
+                    // Clear selected words
+                    setSelectedWords([]);
+                }, 1000);
             }
         }
     };
 
-    const restartGame = () => {
-        setLevel(1);
-        setScore(0);
-        setMoves(0);
-        setIsGameCompleted(false);
-        setupCards(1);
+    // Format time as minutes:seconds
+    const formatTime = (seconds: number) => {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
     };
 
-    if (isLoading || allWords.length === 0) {
-        return (
-            <div className="flex flex-col items-center justify-center h-[60vh]">
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="flex flex-col items-center"
-                >
-                    <Loader2 className="h-12 w-12 text-emerald-500 animate-spin mb-4" />
-                    <p className="text-zinc-600 dark:text-zinc-300 text-lg">Loading word associations...</p>
-                </motion.div>
-            </div>
-        );
+    // Restart game
+    const handleRestart = () => {
+        prepareGame();
+    };
+
+    // Show loading state
+    if (isGameLoading) {
+        return <LoadingGames />;
     }
 
-    if (isGameCompleted) {
-        return (
-            <AnimatePresence mode="wait">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    className="flex flex-col items-center justify-center min-h-[60vh] p-6 md:p-8"
-                >
-                    <motion.div
-                        className="p-8 rounded-2xl bg-white/20 dark:bg-gray-900/50 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 shadow-xl max-w-md w-full"
-                        initial={{ scale: 0.9 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    >
-                        <div className="text-center mb-6">
-                            <motion.div
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1, rotate: 360 }}
-                                transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.2 }}
-                                className="inline-flex mb-4"
-                            >
-                                <Award className="h-16 w-16 text-emerald-500" />
-                            </motion.div>
-                            <h2 className="text-2xl font-bold text-zinc-800 dark:text-white mb-2">
-                                Word Association Completed!
-                            </h2>
-                            <p className="text-zinc-600 dark:text-zinc-300">
-                                You matched all word pairs with {moves} moves.
-                            </p>
-                            <div className="mt-4 p-4 rounded-xl bg-emerald-50/50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800/30">
-                                <p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">
-                                    {score}
-                                </p>
-                                <p className="text-sm text-emerald-700 dark:text-emerald-300">Points</p>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col gap-3">
-                            <Button
-                                onClick={restartGame}
-                                className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-xl flex items-center justify-center gap-2 transition-all hover:shadow-lg"
-                            >
-                                <RefreshCw className="h-4 w-4" />
-                                Play Again
-                            </Button>
-
-                            <Link href={mediaId ? ROUTES.LANGUAGE(lang) : ROUTES.GAMES()} className="w-full">
-                                <Button
-                                    variant="outline"
-                                    className="w-full border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-all"
-                                >
-                                    Back to Games
-                                </Button>
-                            </Link>
-                        </div>
-                    </motion.div>
-                </motion.div>
-            </AnimatePresence>
-        );
-    }
-
-    const progressPercentage = (matchedPairs.length / (wordCards.length / 2)) * 100;
-
+    // Render game UI
     return (
-        <div className="flex flex-col h-full">
-            {/* Header */}
-            <div className="p-6 border-b border-zinc-200/30 dark:border-zinc-800/30">
-                <div className="flex justify-between items-center">
+        <div className="w-full h-full">
+            {/* Game Header with Score and Timer */}
+            <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg border border-gray-200/50 dark:border-gray-700/50 px-4 py-3 flex items-center gap-3">
+                    <div className="p-1.5 rounded-full bg-emerald-100/80 dark:bg-emerald-900/30">
+                        <Share2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                    </div>
                     <div>
-                        <h2 className="text-xl font-bold text-zinc-800 dark:text-white">
-                            Word Association
-                        </h2>
-                        <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                            Match words that are related to each other
-                        </p>
-                    </div>
-                    <div className="flex items-center gap-4">
-                        <div className="bg-white/20 dark:bg-gray-900/40 backdrop-blur-sm px-4 py-2 rounded-full">
-                            <span className="text-indigo-600 dark:text-indigo-400 font-medium">Level {level}/3</span>
-                        </div>
-                        <div className="bg-white/20 dark:bg-gray-900/40 backdrop-blur-sm px-4 py-2 rounded-full">
-                            <span className="text-emerald-600 dark:text-emerald-400 font-medium">{score}</span>
-                            <span className="text-zinc-500 ml-1">pts</span>
-                        </div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">Score</p>
+                        <p className="text-xl font-bold text-gray-900 dark:text-white">{score}</p>
                     </div>
                 </div>
 
-                <div className="mt-4">
-                    <div className="flex justify-between text-xs text-zinc-500 dark:text-zinc-400 mb-1">
-                        <span>Progress</span>
-                        <span>{matchedPairs.length} of {wordCards.length / 2} pairs</span>
+                {currentStreak > 1 && (
+                    <div className="bg-amber-100/90 dark:bg-amber-900/30 backdrop-blur-sm rounded-lg border border-amber-200/50 dark:border-amber-800/50 px-4 py-3 flex items-center gap-3 animate-pulse">
+                        <div className="p-1.5 rounded-full bg-amber-200/80 dark:bg-amber-800/30">
+                            <Zap className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                        </div>
+                        <div>
+                            <p className="text-xs text-amber-700 dark:text-amber-300">Streak</p>
+                            <p className="text-xl font-bold text-amber-700 dark:text-amber-300">{currentStreak}x</p>
+                        </div>
                     </div>
-                    <Progress value={progressPercentage} />
-                </div>
+                )}
 
-                <div className="mt-2 flex justify-between">
-                    <span className="text-xs text-zinc-500 dark:text-zinc-400">Moves: {moves}</span>
-                    <Button
-                        onClick={() => setupCards(level)}
-                        variant="ghost"
-                        className="text-xs text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200"
+                <div className="flex items-center gap-4">
+                    <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg border border-gray-200/50 dark:border-gray-700/50 px-4 py-3 flex items-center gap-3">
+                        <div className="p-1.5 rounded-full bg-blue-100/80 dark:bg-blue-900/30">
+                            <Clock className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                        </div>
+                        <div>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">Time Left</p>
+                            <p className="text-xl font-bold text-gray-900 dark:text-white">{formatTime(timeLeft)}</p>
+                        </div>
+                    </div>
+
+                    <GameButton
+                        onClick={handleRestart}
+                        variant="outline"
+                        size="sm"
+                        icon={<RefreshCw className="h-4 w-4" />}
                     >
-                        <RefreshCw className="h-3 w-3 mr-1" />
-                        Reset
-                    </Button>
+                        Restart
+                    </GameButton>
                 </div>
             </div>
 
-            {/* Game Content */}
-            <div className="flex-1 flex flex-col p-4 md:p-6 overflow-y-auto">
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={`level-${level}`}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.3 }}
-                        className="w-full max-w-4xl mx-auto"
-                    >
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
-                            {wordCards.map((card) => (
-                                <motion.div
-                                    key={card.id}
-                                    whileHover={!card.isFlipped && !card.isMatched ? { scale: 1.03 } : {}}
-                                    whileTap={!card.isFlipped && !card.isMatched ? { scale: 0.97 } : {}}
-                                    initial={{ rotateY: 0 }}
-                                    animate={{
-                                        rotateY: card.isFlipped ? 180 : 0,
-                                        scale: card.isMatched ? 0.95 : 1
-                                    }}
-                                    transition={{ duration: 0.5, type: 'spring', stiffness: 200 }}
-                                    className={`aspect-[3/4] cursor-pointer perspective-500 transform-style-3d ${card.isMatched ? 'opacity-70' : 'opacity-100'
-                                        }`}
-                                    onClick={() => !card.isFlipped && !card.isMatched && handleCardClick(card.id)}
-                                >
-                                    <div className={`absolute inset-0 backface-hidden rounded-xl ${theme === 'dark'
-                                        ? 'bg-gradient-to-br from-indigo-900/80 to-violet-900/80'
-                                        : 'bg-gradient-to-br from-indigo-500/80 to-violet-500/70'
-                                        } shadow-lg border border-white/10 flex items-center justify-center`}>
-                                        <BrainCircuit className="h-8 w-8 text-white/70" />
-                                    </div>
+            {/* Progress bar */}
+            <div className="w-full h-1.5 bg-gray-200 dark:bg-gray-700/50 rounded-full mb-6 overflow-hidden">
+                <motion.div
+                    className="h-full bg-emerald-500 dark:bg-emerald-400"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${(matchesFound / (gameWords.length / 2)) * 100}%` }}
+                    transition={{ duration: 0.3 }}
+                />
+            </div>
 
-                                    <div className={`absolute inset-0 backface-hidden rounded-xl ${card.isMatched
-                                        ? theme === 'dark'
-                                            ? 'bg-gradient-to-br from-emerald-900/80 to-emerald-800/80'
-                                            : 'bg-gradient-to-br from-emerald-500/80 to-emerald-400/70'
-                                        : theme === 'dark'
-                                            ? 'bg-gradient-to-br from-gray-800/90 to-slate-800/90'
-                                            : 'bg-white/90'
-                                        } shadow-lg border ${card.isMatched
-                                            ? 'border-emerald-500/30'
-                                            : 'border-zinc-200/50 dark:border-zinc-700/50'
-                                        } flex items-center justify-center rotateY-180`}>
-                                        <div className="text-center px-2">
-                                            <p className={`font-medium text-lg ${card.isMatched
-                                                ? 'text-white'
-                                                : 'text-zinc-800 dark:text-white'
-                                                }`}>
-                                                {card.word}
-                                            </p>
-
-                                            {card.isMatched && (
-                                                <motion.div
-                                                    initial={{ scale: 0 }}
-                                                    animate={{ scale: 1 }}
-                                                    className="flex justify-center mt-2"
-                                                >
-                                                    <Sparkles className="h-4 w-4 text-white/70" />
-                                                </motion.div>
-                                            )}
-                                        </div>
-
-                                        {matchedPairs.includes(card.pairId) && (
-                                            <motion.div
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 0.9 }}
-                                                transition={{ delay: 0.3, duration: 0.5 }}
-                                                className="absolute top-2 right-2"
-                                            >
-                                                <Network className="h-4 w-4 text-white" />
-                                            </motion.div>
-                                        )}
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </motion.div>
+            {/* Word Grid */}
+            <motion.div
+                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4"
+                variants={cardGridVariants}
+                initial="hidden"
+                animate="visible"
+            >
+                <AnimatePresence>
+                    {gameWords.map((word) => (
+                        <WordAssociationCard
+                            key={word.id}
+                            word={word.word}
+                            isSelected={word.selected || word.matched}
+                            isMatched={word.matched}
+                            disabled={word.matched}
+                            onClick={() => handleWordSelect(word.id)}
+                            variants={cardVariants}
+                        />
+                    ))}
                 </AnimatePresence>
-            </div>
+            </motion.div>
+
+            {/* Game Over Modal */}
+            <AnimatePresence>
+                {gameOver && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/30 dark:bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+                    >
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-md rounded-xl shadow-2xl p-6 max-w-md w-full border border-gray-200/50 dark:border-gray-700/50"
+                        >
+                            <div className="flex flex-col items-center text-center">
+                                <div className="bg-emerald-100 dark:bg-emerald-900/30 p-3 rounded-full mb-4">
+                                    <CheckCircle className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
+                                </div>
+
+                                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                                    {matchesFound >= gameWords.length / 2 ? 'Great Job!' : 'Game Over!'}
+                                </h2>
+
+                                <p className="text-gray-600 dark:text-gray-300 mb-6">
+                                    {matchesFound >= gameWords.length / 2
+                                        ? 'You found all the word associations!'
+                                        : 'You ran out of time, but keep practicing!'}
+                                </p>
+
+                                <div className="grid grid-cols-2 gap-4 w-full mb-6">
+                                    <div className="bg-gray-100/80 dark:bg-gray-800/80 p-4 rounded-lg text-center">
+                                        <p className="text-sm text-gray-500 dark:text-gray-400">Your Score</p>
+                                        <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">{score}</p>
+                                    </div>
+
+                                    <div className="bg-gray-100/80 dark:bg-gray-800/80 p-4 rounded-lg text-center">
+                                        <p className="text-sm text-gray-500 dark:text-gray-400">Matches</p>
+                                        <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                                            {matchesFound}/{gameWords.length / 2}
+                                        </p>
+                                    </div>
+
+                                    <div className="bg-gray-100/80 dark:bg-gray-800/80 p-4 rounded-lg text-center">
+                                        <p className="text-sm text-gray-500 dark:text-gray-400">Completion</p>
+                                        <p className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
+                                            {Math.round((matchesFound / (gameWords.length / 2)) * 100)}%
+                                        </p>
+                                    </div>
+
+                                    <div className="bg-gray-100/80 dark:bg-gray-800/80 p-4 rounded-lg text-center">
+                                        <p className="text-sm text-gray-500 dark:text-gray-400">Time Used</p>
+                                        <p className="text-2xl font-bold text-amber-600 dark:text-amber-400">
+                                            {formatTime(120 - timeLeft)}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <GameButton
+                                    onClick={handleRestart}
+                                    variant="primary"
+                                    size="lg"
+                                    fullWidth
+                                    icon={<RefreshCw className="h-5 w-5" />}
+                                >
+                                    Play Again
+                                </GameButton>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
-};
+}

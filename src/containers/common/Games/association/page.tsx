@@ -1,9 +1,13 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Loader2 } from 'lucide-react';
+import { AnimatePresence } from 'framer-motion';
+import { Link2 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import EmptyState from '../_components/EmptyState';
+import GameContainer from '../_components/GameContainer';
+import GameHeader from '../_components/GameHeader';
+import LoadingSpinner from '../_components/LoadingSpinner';
 import { Body } from './_container/Body';
 
 export default function AssociationGame({ words, lang, mediaId }: {
@@ -19,56 +23,26 @@ export default function AssociationGame({ words, lang, mediaId }: {
         setMounted(true);
     }, []);
 
-    if (!words.length && !lang) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-[60vh] w-full">
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-center p-8 rounded-xl bg-white/10 dark:bg-black/20 backdrop-blur-md border border-zinc-200/30 dark:border-zinc-800/30"
-                >
-                    <h2 className="text-2xl font-bold text-zinc-800 dark:text-white mb-2">
-                        No words available
-                    </h2>
-                    <p className="text-zinc-600 dark:text-zinc-300">
-                        Please select a language and add some words to your collection.
-                    </p>
-                </motion.div>
-            </div>
-        );
-    }
-
     if (!mounted) {
-        return (
-            <div className="flex items-center justify-center min-h-[60vh]">
-                <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
-            </div>
-        );
+        return <LoadingSpinner />;
     }
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                duration: 0.5,
-                when: "beforeChildren",
-                staggerChildren: 0.1
-            }
-        }
-    };
+    if (!words.length && !lang) {
+        return <EmptyState />;
+    }
 
     return (
-        <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className={`w-full min-h-[70vh] ${theme === 'dark'
-                ? 'bg-gradient-to-br from-gray-950 via-gray-900 to-blue-950/30'
-                : 'bg-gradient-to-br from-white via-zinc-50 to-sky-50/50'
-                } rounded-2xl shadow-xl overflow-hidden backdrop-blur-sm border border-zinc-200/30 dark:border-zinc-800/30`}
-        >
-            <Body words={words} lang={lang} mediaId={mediaId} />
-        </motion.div>
+        <AnimatePresence mode="wait">
+            <GameContainer>
+                <GameHeader
+                    title="Word Association"
+                    description="Connect related words to build your vocabulary"
+                    icon={<Link2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />}
+                />
+                <div className="p-4 lg:p-6">
+                    <Body words={words} lang={lang} mediaId={mediaId} />
+                </div>
+            </GameContainer>
+        </AnimatePresence>
     );
 }

@@ -1,9 +1,11 @@
 'use client';
 import { memoryGameAction } from '@backend/domain/actions/Games/memory.action';
 import { getWords } from '@backend/domain/actions/Word/getWords.action';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Award, ChevronLeft, ChevronRight, Frown, Meh, PawPrint, RefreshCw, Smile } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { WordWithTranslationsAndUserWords } from 'src/app/api/words/route';
+import GameButton from '../../../_components/GameButton';
 import { LoadingGames } from '../../../_container/Loading';
 
 type FlashCard = {
@@ -34,6 +36,8 @@ export const Body = ({
     const [reviewStack, setReviewStack] = useState<FlashCard[]>([]);
     const [dataIndex, setDataIndex] = useState(0);
     const [showNoMoreCards, setShowNoMoreCards] = useState(false);
+    const [sessionStartTime, setSessionStartTime] = useState<Date | null>(null);
+    const [streak, setStreak] = useState(0);
 
     // Fetch words
     const fetchWords = useCallback(async () => {
@@ -77,8 +81,13 @@ export const Body = ({
 
             setCards(newCards);
             setAllWords(prev => prev.slice(20));
+
+            // Start session timer
+            if (!sessionStartTime) {
+                setSessionStartTime(new Date());
+            }
         }
-    }, [allWords, cards]);
+    }, [allWords, cards, sessionStartTime]);
 
     // Initialize
     useEffect(() => {
@@ -122,6 +131,13 @@ export const Body = ({
         // If card was difficult, add to review stack
         if (difficulty === 'hard' || difficulty === 'medium') {
             setReviewStack(prev => [...prev, { ...currentCard, difficulty, isFlipped: false }]);
+        }
+
+        // Update streak
+        if (difficulty === 'easy') {
+            setStreak(prev => prev + 1);
+        } else if (difficulty === 'hard') {
+            setStreak(0);
         }
 
         // Move to next card
@@ -216,6 +232,30 @@ export const Body = ({
         }
     };
 
+    // Navigate to previous card
+    const goToPreviousCard = () => {
+        if (currentIndex > 0) {
+            // Ensure card is flipped back to front
+            const updatedCards = [...cards];
+            updatedCards[currentIndex] = { ...updatedCards[currentIndex], isFlipped: false };
+            setCards(updatedCards);
+
+            setCurrentIndex(prev => prev - 1);
+        }
+    };
+
+    // Navigate to next card
+    const goToNextCard = () => {
+        if (currentIndex < cards.length - 1) {
+            // Ensure card is flipped back to front
+            const updatedCards = [...cards];
+            updatedCards[currentIndex] = { ...updatedCards[currentIndex], isFlipped: false };
+            setCards(updatedCards);
+
+            setCurrentIndex(prev => prev + 1);
+        }
+    };
+
     // Reset and restart
     const restartSession = () => {
         setStudiedCount(0);
@@ -223,10 +263,20 @@ export const Body = ({
         setStack('learning');
         setReviewStack([]);
         setShowNoMoreCards(false);
+        setSessionStartTime(new Date());
+        setStreak(0);
 
         if (allWords.length < 20) {
             fetchWords();
         }
+    };
+
+    // Calculate session duration
+    const getSessionDuration = () => {
+        if (!sessionStartTime) return "0 minutes";
+
+        const minutes = Math.round((new Date().getTime() - sessionStartTime.getTime()) / 60000);
+        return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
     };
 
     // Loading state
@@ -237,32 +287,52 @@ export const Body = ({
         return (
             <div className="h-full w-full flex items-center justify-center p-6">
                 <motion.div
-                    className="max-w-lg w-full bg-gray-900/70 backdrop-blur-lg border border-gray-700/50 rounded-2xl p-8 shadow-xl"
+                    className="max-w-lg w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-2xl p-8 shadow-xl"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <h2 className="text-3xl font-bold text-white text-center mb-6">Session Complete!</h2>
-                    <div className="flex justify-center mb-8">
-                        <div className="bg-emerald-500/20 backdrop-blur-sm rounded-full px-8 py-4">
-                            <span className="text-emerald-400 text-2xl font-bold">Cards Studied: {studiedCount}</span>
+                    <div className="flex justify-center mb-6">
+                        <motion.div className="relative">
+                            <Award className="h-16 w-16 text-amber-500 dark:text-amber-400" />
+                            <motion.span
+                                className="absolute inset-0 rounded-full bg-amber-400/20"
+                                animate={{ scale: [1, 1.2, 1] }}
+                                transition={{ duration: 2, repeat: Infinity }}
+                            />
+                        </motion.div>
+                    </div>
+
+                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-6">Session Complete!</h2>
+
+                    <div className="grid grid-cols-2 gap-4 mb-8">
+                        <div className="bg-gray-100/80 dark:bg-gray-800/80 rounded-xl p-4 text-center">
+                            <p className="text-sm text-gray-500 dark:text-gray-400">Cards Studied</p>
+                            <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">{studiedCount}</p>
+                        </div>
+                        <div className="bg-gray-100/80 dark:bg-gray-800/80 rounded-xl p-4 text-center">
+                            <p className="text-sm text-gray-500 dark:text-gray-400">Session Duration</p>
+                            <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{getSessionDuration()}</p>
+                        </div>
+                        <div className="bg-gray-100/80 dark:bg-gray-800/80 rounded-xl p-4 text-center">
+                            <p className="text-sm text-gray-500 dark:text-gray-400">Best Streak</p>
+                            <p className="text-2xl font-bold text-amber-600 dark:text-amber-400">{streak}</p>
+                        </div>
+                        <div className="bg-gray-100/80 dark:bg-gray-800/80 rounded-xl p-4 text-center">
+                            <p className="text-sm text-gray-500 dark:text-gray-400">Completion</p>
+                            <p className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">100%</p>
                         </div>
                     </div>
 
-                    <p className="text-zinc-300 text-center mb-8">
-                        You've gone through all available flashcards. Great job!
-                    </p>
-
-                    <div className="flex justify-center">
-                        <motion.button
-                            className="px-8 py-3 bg-emerald-500 hover:bg-emerald-400 text-white font-medium rounded-lg shadow-lg"
-                            onClick={restartSession}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            Start New Session
-                        </motion.button>
-                    </div>
+                    <GameButton
+                        onClick={restartSession}
+                        variant="primary"
+                        size="lg"
+                        fullWidth
+                        icon={<RefreshCw className="h-5 w-5" />}
+                    >
+                        Start New Session
+                    </GameButton>
                 </motion.div>
             </div>
         );
@@ -272,8 +342,10 @@ export const Body = ({
     if (cards.length === 0) {
         return (
             <div className="h-full w-full flex items-center justify-center">
-                <div className="flex flex-col items-center">
-                    <p className="text-zinc-300">No flashcards available.</p>
+                <div className="flex flex-col items-center bg-white/80 dark:bg-gray-800/80 p-8 rounded-xl shadow-lg border border-gray-200/50 dark:border-gray-700/50">
+                    <PawPrint className="h-12 w-12 text-gray-400 dark:text-gray-500 mb-4" />
+                    <p className="text-gray-600 dark:text-gray-300 text-lg font-medium">No flashcards available.</p>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm mt-2">Try selecting a different language or adding new words.</p>
                 </div>
             </div>
         );
@@ -282,173 +354,228 @@ export const Body = ({
     const currentCard = cards[currentIndex];
 
     return (
-        <div className="relative h-full w-full flex flex-col items-center justify-center p-6">
-            {/* Background decorations */}
-            <div className="absolute top-20 left-10 w-64 h-64 bg-emerald-400/10 rounded-full blur-3xl -z-10 animate-pulse" />
-            <div className="absolute bottom-40 right-10 w-96 h-96 bg-indigo-400/10 rounded-full blur-3xl -z-10 animate-pulse" style={{ animationDuration: '8s' }} />
-            <div className="absolute top-1/2 left-1/3 w-80 h-80 bg-cyan-400/10 rounded-full blur-3xl -z-10 animate-pulse" style={{ animationDuration: '12s' }} />
-
+        <div className="relative h-full w-full flex flex-col items-center justify-center p-4 sm:p-6">
             {/* Session info */}
-            <div className="w-full max-w-xl mb-6 flex justify-between items-center">
+            <div className="w-full max-w-xl mb-4 sm:mb-6 flex flex-wrap justify-between items-center gap-3">
                 <motion.div
-                    className="flex items-center gap-2"
+                    className="flex flex-wrap items-center gap-2"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <div className="bg-gray-800/70 backdrop-blur-sm rounded-full px-4 py-2">
-                        <span className="text-white font-medium">Card <span className="text-emerald-400">{currentIndex + 1}/{cards.length}</span></span>
+                    <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full px-3 py-1.5 border border-gray-200/50 dark:border-gray-700/50">
+                        <span className="text-gray-700 dark:text-gray-300 font-medium flex items-center">
+                            Card {currentIndex + 1} of {cards.length}
+                        </span>
                     </div>
+
+                    {streak > 0 && (
+                        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full px-3 py-1.5 border border-gray-200/50 dark:border-gray-700/50">
+                            <span className="text-amber-600 dark:text-amber-400 font-medium">
+                                Streak: {streak}
+                            </span>
+                        </div>
+                    )}
                 </motion.div>
 
                 <motion.div
-                    className="bg-gray-800/70 backdrop-blur-sm rounded-full px-4 py-2"
+                    className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full px-3 py-1.5 border border-gray-200/50 dark:border-gray-700/50"
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <span className="text-white font-medium">Stack: <span className={stack === 'learning' ? "text-indigo-400" : "text-amber-400"}>
+                    <span className={`font-medium flex items-center ${stack === 'learning'
+                        ? "text-indigo-600 dark:text-indigo-400"
+                        : "text-amber-600 dark:text-amber-400"
+                        }`}>
+                        <PawPrint className="h-3.5 w-3.5 mr-1" />
                         {stack === 'learning' ? 'Learning' : 'Review'}
-                    </span></span>
+                    </span>
                 </motion.div>
             </div>
 
             {/* Flashcard */}
             <div className="w-full max-w-xl mb-6 perspective-1000">
-                <motion.div
-                    className="w-full h-64 md:h-80 cursor-pointer"
-                    onClick={flipCard}
-                    initial={{ rotateY: 0 }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                >
+                <AnimatePresence mode="wait">
                     <motion.div
-                        className="w-full h-full relative transform-style-3d transition-all duration-500"
-                        animate={{ rotateY: currentCard.isFlipped ? 180 : 0 }}
-                        transition={{ duration: 0.5 }}
+                        key={currentIndex}
+                        className="w-full h-64 md:h-80 cursor-pointer"
+                        onClick={flipCard}
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -50 }}
+                        transition={{ duration: 0.3 }}
                     >
-                        {/* Front side (word) */}
-                        <div className="absolute inset-0 backface-hidden bg-gray-900/60 backdrop-blur-lg border border-gray-700/50 rounded-xl p-6 flex flex-col items-center justify-center shadow-xl">
-                            <motion.h2
-                                className="text-4xl font-bold text-white mb-4 text-center"
-                                initial={{ opacity: 0, y: -20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2 }}
-                            >
-                                {currentCard.word}
-                            </motion.h2>
-
-                            {currentCard.translations.length > 0 && (
-                                <motion.div
-                                    className="mt-4"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.3 }}
-                                >
-                                    <span className="text-zinc-400 text-sm">Related translations: </span>
-                                    <div className="flex flex-wrap justify-center gap-2 mt-1">
-                                        {currentCard.translations.slice(0, 3).map((translation, idx) => (
-                                            <span key={idx} className="px-2 py-1 bg-indigo-500/30 rounded-md text-indigo-300 text-sm">
-                                                {translation}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </motion.div>
-                            )}
-
-                            <motion.p
-                                className="text-zinc-300 mt-6 text-center"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 0.8 }}
-                                transition={{ delay: 0.4 }}
-                            >
-                                Click to flip and see the definition
-                            </motion.p>
-                        </div>
-
-                        {/* Back side (meaning) */}
-                        <div className="absolute inset-0 backface-hidden rotate-y-180 bg-gray-900/60 backdrop-blur-lg border border-gray-700/50 rounded-xl p-6 flex flex-col shadow-xl overflow-y-auto">
-                            <h3 className="text-zinc-300 text-sm uppercase tracking-wider mb-2">Definition</h3>
-                            <p className="text-white text-xl font-medium mb-4">{currentCard.meaning}</p>
-
-                            {currentCard.examples.length > 0 && (
-                                <div className="mt-2">
-                                    <h3 className="text-zinc-300 text-sm uppercase tracking-wider mb-2">Examples</h3>
-                                    <ul className="space-y-2">
-                                        {currentCard.examples.slice(0, 2).map((example, idx) => (
-                                            <li key={idx} className="text-zinc-300 italic bg-gray-800/30 p-2 rounded-md">
-                                                "{example}"
-                                            </li>
-                                        ))}
-                                    </ul>
+                        <motion.div
+                            className="w-full h-full relative transform-style-3d transition-all duration-500"
+                            animate={{ rotateY: currentCard.isFlipped ? 180 : 0 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            {/* Front of card - Word */}
+                            <div className={`absolute inset-0 backface-hidden bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 flex flex-col ${currentCard.isFlipped ? 'opacity-0' : 'opacity-100'}`}>
+                                <div className="flex justify-between items-start mb-4">
+                                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                                        Tap to flip
+                                    </span>
+                                    <span className={`px-2 py-0.5 text-xs rounded-full 
+                                        ${currentCard.difficulty === 'easy'
+                                            ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300'
+                                            : currentCard.difficulty === 'medium'
+                                                ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300'
+                                                : 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300'}`}>
+                                        {currentCard.difficulty}
+                                    </span>
                                 </div>
-                            )}
+                                <div className="flex-grow flex flex-col items-center justify-center">
+                                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                                        {currentCard.word}
+                                    </h2>
+                                    <p className="text-gray-600 dark:text-gray-300 text-center mt-2">
+                                        {currentCard.meaning}
+                                    </p>
+                                </div>
+                            </div>
 
-                            <p className="text-zinc-400 mt-auto text-center text-sm">
-                                Click to flip back
-                            </p>
-                        </div>
+                            {/* Back of card - Translation and examples */}
+                            <div className={`absolute inset-0 backface-hidden bg-indigo-50 dark:bg-indigo-900/20 rounded-xl shadow-lg border border-indigo-200 dark:border-indigo-800/50 p-6 flex flex-col rotate-y-180 ${currentCard.isFlipped ? 'opacity-100' : 'opacity-0'}`}>
+                                <div className="flex justify-between items-start mb-4">
+                                    <span className="text-xs text-indigo-600 dark:text-indigo-300">
+                                        Tap to flip back
+                                    </span>
+                                </div>
+                                <div className="flex-grow flex flex-col justify-center">
+                                    <h3 className="text-sm uppercase tracking-wide text-indigo-600 dark:text-indigo-300 mb-2">
+                                        Translations:
+                                    </h3>
+                                    <div className="flex flex-wrap gap-2 mb-4">
+                                        {currentCard.translations.length > 0 ? (
+                                            currentCard.translations.map((translation, idx) => (
+                                                <span key={idx} className="px-2 py-1 bg-white dark:bg-gray-800 rounded-md text-gray-800 dark:text-gray-200 text-sm">
+                                                    {translation}
+                                                </span>
+                                            ))
+                                        ) : (
+                                            <span className="text-gray-500 dark:text-gray-400">
+                                                No translations available
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    {currentCard.examples.length > 0 && (
+                                        <>
+                                            <h3 className="text-sm uppercase tracking-wide text-indigo-600 dark:text-indigo-300 mb-2">
+                                                Examples:
+                                            </h3>
+                                            <ul className="space-y-2">
+                                                {currentCard.examples.map((example, idx) => (
+                                                    <li key={idx} className="text-gray-700 dark:text-gray-300 text-sm">
+                                                        • {example}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+                        </motion.div>
                     </motion.div>
-                </motion.div>
+                </AnimatePresence>
+            </div>
+
+            {/* Navigation controls */}
+            <div className="w-full max-w-xl flex items-center justify-between mb-6">
+                <GameButton
+                    onClick={goToPreviousCard}
+                    variant="outline"
+                    size="sm"
+                    icon={<ChevronLeft className="h-4 w-4" />}
+                    disabled={currentIndex === 0}
+                >
+                    Previous
+                </GameButton>
+
+                <div className="flex-1 flex justify-center">
+                    <motion.div
+                        className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full w-full max-w-[50%] overflow-hidden"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                    >
+                        <motion.div
+                            className="h-full bg-emerald-500 dark:bg-emerald-400 rounded-full"
+                            initial={{ width: 0 }}
+                            animate={{ width: `${((currentIndex + 1) / cards.length) * 100}%` }}
+                            transition={{ duration: 0.3 }}
+                        />
+                    </motion.div>
+                </div>
+
+                <GameButton
+                    onClick={goToNextCard}
+                    variant="outline"
+                    size="sm"
+                    icon={<ChevronRight className="h-4 w-4" />}
+                    disabled={currentIndex === cards.length - 1}
+                >
+                    Next
+                </GameButton>
             </div>
 
             {/* Controls */}
             <div className="w-full max-w-xl">
-                <div className="bg-gray-900/40 backdrop-blur-sm border border-gray-700/50 rounded-xl p-4 shadow-lg">
-                    <p className="text-center text-zinc-300 mb-4">How well did you know this word?</p>
+                <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-xl p-4 shadow-lg">
+                    <p className="text-center text-gray-700 dark:text-gray-300 mb-4 font-medium">How well did you know this word?</p>
 
-                    <div className="flex justify-center gap-3">
-                        <motion.button
-                            className="px-5 py-2 bg-rose-500/80 text-white font-medium rounded-lg shadow-md hover:bg-rose-400/80 transition-all"
+                    <div className="grid grid-cols-3 gap-3">
+                        <GameButton
                             onClick={() => rateCard('hard')}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                            variant="ghost"
+                            size="md"
+                            className="flex-col bg-rose-50 dark:bg-rose-900/20 hover:bg-rose-100 dark:hover:bg-rose-900/30 text-rose-600 dark:text-rose-300 hover:text-rose-700 dark:hover:text-rose-200"
                         >
+                            <Frown className="h-6 w-6 mb-1" />
                             Hard
-                        </motion.button>
+                        </GameButton>
 
-                        <motion.button
-                            className="px-5 py-2 bg-amber-500/80 text-white font-medium rounded-lg shadow-md hover:bg-amber-400/80 transition-all"
+                        <GameButton
                             onClick={() => rateCard('medium')}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                            variant="ghost"
+                            size="md"
+                            className="flex-col bg-amber-50 dark:bg-amber-900/20 hover:bg-amber-100 dark:hover:bg-amber-900/30 text-amber-600 dark:text-amber-300 hover:text-amber-700 dark:hover:text-amber-200"
                         >
+                            <Meh className="h-6 w-6 mb-1" />
                             Medium
-                        </motion.button>
+                        </GameButton>
 
-                        <motion.button
-                            className="px-5 py-2 bg-emerald-500/80 text-white font-medium rounded-lg shadow-md hover:bg-emerald-400/80 transition-all"
+                        <GameButton
                             onClick={() => rateCard('easy')}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                            variant="ghost"
+                            size="md"
+                            className="flex-col bg-emerald-50 dark:bg-emerald-900/20 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 text-emerald-600 dark:text-emerald-300 hover:text-emerald-700 dark:hover:text-emerald-200"
                         >
+                            <Smile className="h-6 w-6 mb-1" />
                             Easy
-                        </motion.button>
+                        </GameButton>
                     </div>
 
                     <div className="flex justify-center mt-4">
-                        <motion.button
-                            className="px-4 py-1 bg-gray-700/60 text-zinc-300 text-sm rounded-full shadow-md hover:bg-gray-600/60 transition-all"
+                        <GameButton
                             onClick={skipCard}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                            variant="ghost"
+                            size="sm"
+                            icon={<ChevronRight className="h-4 w-4" />}
+                            className="text-gray-500 dark:text-gray-400"
                         >
                             Skip
-                        </motion.button>
+                        </GameButton>
                     </div>
                 </div>
             </div>
 
-            {/* Progress bar */}
-            <div className="w-full max-w-xl mt-6">
-                <div className="h-1 bg-gray-800/70 rounded-full overflow-hidden">
-                    <motion.div
-                        className="h-full bg-emerald-500"
-                        initial={{ width: '0%' }}
-                        animate={{ width: `${(currentIndex / cards.length) * 100}%` }}
-                        transition={{ duration: 0.3 }}
-                    />
-                </div>
+            {/* Background decorations */}
+            <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+                <div className="absolute top-20 left-10 w-64 h-64 bg-emerald-400/5 dark:bg-emerald-400/10 rounded-full blur-3xl" />
+                <div className="absolute bottom-40 right-10 w-96 h-96 bg-indigo-400/5 dark:bg-indigo-400/10 rounded-full blur-3xl" />
             </div>
         </div>
     );

@@ -1,19 +1,21 @@
-import { motion } from 'framer-motion';
-import { NextFont } from 'next/dist/compiled/@next/font';
-import { Inter } from 'next/font/google';
-import Image from 'next/image';
+'use client';
 
-interface GameHeaderProps {
+import { motion } from 'framer-motion';
+import { ArrowLeft, Brain } from 'lucide-react';
+import { Inter } from 'next/font/google';
+import Link from 'next/link';
+
+type GameHeaderProps = {
     title: string;
     description: string;
     score: number;
     moves: number;
     gameTime: number;
-    poppins: NextFont;
+    poppins: ReturnType<typeof Inter>;
     inter: ReturnType<typeof Inter>;
-}
+};
 
-export default function GameHeader({
+const GameHeader = ({
     title,
     description,
     score,
@@ -21,76 +23,64 @@ export default function GameHeader({
     gameTime,
     poppins,
     inter
-}: GameHeaderProps) {
-    // Format time as MM:SS
-    const formatTime = (seconds: number): string => {
+}: GameHeaderProps) => {
+    // Format time as minutes:seconds
+    const formatTime = (seconds: number) => {
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
-        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
     };
 
     return (
         <motion.div
+            className="mb-8"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-8"
         >
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-                <div className="flex items-center">
-                    <div className="bg-gradient-to-r from-emerald-500 to-cyan-500 p-0.5 rounded-xl mr-3">
-                        <div className="bg-white dark:bg-gray-900 p-2 rounded-lg">
-                            <motion.div
-                                animate={{ rotate: [0, 10, 0, -10, 0] }}
-                                transition={{
-                                    repeat: Infinity,
-                                    repeatDelay: 5,
-                                    duration: 2.5,
-                                    ease: "easeInOut"
-                                }}
-                            >
-                                <Image
-                                    src="/assets/logo.png"
-                                    alt="WordPanda"
-                                    width={40}
-                                    height={40}
-                                />
-                            </motion.div>
-                        </div>
-                    </div>
+            <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                    <Link href="/extension/games">
+                        <motion.div
+                            className="p-2 bg-white/80 dark:bg-gray-800/80 rounded-full border border-gray-200/50 dark:border-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <ArrowLeft className="h-4 w-4" />
+                        </motion.div>
+                    </Link>
 
-                    <div>
-                        <h1 className={`${poppins.className} text-2xl md:text-3xl font-bold bg-gradient-to-r from-emerald-600 to-indigo-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-indigo-400`}>
-                            {title}
-                        </h1>
-                        <p className={`${inter.className} text-sm text-gray-600 dark:text-gray-400`}>
-                            {description}
-                        </p>
+                    <div className="flex items-center">
+                        <div className="p-2 mr-3 bg-emerald-100 dark:bg-emerald-900/30 rounded-full">
+                            <Brain className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                        </div>
+                        <h1 className={`text-2xl font-bold text-gray-900 dark:text-white ${poppins.className}`}>{title}</h1>
                     </div>
                 </div>
 
-                <div className="flex items-center gap-4 py-2 px-4 bg-white/70 dark:bg-gray-800/50 rounded-xl backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50">
-                    <div className="flex flex-col items-center">
-                        <span className="text-xs text-gray-500 dark:text-gray-400">Score</span>
-                        <span className="font-bold text-emerald-600 dark:text-emerald-400">{score}</span>
+                <div className="flex gap-3">
+                    <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg px-3 py-1.5 border border-gray-200/50 dark:border-gray-700/50">
+                        <p className={`text-xs text-gray-500 dark:text-gray-400 ${inter.className}`}>Score</p>
+                        <p className={`text-lg font-bold text-emerald-600 dark:text-emerald-400 ${poppins.className}`}>{score}</p>
                     </div>
-                    <div className="w-px h-8 bg-gray-200 dark:bg-gray-700"></div>
-                    <div className="flex flex-col items-center">
-                        <span className="text-xs text-gray-500 dark:text-gray-400">Moves</span>
-                        <span className="font-bold text-indigo-600 dark:text-indigo-400">{moves}</span>
+
+                    <div className="hidden sm:block bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg px-3 py-1.5 border border-gray-200/50 dark:border-gray-700/50">
+                        <p className={`text-xs text-gray-500 dark:text-gray-400 ${inter.className}`}>Moves</p>
+                        <p className={`text-lg font-bold text-indigo-600 dark:text-indigo-400 ${poppins.className}`}>{moves}</p>
                     </div>
-                    <div className="w-px h-8 bg-gray-200 dark:bg-gray-700"></div>
-                    <div className="flex flex-col items-center">
-                        <span className="text-xs text-gray-500 dark:text-gray-400">Time</span>
-                        <span className="font-bold text-cyan-600 dark:text-cyan-400">{formatTime(gameTime)}</span>
+
+                    <div className="hidden md:block bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg px-3 py-1.5 border border-gray-200/50 dark:border-gray-700/50">
+                        <p className={`text-xs text-gray-500 dark:text-gray-400 ${inter.className}`}>Time</p>
+                        <p className={`text-lg font-bold text-blue-600 dark:text-blue-400 ${poppins.className}`}>{formatTime(gameTime)}</p>
                     </div>
                 </div>
             </div>
 
-            <p className={`${inter.className} text-base text-gray-700 dark:text-gray-300 max-w-3xl`}>
-                Find matching pairs by flipping cards to reveal the words. Match each word with its translation.
-                The faster you complete with fewer moves, the higher your score!
+            <p className={`text-gray-600 dark:text-gray-300 ml-14 ${inter.className}`}>
+                {description}
             </p>
         </motion.div>
     );
-}
+};
+
+export default GameHeader;
