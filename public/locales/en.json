@@ -1,0 +1,69 @@
+{
+ 
+  "homepage": {
+    "title": "Welcome to WordPanda",
+    "description": "Learn languages through vocabulary and quizzes",
+    "landing": {
+      "welcome": {
+        "title": "Welcome to WordPanda",
+        "subtitle": "Your fun language learning journey starts here",
+        "description": "Learn new languages through interactive exercises, vocabulary games, and more."
+      },
+      "pandaEating": {
+        "title": "Meet Panda",
+        "subtitle": "Your learning companion",
+        "description": "Panda loves to eat new words and will help you on your language learning journey."
+      },
+      "languageLearning": {
+        "title": "Natural Language Learning",
+        "subtitle": "Learn from real content",
+        "description": "Watch videos, read articles, and learn vocabulary in context for better retention."
+      },
+      "aiAssistance": {
+        "title": "AI-Powered Learning",
+        "subtitle": "Personalized for you",
+        "description": "Our AI adapts to your learning style and pace, providing custom exercises and feedback.",
+        "chatExample": {
+          "question": "How do you say 'hello' in Spanish?",
+          "answer": "In Spanish, 'hello' is 'hola'"
+        }
+      },
+      "newAmazing": {
+        "title": "Amazing Features",
+        "subtitle": "Everything you need",
+        "description": "Flashcards, quizzes, games, and progress tracking to make learning effective and fun.",
+        "features": {
+          "games": {
+            "title": "Interactive Games",
+            "description": "Fun games that make learning effortless"
+          },
+          "progress": {
+            "title": "Progress Tracking",
+            "description": "Track your learning journey"
+          }
+        }
+      },
+      "loginRegister": {
+        "title": "Get Started Today",
+        "subtitle": "Join thousands of learners",
+        "description": "Create an account or log in to start your language learning journey.",
+        "login": "Log In",
+        "register": "Register",
+        "or": "or"
+      },
+      "navigation": {
+        "next": "Next",
+        "previous": "Previous",
+        "skip": "Skip"
+      }
+    }
+  },
+  "languages": {
+    "spanish": "Spanish",
+    "french": "French",
+    "german": "German",
+    "italian": "Italian",
+    "japanese": "Japanese",
+    "korean": "Korean"
+  }
+}

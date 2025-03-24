@@ -98,7 +98,11 @@ export async function getUser() {
             where: {
                 id: user.id
             },
+            include: {
+                language: true
+            }
         });
+
         cacheClient.set(cacheKey, JSON.stringify(userFound), { EX: 1000 });
         return { user: userFound }
 
