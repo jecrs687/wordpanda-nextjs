@@ -13,6 +13,9 @@ export function useOnScroll({ threshold = 10, scrollUp = false }: UseOnScrollOpt
     const [lastScrollPosition, setLastScrollPosition] = useState(0);
 
     const handleScroll = useCallback(() => {
+        if (typeof window === 'undefined') {
+            return;
+        }
         const currentPosition = window.scrollY || document.documentElement.scrollTop;
 
         // Check if user has scrolled past threshold

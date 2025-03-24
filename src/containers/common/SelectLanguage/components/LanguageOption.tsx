@@ -5,7 +5,6 @@ import { GlobeIcon } from "./GlobeIcon";
 
 export const LanguageOption = (props: OptionProps<any>) => {
     const { isSelected, isFocused } = props;
-    const isDark = document.documentElement.classList.contains("dark");
 
     return (
         <components.Option {...props}>

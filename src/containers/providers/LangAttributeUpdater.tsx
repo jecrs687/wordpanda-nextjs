@@ -7,7 +7,7 @@ export default function LangAttributeUpdater() {
   const { language } = useI18n();
 
   useEffect(() => {
-    if (typeof document !== 'undefined') {
+    if (typeof window !== 'undefined') {
       document.documentElement.lang = language;
     }
   }, [language]);

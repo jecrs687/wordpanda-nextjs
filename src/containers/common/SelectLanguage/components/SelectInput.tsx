@@ -86,7 +86,7 @@ export const SelectInput: React.FC<SelectInputProps> = ({
     // Setup portal container for dropdown menu
     useEffect(() => {
         // Create a portal container for dropdown if it doesn't exist
-        if (typeof document !== 'undefined') {
+        if (typeof window !== 'undefined') {
             let portalContainer = document.getElementById('select-dropdown-portal');
 
             if (!portalContainer) {
