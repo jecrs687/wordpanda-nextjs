@@ -1,8 +1,10 @@
 import EventProvider from '@providers/EventProvider'
 import InformationProvider from '@providers/InformationProvider'
+import LangAttributeUpdater from '@providers/LangAttributeUpdater'
 import { MetaTagsProvider } from '@providers/MetaTags.provide'
 import { QueryParamProvider } from '@providers/QueryParamProvider'
 import { ThemeProvider } from '@providers/ThemeProvider'
+import TranslationProvider from "@providers/TranslationProvider"
 import type { Metadata } from 'next'
 import { ErrorBoundary } from 'next/dist/client/components/error-boundary'
 import { Inter } from 'next/font/google'
@@ -103,7 +105,10 @@ export default function RootLayout({
           </Suspense>
           <ErrorBoundary errorComponent={Error}>
             <Suspense fallback={<Loading />}>
-              {children}
+              <TranslationProvider>
+                <LangAttributeUpdater />
+                {children}
+              </TranslationProvider>
             </Suspense>
           </ErrorBoundary>
         </ThemeProvider>

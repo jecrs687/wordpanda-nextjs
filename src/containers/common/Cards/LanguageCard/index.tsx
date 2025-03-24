@@ -1,5 +1,5 @@
 "use client";
-import { ROUTES } from '@/src/constants/ROUTES';
+import { ROUTES } from '@constants/ROUTES';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';

@@ -72,7 +72,10 @@
       ],
       "@actions/*": [
         "src/backend/domain/actions/*"
-      ]
+      ],
+      "@locales/*": [
+        "src/locales/*"
+      ],
     },
     "strict": false
   },

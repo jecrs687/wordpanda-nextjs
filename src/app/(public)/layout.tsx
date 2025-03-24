@@ -1,7 +1,7 @@
 import { TOKEN_KEY } from '@constants/CONFIGS'
+import { ROUTES } from '@constants/ROUTES'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { ROUTES } from 'src/containers/constants/ROUTES'
 
 
 

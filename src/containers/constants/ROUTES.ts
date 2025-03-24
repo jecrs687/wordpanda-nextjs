@@ -13,6 +13,7 @@ export const ROUTES = {
     VERIFY_EMAIL: () => '/verify-email',
     LANGUAGES: () => '/languages',
     LANGUAGE: (id) => `/languages/${id}`,
+    LANGUAGE_DETAILS: (id) => `/languages/${id}/details`,
     GAMES: () => '/games',
     WORDS: () => '/words',
     WORD: (id) => `/words/${id}`,
