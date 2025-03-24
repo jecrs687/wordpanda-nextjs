@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import React from 'react';
-import { useTranslation } from "react-i18next";
 import FeatureCard from './components/FeatureCard';
 import PandaAccent from './components/PandaAccent';
 
@@ -11,7 +10,6 @@ interface NewAmazingStepProps {
 }
 
 const NewAmazingStep: React.FC<NewAmazingStepProps> = ({ goToStep, currentStep }) => {
-    const { t } = useTranslation();
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -31,16 +29,16 @@ const NewAmazingStep: React.FC<NewAmazingStepProps> = ({ goToStep, currentStep }
     const features = [
         {
             id: 1,
-            title: t('homepage.landing.newAmazing.features.games.title', 'Interactive Games'),
-            description: t('homepage.landing.newAmazing.features.games.description', 'Fun games that make learning effortless'),
+            title: 'Interactive Games',
+            description: 'Fun games that make learning effortless',
             icon: 'game-controller',
             color: 'bg-zinc-900 dark:bg-white'
         },
         {
             id: 2,
-            title: t('homepage.landing.newAmazing.features.progress.title', 'Progress Tracking'),
-            description: t('homepage.landing.newAmazing.features.progress.description', 'Track your learning journey'),
-            icon: 'chart-bar',
+            title: 'Progress Tracking',
+            description: 'Monitor your learning journey over time',
+            icon: 'bar-chart',
             color: 'bg-zinc-900 dark:bg-white'
         },
         {
@@ -68,7 +66,7 @@ const NewAmazingStep: React.FC<NewAmazingStepProps> = ({ goToStep, currentStep }
                     className="text-xl sm:text-2xl md:text-4xl font-bold mb-1 sm:mb-2 md:mb-3 text-black dark:text-white"
                 >
                     <span className="relative inline-block">
-                        {t('homepage.landing.newAmazing.title')}
+                        Amazing
                         <motion.span
                             className="absolute -bottom-1 left-0 w-full h-1 bg-emerald-400 dark:bg-emerald-500 rounded-full"
                             initial={{ width: 0 }}
@@ -83,7 +81,7 @@ const NewAmazingStep: React.FC<NewAmazingStepProps> = ({ goToStep, currentStep }
                     variants={itemVariants}
                     className="text-xs sm:text-sm md:text-base text-zinc-700 dark:text-zinc-300 mb-3 sm:mb-5 md:mb-8 max-w-md mx-auto"
                 >
-                    {t('homepage.landing.newAmazing.description')}
+                    Discover tools we've created to make your language learning journey exceptional.
                 </motion.p>
 
                 <motion.div
