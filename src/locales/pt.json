@@ -419,5 +419,13 @@
       "terms": "Termos de Serviço",
       "help": "Central de Ajuda"
     }
+  },
+  "otp": {
+    "verification": "Verificação",
+    "codeSent": "Enviamos um código de verificação para o seu email",
+    "confirm": "Confirmar",
+    "resendCode": "Reenviar código",
+    "resendCodeTimer": "Reenviar código em {{seconds}}s",
+    "haveAccount": "Tem uma conta? Faça login"
   }
 }

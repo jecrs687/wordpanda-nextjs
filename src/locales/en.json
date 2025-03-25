@@ -398,5 +398,13 @@
       "terms": "Terms of Service",
       "help": "Help Center"
     }
+  },
+  "otp": {
+    "verification": "Verification",
+    "codeSent": "We sent a verification code to your email",
+    "confirm": "Confirm",
+    "resendCode": "Resend code",
+    "resendCodeTimer": "Resend code in {{seconds}}s",
+    "haveAccount": "Have an account? Log in"
   }
 }

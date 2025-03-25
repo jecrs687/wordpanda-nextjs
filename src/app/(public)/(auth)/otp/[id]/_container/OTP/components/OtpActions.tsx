@@ -1,5 +1,6 @@
 import Button from '@core/Button';
 import LoaderSpinner from '@core/LoaderSpinner';
+import { useTranslation } from 'react-i18next';
 
 interface OtpActionsProps {
     isSubmitting: boolean;
@@ -12,6 +13,8 @@ export default function OtpActions({
     cooldownTime,
     onResendOtp
 }: OtpActionsProps) {
+    const { t } = useTranslation();
+
     return (
         <div className="flex flex-col space-y-4 w-full">
             <Button
@@ -22,7 +25,7 @@ export default function OtpActions({
                 {isSubmitting ? (
                     <LoaderSpinner size="large" />
                 ) : (
-                    "Confirmar"
+                    t('otp.confirm')
                 )}
             </Button>
 
@@ -33,8 +36,8 @@ export default function OtpActions({
                 className="w-full py-3 bg-white border border-gray-300 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-white rounded-lg transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
             >
                 {cooldownTime === 0
-                    ? "Reenviar código"
-                    : `Reenviar código em ${cooldownTime}s`
+                    ? t('otp.resendCode')
+                    : t('otp.resendCodeTimer', { seconds: cooldownTime })
                 }
             </Button>
         </div>
