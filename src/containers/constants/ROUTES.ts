@@ -49,6 +49,7 @@ export const ROUTES = {
     GAME_WORDPAIRS: () => `/games/wordpairs`,
     GAME_WORDRACE: () => `/games/wordrace`,
     GAME_WORDSCRAMBLE: () => `/games/wordscramble`,
+    METRICS: () => '/metrics', // added metrics page route
 }
 
 

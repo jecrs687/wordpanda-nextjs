@@ -30,6 +30,13 @@ const NavbarLinks = ({ pathname }: NavbarLinksProps) => {
             >
                 Perfil
             </NavLink>
+            <NavLink
+                href={ROUTES.METRICS()}
+                isActive={pathname === ROUTES.METRICS()}
+                icon="metrics"
+            >
+                Metrics
+            </NavLink>
         </nav>
     );
 };
