@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 interface ProgressTrackerProps {
     currentStep: number;
@@ -7,6 +8,8 @@ interface ProgressTrackerProps {
 }
 
 export const ProgressTracker = ({ currentStep, totalSteps, percentage }: ProgressTrackerProps) => {
+    const { t } = useTranslation();
+
     // Generate step markers based on total steps
     const stepMarkers = Array.from({ length: totalSteps }, (_, i) => i + 1);
 
@@ -46,10 +49,10 @@ export const ProgressTracker = ({ currentStep, totalSteps, percentage }: Progres
 
             {/* Step labels (visible on larger screens) */}
             <div className="hidden sm:flex justify-between mt-2 text-xs text-zinc-500 dark:text-zinc-400">
-                <div className="text-center">Account</div>
-                <div className="text-center">Personal</div>
-                <div className="text-center">Profile</div>
-                <div className="text-center">Preferences</div>
+                <div className="text-center">{t('register.steps.labels.account')}</div>
+                <div className="text-center">{t('register.steps.labels.personal')}</div>
+                <div className="text-center">{t('register.steps.labels.profile')}</div>
+                <div className="text-center">{t('register.steps.labels.preferences')}</div>
             </div>
         </div>
     );

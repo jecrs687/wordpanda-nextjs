@@ -2,6 +2,7 @@ import { ROUTES } from '@constants/ROUTES';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FormEvent, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FormButton } from './FormButton';
 import { FormInput } from './FormInput';
 
@@ -17,6 +18,7 @@ export function AccountDetailsForm({
     initialValues,
 }: AccountDetailsFormProps) {
     const formRef = useRef<HTMLFormElement>(null);
+    const { t } = useTranslation();
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -62,8 +64,8 @@ export function AccountDetailsForm({
                 <FormInput
                     name="email"
                     type="email"
-                    label="Email Address"
-                    placeholder="Enter your email"
+                    label={t('register.form.email.label')}
+                    placeholder={t('register.form.email.placeholder')}
                     error={errors.email}
                     required
                     autoComplete="email"
@@ -75,8 +77,8 @@ export function AccountDetailsForm({
                 <FormInput
                     name="password"
                     type="password"
-                    label="Password"
-                    placeholder="Create a secure password"
+                    label={t('register.form.password.label')}
+                    placeholder={t('register.form.password.placeholder')}
                     error={errors.password}
                     required
                     autoComplete="new-password"
@@ -88,8 +90,8 @@ export function AccountDetailsForm({
                 <FormInput
                     name="passwordConfirmation"
                     type="password"
-                    label="Confirm Password"
-                    placeholder="Confirm your password"
+                    label={t('register.form.passwordConfirmation.label')}
+                    placeholder={t('register.form.passwordConfirmation.placeholder')}
                     error={errors.passwordConfirmation}
                     required
                     autoComplete="new-password"
@@ -99,18 +101,18 @@ export function AccountDetailsForm({
 
             <motion.div variants={itemVariants} className="pt-4">
                 <FormButton type="submit" fullWidth>
-                    Continue
+                    {t('register.form.buttons.continue')}
                 </FormButton>
             </motion.div>
 
             <motion.div variants={itemVariants} className="text-center">
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Already have an account?{' '}
+                    {t('register.form.alreadyHaveAccount')}{' '}
                     <Link
                         href={ROUTES.LOGIN()}
                         className="text-emerald-500 hover:text-emerald-600 font-medium transition-colors"
                     >
-                        Sign in
+                        {t('register.form.buttons.signIn')}
                     </Link>
                 </p>
             </motion.div>

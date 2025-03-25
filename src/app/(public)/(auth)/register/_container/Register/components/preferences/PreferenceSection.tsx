@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface PreferenceSectionProps {
     title: string;
@@ -9,6 +10,8 @@ interface PreferenceSectionProps {
 }
 
 export const PreferenceSection = ({ title, description, children, error }: PreferenceSectionProps) => {
+    const { t } = useTranslation();
+
     // Animation for section transitions
     const sectionVariants = {
         hidden: { opacity: 0, y: 20 },

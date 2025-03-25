@@ -186,5 +186,228 @@
       "terms": "Ao se inscrever, você concorda com nossos Termos de Serviço e Política de Privacidade"
     },
     "step": "Passo"
+  },
+  "register": {
+    "title": "Crie sua Conta",
+    "description": "Junte-se ao WordPanda e inicie sua jornada de aprendizado de idiomas hoje.",
+    "steps": {
+      "account": {
+        "title": "Crie sua Conta",
+        "description": "Comece configurando suas credenciais de login"
+      },
+      "personal": {
+        "title": "Informações Pessoais",
+        "description": "Conte-nos um pouco sobre você"
+      },
+      "profile": {
+        "title": "Configuração do Perfil",
+        "description": "Personalize seu perfil de aprendizado"
+      },
+      "preferences": {
+        "title": "Preferências de Aprendizado",
+        "description": "Adapte sua experiência de aprendizado"
+      },
+      "complete": {
+        "title": "Registro Concluído!",
+        "description": "Você está pronto para começar a aprender"
+      },
+      "labels": {
+        "account": "Conta",
+        "personal": "Pessoal",
+        "profile": "Perfil",
+        "preferences": "Preferências"
+      },
+      "accessibility": "Etapa {{current}} de {{total}}: {{step}}"
+    },
+    "form": {
+      "email": {
+        "label": "Endereço de Email",
+        "placeholder": "Digite seu endereço de email"
+      },
+      "password": {
+        "label": "Senha",
+        "placeholder": "Crie uma senha segura"
+      },
+      "passwordConfirmation": {
+        "label": "Confirmar Senha",
+        "placeholder": "Digite sua senha novamente"
+      },
+      "firstName": {
+        "label": "Nome",
+        "placeholder": "Digite seu nome"
+      },
+      "lastName": {
+        "label": "Sobrenome",
+        "placeholder": "Digite seu sobrenome"
+      },
+      "username": {
+        "label": "Nome de Usuário",
+        "placeholder": "Escolha um nome de usuário único"
+      },
+      "phone": {
+        "label": "Número de Telefone (Opcional)",
+        "placeholder": "Digite seu número de telefone"
+      },
+      "nativeLanguage": {
+        "label": "Idioma Nativo",
+        "placeholder": "Selecione seu idioma nativo"
+      },
+      "buttons": {
+        "continue": "Continuar",
+        "back": "Voltar",
+        "previous": "Anterior",
+        "next": "Próximo",
+        "signIn": "Entrar",
+        "completeRegistration": "Concluir Registro",
+        "completingRegistration": "Concluindo..."
+      },
+      "alreadyHaveAccount": "Já tem uma conta?"
+    },
+    "validation": {
+      "emailInvalid": "O email deve ser válido",
+      "emailTooShort": "O email deve conter no mínimo 6 caracteres",
+      "emailTooLong": "O email deve conter no máximo 100 caracteres",
+      "emailAlreadyRegistered": "Este email já está cadastrado",
+      "passwordTooShort": "A senha deve conter no mínimo 6 caracteres",
+      "passwordTooLong": "A senha deve conter no máximo 100 caracteres",
+      "passwordsDoNotMatch": "As senhas não coincidem",
+      "firstNameTooShort": "O nome deve conter no mínimo 2 caracteres",
+      "firstNameTooLong": "O nome deve conter no máximo 100 caracteres",
+      "lastNameTooShort": "O sobrenome deve conter no mínimo 2 caracteres",
+      "lastNameTooLong": "O sobrenome deve conter no máximo 100 caracteres",
+      "confirmPasswordTooShort": "A confirmação de senha deve conter no mínimo 6 caracteres",
+      "confirmPasswordTooLong": "A confirmação de senha deve conter no máximo 100 caracteres",
+      "phoneTooShort": "O telefone deve conter no mínimo 6 caracteres",
+      "phoneTooLong": "O telefone deve conter no máximo 100 caracteres",
+      "usernameTooShort": "O nome de usuário deve conter no mínimo 4 caracteres",
+      "usernameTooLong": "O nome de usuário deve conter no máximo 100 caracteres",
+      "invalidLanguage": "Selecione um idioma válido"
+    },
+    "errors": {
+      "title": "Erro no Registro",
+      "general": "Encontramos um problema com seu registro. Por favor, tente novamente.",
+      "tryAgain": "Tentar Novamente"
+    },
+    "complete": {
+      "title": "Bem-vindo ao WordPanda!",
+      "description": "Sua conta foi criada com sucesso. Você está pronto para iniciar sua jornada de aprendizado de idiomas.",
+      "verificationMessage": "Enviamos um email de verificação para sua caixa de entrada. Por favor, verifique seu email para desbloquear todos os recursos.",
+      "buttons": {
+        "dashboard": "Ir para o Painel",
+        "signIn": "Entrar"
+      }
+    },
+    "preferences": {
+      "steps": {
+        "learningStyle": "Estilo de Aprendizado",
+        "difficultyLevel": "Dificuldade",
+        "learningTime": "Melhor Horário",
+        "dailyGoal": "Meta Diária"
+      },
+      "learningStyle": {
+        "title": "Como você prefere aprender?",
+        "description": "Selecione o estilo de aprendizado que funciona melhor para você",
+        "options": {
+          "visual": {
+            "label": "Aprendiz Visual",
+            "description": "Aprenda através de imagens, gráficos e conteúdo visual"
+          },
+          "auditory": {
+            "label": "Aprendiz Auditivo",
+            "description": "Aprenda ouvindo pronúncias e diálogos"
+          },
+          "reading": {
+            "label": "Leitura/Escrita",
+            "description": "Aprenda lendo textos e fazendo anotações"
+          },
+          "kinesthetic": {
+            "label": "Aprendiz Interativo",
+            "description": "Aprenda através de prática, jogos e exercícios interativos"
+          }
+        }
+      },
+      "difficulty": {
+        "title": "Escolha sua dificuldade inicial",
+        "description": "Ajustaremos seus materiais de aprendizado com base na sua seleção",
+        "options": {
+          "beginner": {
+            "label": "Iniciante",
+            "description": "Novo no idioma com pouco ou nenhum conhecimento prévio"
+          },
+          "intermediate": {
+            "label": "Intermediário",
+            "description": "Capaz de entender conversas e frases básicas"
+          },
+          "advanced": {
+            "label": "Avançado",
+            "description": "Confortável com a maioria das construções linguísticas e vocabulário"
+          },
+          "expert": {
+            "label": "Especialista",
+            "description": "Falante quase nativo buscando refinar habilidades"
+          }
+        }
+      },
+      "learningTime": {
+        "title": "Quando você aprende melhor?",
+        "description": "Lembraremos você de praticar durante seu horário preferido do dia",
+        "options": {
+          "morning": {
+            "label": "Manhã",
+            "description": "Início da manhã antes de começar o dia"
+          },
+          "afternoon": {
+            "label": "Tarde",
+            "description": "Durante o almoço ou início da tarde"
+          },
+          "evening": {
+            "label": "Fim de Tarde",
+            "description": "Depois do trabalho ou horário de jantar"
+          },
+          "night": {
+            "label": "Noite",
+            "description": "Tarde da noite quando está quieto e tranquilo"
+          }
+        }
+      },
+      "dailyGoal": {
+        "title": "Defina sua meta diária de aprendizado",
+        "description": "Quantos minutos você pode dedicar ao aprendizado todos os dias?",
+        "options": {
+          "5": {
+            "label": "5 minutos",
+            "description": "Prática diária rápida"
+          },
+          "10": {
+            "label": "10 minutos",
+            "description": "Curto mas eficaz"
+          },
+          "15": {
+            "label": "15 minutos",
+            "description": "Abordagem equilibrada"
+          },
+          "30": {
+            "label": "30 minutos",
+            "description": "Aprendiz dedicado"
+          },
+          "60": {
+            "label": "60 minutos",
+            "description": "Entusiasta de idiomas"
+          }
+        }
+      },
+      "errors": {
+        "learningStyle": "Por favor, selecione seu estilo de aprendizado preferido",
+        "difficultyPreference": "Por favor, selecione seu nível de dificuldade",
+        "preferredLearningTime": "Por favor, selecione seu horário de aprendizado preferido",
+        "dailyGoal": "Por favor, selecione sua meta diária de aprendizado"
+      }
+    },
+    "footer": {
+      "rights": "Todos os direitos reservados",
+      "privacy": "Política de Privacidade",
+      "terms": "Termos de Serviço",
+      "help": "Central de Ajuda"
+    }
   }
 }

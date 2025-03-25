@@ -2,6 +2,7 @@
 import LoaderSpinner from '@core/LoaderSpinner';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FormButton } from './FormButton';
 import { DailyGoalStep } from './preferences/DailyGoalStep';
 import { DifficultyLevelStep } from './preferences/DifficultyLevelStep';
@@ -31,6 +32,7 @@ export const LearningPreferencesForm = ({
     formAction,
     isSubmitting = false,
 }: LearningPreferencesFormProps) => {
+    const { t } = useTranslation();
     // Current step state
     const [currentStep, setCurrentStep] = useState(1);
     const totalSteps = 4;
@@ -70,22 +72,22 @@ export const LearningPreferencesForm = ({
 
         // Validate current step
         if (currentStep === 1 && !learningStyle) {
-            setValidationErrors(prev => ({ ...prev, learningStyle: 'Please select your learning style' }));
+            setValidationErrors(prev => ({ ...prev, learningStyle: t('register.preferences.errors.learningStyle') }));
             isValid = false;
         }
 
         if (currentStep === 2 && !difficultyPreference) {
-            setValidationErrors(prev => ({ ...prev, difficultyPreference: 'Please select your difficulty preference' }));
+            setValidationErrors(prev => ({ ...prev, difficultyPreference: t('register.preferences.errors.difficultyPreference') }));
             isValid = false;
         }
 
         if (currentStep === 3 && !preferredLearningTime) {
-            setValidationErrors(prev => ({ ...prev, preferredLearningTime: 'Please select your preferred learning time' }));
+            setValidationErrors(prev => ({ ...prev, preferredLearningTime: t('register.preferences.errors.preferredLearningTime') }));
             isValid = false;
         }
 
         if (currentStep === 4 && !dailyGoal) {
-            setValidationErrors(prev => ({ ...prev, dailyGoal: 'Please select your daily goal' }));
+            setValidationErrors(prev => ({ ...prev, dailyGoal: t('register.preferences.errors.dailyGoal') }));
             isValid = false;
         }
 
@@ -117,19 +119,19 @@ export const LearningPreferencesForm = ({
         const newErrors: Record<string, string> = {};
 
         if (!learningStyle) {
-            newErrors.learningStyle = 'Please select your learning style';
+            newErrors.learningStyle = t('register.preferences.errors.learningStyle');
         }
 
         if (!difficultyPreference) {
-            newErrors.difficultyPreference = 'Please select your difficulty preference';
+            newErrors.difficultyPreference = t('register.preferences.errors.difficultyPreference');
         }
 
         if (!preferredLearningTime) {
-            newErrors.preferredLearningTime = 'Please select your preferred learning time';
+            newErrors.preferredLearningTime = t('register.preferences.errors.preferredLearningTime');
         }
 
         if (!dailyGoal) {
-            newErrors.dailyGoal = 'Please select your daily goal';
+            newErrors.dailyGoal = t('register.preferences.errors.dailyGoal');
         }
 
         setValidationErrors(newErrors);
@@ -180,10 +182,10 @@ export const LearningPreferencesForm = ({
                     currentStep={currentStep}
                     totalSteps={totalSteps}
                     steps={[
-                        { label: "Learning Style" },
-                        { label: "Difficulty Level" },
-                        { label: "Learning Time" },
-                        { label: "Daily Goal" }
+                        { label: "learningStyle" },
+                        { label: "difficultyLevel" },
+                        { label: "learningTime" },
+                        { label: "dailyGoal" }
                     ]}
                 />
             </div>
@@ -241,7 +243,7 @@ export const LearningPreferencesForm = ({
                     variant="secondary"
                     className="w-full sm:w-auto"
                 >
-                    {currentStep === 1 ? "Back" : "Previous"}
+                    {currentStep === 1 ? t('register.form.buttons.back') : t('register.form.buttons.previous')}
                 </FormButton>
 
                 <FormButton
@@ -254,12 +256,12 @@ export const LearningPreferencesForm = ({
                     {isSubmitting ? (
                         <div className="flex items-center justify-center">
                             <LoaderSpinner size="small" />
-                            <span className="ml-2">Completing Registration...</span>
+                            <span className="ml-2">{t('register.form.buttons.completingRegistration')}</span>
                         </div>
                     ) : currentStep < totalSteps ? (
-                        "Next"
+                        t('register.form.buttons.next')
                     ) : (
-                        "Complete Registration"
+                        t('register.form.buttons.completeRegistration')
                     )}
                 </FormButton>
             </div>

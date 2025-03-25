@@ -1,6 +1,7 @@
 import LoaderSpinner from '@core/LoaderSpinner';
 import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type FormButtonProps = {
     children: ReactNode;
@@ -29,6 +30,8 @@ export function FormButton({
     ariaLabel,
     className,
 }: FormButtonProps) {
+    const { t } = useTranslation();
+
     // Simplified, cleaner variant styles with solid colors
     const variantStyles = {
         primary: {

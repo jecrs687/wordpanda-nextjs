@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 interface PreferenceOptionProps {
     icon: string;
@@ -15,6 +16,8 @@ export const PreferenceOption = ({
     selected,
     onClick,
 }: PreferenceOptionProps) => {
+    const { t } = useTranslation();
+
     return (
         <motion.button
             type="button"

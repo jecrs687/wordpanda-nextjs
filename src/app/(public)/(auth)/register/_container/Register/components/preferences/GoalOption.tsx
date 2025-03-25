@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 interface GoalOptionProps {
     value: number;
@@ -9,6 +10,8 @@ interface GoalOptionProps {
 }
 
 export const GoalOption = ({ value, label, description, selected, onClick }: GoalOptionProps) => {
+    const { t } = useTranslation();
+
     return (
         <motion.button
             type="button"

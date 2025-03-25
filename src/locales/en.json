@@ -185,5 +185,208 @@
       "terms": "By signing up, you agree to our Terms of Service and Privacy Policy"
     },
     "step": "Step"
+  },
+  "register": {
+    "title": "Create Your Account",
+    "description": "Join WordPanda and start your language learning journey today.",
+    "steps": {
+      "account": {
+        "title": "Create Your Account",
+        "description": "Start by setting up your login credentials"
+      },
+      "personal": {
+        "title": "Personal Information",
+        "description": "Tell us a bit about yourself"
+      },
+      "profile": {
+        "title": "Profile Setup",
+        "description": "Customize your learning profile"
+      },
+      "preferences": {
+        "title": "Learning Preferences",
+        "description": "Tailor your learning experience"
+      },
+      "complete": {
+        "title": "Registration Complete!",
+        "description": "You're all set to start learning"
+      },
+      "labels": {
+        "account": "Account",
+        "personal": "Personal",
+        "profile": "Profile",
+        "preferences": "Preferences"
+      },
+      "accessibility": "Step {{current}} of {{total}}: {{step}}"
+    },
+    "form": {
+      "email": {
+        "label": "Email Address",
+        "placeholder": "Enter your email address"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Create a secure password"
+      },
+      "passwordConfirmation": {
+        "label": "Confirm Password",
+        "placeholder": "Re-enter your password"
+      },
+      "firstName": {
+        "label": "First Name",
+        "placeholder": "Enter your first name"
+      },
+      "lastName": {
+        "label": "Last Name",
+        "placeholder": "Enter your last name"
+      },
+      "username": {
+        "label": "Username",
+        "placeholder": "Choose a unique username"
+      },
+      "phone": {
+        "label": "Phone Number (Optional)",
+        "placeholder": "Enter your phone number"
+      },
+      "nativeLanguage": {
+        "label": "Native Language",
+        "placeholder": "Select your native language"
+      },
+      "buttons": {
+        "continue": "Continue",
+        "back": "Back",
+        "previous": "Previous",
+        "next": "Next",
+        "signIn": "Sign In",
+        "completeRegistration": "Complete Registration",
+        "completingRegistration": "Completing..."
+      },
+      "alreadyHaveAccount": "Already have an account?"
+    },
+    "errors": {
+      "title": "Registration Error",
+      "general": "We encountered an issue with your registration. Please try again.",
+      "tryAgain": "Try Again"
+    },
+    "complete": {
+      "title": "Welcome to WordPanda!",
+      "description": "Your account has been successfully created. You're ready to start your language learning journey.",
+      "verificationMessage": "We've sent a verification email to your inbox. Please verify your email to unlock all features.",
+      "buttons": {
+        "dashboard": "Go to Dashboard",
+        "signIn": "Sign In"
+      }
+    },
+    "preferences": {
+      "steps": {
+        "learningStyle": "Learning Style",
+        "difficultyLevel": "Difficulty",
+        "learningTime": "Best Time",
+        "dailyGoal": "Daily Goal"
+      },
+      "learningStyle": {
+        "title": "How do you prefer to learn?",
+        "description": "Select the learning style that works best for you",
+        "options": {
+          "visual": {
+            "label": "Visual Learner",
+            "description": "Learn through images, graphics, and visual content"
+          },
+          "auditory": {
+            "label": "Auditory Learner",
+            "description": "Learn by listening to pronunciation and dialogues"
+          },
+          "reading": {
+            "label": "Reading/Writing",
+            "description": "Learn through reading texts and writing notes"
+          },
+          "kinesthetic": {
+            "label": "Interactive Learner",
+            "description": "Learn through practice, games and interactive exercises"
+          }
+        }
+      },
+      "difficulty": {
+        "title": "Choose your starting difficulty",
+        "description": "We'll adjust your learning materials based on your selection",
+        "options": {
+          "beginner": {
+            "label": "Beginner",
+            "description": "New to the language with little to no prior knowledge"
+          },
+          "intermediate": {
+            "label": "Intermediate",
+            "description": "Can understand basic conversations and sentences"
+          },
+          "advanced": {
+            "label": "Advanced",
+            "description": "Comfortable with most language constructs and vocabulary"
+          },
+          "expert": {
+            "label": "Expert",
+            "description": "Near-native speaker looking to refine skills"
+          }
+        }
+      },
+      "learningTime": {
+        "title": "When do you learn best?",
+        "description": "We'll remind you to practice during your preferred time of day",
+        "options": {
+          "morning": {
+            "label": "Morning",
+            "description": "Early morning before starting your day"
+          },
+          "afternoon": {
+            "label": "Afternoon",
+            "description": "During lunch breaks or early afternoon"
+          },
+          "evening": {
+            "label": "Evening",
+            "description": "After work or dinner time"
+          },
+          "night": {
+            "label": "Night",
+            "description": "Late night when it's quiet and peaceful"
+          }
+        }
+      },
+      "dailyGoal": {
+        "title": "Set your daily learning goal",
+        "description": "How many minutes can you dedicate to learning each day?",
+        "options": {
+          "5": {
+            "label": "5 minutes",
+            "description": "Quick daily practice"
+          },
+          "10": {
+            "label": "10 minutes",
+            "description": "Short but effective"
+          },
+          "15": {
+            "label": "15 minutes",
+            "description": "Balanced approach"
+          },
+          "30": {
+            "label": "30 minutes",
+            "description": "Dedicated learner"
+          },
+          "60": {
+            "label": "60 minutes",
+            "description": "Language enthusiast"
+          }
+        }
+      },
+      "errors": {
+        "learningStyle": "Please select your preferred learning style",
+        "difficultyPreference": "Please select your difficulty level",
+        "preferredLearningTime": "Please select your preferred learning time",
+        "dailyGoal": "Please select your daily learning goal"
+      }
+    },
+    "footer": {
+      "rights": "All rights reserved",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "help": "Help Center"
+    }
   }
 }

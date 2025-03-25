@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FormEvent, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FormButton } from './FormButton';
 import { FormInput } from './FormInput';
 import { LanguageSelector } from './LanguageSelector';
@@ -18,6 +19,7 @@ export function ProfileSetupForm({
     initialValues,
 }: ProfileSetupFormProps) {
     const formRef = useRef<HTMLFormElement>(null);
+    const { t } = useTranslation();
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -63,8 +65,8 @@ export function ProfileSetupForm({
                 <FormInput
                     name="username"
                     type="text"
-                    label="Username"
-                    placeholder="Choose a unique username"
+                    label={t('register.form.username.label')}
+                    placeholder={t('register.form.username.placeholder')}
                     error={errors.username}
                     required
                     defaultValue={initialValues?.get('username') as string}
@@ -75,8 +77,8 @@ export function ProfileSetupForm({
                 <FormInput
                     name="phone"
                     type="tel"
-                    label="Phone Number"
-                    placeholder="Your phone number (optional)"
+                    label={t('register.form.phone.label')}
+                    placeholder={t('register.form.phone.placeholder')}
                     error={errors.phone}
                     defaultValue={initialValues?.get('phone') as string}
                 />
@@ -88,7 +90,7 @@ export function ProfileSetupForm({
                         htmlFor="languageId"
                         className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                     >
-                        Native Language <span className="text-rose-500">*</span>
+                        {t('register.form.nativeLanguage.label')} <span className="text-rose-500">*</span>
                     </label>
                     <LanguageSelector
                         name="languageId"
@@ -103,14 +105,14 @@ export function ProfileSetupForm({
                     variant="outline"
                     onClick={onBack}
                 >
-                    Back
+                    {t('register.form.buttons.back')}
                 </FormButton>
 
                 <FormButton
                     type="submit"
                     fullWidth
                 >
-                    Continue
+                    {t('register.form.buttons.continue')}
                 </FormButton>
             </motion.div>
         </motion.form>

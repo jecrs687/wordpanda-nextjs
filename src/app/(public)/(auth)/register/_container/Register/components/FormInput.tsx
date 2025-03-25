@@ -1,4 +1,5 @@
 import { useId, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type FormInputProps = {
     name: string;
@@ -35,6 +36,7 @@ export function FormInput({
     pattern,
     inputMode,
 }: FormInputProps) {
+    const { t } = useTranslation();
     const [focused, setFocused] = useState(false);
     const [localValue, setLocalValue] = useState(value || defaultValue || '');
     const [touched, setTouched] = useState(false);

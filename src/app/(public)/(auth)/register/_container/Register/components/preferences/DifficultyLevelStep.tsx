@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { PreferenceOption } from '../PreferenceOption';
 
 type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced' | 'expert';
@@ -9,14 +10,16 @@ interface DifficultyLevelStepProps {
     error?: string;
 }
 
-const difficultyOptions = [
-    { id: '1', label: 'Beginner', icon: '🌱', description: 'Start with the basics' },
-    { id: '2', label: 'Intermediate', icon: '🌿', description: 'Some knowledge but need practice' },
-    { id: '3', label: 'Advanced', icon: '🌳', description: 'Solid foundation looking to improve' },
-    { id: '4', label: 'Expert', icon: '🌲', description: 'Looking for challenging content' },
-];
-
 export const DifficultyLevelStep = ({ selectedLevel, onSelectLevel, error }: DifficultyLevelStepProps) => {
+    const { t } = useTranslation();
+
+    const difficultyOptions = [
+        { id: 'beginner', label: t('register.preferences.difficulty.options.beginner.label'), icon: '🌱', description: t('register.preferences.difficulty.options.beginner.description') },
+        { id: 'intermediate', label: t('register.preferences.difficulty.options.intermediate.label'), icon: '🌿', description: t('register.preferences.difficulty.options.intermediate.description') },
+        { id: 'advanced', label: t('register.preferences.difficulty.options.advanced.label'), icon: '🌳', description: t('register.preferences.difficulty.options.advanced.description') },
+        { id: 'expert', label: t('register.preferences.difficulty.options.expert.label'), icon: '🌲', description: t('register.preferences.difficulty.options.expert.description') },
+    ];
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -40,10 +43,10 @@ export const DifficultyLevelStep = ({ selectedLevel, onSelectLevel, error }: Dif
             className="flex-1"
         >
             <h2 className="text-2xl font-bold mb-2 text-zinc-800 dark:text-white">
-                Difficulty Level
+                {t('register.preferences.difficulty.title')}
             </h2>
             <p className="mb-6 text-zinc-600 dark:text-zinc-300">
-                How challenging should your learning experience be?
+                {t('register.preferences.difficulty.description')}
             </p>
 
             <motion.div
