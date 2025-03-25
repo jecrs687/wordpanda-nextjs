@@ -14,7 +14,11 @@
     "back": "Voltar",
     "next": "Próximo",
     "yes": "Sim",
-    "no": "Não"
+    "no": "Não",
+    "continue": "Continuar",
+    "discover": "Descobrir Mais",
+    "start": "Começar a Aprender",
+    "of": "de"
   },
   "languages": {
     "title": "Idiomas",
@@ -124,5 +128,63 @@
     "networkError": "Erro de rede. Por favor, verifique sua conexão.",
     "pageNotFound": "A página que você está procurando não existe.",
     "goBack": "Voltar"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Bem-vindo ao",
+      "appName": "WordPanda",
+      "description": "Sua jornada para o domínio de idiomas começa aqui. Aprendizado divertido, interativo e personalizado aguarda por você.",
+      "startButton": "Iniciar Sua Jornada"
+    },
+    "languageLearning": {
+      "title": "Aprenda",
+      "titleHighlight": "Qualquer Idioma",
+      "description": "Explore vários idiomas com nosso sistema de aprendizado adaptativo. Do espanhol ao japonês, nós oferecemos aulas divertidas e interativas."
+    },
+    "aiAssistance": {
+      "title": "Panda",
+      "titleHighlight": "Assistente IA",
+      "description": "Nosso assistente IA amigável guia sua jornada linguística, fornecendo ajuda personalizada e adaptando-se ao seu estilo único de aprendizado.",
+      "assistantName": "Assistente PandaAI",
+      "assistantStatus": "Pronto para ajudar com seu aprendizado",
+      "typing": "Assistente IA está digitando...",
+      "chat": {
+        "userQuestion1": "Como se diz 'olá' em espanhol?",
+        "aiAnswer1": "Em espanhol, 'olá' é 'hola'",
+        "userQuestion2": "Você pode usar em uma frase?",
+        "aiAnswer2": "Claro! 'Hola, ¿cómo estás?' significa 'Olá, como vai você?'"
+      }
+    },
+    "pandaEating": {
+      "title": "Alimente Seu",
+      "titleHighlight": "Conhecimento",
+      "description": "Assim como os pandas precisam de bambu, sua mente precisa de prática consistente para crescer. Com o WordPanda, o aprendizado de idiomas torna-se um hábito diário que nutre suas habilidades."
+    },
+    "features": {
+      "title": "Recursos",
+      "titleSuffix": "Incríveis",
+      "description": "Descubra ferramentas que criamos para tornar sua jornada de aprendizado de idiomas excepcional.",
+      "interactive": {
+        "title": "Jogos Interativos",
+        "description": "Jogos divertidos que tornam o aprendizado sem esforço"
+      },
+      "progress": {
+        "title": "Acompanhamento de Progresso",
+        "description": "Monitore sua jornada de aprendizado ao longo do tempo"
+      },
+      "social": {
+        "title": "Aprendizado Social",
+        "description": "Conecte-se com amigos e aprendam juntos"
+      }
+    },
+    "login": {
+      "title": "Pronto para",
+      "titleHighlight": "Começar",
+      "description": "Crie uma conta ou faça login para iniciar sua aventura de aprendizado de idiomas com o WordPanda!",
+      "signup": "Cadastrar-se",
+      "login": "Entrar",
+      "terms": "Ao se inscrever, você concorda com nossos Termos de Serviço e Política de Privacidade"
+    },
+    "step": "Passo"
   }
 }

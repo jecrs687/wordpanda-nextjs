@@ -1,5 +1,8 @@
+'use client';
+import { useI18n } from "@providers/TranslationProvider";
 import { motion } from 'framer-motion';
 import React from 'react';
+import { useTranslation } from "react-i18next";
 
 interface WelcomeStepProps {
     goToStep: (step: number) => void;
@@ -8,6 +11,9 @@ interface WelcomeStepProps {
 }
 
 const WelcomeStep: React.FC<WelcomeStepProps> = ({ goToStep, currentStep }) => {
+    const { language } = useI18n();
+    const { t } = useTranslation();
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -61,14 +67,14 @@ const WelcomeStep: React.FC<WelcomeStepProps> = ({ goToStep, currentStep }) => {
                 variants={itemVariants}
                 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 text-black dark:text-white"
             >
-                Welcome to <span className="text-emerald-500 dark:text-emerald-400">WordPanda</span>
+                {t('onboarding.welcome.title')} <span className="text-emerald-500 dark:text-emerald-400">{t('onboarding.welcome.appName')}</span>
             </motion.h1>
 
             <motion.p
                 variants={itemVariants}
                 className="text-base md:text-lg text-zinc-700 dark:text-zinc-300 mb-8 max-w-md mx-auto"
             >
-                Your journey to language mastery starts here. Fun, interactive, and personalized learning awaits you.
+                {t('onboarding.welcome.description')}
             </motion.p>
 
             <motion.div
@@ -83,7 +89,7 @@ const WelcomeStep: React.FC<WelcomeStepProps> = ({ goToStep, currentStep }) => {
                              shadow-lg hover:shadow-emerald-500/30 transition-all duration-300 cursor-pointer inline-flex 
                              items-center space-x-2"
                 >
-                    <span>Start Your Journey</span>
+                    <span>{t('onboarding.welcome.startButton')}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>

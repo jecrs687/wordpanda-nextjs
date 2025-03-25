@@ -1,6 +1,9 @@
+'use client';
 import { ROUTES } from '@constants/ROUTES';
+import { useI18n } from "@providers/TranslationProvider";
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
+import { useTranslation } from "react-i18next";
 
 interface LoginRegisterStepProps {
     goToStep: (step: number) => void;
@@ -11,6 +14,8 @@ interface LoginRegisterStepProps {
 
 const LoginRegisterStep: React.FC<LoginRegisterStepProps> = ({ goToStep, currentStep, router }) => {
     const [hoveredButton, setHoveredButton] = useState<string | null>(null);
+    const { language } = useI18n();
+    const { t } = useTranslation();
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -86,14 +91,14 @@ const LoginRegisterStep: React.FC<LoginRegisterStepProps> = ({ goToStep, current
                 variants={itemVariants}
                 className="text-3xl md:text-4xl font-bold mb-4 text-black dark:text-white"
             >
-                Ready to <span className="text-emerald-500 dark:text-emerald-400">Start</span>?
+                {t('onboarding.login.title')} <span className="text-emerald-500 dark:text-emerald-400">{t('onboarding.login.titleHighlight')}</span>?
             </motion.h2>
 
             <motion.p
                 variants={itemVariants}
                 className="text-base md:text-lg text-zinc-700 dark:text-zinc-300 mb-8 max-w-md mx-auto"
             >
-                Create an account or sign in to begin your language learning adventure with WordPanda!
+                {t('onboarding.login.description')}
             </motion.p>
 
             <motion.div
@@ -109,7 +114,7 @@ const LoginRegisterStep: React.FC<LoginRegisterStepProps> = ({ goToStep, current
                     className="relative px-8 py-3.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-medium rounded-full 
                              shadow-lg inline-flex items-center justify-center space-x-2 w-full sm:w-auto min-w-[180px]"
                 >
-                    <span>Sign Up</span>
+                    <span>{t('onboarding.login.signup')}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                         <circle cx="12" cy="7" r="4"></circle>
@@ -135,7 +140,7 @@ const LoginRegisterStep: React.FC<LoginRegisterStepProps> = ({ goToStep, current
                     className="relative px-8 py-3.5 border-2 border-zinc-200 dark:border-zinc-700 bg-white/10 dark:bg-black/10 backdrop-blur-sm 
                              text-black dark:text-white font-medium rounded-full inline-flex items-center justify-center space-x-2 w-full sm:w-auto min-w-[180px]"
                 >
-                    <span>Log In</span>
+                    <span>{t('onboarding.login.login')}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
                         <polyline points="10 17 15 12 10 7"></polyline>
@@ -158,9 +163,9 @@ const LoginRegisterStep: React.FC<LoginRegisterStepProps> = ({ goToStep, current
                 variants={itemVariants}
                 className="mt-8 text-sm text-zinc-600 dark:text-zinc-400"
             >
-                <p>By signing up, you agree to our Terms of Service and Privacy Policy</p>
+                <p>{t('onboarding.login.terms')}</p>
             </motion.div>
-        </motion.div>
+        </motion.div >
     );
 };
 

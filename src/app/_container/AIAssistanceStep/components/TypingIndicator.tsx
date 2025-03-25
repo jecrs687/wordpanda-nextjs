@@ -1,7 +1,11 @@
+'use client';
 import { motion } from 'framer-motion';
 import React from 'react';
+import { useTranslation } from "react-i18next";
 
 export const TypingIndicator: React.FC = () => {
+    const { t } = useTranslation();
+
     const dotVariants = {
         animate: (i: number) => ({
             y: [0, -5, 0],
@@ -28,7 +32,7 @@ export const TypingIndicator: React.FC = () => {
                 ))}
             </div>
             <span className="ml-1 text-xs text-zinc-600 dark:text-zinc-400">
-                AI assistant is typing...
+                {t('onboarding.aiAssistance.typing')}
             </span>
         </div>
     );

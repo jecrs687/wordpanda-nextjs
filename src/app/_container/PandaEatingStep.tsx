@@ -1,5 +1,8 @@
+'use client';
+import { useI18n } from "@providers/TranslationProvider";
 import { motion } from 'framer-motion';
 import React from 'react';
+import { useTranslation } from "react-i18next";
 
 interface PandaEatingStepProps {
     goToStep: (step: number) => void;
@@ -8,6 +11,9 @@ interface PandaEatingStepProps {
 }
 
 const PandaEatingStep: React.FC<PandaEatingStepProps> = ({ goToStep, currentStep }) => {
+    const { language } = useI18n();
+    const { t } = useTranslation();
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -104,14 +110,14 @@ const PandaEatingStep: React.FC<PandaEatingStepProps> = ({ goToStep, currentStep
                 variants={itemVariants}
                 className="text-3xl md:text-4xl font-bold mb-4 text-black dark:text-white"
             >
-                Feed Your <span className="text-emerald-500 dark:text-emerald-400">Knowledge</span>
+                {t('onboarding.pandaEating.title')} <span className="text-emerald-500 dark:text-emerald-400">{t('onboarding.pandaEating.titleHighlight')}</span>
             </motion.h2>
 
             <motion.p
                 variants={itemVariants}
                 className="text-base md:text-lg text-zinc-700 dark:text-zinc-300 mb-6 max-w-md mx-auto"
             >
-                Just like pandas need bamboo, your mind needs consistent practice to grow. With WordPanda, language learning becomes a daily habit that nourishes your skills.
+                {t('onboarding.pandaEating.description')}
             </motion.p>
 
             <motion.div
@@ -125,7 +131,7 @@ const PandaEatingStep: React.FC<PandaEatingStepProps> = ({ goToStep, currentStep
                     className="px-6 py-2.5 bg-sky-600 text-white font-medium rounded-full 
                              shadow-md inline-flex items-center justify-center space-x-2"
                 >
-                    <span>Continue</span>
+                    <span>{t('common.continue')}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>

@@ -1,7 +1,11 @@
+'use client';
 import { motion } from 'framer-motion';
 import React from 'react';
+import { useTranslation } from "react-i18next";
 
 export const PandaAssistant: React.FC = () => {
+    const { t } = useTranslation();
+
     // Pulse animation for panda avatar
     const pulseVariants = {
         animate: {
@@ -39,8 +43,8 @@ export const PandaAssistant: React.FC = () => {
                 <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-400 rounded-full border-2 border-white dark:border-zinc-900"></div>
             </div>
             <div>
-                <h3 className="font-semibold text-sm sm:text-base text-black dark:text-white">PandaAI Assistant</h3>
-                <p className="text-xs text-emerald-600 dark:text-emerald-400">Ready to help with your learning</p>
+                <h3 className="font-semibold text-sm sm:text-base text-black dark:text-white">{t('onboarding.aiAssistance.assistantName')}</h3>
+                <p className="text-xs text-emerald-600 dark:text-emerald-400">{t('onboarding.aiAssistance.assistantStatus')}</p>
             </div>
         </div>
     );

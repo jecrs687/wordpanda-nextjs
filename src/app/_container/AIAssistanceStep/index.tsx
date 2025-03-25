@@ -1,5 +1,8 @@
+'use client';
+import { useI18n } from "@providers/TranslationProvider";
 import { motion } from 'framer-motion';
 import React from 'react';
+import { useTranslation } from "react-i18next";
 import { ChatMessage } from './components/ChatMessage';
 import { PandaAssistant } from './components/PandaAssistant';
 import { TypingIndicator } from './components/TypingIndicator';
@@ -11,6 +14,9 @@ interface AIAssistanceStepProps {
 }
 
 const AIAssistanceStep: React.FC<AIAssistanceStepProps> = ({ goToStep, currentStep, totalSteps }) => {
+    const { language } = useI18n();
+    const { t } = useTranslation();
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -29,10 +35,10 @@ const AIAssistanceStep: React.FC<AIAssistanceStepProps> = ({ goToStep, currentSt
 
     // AI chat conversation simulation
     const chatMessages = [
-        { id: 1, text: "How do you say 'hello' in Spanish?", isUser: true },
-        { id: 2, text: "In Spanish, 'hello' is 'hola'", isUser: false },
-        { id: 3, text: "Can you use it in a sentence?", isUser: true },
-        { id: 4, text: "Sure! 'Hola, ¿cómo estás?' means 'Hello, how are you?'", isUser: false }
+        { id: 1, text: t('onboarding.aiAssistance.chat.userQuestion1'), isUser: true },
+        { id: 2, text: t('onboarding.aiAssistance.chat.aiAnswer1'), isUser: false },
+        { id: 3, text: t('onboarding.aiAssistance.chat.userQuestion2'), isUser: true },
+        { id: 4, text: t('onboarding.aiAssistance.chat.aiAnswer2'), isUser: false }
     ];
 
     return (
@@ -69,13 +75,13 @@ const AIAssistanceStep: React.FC<AIAssistanceStepProps> = ({ goToStep, currentSt
                 </div>
             </motion.div>
 
-            <motion.div className="flex flex-col items-center md:items-start space-y-4 sm:space-y-6">
+            <motion.div className="flex flex-col items-center md:items-center space-y-4 sm:space-y-6">
                 <motion.h2
                     variants={itemVariants}
                     className="text-2xl sm:text-3xl md:text-4xl font-bold text-black dark:text-white"
                 >
                     <span className="relative">
-                        <span className="relative z-10">Panda</span>
+                        <span className="relative z-10">{t('onboarding.aiAssistance.title')}</span>
                         <motion.span
                             className="absolute -bottom-1 left-0 right-0 h-3 bg-black dark:bg-white opacity-10 rounded-full"
                             initial={{ width: 0 }}
@@ -83,20 +89,24 @@ const AIAssistanceStep: React.FC<AIAssistanceStepProps> = ({ goToStep, currentSt
                             transition={{ delay: 1, duration: 0.5 }}
                         />
                     </span>{' '}
-                    <span className="text-emerald-600 dark:text-emerald-400">AI Assistant</span>
+                    <span className="text-emerald-600 dark:text-emerald-400">{t('onboarding.aiAssistance.titleHighlight')}</span>
                 </motion.h2>
 
                 <motion.p
                     variants={itemVariants}
                     className="text-base sm:text-lg text-zinc-700 dark:text-zinc-300 max-w-md mx-auto md:mx-0"
                 >
-                    Our friendly AI assistant guides your language journey, providing personalized help and adapting to your unique learning style.
+                    {t('onboarding.aiAssistance.description')}
                 </motion.p>
 
                 <motion.div
                     variants={itemVariants}
                     className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start w-full sm:w-auto"
                 >
+                    <div className="text-xs text-center sm:text-left text-zinc-500 dark:text-zinc-400 mt-2 sm:mt-0 sm:self-end mb-1">
+                        {t('onboarding.step')} {currentStep} {t('common.of')} {totalSteps}
+                    </div>
+
                     <motion.button
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.98 }}
@@ -105,7 +115,7 @@ const AIAssistanceStep: React.FC<AIAssistanceStepProps> = ({ goToStep, currentSt
                                   text-white font-medium rounded-full shadow-lg inline-flex items-center justify-center 
                                   space-x-2 transition-all duration-200 ease-in-out w-full sm:w-auto"
                     >
-                        <span>Continue</span>
+                        <span>{t('common.continue')}</span>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -122,9 +132,7 @@ const AIAssistanceStep: React.FC<AIAssistanceStepProps> = ({ goToStep, currentSt
                         </svg>
                     </motion.button>
 
-                    <div className="text-xs text-center sm:text-left text-zinc-500 dark:text-zinc-400 mt-2 sm:mt-0 sm:self-end mb-1">
-                        Step {currentStep} of {totalSteps}
-                    </div>
+
                 </motion.div>
             </motion.div>
         </motion.div>

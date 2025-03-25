@@ -1,5 +1,8 @@
+'use client';
+import { useI18n } from "@providers/TranslationProvider";
 import { motion } from 'framer-motion';
 import React from 'react';
+import { useTranslation } from "react-i18next";
 import FeatureCard from './components/FeatureCard';
 import PandaAccent from './components/PandaAccent';
 
@@ -10,6 +13,9 @@ interface NewAmazingStepProps {
 }
 
 const NewAmazingStep: React.FC<NewAmazingStepProps> = ({ goToStep, currentStep }) => {
+    const { language } = useI18n();
+    const { t } = useTranslation();
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -29,22 +35,22 @@ const NewAmazingStep: React.FC<NewAmazingStepProps> = ({ goToStep, currentStep }
     const features = [
         {
             id: 1,
-            title: 'Interactive Games',
-            description: 'Fun games that make learning effortless',
+            title: t('onboarding.features.interactive.title'),
+            description: t('onboarding.features.interactive.description'),
             icon: 'game-controller',
             color: 'bg-zinc-900 dark:bg-white'
         },
         {
             id: 2,
-            title: 'Progress Tracking',
-            description: 'Monitor your learning journey over time',
+            title: t('onboarding.features.progress.title'),
+            description: t('onboarding.features.progress.description'),
             icon: 'bar-chart',
             color: 'bg-zinc-900 dark:bg-white'
         },
         {
             id: 3,
-            title: 'Social Learning',
-            description: 'Connect with friends and learn together',
+            title: t('onboarding.features.social.title'),
+            description: t('onboarding.features.social.description'),
             icon: 'users',
             color: 'bg-zinc-900 dark:bg-white'
         }
@@ -66,7 +72,7 @@ const NewAmazingStep: React.FC<NewAmazingStepProps> = ({ goToStep, currentStep }
                     className="text-xl sm:text-2xl md:text-4xl font-bold mb-1 sm:mb-2 md:mb-3 text-black dark:text-white"
                 >
                     <span className="relative inline-block">
-                        Amazing
+                        {t('onboarding.features.title')}
                         <motion.span
                             className="absolute -bottom-1 left-0 w-full h-1 bg-emerald-400 dark:bg-emerald-500 rounded-full"
                             initial={{ width: 0 }}
@@ -74,14 +80,14 @@ const NewAmazingStep: React.FC<NewAmazingStepProps> = ({ goToStep, currentStep }
                             transition={{ delay: 0.7, duration: 0.7 }}
                         />
                     </span>
-                    {' '}Features
+                    {' '}{t('onboarding.features.titleSuffix')}
                 </motion.h2>
 
                 <motion.p
                     variants={itemVariants}
                     className="text-xs sm:text-sm md:text-base text-zinc-700 dark:text-zinc-300 mb-3 sm:mb-5 md:mb-8 max-w-md mx-auto"
                 >
-                    Discover tools we've created to make your language learning journey exceptional.
+                    {t('onboarding.features.description')}
                 </motion.p>
 
                 <motion.div
@@ -110,7 +116,7 @@ const NewAmazingStep: React.FC<NewAmazingStepProps> = ({ goToStep, currentStep }
                             transition-all duration-300 border border-transparent hover:border-emerald-400
                             dark:hover:border-emerald-500"
                     >
-                        <span className="text-xs sm:text-sm md:text-base">Start Learning</span>
+                        <span className="text-xs sm:text-sm md:text-base">{t('common.start')}</span>
                         <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M12 5l7 7-7 7" />
                         </svg>

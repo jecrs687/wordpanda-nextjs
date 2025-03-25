@@ -1,5 +1,7 @@
+'use client';
 import { motion } from 'framer-motion';
 import React from 'react';
+import { useTranslation } from "react-i18next";
 
 interface LanguageLearningStepProps {
     goToStep: (step: number) => void;
@@ -8,6 +10,8 @@ interface LanguageLearningStepProps {
 }
 
 const LanguageLearningStep: React.FC<LanguageLearningStepProps> = ({ goToStep, currentStep }) => {
+    const { t } = useTranslation();
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -95,14 +99,14 @@ const LanguageLearningStep: React.FC<LanguageLearningStepProps> = ({ goToStep, c
                 variants={itemVariants}
                 className="text-3xl md:text-4xl font-bold mb-4 text-black dark:text-white"
             >
-                Learn <span className="text-indigo-500 dark:text-indigo-400">Any Language</span>
+                {t('onboarding.languageLearning.title')} <span className="text-indigo-500 dark:text-indigo-400">{t('onboarding.languageLearning.titleHighlight')}</span>
             </motion.h2>
 
             <motion.p
                 variants={itemVariants}
                 className="text-base md:text-lg text-zinc-700 dark:text-zinc-300 mb-6 max-w-md mx-auto"
             >
-                Explore multiple languages with our adaptive learning system. From Spanish to Japanese, we've got you covered with fun, interactive lessons.
+                {t('onboarding.languageLearning.description')}
             </motion.p>
 
             <motion.div
@@ -135,7 +139,7 @@ const LanguageLearningStep: React.FC<LanguageLearningStepProps> = ({ goToStep, c
                     className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white font-medium rounded-full 
                              shadow-lg inline-flex items-center justify-center space-x-2"
                 >
-                    <span>Discover More</span>
+                    <span>{t('common.discover')}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>

@@ -14,7 +14,10 @@
     "back": "Back",
     "next": "Next",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "continue": "Continue",
+    "discover": "Discover More",
+    "start": "Start Learning"
   },
   "languages": {
     "title": "Languages",
@@ -124,5 +127,63 @@
     "networkError": "Network error. Please check your connection.",
     "pageNotFound": "The page you're looking for doesn't exist.",
     "goBack": "Go back"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Welcome to",
+      "appName": "WordPanda",
+      "description": "Your journey to language mastery starts here. Fun, interactive, and personalized learning awaits you.",
+      "startButton": "Start Your Journey"
+    },
+    "languageLearning": {
+      "title": "Learn",
+      "titleHighlight": "Any Language",
+      "description": "Explore multiple languages with our adaptive learning system. From Spanish to Japanese, we've got you covered with fun, interactive lessons."
+    },
+    "aiAssistance": {
+      "title": "Panda",
+      "titleHighlight": "AI Assistant",
+      "description": "Our friendly AI assistant guides your language journey, providing personalized help and adapting to your unique learning style.",
+      "assistantName": "PandaAI Assistant",
+      "assistantStatus": "Ready to help with your learning",
+      "typing": "AI assistant is typing...",
+      "chat": {
+        "userQuestion1": "How do you say 'hello' in Spanish?",
+        "aiAnswer1": "In Spanish, 'hello' is 'hola'",
+        "userQuestion2": "Can you use it in a sentence?",
+        "aiAnswer2": "Sure! 'Hola, ¿cómo estás?' means 'Hello, how are you?'"
+      }
+    },
+    "pandaEating": {
+      "title": "Feed Your",
+      "titleHighlight": "Knowledge",
+      "description": "Just like pandas need bamboo, your mind needs consistent practice to grow. With WordPanda, language learning becomes a daily habit that nourishes your skills."
+    },
+    "features": {
+      "title": "Amazing",
+      "titleSuffix": "Features",
+      "description": "Discover tools we've created to make your language learning journey exceptional.",
+      "interactive": {
+        "title": "Interactive Games",
+        "description": "Fun games that make learning effortless"
+      },
+      "progress": {
+        "title": "Progress Tracking",
+        "description": "Monitor your learning journey over time"
+      },
+      "social": {
+        "title": "Social Learning",
+        "description": "Connect with friends and learn together"
+      }
+    },
+    "login": {
+      "title": "Ready to",
+      "titleHighlight": "Start",
+      "description": "Create an account or sign in to begin your language learning adventure with WordPanda!",
+      "signup": "Sign Up",
+      "login": "Log In",
+      "terms": "By signing up, you agree to our Terms of Service and Privacy Policy"
+    },
+    "step": "Step"
   }
 }

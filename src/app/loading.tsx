@@ -4,10 +4,12 @@ import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function Loading() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setMounted(true);
@@ -68,7 +70,7 @@ export default function Loading() {
               ease: "easeInOut"
             }}
           >
-            Carregando...
+            {t('common.loading')}
           </motion.p>
         </motion.div>
       </div>
