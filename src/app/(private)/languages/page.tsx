@@ -13,17 +13,20 @@ export default function Page() {
     const [userLanguages, setUserLanguages] = useState([]);
 
     useEffect(() => {
-        async function fetchData() {
-            const [languagesData, userLanguagesData] = await Promise.all([
-                getLanguages(),
-                getUserLanguages()
-            ]);
-            setLanguages(languagesData.languages);
-            setUserLanguages(userLanguagesData.userLanguages);
-        }
+        const fetchLanguages = async () => {
+            const { languages } = await getLanguages();
+            setLanguages(languages);
+        };
 
-        fetchData();
+        const fetchUserLanguages = async () => {
+            const { userLanguages } = await getUserLanguages();
+            setUserLanguages(userLanguages);
+        };
+
+        fetchLanguages();
+        fetchUserLanguages();
     }, []);
+
 
     if (!languages.length || !userLanguages.length) return <div>{t('common.loading')}</div>;
 
@@ -59,14 +62,14 @@ export default function Page() {
                     initial="hidden"
                     animate="show"
                 >
-                    {userLanguages.map((language) => (
-                        <motion.div key={language.id} variants={itemVariants}>
+                    {userLanguages.map((userLanguage) => (
+                        <motion.div key={userLanguage.language.id} variants={itemVariants}>
                             <LanguageCard
-                                language={language}
-                                id={language.id}
-                                code={language.code}
-                                wordsNumber={language.wordsNumber}
-                                totalWordsNumber={language.totalWordsNumber}
+                                language={userLanguage.language.language}
+                                id={String(userLanguage.language.id)}
+                                code={userLanguage.language.code}
+                                wordsNumber={userLanguage._count.userWords}
+                                totalWordsNumber={userLanguage.language._count.words}
                             />
                         </motion.div>
                     ))}
@@ -82,15 +85,15 @@ export default function Page() {
                     animate="show"
                 >
                     {languages
-                        .filter(lang => !userLanguages.some(userLang => userLang.id === lang.id))
+                        .filter(lang => !userLanguages.some(({ language }) => language.id === lang.id) && lang._count.words > 0)
                         .map((language) => (
                             <motion.div key={language.id} variants={itemVariants}>
                                 <LanguageCard
-                                    language={language}
-                                    id={language.id}
+                                    language={language.language}
+                                    id={String(language.id)}
                                     code={language.code}
-                                    wordsNumber={language.wordsNumber}
-                                    totalWordsNumber={language.totalWordsNumber}
+                                    wordsNumber={0}
+                                    totalWordsNumber={language._count.words}
                                 />
                             </motion.div>
                         ))

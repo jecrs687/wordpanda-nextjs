@@ -29,5 +29,6 @@ export const NavIcons: Record<string, ElementType> = {
     trophy: Trophy,
     settings: Settings,
     logout: LogOut,
+    metrics: Trophy,
     home: Home
 };

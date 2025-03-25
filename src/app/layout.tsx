@@ -13,6 +13,7 @@ import { Suspense } from 'react'
 import Error from './error'
 import './globals.css'
 import Loading from './loading'
+import "/node_modules/flag-icons/css/flag-icons.min.css"
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' })
 
@@ -30,7 +31,10 @@ export default function RootLayout({
 
     <html lang="en" suppressHydrationWarning>
       <head>
-
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css"
+        />
         <MetaTagsProvider />
         <meta name="google-site-verification" content="ctYiVgIDqF93EFA9K-KPFNJsRgtSRLa3m8JrZsxpiw4" />
         <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-757587162" />

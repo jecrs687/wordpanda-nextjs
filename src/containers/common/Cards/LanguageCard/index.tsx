@@ -1,11 +1,12 @@
 "use client";
 import { ROUTES } from '@constants/ROUTES';
+import { getFlagClassEmoji } from '@utils/flags';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import { } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useState } from 'react';
-
 type LanguageCardProps = {
     id: string;
     language: string;
@@ -24,21 +25,13 @@ const LanguageCard = ({ id, language, code, wordsNumber, totalWordsNumber }: Lan
 
     // Flag emoji based on language code
     const getFlagEmoji = (code: string) => {
-        // Some common language codes to emoji flags
-        const languageToFlag: Record<string, string> = {
-            'en': '🇬🇧',
-            'es': '🇪🇸',
-            'fr': '🇫🇷',
-            'de': '🇩🇪',
-            'it': '🇮🇹',
-            'pt': '🇵🇹',
-            'br': '🇧🇷',
-            'ru': '🇷🇺',
-            'cn': '🇨🇳',
-            'jp': '🇯🇵',
-        };
+        // Some common language codes to emoji flags mapping or lucide icons
 
-        return languageToFlag[code.toLowerCase()] || '🌐';
+        const flagClass = getFlagClassEmoji(code);
+        if (flagClass) {
+            return <span className={flagClass} />;
+        }
+        return '🌐';
     };
 
     // Get color based on progress
@@ -103,7 +96,7 @@ const LanguageCard = ({ id, language, code, wordsNumber, totalWordsNumber }: Lan
                                 "text-sm",
                                 isDark ? "text-gray-400" : "text-gray-600"
                             )}>
-                                {code.toUpperCase()}
+                                {code?.toUpperCase()}
                             </p>
                         </div>
                     </div>

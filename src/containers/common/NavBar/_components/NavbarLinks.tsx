@@ -24,18 +24,18 @@ const NavbarLinks = ({ pathname }: NavbarLinksProps) => {
                 Idiomas
             </NavLink>
             <NavLink
-                href={ROUTES.PROFILE()}
-                isActive={pathname === ROUTES.PROFILE()}
-                icon="profile"
-            >
-                Perfil
-            </NavLink>
-            <NavLink
                 href={ROUTES.METRICS()}
                 isActive={pathname === ROUTES.METRICS()}
                 icon="metrics"
             >
                 Metrics
+            </NavLink>
+            <NavLink
+                href={ROUTES.PROFILE()}
+                isActive={pathname === ROUTES.PROFILE()}
+                icon="profile"
+            >
+                Perfil
             </NavLink>
         </nav>
     );
