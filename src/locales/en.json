@@ -20,7 +20,8 @@
     "start": "Start Learning",
     "light": "Light Mode",
     "dark": "Dark Mode",
-    "appName": "WordPanda"
+    "appName": "WordPanda",
+    "of": "of"
   },
   "languages": {
     "title": "Languages",
@@ -86,7 +87,38 @@
     "streakDays": "Streak Days",
     "goals": "Goals",
     "recentActivity": "Recent Activity",
-    "statistics": "Statistics"
+    "statistics": "Statistics",
+    "searchingContent": "Searching content...",
+    "noResults": {
+      "title": "We couldn't find anything matching your search",
+      "addToDatabase": "Want to add it to our database?",
+      "fillForm": "Just fill out the form below:",
+      "nameField": "Name",
+      "providerField": "Provider",
+      "moviePlaceholder": "The Hangover",
+      "providerPlaceholder": "Netflix, Prime",
+      "addButton": "Add",
+      "approvalMessage": "After adding, please wait for our team's approval before the content becomes available"
+    },
+    "sections": {
+      "learning": "Learning",
+      "watched": "Watched",
+      "mostViewed": "Most Viewed",
+      "recentlyAdded": "Recently Added",
+      "newBadge": "New"
+    },
+    "newsletter": {
+      "title": "WordPanda Updates",
+      "description": "Receive tips, new content, and updates to improve your learning",
+      "emailPlaceholder": "Your best email",
+      "subscribeButton": "Subscribe"
+    },
+    "footer": {
+      "aboutUs": "About Us",
+      "faq": "FAQ",
+      "contact": "Contact",
+      "copyright": "WordPanda — Your language learning assistant ©"
+    }
   },
   "words": {
     "title": "My Words",

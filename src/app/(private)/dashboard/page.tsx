@@ -2,6 +2,7 @@ import { getUserInformation } from '@actions/User/getUser.action';
 import { getPlatforms } from '@backend/domain/actions/Platform/getPlatform.action';
 import Dashboard from './_container/Dashboard';
 
+// Force dynamic rendering to ensure up-to-date translations
 export const dynamic = 'force-dynamic';
 export default async function Page() {
     const [{ user }, { platforms }] = await Promise.all([getUserInformation(), getPlatforms()])

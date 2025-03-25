@@ -14,6 +14,7 @@ import { deepcopy } from '@utils/deepcopy';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { insertMissingMovies } from './action';
 
 type Platform = Awaited<ReturnType<typeof getPlatforms>>['platforms']
@@ -26,6 +27,7 @@ const Dashboard = ({
     medias: Awaited<ReturnType<typeof getUser>>['user']['mediaUser'],
     platforms: Platform,
 }) => {
+    const { t } = useTranslation();
     const { search, setSearch } = useSearch();
     const [languages, setLanguages] = useState(langProp);
     const [medias, setMedias] = useState(mediasProp);
@@ -131,7 +133,7 @@ const Dashboard = ({
                             transition={{ delay: 0.5 }}
                             className={`mt-6 text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
                         >
-                            Buscando conteúdo...
+                            {t('dashboard.searchingContent')}
                         </motion.p>
                     </div>
                 )}
@@ -165,18 +167,26 @@ const Dashboard = ({
                                     <div className="text-center space-y-4 relative">
                                         <span className="inline-block text-5xl mb-2">🧐</span>
                                         <h2 className={`text-3xl font-extrabold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                                            Não encontramos nada com o termo pesquisado
+                                            {t('dashboard.noResults.title')}
                                         </h2>
                                         <p className={`text-lg ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                                            Quer adicionar a nossa base de dados?
+                                            {t('dashboard.noResults.addToDatabase')}
                                             <br />
-                                            Basta preencher o formulário abaixo:
+                                            {t('dashboard.noResults.fillForm')}
                                         </p>
                                     </div>
 
                                     <div className="space-y-5">
-                                        <Input name='name' title='Nome' placeholder='Se beber não case' />
-                                        <Input name='provider' title='Provedor' placeholder='Netflix, prime' />
+                                        <Input
+                                            name='name'
+                                            title={t('dashboard.noResults.nameField')}
+                                            placeholder={t('dashboard.noResults.moviePlaceholder')}
+                                        />
+                                        <Input
+                                            name='provider'
+                                            title={t('dashboard.noResults.providerField')}
+                                            placeholder={t('dashboard.noResults.providerPlaceholder')}
+                                        />
                                     </div>
 
                                     <div className="pt-4">
@@ -192,12 +202,12 @@ const Dashboard = ({
                                                 </svg>
                                             }
                                         >
-                                            Adicionar
+                                            {t('dashboard.noResults.addButton')}
                                         </Button>
                                     </div>
 
                                     <p className={`text-center text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                                        Após adicionar, aguarde a aprovação da nossa equipe para que o conteúdo seja disponibilizado
+                                        {t('dashboard.noResults.approvalMessage')}
                                     </p>
                                 </form>
                             </motion.div>
@@ -210,7 +220,7 @@ const Dashboard = ({
                                     <div className="flex items-center space-x-3">
                                         <span className="text-2xl">🗣️</span>
                                         <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                                            Aprendendo
+                                            {t('dashboard.sections.learning')}
                                         </h2>
                                     </div>
 
@@ -261,7 +271,7 @@ const Dashboard = ({
                                     <div className="flex items-center space-x-3">
                                         <span className="text-2xl">📺</span>
                                         <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                                            Assistidos
+                                            {t('dashboard.sections.watched')}
                                         </h2>
                                     </div>
 

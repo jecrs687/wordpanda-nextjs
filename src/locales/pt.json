@@ -87,7 +87,38 @@
     "streakDays": "Dias Consecutivos",
     "goals": "Metas",
     "recentActivity": "Atividade Recente",
-    "statistics": "Estatísticas"
+    "statistics": "Estatísticas",
+    "searchingContent": "Buscando conteúdo...",
+    "noResults": {
+      "title": "Não encontramos nada com o termo pesquisado",
+      "addToDatabase": "Quer adicionar a nossa base de dados?",
+      "fillForm": "Basta preencher o formulário abaixo:",
+      "nameField": "Nome",
+      "providerField": "Provedor",
+      "moviePlaceholder": "Se beber não case",
+      "providerPlaceholder": "Netflix, prime",
+      "addButton": "Adicionar",
+      "approvalMessage": "Após adicionar, aguarde a aprovação da nossa equipe para que o conteúdo seja disponibilizado"
+    },
+    "sections": {
+      "learning": "Aprendendo",
+      "watched": "Assistidos",
+      "mostViewed": "Mais vistos",
+      "recentlyAdded": "Adicionados recentemente",
+      "newBadge": "Novo"
+    },
+    "newsletter": {
+      "title": "Novidades no WordPanda",
+      "description": "Receba dicas, novos conteúdos e atualizações para melhorar seu aprendizado",
+      "emailPlaceholder": "Seu melhor e-mail",
+      "subscribeButton": "Inscrever-me"
+    },
+    "footer": {
+      "aboutUs": "Sobre nós",
+      "faq": "FAQ",
+      "contact": "Contato",
+      "copyright": "WordPanda — Seu assistente para aprendizado de idiomas ©"
+    }
   },
   "words": {
     "title": "Minhas Palavras",
