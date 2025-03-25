@@ -45,10 +45,10 @@ export const FormInput = ({
                         onFocus={() => setFocused(true)}
                         onBlur={() => setFocused(false)}
                         className={`w-full px-3 py-2.5 bg-white dark:bg-zinc-800 border ${error
-                                ? 'border-red-500 ring-1 ring-red-500'
-                                : focused
-                                    ? 'border-emerald-500 ring-1 ring-emerald-500'
-                                    : 'border-zinc-300 dark:border-zinc-700'
+                            ? 'border-red-500 ring-1 ring-red-500'
+                            : focused
+                                ? 'border-emerald-500 ring-1 ring-emerald-500'
+                                : 'border-zinc-300 dark:border-zinc-700'
                             } rounded-lg text-zinc-900 dark:text-white transition-all duration-200`}
                         placeholder={placeholder}
                         aria-invalid={error ? "true" : "false"}

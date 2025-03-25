@@ -14,7 +14,14 @@
     "back": "Indietro",
     "next": "Avanti",
     "yes": "Sì",
-    "no": "No"
+    "no": "No",
+    "continue": "Continua",
+    "discover": "Scopri di più",
+    "start": "Inizia ad imparare",
+    "light": "Modalità chiara",
+    "dark": "Modalità scura",
+    "appName": "WordPanda",
+    "of": "di"
   },
   "languages": {
     "title": "Lingue",
@@ -39,7 +46,9 @@
   },
   "auth": {
     "email": "Email",
+    "emailPlaceholder": "Inserisci la tua email",
     "password": "Password",
+    "passwordPlaceholder": "Inserisci la tua password",
     "confirmPassword": "Conferma Password",
     "login": "Accedi",
     "register": "Registrati",
@@ -49,9 +58,14 @@
     "username": "Nome Utente",
     "name": "Nome",
     "alreadyHaveAccount": "Hai già un account? Accedi",
-    "dontHaveAccount": "Non hai un account? Registrati",
+    "dontHaveAccount": "Non hai un account?",
+    "registerNow": "Registrati ora",
     "verifyEmail": "Verifica la tua email",
-    "emailVerificationSent": "Email di verifica inviata"
+    "emailVerificationSent": "Email di verifica inviata",
+    "welcomeTo": "Benvenuto su",
+    "learnLanguagesFun": "Impara le lingue in modo divertente e interattivo!",
+    "invalidCredentials": "Email o password non validi",
+    "loginWith": "Accedi con {{provider}}"
   },
   "profile": {
     "title": "Profilo",
@@ -124,5 +138,266 @@
     "networkError": "Errore di rete. Controlla la tua connessione.",
     "pageNotFound": "La pagina che stai cercando non esiste.",
     "goBack": "Torna indietro"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Benvenuto su",
+      "appName": "WordPanda",
+      "description": "Il tuo viaggio verso la padronanza delle lingue inizia qui. Un apprendimento divertente, interattivo e personalizzato ti aspetta.",
+      "startButton": "Inizia il tuo viaggio"
+    },
+    "languageLearning": {
+      "title": "Impara",
+      "titleHighlight": "Qualsiasi Lingua",
+      "description": "Esplora più lingue con il nostro sistema di apprendimento adattivo. Dallo spagnolo al giapponese, ti copriamo con lezioni divertenti e interattive."
+    },
+    "aiAssistance": {
+      "title": "Panda",
+      "titleHighlight": "Assistente IA",
+      "description": "Il nostro amichevole assistente IA guida il tuo percorso linguistico, fornendo aiuto personalizzato e adattandosi al tuo stile di apprendimento unico.",
+      "assistantName": "Assistente PandaAI",
+      "assistantStatus": "Pronto ad aiutarti con il tuo apprendimento",
+      "typing": "L'assistente IA sta scrivendo...",
+      "chat": {
+        "userQuestion1": "Come si dice 'ciao' in spagnolo?",
+        "aiAnswer1": "In spagnolo, 'ciao' si dice 'hola'",
+        "userQuestion2": "Puoi usarlo in una frase?",
+        "aiAnswer2": "Certo! 'Hola, ¿cómo estás?' significa 'Ciao, come stai?'"
+      }
+    },
+    "pandaEating": {
+      "title": "Alimenta la Tua",
+      "titleHighlight": "Conoscenza",
+      "description": "Proprio come i panda hanno bisogno di bambù, la tua mente ha bisogno di pratica costante per crescere. Con WordPanda, l'apprendimento delle lingue diventa un'abitudine quotidiana che nutre le tue competenze."
+    },
+    "features": {
+      "title": "Funzionalità",
+      "titleSuffix": "Straordinarie",
+      "description": "Scopri gli strumenti che abbiamo creato per rendere eccezionale il tuo percorso di apprendimento delle lingue.",
+      "interactive": {
+        "title": "Giochi Interattivi",
+        "description": "Giochi divertenti che rendono l'apprendimento senza sforzo"
+      },
+      "progress": {
+        "title": "Monitoraggio Progressi",
+        "description": "Monitora il tuo percorso di apprendimento nel tempo"
+      },
+      "social": {
+        "title": "Apprendimento Sociale",
+        "description": "Connettiti con gli amici e imparate insieme"
+      }
+    },
+    "login": {
+      "title": "Pronto a",
+      "titleHighlight": "Iniziare",
+      "description": "Crea un account o accedi per iniziare la tua avventura di apprendimento linguistico con WordPanda!",
+      "signup": "Registrati",
+      "login": "Accedi",
+      "terms": "Registrandoti, accetti i nostri Termini di Servizio e la Politica sulla Privacy"
+    },
+    "step": "Passo"
+  },
+  "register": {
+    "title": "Crea il Tuo Account",
+    "description": "Unisciti a WordPanda e inizia oggi il tuo viaggio di apprendimento delle lingue.",
+    "steps": {
+      "account": {
+        "title": "Crea il Tuo Account",
+        "description": "Inizia impostando le tue credenziali di accesso"
+      },
+      "personal": {
+        "title": "Informazioni Personali",
+        "description": "Raccontaci un po' di te"
+      },
+      "profile": {
+        "title": "Configurazione Profilo",
+        "description": "Personalizza il tuo profilo di apprendimento"
+      },
+      "preferences": {
+        "title": "Preferenze di Apprendimento",
+        "description": "Personalizza la tua esperienza di apprendimento"
+      },
+      "complete": {
+        "title": "Registrazione Completata!",
+        "description": "Sei pronto per iniziare ad imparare"
+      },
+      "labels": {
+        "account": "Account",
+        "personal": "Personale",
+        "profile": "Profilo",
+        "preferences": "Preferenze"
+      },
+      "accessibility": "Passo {{current}} di {{total}}: {{step}}"
+    },
+    "form": {
+      "email": {
+        "label": "Indirizzo Email",
+        "placeholder": "Inserisci il tuo indirizzo email"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Crea una password sicura"
+      },
+      "passwordConfirmation": {
+        "label": "Conferma Password",
+        "placeholder": "Reinserisci la tua password"
+      },
+      "firstName": {
+        "label": "Nome",
+        "placeholder": "Inserisci il tuo nome"
+      },
+      "lastName": {
+        "label": "Cognome",
+        "placeholder": "Inserisci il tuo cognome"
+      },
+      "username": {
+        "label": "Nome Utente",
+        "placeholder": "Scegli un nome utente unico"
+      },
+      "phone": {
+        "label": "Numero di Telefono (Opzionale)",
+        "placeholder": "Inserisci il tuo numero di telefono"
+      },
+      "nativeLanguage": {
+        "label": "Lingua Madre",
+        "placeholder": "Seleziona la tua lingua madre"
+      },
+      "buttons": {
+        "continue": "Continua",
+        "back": "Indietro",
+        "previous": "Precedente",
+        "next": "Successivo",
+        "signIn": "Accedi",
+        "completeRegistration": "Completa Registrazione",
+        "completingRegistration": "Completamento in corso..."
+      },
+      "alreadyHaveAccount": "Hai già un account?"
+    },
+    "errors": {
+      "title": "Errore di Registrazione",
+      "general": "Abbiamo riscontrato un problema con la tua registrazione. Riprova.",
+      "tryAgain": "Riprova"
+    },
+    "complete": {
+      "title": "Benvenuto su WordPanda!",
+      "description": "Il tuo account è stato creato con successo. Sei pronto per iniziare il tuo viaggio di apprendimento delle lingue.",
+      "verificationMessage": "Abbiamo inviato un'email di verifica alla tua casella di posta. Verifica la tua email per sbloccare tutte le funzionalità.",
+      "buttons": {
+        "dashboard": "Vai alla Dashboard",
+        "signIn": "Accedi"
+      }
+    },
+    "preferences": {
+      "steps": {
+        "learningStyle": "Stile di Apprendimento",
+        "difficultyLevel": "Difficoltà",
+        "learningTime": "Orario Migliore",
+        "dailyGoal": "Obiettivo Giornaliero"
+      },
+      "learningStyle": {
+        "title": "Come preferisci imparare?",
+        "description": "Seleziona lo stile di apprendimento che funziona meglio per te",
+        "options": {
+          "visual": {
+            "label": "Apprendimento Visivo",
+            "description": "Impara attraverso immagini, grafici e contenuti visivi"
+          },
+          "auditory": {
+            "label": "Apprendimento Uditivo",
+            "description": "Impara ascoltando pronuncia e dialoghi"
+          },
+          "reading": {
+            "label": "Lettura/Scrittura",
+            "description": "Impara leggendo testi e scrivendo appunti"
+          },
+          "kinesthetic": {
+            "label": "Apprendimento Interattivo",
+            "description": "Impara attraverso pratica, giochi ed esercizi interattivi"
+          }
+        }
+      },
+      "difficulty": {
+        "title": "Scegli il tuo livello di difficoltà iniziale",
+        "description": "Adatteremo i tuoi materiali di apprendimento in base alla tua selezione",
+        "options": {
+          "beginner": {
+            "label": "Principiante",
+            "description": "Nuovo alla lingua con poca o nessuna conoscenza precedente"
+          },
+          "intermediate": {
+            "label": "Intermedio",
+            "description": "Può comprendere conversazioni e frasi di base"
+          },
+          "advanced": {
+            "label": "Avanzato",
+            "description": "A proprio agio con la maggior parte delle costruzioni linguistiche e del vocabolario"
+          },
+          "expert": {
+            "label": "Esperto",
+            "description": "Quasi madrelingua che cerca di perfezionare le competenze"
+          }
+        }
+      },
+      "learningTime": {
+        "title": "Quando impari meglio?",
+        "description": "Ti ricorderemo di esercitarti durante il tuo momento preferito della giornata",
+        "options": {
+          "morning": {
+            "label": "Mattina",
+            "description": "Prima mattina prima di iniziare la giornata"
+          },
+          "afternoon": {
+            "label": "Pomeriggio",
+            "description": "Durante la pausa pranzo o nel primo pomeriggio"
+          },
+          "evening": {
+            "label": "Sera",
+            "description": "Dopo il lavoro o durante l'ora di cena"
+          },
+          "night": {
+            "label": "Notte",
+            "description": "Tarda notte quando è tranquillo e pacifico"
+          }
+        }
+      },
+      "dailyGoal": {
+        "title": "Imposta il tuo obiettivo di apprendimento giornaliero",
+        "description": "Quanti minuti puoi dedicare all'apprendimento ogni giorno?",
+        "options": {
+          "5": {
+            "label": "5 minuti",
+            "description": "Pratica quotidiana veloce"
+          },
+          "10": {
+            "label": "10 minuti",
+            "description": "Breve ma efficace"
+          },
+          "15": {
+            "label": "15 minuti",
+            "description": "Approccio equilibrato"
+          },
+          "30": {
+            "label": "30 minuti",
+            "description": "Studente dedicato"
+          },
+          "60": {
+            "label": "60 minuti",
+            "description": "Appassionato di lingue"
+          }
+        }
+      },
+      "errors": {
+        "learningStyle": "Seleziona il tuo stile di apprendimento preferito",
+        "difficultyPreference": "Seleziona il tuo livello di difficoltà",
+        "preferredLearningTime": "Seleziona il tuo orario di apprendimento preferito",
+        "dailyGoal": "Seleziona il tuo obiettivo di apprendimento giornaliero"
+      }
+    },
+    "footer": {
+      "rights": "Tutti i diritti riservati",
+      "privacy": "Politica sulla Privacy",
+      "terms": "Termini di Servizio",
+      "help": "Centro Assistenza"
+    }
   }
 }

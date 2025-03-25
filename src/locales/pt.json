@@ -18,7 +18,10 @@
     "continue": "Continuar",
     "discover": "Descobrir Mais",
     "start": "Começar a Aprender",
-    "of": "de"
+    "of": "de",
+    "light": "Modo Claro",
+    "dark": "Modo Escuro",
+    "appName": "WordPanda"
   },
   "languages": {
     "title": "Idiomas",
@@ -43,7 +46,9 @@
   },
   "auth": {
     "email": "Email",
+    "emailPlaceholder": "Digite seu email",
     "password": "Senha",
+    "passwordPlaceholder": "Digite sua senha",
     "confirmPassword": "Confirmar Senha",
     "login": "Entrar",
     "register": "Cadastrar",
@@ -54,8 +59,13 @@
     "name": "Nome",
     "alreadyHaveAccount": "Já tem uma conta? Entrar",
     "dontHaveAccount": "Não tem uma conta? Cadastre-se",
+    "registerNow": "Cadastre-se agora",
     "verifyEmail": "Verifique seu email",
-    "emailVerificationSent": "Verificação de email enviada"
+    "emailVerificationSent": "Verificação de email enviada",
+    "welcomeTo": "Bem-vindo ao",
+    "learnLanguagesFun": "Aprenda idiomas de forma divertida e interativa!",
+    "invalidCredentials": "Email ou senha inválidos",
+    "loginWith": "Entrar com {{provider}}"
   },
   "profile": {
     "title": "Perfil",

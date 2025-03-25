@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 interface ThemeToggleProps {
     theme: string | undefined;
@@ -6,13 +7,15 @@ interface ThemeToggleProps {
 }
 
 export const ThemeToggle = ({ theme, toggleTheme }: ThemeToggleProps) => {
+    const { t } = useTranslation();
+
     return (
         <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={toggleTheme}
             className="flex items-center justify-center p-2 rounded-full bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
-            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-label={theme === 'dark' ? t('profile.theme') + ': ' + t('common.light') : t('profile.theme') + ': ' + t('common.dark')}
         >
             <AnimatePresence mode="wait" initial={false}>
                 <motion.div
