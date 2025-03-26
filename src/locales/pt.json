@@ -69,7 +69,7 @@
   },
   "profile": {
     "title": "Perfil",
-    "personalInfo": "Informações Pessoais",
+    "personalInfo": "Perfil de Usuário",
     "changePassword": "Alterar Senha",
     "language": "Idioma",
     "theme": "Tema",
@@ -77,7 +77,40 @@
     "privacy": "Privacidade",
     "deleteAccount": "Excluir Conta",
     "saveChanges": "Salvar Alterações",
-    "uploadAvatar": "Carregar Avatar"
+    "uploadAvatar": "Carregar Avatar",
+    "passwordPlaceholder": "Deixe em branco para manter a mesma senha",
+    "validation": {
+      "firstName": "O nome deve conter pelo menos 3 caracteres",
+      "lastName": "O sobrenome deve conter pelo menos 3 caracteres",
+      "email": "Email inválido",
+      "phone": "O número de telefone deve conter pelo menos 8 caracteres",
+      "password": "A senha deve conter pelo menos 8 caracteres"
+    },
+    "learningLanguage": "Idioma de aprendizado",
+    "lastActivity": "Última atividade",
+    "level": "Nível",
+    "accuracy": "Precisão",
+    "streak": "Sequência",
+    "days": "dias",
+    "practiceNow": "Praticar agora",
+    "languageLearner": "Estudante de idiomas",
+    "score": "Pontuação",
+    "noMetrics": "Você ainda não tem métricas de aprendizado.",
+    "learningMetrics": "Métricas de Aprendizado",
+    "metrics": {
+      "learning": "Aprendendo",
+      "totalTraining": "Treino total",
+      "mostViewed": "Palavra mais vista",
+      "mostDifficult": "Palavra mais difícil",
+      "totalErrors": "Erros totais"
+    },
+    "levels": {
+      "beginner": "Iniciante",
+      "elementary": "Elementar",
+      "intermediate": "Intermediário",
+      "advanced": "Avançado",
+      "fluent": "Fluente"
+    }
   },
   "dashboard": {
     "welcome": "Bem-vindo, {name}!",

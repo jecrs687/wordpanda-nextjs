@@ -69,7 +69,7 @@
   },
   "profile": {
     "title": "Profilo",
-    "personalInfo": "Informazioni Personali",
+    "personalInfo": "Profilo Utente",
     "changePassword": "Cambia Password",
     "language": "Lingua",
     "theme": "Tema",
@@ -77,7 +77,40 @@
     "privacy": "Privacy",
     "deleteAccount": "Elimina Account",
     "saveChanges": "Salva Modifiche",
-    "uploadAvatar": "Carica Avatar"
+    "uploadAvatar": "Carica Avatar",
+    "passwordPlaceholder": "Lascia vuoto per mantenere la stessa password",
+    "validation": {
+      "firstName": "Il nome deve contenere almeno 3 caratteri",
+      "lastName": "Il cognome deve contenere almeno 3 caratteri",
+      "email": "Email non valida",
+      "phone": "Il numero di telefono deve contenere almeno 8 caratteri",
+      "password": "La password deve contenere almeno 8 caratteri"
+    },
+    "learningLanguage": "Lingua di apprendimento",
+    "lastActivity": "Ultima attività",
+    "level": "Livello",
+    "accuracy": "Precisione",
+    "streak": "Serie",
+    "days": "giorni",
+    "practiceNow": "Esercitati ora",
+    "languageLearner": "Studente di lingue",
+    "score": "Punteggio",
+    "noMetrics": "Non hai ancora metriche di apprendimento.",
+    "learningMetrics": "Metriche di Apprendimento",
+    "metrics": {
+      "learning": "Apprendimento",
+      "totalTraining": "Allenamento totale",
+      "mostViewed": "Parola più visualizzata",
+      "mostDifficult": "Parola più difficile",
+      "totalErrors": "Errori totali"
+    },
+    "levels": {
+      "beginner": "Principiante",
+      "elementary": "Elementare",
+      "intermediate": "Intermedio",
+      "advanced": "Avanzato",
+      "fluent": "Fluente"
+    }
   },
   "dashboard": {
     "welcome": "Benvenuto, {name}!",
@@ -87,7 +120,38 @@
     "streakDays": "Giorni consecutivi",
     "goals": "Obiettivi",
     "recentActivity": "Attività recente",
-    "statistics": "Statistiche"
+    "statistics": "Statistiche",
+    "searchingContent": "Ricerca contenuti...",
+    "noResults": {
+      "title": "Non abbiamo trovato nulla che corrisponda alla tua ricerca",
+      "addToDatabase": "Vuoi aggiungerlo al nostro database?",
+      "fillForm": "Compila semplicemente il modulo qui sotto:",
+      "nameField": "Nome",
+      "providerField": "Provider",
+      "moviePlaceholder": "Una notte da leoni",
+      "providerPlaceholder": "Netflix, Prime",
+      "addButton": "Aggiungi",
+      "approvalMessage": "Dopo l'aggiunta, attendi l'approvazione del nostro team prima che il contenuto diventi disponibile"
+    },
+    "sections": {
+      "learning": "In apprendimento",
+      "watched": "Guardati",
+      "mostViewed": "Più visti",
+      "recentlyAdded": "Aggiunti di recente",
+      "newBadge": "Nuovo"
+    },
+    "newsletter": {
+      "title": "Aggiornamenti WordPanda",
+      "description": "Ricevi consigli, nuovi contenuti e aggiornamenti per migliorare il tuo apprendimento",
+      "emailPlaceholder": "La tua migliore email",
+      "subscribeButton": "Iscriviti"
+    },
+    "footer": {
+      "aboutUs": "Chi siamo",
+      "faq": "FAQ",
+      "contact": "Contatti",
+      "copyright": "WordPanda — Il tuo assistente per l'apprendimento delle lingue ©"
+    }
   },
   "words": {
     "title": "Le mie Parole",
@@ -398,6 +462,74 @@
       "privacy": "Politica sulla Privacy",
       "terms": "Termini di Servizio",
       "help": "Centro Assistenza"
+    }
+  },
+  "otp": {
+    "verification": "Verifica",
+    "codeSent": "Abbiamo inviato un codice di verifica alla tua email",
+    "confirm": "Conferma",
+    "resendCode": "Rinvia codice",
+    "resendCodeTimer": "Rinvia codice tra {{seconds}}s",
+    "haveAccount": "Hai un account? Accedi"
+  },
+  "games": {
+    "title": "Giochi",
+    "pageTitle": "Migliora le Tue Abilità Linguistiche",
+    "pageDescription": "Padroneggia nuove parole e frasi attraverso i nostri giochi e sfide interattive. Ogni attività è progettata per rendere l'apprendimento coinvolgente, efficace e divertente.",
+    "startGame": "Inizia Gioco",
+    "games": {
+      "definitionMatch": {
+        "title": "Abbinamento Definizioni",
+        "description": "Abbina le parole con le loro definizioni corrispondenti."
+      },
+      "flashcard": {
+        "title": "Flashcard",
+        "description": "Esercita il tuo vocabolario con le carte mnemoniche."
+      },
+      "flashcards": {
+        "title": "Flashcards",
+        "description": "Esercita il tuo vocabolario con le carte mnemoniche."
+      },
+      "hangman": {
+        "title": "Impiccato",
+        "description": "Indovina la parola prima che l'omino stilizzato sia completamente disegnato."
+      },
+      "memory": {
+        "title": "Gioco di Memoria",
+        "description": "Trova coppie corrispondenti di parole correlate."
+      },
+      "spellingBee": {
+        "title": "Gara di Ortografia",
+        "description": "Esercita l'ortografia compitando le parole."
+      },
+      "translation": {
+        "title": "Traduzione",
+        "description": "Traduci parole nella lingua scelta."
+      },
+      "wordAssociation": {
+        "title": "Associazione di Parole",
+        "description": "Associa parole comuni in coppie."
+      },
+      "wordCategories": {
+        "title": "Categorie di Parole",
+        "description": "Categorizza le parole in gruppi."
+      },
+      "wordChains": {
+        "title": "Catene di Parole",
+        "description": "Crea catene di parole con termini correlati."
+      },
+      "wordPairs": {
+        "title": "Coppie di Parole",
+        "description": "Abbina le parole in coppie."
+      },
+      "wordRace": {
+        "title": "Corsa di Parole",
+        "description": "Corri per trovare parole corrispondenti."
+      },
+      "wordScramble": {
+        "title": "Parole Mescolate",
+        "description": "Riordina le lettere per formare parole."
+      }
     }
   }
 }
