@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface MetricItem {
     name: string;
@@ -22,6 +23,7 @@ export default function LanguageMetricCard({
     metrics,
     index
 }: LanguageMetricCardProps) {
+    const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
 
     return (

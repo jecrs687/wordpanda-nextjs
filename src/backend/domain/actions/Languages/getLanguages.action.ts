@@ -44,6 +44,9 @@ export async function setUserLanguage({ id }) {
             data: {
                 languageId: id,
             },
+            include: {
+                language: true
+            }
         })
 
         return { userUpdated }

@@ -3,6 +3,7 @@
 import { getUserWithWords } from '@backend/domain/actions/User/getUserWithWords.action';
 import { SelectLanguage } from '@common/SelectLanguage';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import Metrics from '../../_components/Metrics';
 import ProfileHeader from '../../_components/ProfileHeader';
 import UserForm from '../UserForm';
@@ -11,6 +12,8 @@ export default function UserProfile({ errors, user }: {
   errors?: any,
   user: Awaited<ReturnType<typeof getUserWithWords>>['user']
 }) {
+  const { t } = useTranslation();
+
   const metrics = user.userLanguages?.map((lang) => ({
     ...lang,
     metric: lang.userWords?.reduce(
@@ -53,7 +56,7 @@ export default function UserProfile({ errors, user }: {
             className="rounded-xl bg-white dark:bg-gray-900 shadow-sm p-6"
           >
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-              Idioma de Aprendizagem
+              {t('profile.learningLanguage')}
             </h2>
             <SelectLanguage
               className="w-full p-2.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"

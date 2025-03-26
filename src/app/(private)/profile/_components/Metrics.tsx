@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import LanguageMetricCard from './LanguageMetricCard';
 
 interface MetricProps {
@@ -22,11 +23,13 @@ interface MetricProps {
 }
 
 export default function Metrics({ metrics }: MetricProps) {
+    const { t } = useTranslation();
+
     if (!metrics || metrics.length === 0) {
         return (
             <div className="w-full rounded-xl bg-white dark:bg-gray-900 shadow-sm p-6 text-center">
                 <p className="text-gray-600 dark:text-gray-400">
-                    Você ainda não tem métricas de aprendizado.
+                    {t('profile.noMetrics')}
                 </p>
             </div>
         );
@@ -40,30 +43,30 @@ export default function Metrics({ metrics }: MetricProps) {
             className="w-full"
         >
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                Métricas de Aprendizado
+                {t('profile.learningMetrics')}
             </h2>
 
             <div className="space-y-4">
                 {metrics.map((lang, index) => {
                     const listOfMetrics = [
                         {
-                            name: 'Em aprendizado',
+                            name: t('profile.metrics.learning'),
                             value: lang._count.userWords
                         },
                         {
-                            name: 'Total de treinos',
+                            name: t('profile.metrics.totalTraining'),
                             value: lang.metric.attempts
                         },
                         {
-                            name: 'Palavra mais vista',
+                            name: t('profile.metrics.mostViewed'),
                             value: lang.metric.mostShowed
                         },
                         {
-                            name: 'Palavra mais difícil',
+                            name: t('profile.metrics.mostDifficult'),
                             value: lang.metric.mostWrong
                         },
                         {
-                            name: 'Total de erros',
+                            name: t('profile.metrics.totalErrors'),
                             value: lang.metric.errors
                         }
                     ];

@@ -69,7 +69,7 @@
   },
   "profile": {
     "title": "Profile",
-    "personalInfo": "Personal Information",
+    "personalInfo": "User Profile",
     "changePassword": "Change Password",
     "language": "Language",
     "theme": "Theme",
@@ -77,7 +77,40 @@
     "privacy": "Privacy",
     "deleteAccount": "Delete Account",
     "saveChanges": "Save Changes",
-    "uploadAvatar": "Upload Avatar"
+    "uploadAvatar": "Upload Avatar",
+    "passwordPlaceholder": "Leave blank to keep the same password",
+    "validation": {
+      "firstName": "First name must contain at least 3 characters",
+      "lastName": "Last name must contain at least 3 characters",
+      "email": "Invalid email",
+      "phone": "Phone number must contain at least 8 characters",
+      "password": "Password must contain at least 8 characters"
+    },
+    "learningLanguage": "Learning Language",
+    "lastActivity": "Last activity",
+    "level": "Level",
+    "accuracy": "Accuracy",
+    "streak": "Streak",
+    "days": "days",
+    "practiceNow": "Practice now",
+    "languageLearner": "Language Learner",
+    "score": "Score",
+    "noMetrics": "You don't have any learning metrics yet.",
+    "learningMetrics": "Learning Metrics",
+    "metrics": {
+      "learning": "Learning",
+      "totalTraining": "Total training",
+      "mostViewed": "Most viewed word",
+      "mostDifficult": "Most difficult word",
+      "totalErrors": "Total errors"
+    },
+    "levels": {
+      "beginner": "Beginner",
+      "elementary": "Elementary",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "fluent": "Fluent"
+    }
   },
   "dashboard": {
     "welcome": "Welcome, {name}!",

@@ -6,6 +6,7 @@ import { capitalizeFirstLetter } from "@utils/capitalizeFirstLetter";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useCallback, useEffect, type JSX } from "react";
+import { useTranslation } from "react-i18next";
 import { ActionMeta } from "react-select";
 import { SelectInput } from "./components/SelectInput";
 
@@ -51,7 +52,7 @@ export const SelectLanguage = ({
     const { theme } = useTheme();
     const isDark = theme === "dark";
     const { language, select, setLanguages, languages } = useLanguage();
-
+    const { i18n } = useTranslation();
     useEffect(() => {
         getLanguages().then((data) => {
             setLanguages(data?.languages || [])
@@ -72,15 +73,16 @@ export const SelectLanguage = ({
         value: item.id,
         label: capitalizeFirstLetter(`${item.language} - ${item.code}`),
     }))
-    const handleChange = (
+    const handleChange = async (
         params: { value: number; label: string },
         action: ActionMeta<{ value: number; label: string }>
     ) => {
         select(params.value);
-        setUserLanguage({
+        const language = await setUserLanguage({
             id: params.value,
         });
         onChange(params, action);
+        i18n.changeLanguage(language?.userUpdated?.language?.code?.split('-')?.[0]);
     };
 
     const containerVariants = {
