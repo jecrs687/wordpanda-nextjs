@@ -458,5 +458,65 @@
     "resendCode": "Reenviar código",
     "resendCodeTimer": "Reenviar código em {{seconds}}s",
     "haveAccount": "Tem uma conta? Faça login"
+  },
+  "games": {
+    "title": "Jogos",
+    "pageTitle": "Aprimore Suas Habilidades Linguísticas",
+    "pageDescription": "Domine novas palavras e frases através de nossos jogos e desafios interativos. Cada atividade é projetada para tornar o aprendizado envolvente, eficaz e divertido.",
+    "startGame": "Iniciar Jogo",
+    "games": {
+      "definitionMatch": {
+        "title": "Definição e Correspondência",
+        "description": "Combine as palavras com suas definições correspondentes."
+      },
+      "flashcard": {
+        "title": "Flashcard",
+        "description": "Pratique seu vocabulário com cartões de memória."
+      },
+      "flashcards": {
+        "title": "Flashcards",
+        "description": "Pratique seu vocabulário com cartões de memória."
+      },
+      "hangman": {
+        "title": "Jogo da Forca",
+        "description": "Adivinhe a palavra antes que o boneco seja enforcado."
+      },
+      "memory": {
+        "title": "Jogo da Memória",
+        "description": "Encontre os pares de palavras correspondentes."
+      },
+      "spellingBee": {
+        "title": "Soletrando",
+        "description": "Pratique a ortografia soletrando palavras."
+      },
+      "translation": {
+        "title": "Tradução",
+        "description": "Traduza palavras para o idioma escolhido."
+      },
+      "wordAssociation": {
+        "title": "Associação de Palavras",
+        "description": "Associe palavras comuns em pares."
+      },
+      "wordCategories": {
+        "title": "Categorias de Palavras",
+        "description": "Categorize palavras em grupos."
+      },
+      "wordChains": {
+        "title": "Correntes de Palavras",
+        "description": "Crie correntes de palavras com palavras relacionadas."
+      },
+      "wordPairs": {
+        "title": "Pares de Palavras",
+        "description": "Combine palavras em pares."
+      },
+      "wordRace": {
+        "title": "Corrida de Palavras",
+        "description": "Corra para encontrar as palavras correspondentes."
+      },
+      "wordScramble": {
+        "title": "Embaralhar Palavras",
+        "description": "Desembaralhe as letras para formar palavras."
+      }
+    }
   }
 }

@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { Inter, Poppins } from 'next/font/google';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import GameCard from './_components/GameCard';
 
 // Font definitions
@@ -32,6 +33,7 @@ export default function GamesPage({
     mediaId?: string;
 }) {
     const { theme } = useTheme();
+    const { t } = useTranslation();
     const [mounted, setMounted] = useState(false);
 
     // After mounting, we have access to the theme
@@ -65,7 +67,7 @@ export default function GamesPage({
         }
     };
 
-    const allowedGames = ['Translate', 'Memory', 'Flashcards'];
+    const allowedGames = ['Translation', 'Memory', 'Flashcards'];
     const filteredGames = GAMES;
     // .filter(({ title }) => allowedGames.includes(title));
 
@@ -87,7 +89,7 @@ export default function GamesPage({
             <div className="fixed top-[20%] right-[30%] w-40 h-40 bg-rose-400/10 dark:bg-rose-500/10 rounded-full blur-3xl -z-10" />
 
             {/* Subtle grid pattern overlay */}
-            <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMyMDIwMjAiIGZpbGwtb3BhY2l0eT0iMC4wMSI+PHBhdGggZD0iTTM2IDM0aDR2MWgtNHYtMXptMC0yaC00djFoNHYtMXptNiAwaC00djFoNHYtMXptLTYtMmgtNHYxaDR2LTF6bTYgMGgtNHYxaDR2LTF6bS02LTJoLTR2MWg0di0xem0yIDBINDB2MWg0di0xem02IDBhoLTR2MWg0di0xem0yIDBINTB2MWg0di0xem0tNCA0aC00djFoNHYtMXptNiAwaC00djFoNHYtMXptMiAwaC00djFoNHYtMXptLTgtMmgtNHYxaDR2LTF6bTggMGgtNHYxaDR2LTF6bS04LTRoLTZ2MWg2di0xem0tNi00aC02djFoNnYtMXptMTQgNG0tNCAwaDR2MWgtNHYtMXptMCAxNGg0djFoLTR2LTF6bS0xNCAwaDR2MWgtNHYtMXptMTQtNGg0djFoLTR2LTF6bS0xNCAwaDR2MWgtNHYtMXoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-50 dark:opacity-20 mix-blend-soft-light pointer-events-none -z-20" />
+            <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMyMDIwMjAiIGZpbGwtb3BhY2l0eT0iMC4wMSI+PHBhdGggZD0iTTM2IDM0aDR2MWgtNHYtMXptMC0yaC00djFoNHYtMXptNiAwaC00djFoNHYtMXptLTYtMmgtNHYxaDR2LTF6bTYgMGgtNHYxaDR2LTF6bS02LTJoLTR2MWg0di0xem0yIDBINDB2MWg0di0xem02IDBhaC00djFoNHYtMXptMiAwSDUwdjFoNHYtMXptLTQgNGgtNHYxaDR2LTF6bTYgMGgtNHYxaDR2LTF6bTIgMGgtNHYxaDR2LTF6bS04LTJoLTR2MWg0di0xem04IDBaLTR2MWg0di0xem0tOC00aC02djFoNnYtMXptLTYtNGgtNnYxaDZ2LTF6bTE0IDRtLTQgMGg0djFoLTR2LTF6bTAgMTRoNHYxaC00di0xem0tMTQgMGg0djFoLTR2LTF6bTE0LTRoNHYxaC00di0xem0tMTQgMGg0djFoLTR2LTF6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50 dark:opacity-20 mix-blend-soft-light pointer-events-none -z-20" />
 
             <div className="max-w-7xl mx-auto">
                 {/* Header with animated reveal */}
@@ -97,7 +99,7 @@ export default function GamesPage({
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     className="mb-8 flex items-center"
                 >
-                    <BackButton title="Games" />
+                    <BackButton title={t('games.title')} />
                     <motion.div
                         initial={{ scaleX: 0 }}
                         animate={{ scaleX: 1 }}
@@ -114,11 +116,10 @@ export default function GamesPage({
                     className="mb-12"
                 >
                     <h1 className={`${poppins.className} text-3xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight`}>
-                        Enhance Your Language Skills
+                        {t('games.pageTitle')}
                     </h1>
                     <p className={`${inter.className} text-lg text-gray-700 dark:text-zinc-300 max-w-2xl leading-relaxed`}>
-                        Master new words and phrases through our interactive games and challenges.
-                        Each activity is designed to make learning engaging, effective, and fun.
+                        {t('games.pageDescription')}
                     </p>
                 </motion.div>
 

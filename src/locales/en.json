@@ -438,5 +438,65 @@
     "resendCode": "Resend code",
     "resendCodeTimer": "Resend code in {{seconds}}s",
     "haveAccount": "Have an account? Log in"
+  },
+  "games": {
+    "title": "Games",
+    "pageTitle": "Enhance Your Language Skills",
+    "pageDescription": "Master new words and phrases through our interactive games and challenges. Each activity is designed to make learning engaging, effective, and fun.",
+    "startGame": "Start Game",
+    "games": {
+      "definitionMatch": {
+        "title": "Definition Match",
+        "description": "Match words with their corresponding definitions."
+      },
+      "flashcard": {
+        "title": "Flashcard",
+        "description": "Practice your vocabulary with memory cards."
+      },
+      "flashcards": {
+        "title": "Flashcards",
+        "description": "Practice your vocabulary with memory cards."
+      },
+      "hangman": {
+        "title": "Hangman",
+        "description": "Guess the word before the stick figure is completely drawn."
+      },
+      "memory": {
+        "title": "Memory Game",
+        "description": "Find matching pairs of corresponding words."
+      },
+      "spellingBee": {
+        "title": "Spelling Bee",
+        "description": "Practice spelling by spelling out words."
+      },
+      "translation": {
+        "title": "Translation",
+        "description": "Translate words to your chosen language."
+      },
+      "wordAssociation": {
+        "title": "Word Association",
+        "description": "Associate common words in pairs."
+      },
+      "wordCategories": {
+        "title": "Word Categories",
+        "description": "Categorize words into groups."
+      },
+      "wordChains": {
+        "title": "Word Chains",
+        "description": "Create chains of words with related words."
+      },
+      "wordPairs": {
+        "title": "Word Pairs",
+        "description": "Match words in pairs."
+      },
+      "wordRace": {
+        "title": "Word Race",
+        "description": "Race to find matching words."
+      },
+      "wordScramble": {
+        "title": "Word Scramble",
+        "description": "Unscramble letters to form words."
+      }
+    }
   }
 }
