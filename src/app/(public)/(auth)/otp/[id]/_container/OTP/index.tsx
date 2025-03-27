@@ -6,12 +6,14 @@ import { setCookie } from '@utils/cookie';
 import { useRouter } from 'next/navigation';
 import { startTransition, useActionState, useEffect, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
+import { useTranslation } from 'react-i18next';
 import OtpActions from './components/OtpActions';
 import OtpFooter from './components/OtpFooter';
 import OtpHeader from './components/OtpHeader';
 import OtpInputSection from './components/OtpInputSection';
 
 export default function OtpConfirmation({ id }) {
+    const { t } = useTranslation();
     const [state, formAction] = useActionState(otpSubmit, {});
     const status = useFormStatus();
     const [time, setTime] = useState(0);

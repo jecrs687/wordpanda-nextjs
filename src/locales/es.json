@@ -18,7 +18,10 @@
     "continue": "Continuar",
     "discover": "Descubrir Más",
     "start": "Empezar a Aprender",
-    "of": "de"
+    "of": "de",
+    "light": "Modo Claro",
+    "dark": "Modo Oscuro",
+    "appName": "WordPanda"
   },
   "languages": {
     "title": "Idiomas",
@@ -43,7 +46,9 @@
   },
   "auth": {
     "email": "Correo electrónico",
+    "emailPlaceholder": "Introduce tu correo electrónico",
     "password": "Contraseña",
+    "passwordPlaceholder": "Introduce tu contraseña",
     "confirmPassword": "Confirmar contraseña",
     "login": "Iniciar sesión",
     "register": "Registrarse",
@@ -53,13 +58,18 @@
     "username": "Nombre de usuario",
     "name": "Nombre",
     "alreadyHaveAccount": "¿Ya tienes una cuenta? Inicia sesión",
-    "dontHaveAccount": "¿No tienes una cuenta? Regístrate",
+    "dontHaveAccount": "¿No tienes una cuenta?",
+    "registerNow": "Regístrate ahora",
     "verifyEmail": "Verifica tu correo electrónico",
-    "emailVerificationSent": "Verificación de correo electrónico enviada"
+    "emailVerificationSent": "Verificación de correo electrónico enviada",
+    "welcomeTo": "Bienvenido a",
+    "learnLanguagesFun": "¡Aprende idiomas de forma divertida e interactiva!",
+    "invalidCredentials": "Correo electrónico o contraseña inválidos",
+    "loginWith": "Iniciar sesión con {{provider}}"
   },
   "profile": {
     "title": "Perfil",
-    "personalInfo": "Información Personal",
+    "personalInfo": "Perfil de Usuario",
     "changePassword": "Cambiar Contraseña",
     "language": "Idioma",
     "theme": "Tema",
@@ -67,7 +77,40 @@
     "privacy": "Privacidad",
     "deleteAccount": "Eliminar Cuenta",
     "saveChanges": "Guardar Cambios",
-    "uploadAvatar": "Subir Avatar"
+    "uploadAvatar": "Subir Avatar",
+    "passwordPlaceholder": "Dejar en blanco para mantener la misma contraseña",
+    "validation": {
+      "firstName": "El nombre debe contener al menos 3 caracteres",
+      "lastName": "El apellido debe contener al menos 3 caracteres",
+      "email": "Email inválido",
+      "phone": "El número de teléfono debe contener al menos 8 caracteres",
+      "password": "La contraseña debe contener al menos 8 caracteres"
+    },
+    "learningLanguage": "Idioma de aprendizaje",
+    "lastActivity": "Última actividad",
+    "level": "Nivel",
+    "accuracy": "Precisión",
+    "streak": "Racha",
+    "days": "días",
+    "practiceNow": "Practicar ahora",
+    "languageLearner": "Estudiante de idiomas",
+    "score": "Puntuación",
+    "noMetrics": "Aún no tienes métricas de aprendizaje.",
+    "learningMetrics": "Métricas de Aprendizaje",
+    "metrics": {
+      "learning": "Aprendiendo",
+      "totalTraining": "Entrenamiento total",
+      "mostViewed": "Palabra más vista",
+      "mostDifficult": "Palabra más difícil",
+      "totalErrors": "Errores totales"
+    },
+    "levels": {
+      "beginner": "Principiante",
+      "elementary": "Elemental",
+      "intermediate": "Intermedio",
+      "advanced": "Avanzado",
+      "fluent": "Fluido"
+    }
   },
   "dashboard": {
     "welcome": "¡Bienvenido, {name}!",
@@ -77,7 +120,38 @@
     "streakDays": "Días Consecutivos",
     "goals": "Objetivos",
     "recentActivity": "Actividad Reciente",
-    "statistics": "Estadísticas"
+    "statistics": "Estadísticas",
+    "searchingContent": "Buscando contenido...",
+    "noResults": {
+      "title": "No pudimos encontrar nada que coincida con tu búsqueda",
+      "addToDatabase": "¿Quieres añadirlo a nuestra base de datos?",
+      "fillForm": "Solo llena el formulario a continuación:",
+      "nameField": "Nombre",
+      "providerField": "Proveedor",
+      "moviePlaceholder": "Resacón en Las Vegas",
+      "providerPlaceholder": "Netflix, Prime",
+      "addButton": "Añadir",
+      "approvalMessage": "Después de añadir, espera la aprobación de nuestro equipo antes de que el contenido esté disponible"
+    },
+    "sections": {
+      "learning": "Aprendiendo",
+      "watched": "Visto",
+      "mostViewed": "Más Vistos",
+      "recentlyAdded": "Añadidos Recientemente",
+      "newBadge": "Nuevo"
+    },
+    "newsletter": {
+      "title": "Actualizaciones de WordPanda",
+      "description": "Recibe consejos, nuevo contenido y actualizaciones para mejorar tu aprendizaje",
+      "emailPlaceholder": "Tu mejor email",
+      "subscribeButton": "Suscribirse"
+    },
+    "footer": {
+      "aboutUs": "Sobre Nosotros",
+      "faq": "Preguntas Frecuentes",
+      "contact": "Contacto",
+      "copyright": "WordPanda — Tu asistente de aprendizaje de idiomas ©"
+    }
   },
   "words": {
     "title": "Mis Palabras",
@@ -186,5 +260,276 @@
       "terms": "Al registrarte, aceptas nuestros Términos de Servicio y Política de Privacidad"
     },
     "step": "Paso"
+  },
+  "register": {
+    "title": "Crea Tu Cuenta",
+    "description": "Únete a WordPanda y comienza tu viaje de aprendizaje de idiomas hoy.",
+    "steps": {
+      "account": {
+        "title": "Crea Tu Cuenta",
+        "description": "Comienza configurando tus credenciales de acceso"
+      },
+      "personal": {
+        "title": "Información Personal",
+        "description": "Cuéntanos un poco sobre ti"
+      },
+      "profile": {
+        "title": "Configuración de Perfil",
+        "description": "Personaliza tu perfil de aprendizaje"
+      },
+      "preferences": {
+        "title": "Preferencias de Aprendizaje",
+        "description": "Adapta tu experiencia de aprendizaje"
+      },
+      "complete": {
+        "title": "¡Registro Completado!",
+        "description": "Estás listo para empezar a aprender"
+      },
+      "labels": {
+        "account": "Cuenta",
+        "personal": "Personal",
+        "profile": "Perfil",
+        "preferences": "Preferencias"
+      },
+      "accessibility": "Paso {{current}} de {{total}}: {{step}}"
+    },
+    "form": {
+      "email": {
+        "label": "Correo Electrónico",
+        "placeholder": "Introduce tu correo electrónico"
+      },
+      "password": {
+        "label": "Contraseña",
+        "placeholder": "Crea una contraseña segura"
+      },
+      "passwordConfirmation": {
+        "label": "Confirmar Contraseña",
+        "placeholder": "Vuelve a introducir tu contraseña"
+      },
+      "firstName": {
+        "label": "Nombre",
+        "placeholder": "Introduce tu nombre"
+      },
+      "lastName": {
+        "label": "Apellido",
+        "placeholder": "Introduce tu apellido"
+      },
+      "username": {
+        "label": "Nombre de Usuario",
+        "placeholder": "Elige un nombre de usuario único"
+      },
+      "phone": {
+        "label": "Número de Teléfono (Opcional)",
+        "placeholder": "Introduce tu número de teléfono"
+      },
+      "nativeLanguage": {
+        "label": "Idioma Nativo",
+        "placeholder": "Selecciona tu idioma nativo"
+      },
+      "buttons": {
+        "continue": "Continuar",
+        "back": "Atrás",
+        "previous": "Anterior",
+        "next": "Siguiente",
+        "signIn": "Iniciar Sesión",
+        "completeRegistration": "Completar Registro",
+        "completingRegistration": "Completando..."
+      },
+      "alreadyHaveAccount": "¿Ya tienes una cuenta?"
+    },
+    "errors": {
+      "title": "Error de Registro",
+      "general": "Hemos encontrado un problema con tu registro. Por favor, inténtalo de nuevo.",
+      "tryAgain": "Intentar de Nuevo"
+    },
+    "complete": {
+      "title": "¡Bienvenido a WordPanda!",
+      "description": "Tu cuenta ha sido creada con éxito. Estás listo para comenzar tu viaje de aprendizaje de idiomas.",
+      "verificationMessage": "Hemos enviado un correo de verificación a tu bandeja de entrada. Por favor, verifica tu correo para desbloquear todas las funciones.",
+      "buttons": {
+        "dashboard": "Ir al Panel de Control",
+        "signIn": "Iniciar Sesión"
+      }
+    },
+    "preferences": {
+      "steps": {
+        "learningStyle": "Estilo de Aprendizaje",
+        "difficultyLevel": "Dificultad",
+        "learningTime": "Mejor Momento",
+        "dailyGoal": "Meta Diaria"
+      },
+      "learningStyle": {
+        "title": "¿Cómo prefieres aprender?",
+        "description": "Selecciona el estilo de aprendizaje que mejor funcione para ti",
+        "options": {
+          "visual": {
+            "label": "Aprendiz Visual",
+            "description": "Aprender a través de imágenes, gráficos y contenido visual"
+          },
+          "auditory": {
+            "label": "Aprendiz Auditivo",
+            "description": "Aprender escuchando pronunciación y diálogos"
+          },
+          "reading": {
+            "label": "Lectura/Escritura",
+            "description": "Aprender a través de la lectura de textos y escritura de notas"
+          },
+          "kinesthetic": {
+            "label": "Aprendiz Interactivo",
+            "description": "Aprender a través de práctica, juegos y ejercicios interactivos"
+          }
+        }
+      },
+      "difficulty": {
+        "title": "Elige tu nivel de dificultad inicial",
+        "description": "Ajustaremos tus materiales de aprendizaje según tu selección",
+        "options": {
+          "beginner": {
+            "label": "Principiante",
+            "description": "Nuevo en el idioma con poco o ningún conocimiento previo"
+          },
+          "intermediate": {
+            "label": "Intermedio",
+            "description": "Puede entender conversaciones y frases básicas"
+          },
+          "advanced": {
+            "label": "Avanzado",
+            "description": "Cómodo con la mayoría de las estructuras del lenguaje y vocabulario"
+          },
+          "expert": {
+            "label": "Experto",
+            "description": "Casi hablante nativo buscando perfeccionar habilidades"
+          }
+        }
+      },
+      "learningTime": {
+        "title": "¿Cuándo aprendes mejor?",
+        "description": "Te recordaremos practicar durante tu hora preferida del día",
+        "options": {
+          "morning": {
+            "label": "Mañana",
+            "description": "Temprano por la mañana antes de comenzar el día"
+          },
+          "afternoon": {
+            "label": "Tarde",
+            "description": "Durante el almuerzo o primeras horas de la tarde"
+          },
+          "evening": {
+            "label": "Atardecer",
+            "description": "Después del trabajo o a la hora de cenar"
+          },
+          "night": {
+            "label": "Noche",
+            "description": "Tarde en la noche cuando está tranquilo y pacífico"
+          }
+        }
+      },
+      "dailyGoal": {
+        "title": "Establece tu meta diaria de aprendizaje",
+        "description": "¿Cuántos minutos puedes dedicar al aprendizaje cada día?",
+        "options": {
+          "5": {
+            "label": "5 minutos",
+            "description": "Práctica diaria rápida"
+          },
+          "10": {
+            "label": "10 minutos",
+            "description": "Breve pero efectivo"
+          },
+          "15": {
+            "label": "15 minutos",
+            "description": "Enfoque equilibrado"
+          },
+          "30": {
+            "label": "30 minutos",
+            "description": "Estudiante dedicado"
+          },
+          "60": {
+            "label": "60 minutos",
+            "description": "Entusiasta de los idiomas"
+          }
+        }
+      },
+      "errors": {
+        "learningStyle": "Por favor, selecciona tu estilo de aprendizaje preferido",
+        "difficultyPreference": "Por favor, selecciona tu nivel de dificultad",
+        "preferredLearningTime": "Por favor, selecciona tu hora preferida de aprendizaje",
+        "dailyGoal": "Por favor, selecciona tu meta diaria de aprendizaje"
+      }
+    },
+    "footer": {
+      "rights": "Todos los derechos reservados",
+      "privacy": "Política de Privacidad",
+      "terms": "Términos de Servicio",
+      "help": "Centro de Ayuda"
+    }
+  },
+  "otp": {
+    "verification": "Verificación",
+    "codeSent": "Hemos enviado un código de verificación a tu correo electrónico",
+    "confirm": "Confirmar",
+    "resendCode": "Reenviar código",
+    "resendCodeTimer": "Reenviar código en {{seconds}}s",
+    "haveAccount": "¿Tienes una cuenta? Inicia sesión"
+  },
+  "games": {
+    "title": "Juegos",
+    "pageTitle": "Mejora tus Habilidades Lingüísticas",
+    "pageDescription": "Domina nuevas palabras y frases a través de nuestros juegos y desafíos interactivos. Cada actividad está diseñada para hacer que el aprendizaje sea atractivo, efectivo y divertido.",
+    "startGame": "Comenzar Juego",
+    "games": {
+      "definitionMatch": {
+        "title": "Coincidencia de Definición",
+        "description": "Empareja palabras con sus definiciones correspondientes."
+      },
+      "flashcard": {
+        "title": "Tarjeta de memoria",
+        "description": "Practica tu vocabulario con tarjetas de memoria."
+      },
+      "flashcards": {
+        "title": "Tarjetas de memoria",
+        "description": "Practica tu vocabulario con tarjetas de memoria."
+      },
+      "hangman": {
+        "title": "Ahorcado",
+        "description": "Adivina la palabra antes de que se dibuje completamente la figura del palo."
+      },
+      "memory": {
+        "title": "Juego de Memoria",
+        "description": "Encuentra pares coincidentes de palabras correspondientes."
+      },
+      "spellingBee": {
+        "title": "Concurso de Ortografía",
+        "description": "Practica la ortografía deletreando palabras."
+      },
+      "translation": {
+        "title": "Traducción",
+        "description": "Traduce palabras a tu idioma elegido."
+      },
+      "wordAssociation": {
+        "title": "Asociación de Palabras",
+        "description": "Asocia palabras comunes en pares."
+      },
+      "wordCategories": {
+        "title": "Categorías de Palabras",
+        "description": "Categoriza palabras en grupos."
+      },
+      "wordChains": {
+        "title": "Cadenas de Palabras",
+        "description": "Crea cadenas de palabras con palabras relacionadas."
+      },
+      "wordPairs": {
+        "title": "Pares de Palabras",
+        "description": "Empareja palabras en pares."
+      },
+      "wordRace": {
+        "title": "Carrera de Palabras",
+        "description": "Compite para encontrar palabras coincidentes."
+      },
+      "wordScramble": {
+        "title": "Palabras Revueltas",
+        "description": "Desenreda letras para formar palabras."
+      }
+    }
   }
 }

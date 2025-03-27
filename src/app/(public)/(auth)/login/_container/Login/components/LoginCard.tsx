@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Image from 'next/image';
 import Link from 'next/link';
 import { FormEvent } from "react";
+import { useTranslation } from "react-i18next";
 import { FormInput } from './FormInput';
 import { Submit } from './Submit';
 import { ThemeToggle } from './ThemeToggle';
@@ -15,6 +16,8 @@ interface LoginCardProps {
 }
 
 export const LoginCard = ({ state, formAction, theme, toggleTheme }: LoginCardProps) => {
+    const { t } = useTranslation();
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -48,7 +51,7 @@ export const LoginCard = ({ state, formAction, theme, toggleTheme }: LoginCardPr
                         <div className="relative p-3 bg-white dark:bg-zinc-800 rounded-full shadow-md inline-flex items-center justify-center">
                             <Image
                                 src="/assets/logo.png"
-                                alt="WordPanda Logo"
+                                alt={t('common.appName', 'WordPanda Logo')}
                                 width={120}
                                 height={60}
                                 className="object-contain"
@@ -70,10 +73,10 @@ export const LoginCard = ({ state, formAction, theme, toggleTheme }: LoginCardPr
                         transition={{ duration: 0.4, delay: 0.3 }}
                     >
                         <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white">
-                            Bem-vindo ao <span className="text-emerald-600 dark:text-emerald-400">Word</span><span className="text-black dark:text-white">Panda</span>
+                            {t('auth.welcomeTo')} <span className="text-emerald-600 dark:text-emerald-400">Word</span><span className="text-black dark:text-white">Panda</span>
                         </h2>
                         <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-                            Aprenda idiomas de forma divertida e interativa!
+                            {t('auth.learnLanguagesFun')}
                         </p>
                     </motion.div>
                 </div>
@@ -89,8 +92,8 @@ export const LoginCard = ({ state, formAction, theme, toggleTheme }: LoginCardPr
                         <FormInput
                             type="text"
                             name="email"
-                            title="Email"
-                            placeholder="Digite seu email"
+                            title={t('auth.email')}
+                            placeholder={t('auth.emailPlaceholder')}
                             error={state?.errors?.email}
                             icon={
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-zinc-500" viewBox="0 0 20 20" fill="currentColor">
@@ -103,8 +106,8 @@ export const LoginCard = ({ state, formAction, theme, toggleTheme }: LoginCardPr
                         <FormInput
                             type="password"
                             name="password"
-                            title="Senha"
-                            placeholder="Digite sua senha"
+                            title={t('auth.password')}
+                            placeholder={t('auth.passwordPlaceholder')}
                             error={state?.errors?.password}
                             icon={
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-zinc-500" viewBox="0 0 20 20" fill="currentColor">
@@ -122,7 +125,7 @@ export const LoginCard = ({ state, formAction, theme, toggleTheme }: LoginCardPr
                                     href="#"
                                     className="text-sm font-medium text-emerald-600 hover:text-emerald-500 dark:text-emerald-500 dark:hover:text-emerald-400"
                                 >
-                                    Esqueceu a senha?
+                                    {t('auth.forgotPassword')}
                                 </Link>
                             </motion.div>
                         </div>
@@ -137,47 +140,11 @@ export const LoginCard = ({ state, formAction, theme, toggleTheme }: LoginCardPr
                                 className="p-3 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm"
                             >
                                 {state.error === "INVALID_CREDENTIALS"
-                                    ? "Email ou senha inválidos"
-                                    : "Ocorreu um erro. Tente novamente."}
+                                    ? t('auth.invalidCredentials')
+                                    : t('errors.generic')}
                             </motion.div>
                         )}
                     </form>
-
-                    {/* Social Login Section */}
-                    {/* <div className="mt-6 sm:mt-8">
-                        <div className="relative">
-                            <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-zinc-200 dark:border-zinc-700"></div>
-                            </div>
-                            <div className="relative flex justify-center text-sm">
-                                <span className="px-3 bg-white dark:bg-zinc-900 text-zinc-500 dark:text-zinc-400 rounded-full">
-                                    Ou continue com
-                                </span>
-                            </div>
-                        </div>
-
-                        <div className="mt-4 grid grid-cols-2 gap-3">
-                            <SocialLoginButton
-                                type="google"
-                                icon={
-                                    <svg className="h-5 w-5" viewBox="0 0 24 24">
-                                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
-                                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
-                                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
-                                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
-                                    </svg>
-                                }
-                            />
-                            <SocialLoginButton
-                                type="apple"
-                                icon={
-                                    <svg className="h-5 w-5 text-zinc-700 dark:text-zinc-200" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.39 0-1.15.572-2.27 1.206-2.98.804-.94 2.142-1.64 3.248-1.68.03.13.05.28.05.43zm4.565 15.71c-.03.07-.463 1.58-1.518 3.12-.945 1.34-1.94 2.71-3.43 2.71-1.517 0-1.9-.88-3.63-.88-1.698 0-2.302.91-3.67.91-1.377 0-2.332-1.26-3.428-2.8-1.287-1.82-2.323-4.63-2.323-7.28 0-4.28 2.797-6.55 5.552-6.55 1.448 0 2.675.95 3.6.95.865 0 2.222-1.01 3.902-1.01.613 0 2.886.06 4.374 2.19-.13.09-2.383 1.37-2.383 4.19 0 3.26 2.854 4.42 2.955 4.45z" />
-                                    </svg>
-                                }
-                            />
-                        </div>
-                    </div> */}
 
                     {/* Register Link */}
                     <div className="mt-6 text-center">
@@ -194,7 +161,7 @@ export const LoginCard = ({ state, formAction, theme, toggleTheme }: LoginCardPr
                                     whileHover={{ scale: 1.03 }}
                                     className="text-sm font-medium"
                                 >
-                                    Não tem uma conta? <span className="underline font-semibold text-emerald-600 dark:text-emerald-400">Registre-se agora</span>
+                                    {t('auth.dontHaveAccount')} <span className="underline font-semibold text-emerald-600 dark:text-emerald-400">{t('auth.registerNow')}</span>
                                 </motion.span>
                             </Link>
                         </motion.div>

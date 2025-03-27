@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { PreferenceOption } from '../PreferenceOption';
 
 type LearningTime = 'morning' | 'afternoon' | 'evening' | 'night';
@@ -9,14 +10,16 @@ interface LearningTimeStepProps {
     error?: string;
 }
 
-const learningTimeOptions = [
-    { id: 'morning', label: 'Morning', icon: '🌅', description: '5am - 11am' },
-    { id: 'afternoon', label: 'Afternoon', icon: '☀️', description: '12pm - 5pm' },
-    { id: 'evening', label: 'Evening', icon: '🌆', description: '6pm - 9pm' },
-    { id: 'night', label: 'Night', icon: '🌙', description: '10pm - 4am' },
-];
-
 export const LearningTimeStep = ({ selectedTime, onSelectTime, error }: LearningTimeStepProps) => {
+    const { t } = useTranslation();
+
+    const learningTimeOptions = [
+        { id: 'morning', label: t('register.preferences.learningTime.options.morning.label'), icon: '🌅', description: t('register.preferences.learningTime.options.morning.description') },
+        { id: 'afternoon', label: t('register.preferences.learningTime.options.afternoon.label'), icon: '☀️', description: t('register.preferences.learningTime.options.afternoon.description') },
+        { id: 'evening', label: t('register.preferences.learningTime.options.evening.label'), icon: '🌆', description: t('register.preferences.learningTime.options.evening.description') },
+        { id: 'night', label: t('register.preferences.learningTime.options.night.label'), icon: '🌙', description: t('register.preferences.learningTime.options.night.description') },
+    ];
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -40,10 +43,10 @@ export const LearningTimeStep = ({ selectedTime, onSelectTime, error }: Learning
             className="flex-1"
         >
             <h2 className="text-2xl font-bold mb-2 text-zinc-800 dark:text-white">
-                Preferred Learning Time
+                {t('register.preferences.learningTime.title')}
             </h2>
             <p className="mb-6 text-zinc-600 dark:text-zinc-300">
-                When do you want to receive notifications and study reminders?
+                {t('register.preferences.learningTime.description')}
             </p>
 
             <motion.div

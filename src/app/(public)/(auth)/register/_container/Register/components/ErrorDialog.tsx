@@ -1,6 +1,7 @@
 import { useMediaQuery } from '@hooks/useMediaQuery';
 import { Dialog } from '@mui/material';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { FormButton } from './FormButton';
 
 type ErrorDialogProps = {
@@ -11,6 +12,7 @@ type ErrorDialogProps = {
 
 export function ErrorDialog({ open, onClose, message }: ErrorDialogProps) {
     const isMobile = useMediaQuery('(max-width: 640px)');
+    const { t } = useTranslation();
 
     return (
         <Dialog
@@ -76,7 +78,7 @@ export function ErrorDialog({ open, onClose, message }: ErrorDialogProps) {
                                 transition={{ delay: 0.1 }}
                                 className="text-lg font-semibold text-gray-900 dark:text-white text-center mb-2"
                             >
-                                Registration Error
+                                {t('register.errors.title')}
                             </motion.h3>
 
                             <motion.p
@@ -103,7 +105,7 @@ export function ErrorDialog({ open, onClose, message }: ErrorDialogProps) {
                                         </svg>
                                     }
                                 >
-                                    Try Again
+                                    {t('register.errors.tryAgain')}
                                 </FormButton>
                             </motion.div>
                         </div>

@@ -17,6 +17,9 @@ export default function UserFormField({
     placeholder = "",
     disabled = false
 }: UserFormFieldProps) {
+    // Translation is handled by passing in translated labels and placeholders
+    // from the parent component, so we don't need to use translation directly here
+
     return (
         <div className="mb-4">
             <label htmlFor={name} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">

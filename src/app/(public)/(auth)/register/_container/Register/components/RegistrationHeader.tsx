@@ -1,4 +1,5 @@
 import { useMediaQuery } from '@hooks/useMediaQuery';
+import { useTranslation } from 'react-i18next';
 
 type RegistrationHeaderProps = {
     step: number;
@@ -7,38 +8,39 @@ type RegistrationHeaderProps = {
 
 export function RegistrationHeader({ step, totalSteps }: RegistrationHeaderProps) {
     const isMobile = useMediaQuery('(max-width: 640px)');
+    const { t } = useTranslation();
 
     const getStepTitle = () => {
         switch (step) {
             case 1:
-                return "Create Your Account";
+                return t('register.steps.account.title');
             case 2:
-                return "Personal Details";
+                return t('register.steps.personal.title');
             case 3:
-                return "Profile Setup";
+                return t('register.steps.profile.title');
             case 4:
-                return "Learning Preferences";
+                return t('register.steps.preferences.title');
             case 5:
-                return "Registration Complete";
+                return t('register.steps.complete.title');
             default:
-                return "Join WordPanda";
+                return t('register.title');
         }
     };
 
     const getStepDescription = () => {
         switch (step) {
             case 1:
-                return "Start your language learning journey with WordPanda";
+                return t('register.steps.account.description');
             case 2:
-                return "Tell us a bit about yourself";
+                return t('register.steps.personal.description');
             case 3:
-                return "Set up your WordPanda profile";
+                return t('register.steps.profile.description');
             case 4:
-                return "Customize your learning experience";
+                return t('register.steps.preferences.description');
             case 5:
-                return "You're all set to start learning!";
+                return t('register.steps.complete.description');
             default:
-                return "Complete the steps below to create your account";
+                return t('register.description');
         }
     };
 

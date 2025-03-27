@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { GoalOption } from './GoalOption';
 
 interface DailyGoalStepProps {
@@ -7,15 +8,17 @@ interface DailyGoalStepProps {
     error?: string;
 }
 
-const dailyGoalOptions = [
-    { value: 5, label: '5 minutes', description: 'Quick daily practice' },
-    { value: 10, label: '10 minutes', description: 'Short but effective' },
-    { value: 15, label: '15 minutes', description: 'Balanced commitment' },
-    { value: 30, label: '30 minutes', description: 'Dedicated learning' },
-    { value: 60, label: '60 minutes', description: 'Immersive sessions' },
-];
-
 export const DailyGoalStep = ({ selectedGoal, onSelectGoal, error }: DailyGoalStepProps) => {
+    const { t } = useTranslation();
+
+    const dailyGoalOptions = [
+        { value: 5, label: t('register.preferences.dailyGoal.options.5.label'), description: t('register.preferences.dailyGoal.options.5.description') },
+        { value: 10, label: t('register.preferences.dailyGoal.options.10.label'), description: t('register.preferences.dailyGoal.options.10.description') },
+        { value: 15, label: t('register.preferences.dailyGoal.options.15.label'), description: t('register.preferences.dailyGoal.options.15.description') },
+        { value: 30, label: t('register.preferences.dailyGoal.options.30.label'), description: t('register.preferences.dailyGoal.options.30.description') },
+        { value: 60, label: t('register.preferences.dailyGoal.options.60.label'), description: t('register.preferences.dailyGoal.options.60.description') },
+    ];
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -39,10 +42,10 @@ export const DailyGoalStep = ({ selectedGoal, onSelectGoal, error }: DailyGoalSt
             className="flex-1"
         >
             <h2 className="text-2xl font-bold mb-2 text-zinc-800 dark:text-white">
-                Daily Goal
+                {t('register.preferences.dailyGoal.title')}
             </h2>
             <p className="mb-6 text-zinc-600 dark:text-zinc-300">
-                How much time can you commit to learning each day?
+                {t('register.preferences.dailyGoal.description')}
             </p>
 
             <motion.div

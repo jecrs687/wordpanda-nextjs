@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FormEvent, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FormButton } from './FormButton';
 import { FormInput } from './FormInput';
 
@@ -17,6 +18,7 @@ export function PersonalDetailsForm({
     initialValues,
 }: PersonalDetailsFormProps) {
     const formRef = useRef<HTMLFormElement>(null);
+    const { t } = useTranslation();
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -62,8 +64,8 @@ export function PersonalDetailsForm({
                 <FormInput
                     name="firstName"
                     type="text"
-                    label="First Name"
-                    placeholder="Enter your first name"
+                    label={t('register.form.firstName.label')}
+                    placeholder={t('register.form.firstName.placeholder')}
                     error={errors.firstName}
                     required
                     defaultValue={initialValues?.get('firstName') as string}
@@ -74,8 +76,8 @@ export function PersonalDetailsForm({
                 <FormInput
                     name="lastName"
                     type="text"
-                    label="Last Name"
-                    placeholder="Enter your last name"
+                    label={t('register.form.lastName.label')}
+                    placeholder={t('register.form.lastName.placeholder')}
                     error={errors.lastName}
                     required
                     defaultValue={initialValues?.get('lastName') as string}
@@ -87,14 +89,14 @@ export function PersonalDetailsForm({
                     variant="outline"
                     onClick={onBack}
                 >
-                    Back
+                    {t('register.form.buttons.back')}
                 </FormButton>
 
                 <FormButton
                     type="submit"
                     fullWidth
                 >
-                    Continue
+                    {t('register.form.buttons.continue')}
                 </FormButton>
             </motion.div>
         </motion.form>

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 interface StepProgressBarProps {
     currentStep: number;
@@ -7,6 +8,8 @@ interface StepProgressBarProps {
 }
 
 export const StepProgressBar = ({ currentStep, totalSteps, steps }: StepProgressBarProps) => {
+    const { t } = useTranslation();
+
     // Calculate progress percentage
     const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
 
@@ -42,7 +45,7 @@ export const StepProgressBar = ({ currentStep, totalSteps, steps }: StepProgress
                                 {stepNumber}
                             </motion.div>
                             <span className={`mt-2 text-xs font-medium hidden md:block ${isCurrent ? 'text-green-600 dark:text-green-400' : 'text-zinc-500 dark:text-zinc-400'}`}>
-                                {step.label}
+                                {t(`register.preferences.steps.${step.label}`)}
                             </span>
                         </div>
                     );
@@ -62,7 +65,7 @@ export const StepProgressBar = ({ currentStep, totalSteps, steps }: StepProgress
             {/* Mobile step indicator */}
             <div className="md:hidden text-center mt-4">
                 <p className="font-semibold text-green-600 dark:text-green-400">
-                    {steps[currentStep - 1].label}
+                    {t(`register.preferences.steps.${steps[currentStep - 1].label}`)}
                 </p>
             </div>
         </div>

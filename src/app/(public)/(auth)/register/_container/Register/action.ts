@@ -5,40 +5,34 @@ import { sendEmail } from "@infra/mail";
 import { retry } from "@utils/retry";
 import { generateToken } from "@utils/token";
 import z from "zod";
+
+// We'll use generic error keys that can be translated on the client
 const schema = z.object({
-    email: z.string().email("O email deve ser válido").min(6, "O email deve conter no mínimo 6 caracteres").max(100, "O email deve conter no máximo 100 caracteres"),
-    //regex contains at least 1 uppercase letter, 1 lowercase letter, 1 number and a special character like: .!@#$%^&*
-    password: z.string().min(6, "A senha deve conter no mínimo 6 caracteres")
-        .max(100,
-            "A senha deve conter no máximo 100 caracteres"
-        )
-    // .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d.!@#$%^&*˜"'-ˆ]{6,}$/,
-    //     {
-    //         message: "A senha deve conter pelo menos 1 letra maiúscula, 1 letra minúscula, 1 número e um caractere especial"
-    //     })
-    ,
-    firstName: z.string().min(2, "O primeiro nome deve conter no mínimo 2 caracteres").max(100, "O primeiro nome deve conter no máximo 100 caracteres"),
+    email: z.string().email("register.validation.emailInvalid").min(6, "register.validation.emailTooShort").max(100, "register.validation.emailTooLong"),
+    password: z.string().min(6, "register.validation.passwordTooShort")
+        .max(100, "register.validation.passwordTooLong"),
+    firstName: z.string().min(2, "register.validation.firstNameTooShort").max(100, "register.validation.firstNameTooLong"),
     lastName: z
         .string()
-        .min(2, "O último nome deve conter no mínimo 2 caracteres")
-        .max(100, "O último nome deve conter no máximo 100 caracteres"),
+        .min(2, "register.validation.lastNameTooShort")
+        .max(100, "register.validation.lastNameTooLong"),
     passwordConfirmation: z
         .string()
-        .min(6, "A confirmação de senha deve conter no mínimo 6 caracteres")
-        .max(100, "A confirmação de senha deve conter no máximo 100 caracteres"),
-
-    phone: z.string().min(6, "O telefone deve conter no mínimo 6 caracteres").max(100, "O telefone deve conter no máximo 100 caracteres"),
-    username: z.string().min(4, "O username deve conter no mínimo 4 caracteres").max(100, "O username deve conter no máximo 100 caracteres"),
-    languageId: z.number().int().min(1, "O idioma deve ser válido").max(100, "O idioma deve ser válido")
+        .min(6, "register.validation.confirmPasswordTooShort")
+        .max(100, "register.validation.confirmPasswordTooLong"),
+    phone: z.string().min(6, "register.validation.phoneTooShort").max(100, "register.validation.phoneTooLong"),
+    username: z.string().min(4, "register.validation.usernameTooShort").max(100, "register.validation.usernameTooLong"),
+    languageId: z.number().int().min(1, "register.validation.invalidLanguage").max(100, "register.validation.invalidLanguage")
 }).superRefine(({ passwordConfirmation, password }, ctx) => {
     if (passwordConfirmation !== password) {
         ctx.addIssue({
             code: z.ZodIssueCode.custom,
-            message: 'A senha e a confirmação de senha devem ser iguais',
+            message: 'register.validation.passwordsDoNotMatch',
             path: ['passwordConfirmation']
         })
     }
 });
+
 export async function submit(currentState, form: FormData) {
 
     const forms = {
@@ -65,7 +59,7 @@ export async function submit(currentState, form: FormData) {
     if (verifyEmail) {
         return {
             errors: {
-                email: 'Email já cadastrado'
+                email: 'register.validation.emailAlreadyRegistered'
             }
         }
     }

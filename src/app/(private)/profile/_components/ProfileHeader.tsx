@@ -2,12 +2,15 @@
 
 import { User } from '@prisma/client';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 interface ProfileHeaderProps {
     user: User;
 }
 
 export default function ProfileHeader({ user }: ProfileHeaderProps) {
+    const { t } = useTranslation();
+
     return (
         <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -28,11 +31,11 @@ export default function ProfileHeader({ user }: ProfileHeaderProps) {
                     <p className="text-gray-600 dark:text-gray-300 mt-1">{user.email}</p>
                     <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
                         <span className="px-3 py-1 text-sm bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200 rounded-full">
-                            Language Learner
+                            {t('profile.languageLearner')}
                         </span>
                         {user.score && (
                             <span className="px-3 py-1 text-sm bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 rounded-full">
-                                Score: {user.score}
+                                {t('profile.score')}: {user.score}
                             </span>
                         )}
                     </div>

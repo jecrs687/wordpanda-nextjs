@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
 import { useActionState, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { submit } from './action';
 import { BackgroundElements } from './components/BackgroundElements';
 import { LoginCard } from './components/LoginCard';
@@ -20,6 +21,7 @@ export default function LoginPage() {
     const { web } = useChannels();
     const { theme, setTheme } = useTheme();
     const [loading, setLoading] = useState(true);
+    const { t } = useTranslation();
 
     // Handle loading state and authentication
     useEffect(() => {
@@ -85,7 +87,7 @@ export default function LoginPage() {
 
             {/* Version number */}
             <div className="absolute bottom-2 text-xs text-zinc-500 dark:text-zinc-600">
-                WordPanda v1.0
+                {t('common.appName')} v1.0
             </div>
         </div>
     );

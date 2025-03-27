@@ -2,9 +2,11 @@
 import { TOKEN_KEY } from '@constants/CONFIGS';
 import { ROUTES } from '@constants/ROUTES';
 import { setCookie } from '@utils/cookie';
+import { translateValidationErrors } from '@utils/translateValidation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useActionState, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { submit } from './action';
 import { AccountDetailsForm } from './components/AccountDetailsForm';
 import { ErrorDialog } from './components/ErrorDialog';
@@ -24,7 +26,9 @@ const pageVariants = {
 };
 
 export default function Register() {
+    const { t } = useTranslation();
     const [state, formAction] = useActionState(submit, {});
+    const [translatedErrors, setTranslatedErrors] = useState<Record<string, string>>({});
     const router = useRouter();
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState(new FormData());
@@ -90,6 +94,9 @@ export default function Register() {
         // Handle validation errors - return to the appropriate step
         if (state.errors) {
             setIsSubmitting(false);
+            // Translate validation error messages
+            setTranslatedErrors(translateValidationErrors(state.errors));
+
             const errorFields = Object.keys(state.errors);
 
             if (errorFields.some(field => ['email', 'password', 'passwordConfirmation'].includes(field))) {
@@ -109,7 +116,7 @@ export default function Register() {
             <ErrorDialog
                 open={showError}
                 onClose={() => setShowError(false)}
-                message={state.error || "An error occurred during registration"}
+                message={state.error ? t(state.error) : t('register.errors.general')}
             />
 
             <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
@@ -138,7 +145,7 @@ export default function Register() {
                         {step === 1 && (
                             <AccountDetailsForm
                                 onSubmit={handleStepSubmit}
-                                errors={state.errors}
+                                errors={translatedErrors}
                                 initialValues={formData}
                             />
                         )}
@@ -147,7 +154,7 @@ export default function Register() {
                             <PersonalDetailsForm
                                 onSubmit={handleStepSubmit}
                                 onBack={goToPreviousStep}
-                                errors={state.errors}
+                                errors={translatedErrors}
                                 initialValues={formData}
                             />
                         )}
@@ -156,7 +163,7 @@ export default function Register() {
                             <ProfileSetupForm
                                 onSubmit={handleStepSubmit}
                                 onBack={goToPreviousStep}
-                                errors={state.errors}
+                                errors={translatedErrors}
                                 initialValues={formData}
                             />
                         )}
@@ -165,7 +172,7 @@ export default function Register() {
                             <LearningPreferencesForm
                                 onSubmit={handleStepSubmit}
                                 onBack={goToPreviousStep}
-                                errors={state.errors}
+                                errors={translatedErrors}
                                 initialValues={formData}
                                 formAction={formAction}
                                 isSubmitting={isSubmitting}

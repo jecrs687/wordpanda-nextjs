@@ -2,11 +2,13 @@ import { ROUTES } from '@constants/ROUTES';
 import { useMediaQuery } from '@hooks/useMediaQuery';
 import { motion, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 import { FormButton } from './FormButton';
 
 export function RegistrationComplete() {
     const prefersReducedMotion = useReducedMotion();
     const isMobile = useMediaQuery('(max-width: 640px)');
+    const { t } = useTranslation();
 
     // Confetti elements
     const confettiElements = !prefersReducedMotion ? Array.from({ length: 60 }).map((_, i) => {
@@ -105,7 +107,7 @@ export function RegistrationComplete() {
                 transition={{ delay: 0.4 }}
                 className="text-2xl sm:text-3xl font-bold mb-3 text-gradient-primary"
             >
-                Registration Complete!
+                {t('register.complete.title')}
             </motion.h2>
 
             <motion.p
@@ -114,7 +116,7 @@ export function RegistrationComplete() {
                 transition={{ delay: 0.5 }}
                 className="text-gray-600 dark:text-gray-300 mb-6 max-w-md mx-auto"
             >
-                Thank you for joining WordPanda. Your account has been created successfully. Let's start your language learning journey!
+                {t('register.complete.description')}
             </motion.p>
 
             {/* Email verification notice */}
@@ -131,7 +133,7 @@ export function RegistrationComplete() {
                         </svg>
                     </div>
                     <p className="text-sm text-indigo-700 dark:text-indigo-300 text-left">
-                        A verification email has been sent to your email address. Please verify your email to unlock all features.
+                        {t('register.complete.verificationMessage')}
                     </p>
                 </div>
             </motion.div>
@@ -153,7 +155,7 @@ export function RegistrationComplete() {
                             </svg>
                         }
                     >
-                        Go to Dashboard
+                        {t('register.complete.buttons.dashboard')}
                     </FormButton>
                 </motion.div>
 
@@ -173,7 +175,7 @@ export function RegistrationComplete() {
                                 </svg>
                             }
                         >
-                            Sign In
+                            {t('register.complete.buttons.signIn')}
                         </FormButton>
                     </Link>
                 </motion.div>

@@ -5,6 +5,7 @@ import { useTheme } from 'next-themes';
 import { Inter, Poppins } from 'next/font/google';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 // Font definitions
 const poppins = Poppins({
@@ -30,7 +31,7 @@ const gradientPatterns = [
 
 // Icons as SVG components (simplified representations)
 const Icons = {
-    Translate: () => (
+    Translation: () => (
         <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 8l6 6M4 14h6m4-6h6m-3-3l3 3-3 3" />
         </svg>
@@ -71,8 +72,8 @@ const PatternElement = ({ index }: { index: number }) => {
 
 interface GameCardProps {
     game: {
-        title: string;
-        description: string;
+        titleKey: string;
+        descriptionKey: string;
         image: string;
         url: string;
         Icon?: any;
@@ -84,10 +85,14 @@ interface GameCardProps {
 
 export default function GameCard({ game, index, mediaId, languageCode }: GameCardProps) {
     const { theme } = useTheme();
+    const { t } = useTranslation();
     const isDark = theme === 'dark';
     const [isHovered, setIsHovered] = useState(false);
     const router = useRouter();
-    const Icon = Icons[game.title as keyof typeof Icons] || Icons.Default;
+
+    // Get the translated title to use for icon selection
+    const translatedTitle = t(game.titleKey);
+    const Icon = Icons[translatedTitle as keyof typeof Icons] || Icons.Default;
 
     const handleOpenGame = () => {
         if (!game.url) return;
@@ -124,11 +129,11 @@ export default function GameCard({ game, index, mediaId, languageCode }: GameCar
 
                     {/* Game Title and Description */}
                     <h3 className={`${poppins.className} text-2xl font-bold text-white mb-2`}>
-                        {game.title}
+                        {t(game.titleKey)}
                     </h3>
 
                     <p className={`${inter.className} text-white/90 text-sm mb-4 grow`}>
-                        {game.description}
+                        {t(game.descriptionKey)}
                     </p>
 
                     {/* Call to Action Button */}
@@ -138,7 +143,7 @@ export default function GameCard({ game, index, mediaId, languageCode }: GameCar
                         className="mt-auto"
                     >
                         <div className="px-4 py-2 rounded-lg bg-white/20 backdrop-blur-md text-white text-center font-medium group-hover:bg-white/30 transition-all">
-                            Start Game
+                            {t('games.startGame')}
                         </div>
                     </motion.div>
                 </div>

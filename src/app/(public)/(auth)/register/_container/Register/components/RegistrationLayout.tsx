@@ -1,11 +1,15 @@
 "use client";
 import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface RegistrationLayoutProps {
     children: ReactNode;
 }
 
 export const RegistrationLayout = ({ children }: RegistrationLayoutProps) => {
+    const { t } = useTranslation();
+    const currentYear = new Date().getFullYear();
+
     return (
         <div className="min-h-screen w-full bg-gradient-to-br from-zinc-50 to-sky-50 dark:from-zinc-950 dark:to-blue-950">
             <div className="container mx-auto py-6 md:py-12 px-4 sm:px-6">
@@ -27,11 +31,11 @@ export const RegistrationLayout = ({ children }: RegistrationLayoutProps) => {
 
                     {/* Footer */}
                     <div className="mt-8 text-sm text-center text-zinc-500 dark:text-zinc-400">
-                        <p>© {new Date().getFullYear()} WordPanda. All rights reserved.</p>
+                        <p>© {currentYear} WordPanda. {t('register.footer.rights')}</p>
                         <div className="mt-2 flex justify-center gap-4">
-                            <a href="#" className="hover:text-emerald-500 transition-colors">Privacy Policy</a>
-                            <a href="#" className="hover:text-emerald-500 transition-colors">Terms of Service</a>
-                            <a href="#" className="hover:text-emerald-500 transition-colors">Help Center</a>
+                            <a href="#" className="hover:text-emerald-500 transition-colors">{t('register.footer.privacy')}</a>
+                            <a href="#" className="hover:text-emerald-500 transition-colors">{t('register.footer.terms')}</a>
+                            <a href="#" className="hover:text-emerald-500 transition-colors">{t('register.footer.help')}</a>
                         </div>
                     </div>
                 </div>
