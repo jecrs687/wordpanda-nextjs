@@ -108,6 +108,12 @@ model User {
   notes           UserNote[]
 
   OTP OTP[]
+
+  // Marketing relations
+  userAcquisition UserAcquisition[]
+  referrals       Referral[]        @relation("UserReferrals")
+  referredBy      Referral[]        @relation("UserReferees")
+  userFeedback    UserFeedback[]
 }
 
 model UserLanguage {
@@ -599,13 +605,350 @@ model GameRound {
 }
 
 model OTP {
-  id        String   @id @default(cuid())
-  userId    String   @map(name: "user_id")
-  user      User     @relation(fields: [userId], references: [id])
+  id        String    @id @default(cuid())
+  userId    String    @map(name: "user_id")
+  user      User      @relation(fields: [userId], references: [id])
   code      String
   type      String
   usedAt    DateTime? @map(name: "used_at")
-  expiresAt DateTime @map(name: "expires_at")
+  expiresAt DateTime  @map(name: "expires_at")
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+}
+
+model MarketingBenchmark {
+  id                      String   @id @default(cuid())
+  name                    String   @unique
+  users                   Int?     @default(0)
+  revenue                 Int?     @default(0)
+  registered              Int?     @default(0)
+  active                  Int?     @default(0)
+  login                   Int?     @default(0)
+  mobile                  Int?     @default(0)
+  desktop                 Int?     @default(0)
+  tablet                  Int?     @default(0)
+  // Improved metrics
+  dailyActiveUsers        Int?     @default(0) @map(name: "daily_active_users")
+  monthlyActiveUsers      Int?     @default(0) @map(name: "monthly_active_users")
+  retentionRate           Float?   @default(0) @map(name: "retention_rate")
+  churnRate               Float?   @default(0) @map(name: "churn_rate")
+  customerAcquisitionCost Float?   @default(0) @map(name: "customer_acquisition_cost")
+  lifetimeValue           Float?   @default(0) @map(name: "lifetime_value")
+  conversionRate          Float?   @default(0) @map(name: "conversion_rate")
+  avgSessionDuration      Int?     @default(0) @map(name: "avg_session_duration")
+  organicTraffic          Int?     @default(0) @map(name: "organic_traffic")
+  paidTraffic             Int?     @default(0) @map(name: "paid_traffic")
+  socialTraffic           Int?     @default(0) @map(name: "social_traffic")
+  referralTraffic         Int?     @default(0) @map(name: "referral_traffic")
+  timestamp               DateTime @default(now())
+  createdAt               DateTime @default(now()) @map(name: "created_at")
+  updatedAt               DateTime @updatedAt @map(name: "updated_at")
+}
+
+model MarketingCampaign {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  type        String // EMAIL, SOCIAL, PPC, CONTENT, REFERRAL, etc.
+  channel     String // FACEBOOK, INSTAGRAM, GOOGLE, EMAIL, etc.
+  budget      Float?
+  startDate   DateTime  @map(name: "start_date")
+  endDate     DateTime? @map(name: "end_date")
+  status      String // DRAFT, ACTIVE, PAUSED, COMPLETED
+
+  // KPIs
+  impressions Int?   @default(0)
+  clicks      Int?   @default(0)
+  leads       Int?   @default(0)
+  conversions Int?   @default(0)
+  revenue     Float? @default(0)
+  roi         Float? @default(0)
+
+  // UTM parameters
+  utmSource   String? @map(name: "utm_source")
+  utmMedium   String? @map(name: "utm_medium")
+  utmCampaign String? @map(name: "utm_campaign")
+  utmContent  String? @map(name: "utm_content")
+  utmTerm     String? @map(name: "utm_term")
+
+  // Relations
+  userAcquisitions UserAcquisition[]
+  abTests          ABTest[]
+  emailCampaigns   EmailCampaign[]
+  marketingContent MarketingContent[]
+
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
+}
+
+model UserAcquisition {
+  id           String  @id @default(cuid())
+  userId       String  @map(name: "user_id")
+  user         User    @relation(fields: [userId], references: [id])
+  source       String // ORGANIC, PAID, REFERRAL, SOCIAL, etc.
+  medium       String? // CPC, EMAIL, SOCIAL, etc.
+  campaign     String?
+  landingPage  String? @map(name: "landing_page")
+  referralCode String? @map(name: "referral_code")
+
+  // UTM tracking
+  utmSource   String? @map(name: "utm_source")
+  utmMedium   String? @map(name: "utm_medium")
+  utmCampaign String? @map(name: "utm_campaign")
+  utmContent  String? @map(name: "utm_content")
+  utmTerm     String? @map(name: "utm_term")
+
+  // Device & location info
+  device          String? // MOBILE, DESKTOP, TABLET
+  browser         String?
+  operatingSystem String? @map(name: "operating_system")
+  country         String?
+  region          String?
+  city            String?
+
+  // Attribution data
+  firstTouchPoint String? @map(name: "first_touch_point")
+  lastTouchPoint  String? @map(name: "last_touch_point")
+  touchPointsJson Json?   @map(name: "touch_points_json")
+
+  // Campaign relation
+  marketingCampaignId String?            @map(name: "marketing_campaign_id")
+  marketingCampaign   MarketingCampaign? @relation(fields: [marketingCampaignId], references: [id])
+
+  // Conversion data
+  convertedToTrial Boolean   @default(false) @map(name: "converted_to_trial")
+  convertedToPaid  Boolean   @default(false) @map(name: "converted_to_paid")
+  trialStartDate   DateTime? @map(name: "trial_start_date")
+  conversionDate   DateTime? @map(name: "conversion_date")
+
+  // Customer value metrics
+  acquisitionCost Float? @map(name: "acquisition_cost")
+  lifetimeValue   Float? @map(name: "lifetime_value")
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+}
+
+model Referral {
+  id         String  @id @default(cuid())
+  referrerId String  @map(name: "referrer_id")
+  referrer   User    @relation("UserReferrals", fields: [referrerId], references: [id])
+  refereeId  String? @map(name: "referee_id")
+  referee    User?   @relation("UserReferees", fields: [refereeId], references: [id])
+  code       String  @unique
+  type       String // INVITE, SOCIAL_SHARE, AFFILIATE
+  status     String // PENDING, COMPLETED, EXPIRED, REWARDED
+
+  // Rewards
+  referrerReward       String?   @map(name: "referrer_reward") // Description of reward
+  referrerRewardAmount Float?    @map(name: "referrer_reward_amount")
+  refereeReward        String?   @map(name: "referee_reward") // Description of reward
+  refereeRewardAmount  Float?    @map(name: "referee_reward_amount")
+  rewardClaimed        Boolean   @default(false) @map(name: "reward_claimed")
+  rewardClaimedAt      DateTime? @map(name: "reward_claimed_at")
+
+  // Social sharing data
+  sharedPlatform String? @map(name: "shared_platform") // FACEBOOK, TWITTER, EMAIL, etc.
+  sharedUrl      String? @map(name: "shared_url")
+  clicks         Int     @default(0)
+
+  expiresAt DateTime? @map(name: "expires_at")
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+}
+
+model MarketingContent {
+  id          String  @id @default(cuid())
+  title       String
+  description String?
+  contentType String  @map(name: "content_type") // EMAIL, BLOG, SOCIAL, BANNER, etc.
+  format      String // HTML, TEXT, IMAGE, VIDEO, etc.
+  content     String? @db.Text // Can be HTML, text, or URL to content
+  imageUrl    String? @map(name: "image_url")
+  videoUrl    String? @map(name: "video_url")
+  targetUrl   String? @map(name: "target_url") // Landing page
+
+  // Campaign association
+  campaignId String?            @map(name: "campaign_id")
+  campaign   MarketingCampaign? @relation(fields: [campaignId], references: [id])
+
+  // Performance metrics
+  impressions Int? @default(0)
+  clicks      Int? @default(0)
+  conversions Int? @default(0)
+
+  // Content scheduling
+  publishAt   DateTime? @map(name: "publish_at")
+  unpublishAt DateTime? @map(name: "unpublish_at")
+  status      String    @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
+
+  // Content tagging
+  tags          String[]
+  marketingTags MarketingTag[]
+
+  // Email campaigns using this content
+  emailCampaigns EmailCampaign[]
+
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
+}
+
+model ABTest {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+  testType    String  @map(name: "test_type") // LANDING_PAGE, EMAIL, FEATURE, PRICING, etc.
+  status      String // DRAFT, RUNNING, PAUSED, COMPLETED
+
+  // Test parameters
+  hypothesis String?
+  goalMetric String  @map(name: "goal_metric") // CONVERSION, RETENTION, ENGAGEMENT, etc.
+
+  // Variant definitions
+  controlVariant       String   @map(name: "control_variant")
+  experimentalVariants String[] @map(name: "experimental_variants")
+
+  // Test schedule
+  startDate DateTime  @map(name: "start_date")
+  endDate   DateTime? @map(name: "end_date")
+
+  // Results
+  sampleSize         Int?    @default(0) @map(name: "sample_size")
+  controlSize        Int?    @default(0) @map(name: "control_size")
+  controlConversions Int?    @default(0) @map(name: "control_conversions")
+  resultsJson        Json?   @map(name: "results_json") // Detailed results
+  winner             String? // Which variant won
+  confidenceLevel    Float?  @map(name: "confidence_level")
+
+  // Campaign association
+  campaignId String?            @map(name: "campaign_id")
+  campaign   MarketingCampaign? @relation(fields: [campaignId], references: [id])
+
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
+}
+
+model UserSegment {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+
+  // Segment criteria (JSON format for flexible querying)
+  criteria Json // e.g., {"age": {"gt": 25}, "country": ["US", "CA"], "subscription": "premium"}
+
+  // Segment statistics
+  userCount Int? @default(0) @map(name: "user_count")
+
+  // Segment usage
+  isActive Boolean @default(true) @map(name: "is_active")
+
+  // Relations
+  emailCampaigns EmailCampaign[]
+
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
+}
+
+model EmailCampaign {
+  id           String  @id @default(cuid())
+  name         String
+  description  String?
+  subject      String
+  preheader    String?
+  fromName     String  @map(name: "from_name")
+  fromEmail    String  @map(name: "from_email")
+  replyToEmail String? @map(name: "reply_to_email")
+
+  // Email content
+  contentId String?           @map(name: "content_id")
+  content   MarketingContent? @relation(fields: [contentId], references: [id])
+
+  // Campaign parameters
+  segmentId String?      @map(name: "segment_id")
+  segment   UserSegment? @relation(fields: [segmentId], references: [id])
+
+  // Schedule
+  scheduledAt DateTime? @map(name: "scheduled_at")
+  sentAt      DateTime? @map(name: "sent_at")
+
+  // Status
+  status String // DRAFT, SCHEDULED, SENDING, SENT, CANCELLED
+
+  // Performance metrics
+  recipients   Int? @default(0)
+  opens        Int? @default(0)
+  uniqueOpens  Int? @default(0) @map(name: "unique_opens")
+  clicks       Int? @default(0)
+  uniqueClicks Int? @default(0) @map(name: "unique_clicks")
+  bounces      Int? @default(0)
+  complaints   Int? @default(0)
+  unsubscribes Int? @default(0)
+
+  // Calculated metrics
+  openRate        Float? @map(name: "open_rate")
+  clickRate       Float? @map(name: "click_rate")
+  clickToOpenRate Float? @map(name: "click_to_open_rate")
+  bounceRate      Float? @map(name: "bounce_rate")
+
+  // Campaign association
+  campaignId String?            @map(name: "campaign_id")
+  campaign   MarketingCampaign? @relation(fields: [campaignId], references: [id])
+
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt DateTime? @map(name: "deleted_at")
+}
+
+model UserFeedback {
+  id     String @id @default(cuid())
+  userId String @map(name: "user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  // Feedback type
+  type String // NPS, SURVEY, REVIEW, TESTIMONIAL, etc.
+
+  // NPS data
+  npsScore   Int?    @map(name: "nps_score") // 0-10
+  npsComment String? @map(name: "nps_comment")
+
+  // Survey data  
+  surveyId      String? @map(name: "survey_id")
+  responsesJson Json?   @map(name: "responses_json") // Flexible storage for survey responses
+
+  // General feedback
+  title   String?
+  content String?
+  rating  Int? // 1-5 stars
+
+  // Source of feedback
+  source String // POPUP, EMAIL, IN_APP, etc.
+
+  // Feature-specific feedback
+  feature String?
+
+  // Status
+  status String // NEW, REVIEWED, RESPONDED, CLOSED
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+}
+
+model MarketingTag {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  description String?
+  color       String?
+
+  // Usage stats
+  usageCount Int @default(0) @map(name: "usage_count")
+
+  // Content with this tag
+  marketingContent MarketingContent[]
+
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 }

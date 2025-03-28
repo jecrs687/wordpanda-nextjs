@@ -1,5 +1,6 @@
 "use client";
 
+import { ROUTES } from '@/src/containers/constants/ROUTES';
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { Inter, Poppins } from 'next/font/google';
@@ -115,22 +116,24 @@ export default function GameCard({ game, index }: GameCardProps) {
                             {/* Image overlay for better text readability on hover */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </div>
+                        <Link href={ROUTES.REGISTER()}>
 
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            whileHover={{ opacity: 1 }}
-                            className="mt-4 text-right"
-                        >
-                            <span className={`
-                inline-flex items-center text-sm font-medium
-                ${isDark ? 'text-emerald-400' : 'text-emerald-600'}
-              `}>
-                                Começar agora
-                                <svg className="ml-1 w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                                </svg>
-                            </span>
-                        </motion.div>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                whileHover={{ opacity: 1 }}
+                                className="mt-4 text-right"
+                            >
+                                <span className={`
+                                        inline-flex items-center text-sm font-medium
+                                        ${isDark ? 'text-emerald-400' : 'text-emerald-600'}
+                                    `}>
+                                    Começar agora
+                                    <svg className="ml-1 w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                                    </svg>
+                                </span>
+                            </motion.div>
+                        </Link>
                     </div>
                 </div>
             </Link>

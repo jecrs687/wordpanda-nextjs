@@ -1,5 +1,6 @@
 'use client';
 
+import { ROUTES } from '@/src/containers/constants/ROUTES';
 import { cn } from '@utils/utils';
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
@@ -121,7 +122,7 @@ export default function HeroSection() {
                     variants={itemVariants}
                     className="flex flex-col sm:flex-row items-center justify-center gap-4"
                 >
-                    <Link href="/register">
+                    <Link href={ROUTES.REGISTER()}>
                         <motion.button
                             whileHover={{ scale: 1.03, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                             whileTap={{ scale: 0.97 }}

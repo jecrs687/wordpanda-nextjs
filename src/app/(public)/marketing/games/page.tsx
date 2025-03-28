@@ -1,5 +1,6 @@
 'use client';
 
+import { ROUTES } from '@/src/containers/constants/ROUTES';
 import { cn } from '@utils/utils';
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
@@ -386,7 +387,7 @@ export default function GamesPage() {
                                 transition={{ duration: 0.5, delay: 0.3 }}
                                 viewport={{ once: true }}
                             >
-                                <Link href="/register">
+                                <Link href={ROUTES.REGISTER()}>
                                     <button className="px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600 text-white font-medium shadow-lg hover:shadow-emerald-500/20 dark:hover:shadow-emerald-400/20 transform hover:-translate-y-1 transition-all duration-300">
                                         Começar a Jogar Agora
                                     </button>

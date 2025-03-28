@@ -1,6 +1,7 @@
 import EventProvider from '@providers/EventProvider'
 import InformationProvider from '@providers/InformationProvider'
 import LangAttributeUpdater from '@providers/LangAttributeUpdater'
+import MarketingProvider from '@providers/MarketingProvider'
 import { MetaTagsProvider } from '@providers/MetaTags.provide'
 import { QueryParamProvider } from '@providers/QueryParamProvider'
 import { ThemeProvider } from '@providers/ThemeProvider'
@@ -96,6 +97,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} antialiased`}>
+        <MarketingProvider />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
