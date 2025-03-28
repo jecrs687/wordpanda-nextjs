@@ -1,5 +1,6 @@
 "use server";
 
+import { cacheClient } from "@/src/backend/infra/cache/redis.cache";
 import { TOKEN_KEY } from "@constants/CONFIGS";
 import prisma from "@infra/config/database";
 import { translateWords } from "@infra/openai/Translate";
@@ -116,6 +117,14 @@ export const getWords = async (body: WordsPostRequest): Promise<WordsPostRespons
             return { err: "Not authorized", msg: "Error" };
         }
 
+        // Check cache first
+        const cacheKey = `getWords:${userId}:${body.languageId || body.language}:${body.limit}:${body.mediaId || ''}:${(body.words || []).join(',')}`;
+        const cachedData = await cacheClient.get(cacheKey);
+
+        if (cachedData) {
+            return JSON.parse(cachedData);
+        }
+
         console.time("dbQueryTime");
         const [user, language] = await Promise.all([
             prisma.user.findUnique({
@@ -143,7 +152,7 @@ export const getWords = async (body: WordsPostRequest): Promise<WordsPostRespons
         if (!translationLanguage) return { err: "Translation language not found", msg: "Error" };
 
         // --- Main Transaction ---
-        return await runTransactionWithRetries(
+        const result = await runTransactionWithRetries(
             async (prisma) => {
                 // --- Construct Words Query ---
                 const wordsWhere: any = {
@@ -323,6 +332,11 @@ export const getWords = async (body: WordsPostRequest): Promise<WordsPostRespons
             3, // Max retries
             metrics
         );
+
+        // Cache the result
+        await cacheClient.set(cacheKey, JSON.stringify(result), { EX: 300 }); // Cache for 5 minutes
+
+        return result;
     } catch (err) {
         console.error("Error in getWords:", err);
         return { err: (err as Error).message || "An unexpected error occurred", msg: "Error" };
@@ -330,9 +344,9 @@ export const getWords = async (body: WordsPostRequest): Promise<WordsPostRespons
         console.timeEnd("totalTime");
 
         console.log("Request Metrics:", {
-            "Total Time (ms)": console.timeEnd("totalTime"), // Logged separately
-            "DB Query Time (ms)": console.timeEnd("dbQueryTime"),
-            "Translation Time (ms)": console.timeEnd("translationTime"),
+            "Total Time (ms)": metrics.totalTime,
+            "DB Query Time (ms)": metrics.dbQueryTime,
+            "Translation Time (ms)": metrics.translationTime,
             "Words Requested": metrics.wordsRequested,
             "Words Fetched from DB": metrics.wordsFetchedFromDb,
             "Words Translated": metrics.wordsTranslated,
