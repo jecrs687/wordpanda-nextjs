@@ -153,8 +153,8 @@ export default function TestimonialsPage() {
 
     return (
         <div className={`min-h-screen w-full ${isDark
-                ? 'bg-gradient-to-b from-gray-950 via-blue-950/10 to-purple-950/10 text-white'
-                : 'bg-gradient-to-b from-white via-zinc-100/30 to-purple-50/30 text-gray-900'
+            ? 'bg-gradient-to-b from-gray-950 via-blue-950/10 to-purple-950/10 text-white'
+            : 'bg-gradient-to-b from-white via-zinc-100/30 to-purple-50/30 text-gray-900'
             }`}>
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-400/10 dark:bg-purple-600/5 rounded-full blur-3xl"></div>
@@ -500,8 +500,8 @@ export default function TestimonialsPage() {
                                 </Link>
                                 <Link href="/marketing/interactive-demo">
                                     <button className={`px-8 py-4 rounded-xl font-medium shadow-md ${isDark
-                                            ? 'bg-white/10 hover:bg-white/20 text-white border border-white/20 backdrop-blur-sm'
-                                            : 'bg-gray-900 hover:bg-gray-800 text-white'
+                                        ? 'bg-white/10 hover:bg-white/20 text-white border border-white/20 backdrop-blur-sm'
+                                        : 'bg-gray-900 hover:bg-gray-800 text-white'
                                         } transform hover:-translate-y-1 transition-all duration-300`}>
                                         Ver Demonstração
                                     </button>
