@@ -1,4 +1,4 @@
-import { getMovieByUser } from '@backend/domain/actions/Movie/getMovieByUser';
+import { getMovieByUser } from '@/src/backend/domain/actions/Movie/getMovieByUser.action';
 import BackButton from '@common/BackButton';
 import CardGame from '@common/Cards/CardGame';
 import Image from 'next/image';
