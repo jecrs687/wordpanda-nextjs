@@ -1,4 +1,4 @@
-import { getMovieByUser } from "@backend/domain/actions/Movie/getMovieByUser";
+import { getMovieByUser } from "@/src/backend/domain/actions/Movie/getMovieByUser.action";
 import { TOKEN_KEY } from "@constants/CONFIGS";
 import { cookies, headers } from "next/headers";
 import { NextRequest } from "next/server";
